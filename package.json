@@ -16,7 +16,8 @@
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
-    "db:seed": "node --loader ts-node/esm prisma/seed.ts || npx tsx prisma/seed.ts"
+    "db:seed": "node --loader ts-node/esm prisma/seed.ts || npx tsx prisma/seed.ts",
+    "test:db": "node scripts/test-mongo.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
