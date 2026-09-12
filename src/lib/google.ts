@@ -15,9 +15,9 @@ export interface GoogleUserProfile {
 /**
  * Construct Google OAuth 2.0 authorization URL.
  */
-export function getGoogleAuthorizationUrl(state: string): string {
+export function getGoogleAuthorizationUrl(state: string, customRedirectUri?: string): string {
   const clientId = process.env.GOOGLE_CLIENT_ID;
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
+  const redirectUri = customRedirectUri || process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
 
   if (!clientId) {
     throw new Error('GOOGLE_CLIENT_ID is not configured');
@@ -39,10 +39,13 @@ export function getGoogleAuthorizationUrl(state: string): string {
 /**
  * Exchange Google authorization code for tokens and fetch profile.
  */
-export async function exchangeGoogleCode(code: string): Promise<{ profile: GoogleUserProfile; accessToken: string; refreshToken?: string; expiresIn?: number }> {
+export async function exchangeGoogleCode(
+  code: string,
+  customRedirectUri?: string
+): Promise<{ profile: GoogleUserProfile; accessToken: string; refreshToken?: string; expiresIn?: number }> {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
+  const redirectUri = customRedirectUri || process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
 
   if (!clientId || !clientSecret) {
     throw new Error('Google OAuth credentials not configured');

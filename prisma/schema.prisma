@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id                  String               @id @default(cuid())
+  id                  String               @id @default(auto()) @map("_id") @db.ObjectId
   name                String?
   email               String               @unique
   passwordHash        String?
@@ -28,8 +28,8 @@ model User {
 }
 
 model Account {
-  id                String   @id @default(cuid())
-  userId            String
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
   provider          String
   providerAccountId String
   accessToken       String?
@@ -44,8 +44,8 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  userId       String
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
   sessionToken String   @unique
   expiresAt    DateTime
   userAgent    String?
@@ -58,8 +58,8 @@ model Session {
 }
 
 model VerificationCode {
-  id           String   @id @default(cuid())
-  userId       String
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
   codeHash     String
   expiresAt    DateTime
   attemptCount Int      @default(0)
@@ -71,8 +71,8 @@ model VerificationCode {
 }
 
 model PasswordResetToken {
-  id        String    @id @default(cuid())
-  userId    String
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String    @db.ObjectId
   tokenHash String    @unique
   expiresAt DateTime
   usedAt    DateTime?
@@ -84,14 +84,14 @@ model PasswordResetToken {
 }
 
 model Project {
-  id          String    @id @default(cuid())
-  userId      String
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
   title       String
   description String
   projectType String
   budget      String
   timeline    String
-  status      String    @default("RECEIVED") // RECEIVED, REVIEWING, IN_DISCUSSION, IN_PRODUCTION, COMPLETED
+  status      String    @default("RECEIVED")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -102,8 +102,8 @@ model Project {
 }
 
 model ProjectRequest {
-  id          String   @id @default(cuid())
-  userId      String?
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String?  @db.ObjectId
   name        String
   email       String
   company     String?
@@ -120,9 +120,9 @@ model ProjectRequest {
 }
 
 model Message {
-  id        String    @id @default(cuid())
-  projectId String
-  senderId  String
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String    @db.ObjectId
+  senderId  String?   @db.ObjectId
   message   String
   readAt    DateTime?
   createdAt DateTime  @default(now())
@@ -135,9 +135,9 @@ model Message {
 }
 
 model Notification {
-  id        String   @id @default(cuid())
-  userId    String
-  type      String   // project_request, new_message, status_change, email_verified, welcome
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  type      String
   title     String
   message   String
   read      Boolean  @default(false)

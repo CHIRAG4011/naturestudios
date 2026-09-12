@@ -39,8 +39,14 @@ export async function GET(req: NextRequest) {
     const userAgent = req.headers.get('user-agent') || undefined;
     const ipAddress = req.headers.get('x-forwarded-for') || undefined;
 
+    // Resolve matching redirectUri from cookie, env, or request origin
+    const host = req.headers.get('x-forwarded-host') || req.headers.get('host') || req.nextUrl.host;
+    const proto = req.headers.get('x-forwarded-proto') || (req.nextUrl.protocol.replace(':', '')) || 'https';
+    const dynamicOrigin = `${proto}://${host}`;
+    const redirectUri = req.cookies.get('ns_oauth_redirect_uri')?.value || process.env.GOOGLE_REDIRECT_URI || `${dynamicOrigin}/api/auth/google/callback`;
+
     // Exchange code for tokens and fetch user profile
-    const { profile, accessToken, refreshToken, expiresIn } = await exchangeGoogleCode(code);
+    const { profile, accessToken, refreshToken, expiresIn } = await exchangeGoogleCode(code, redirectUri);
 
     // Create or link user account and set session
     await handleGoogleUser(profile, accessToken, refreshToken, expiresIn, userAgent, ipAddress);
@@ -49,8 +55,9 @@ export async function GET(req: NextRequest) {
     const dashboardUrl = new URL('/dashboard', req.url);
     const response = NextResponse.redirect(dashboardUrl);
 
-    // Clear state cookie
+    // Clear state and redirect URI cookies
     response.cookies.delete('ns_oauth_state');
+    response.cookies.delete('ns_oauth_redirect_uri');
 
     return response;
   } catch (err) {
