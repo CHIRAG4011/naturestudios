@@ -1,0 +1,94 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Dependencies
+# ─────────────────────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Secrets — NEVER commit these
+#
+# .env.example is the only env file that belongs in version control. It holds
+# placeholder values only. Everything below can contain AUTH_SECRET,
+# RESEND_API_KEY, GOOGLE_CLIENT_SECRET, or a live DATABASE_URL.
+# ─────────────────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+*.pem
+*.key
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Build output
+# ─────────────────────────────────────────────────────────────────────────────
+.next/
+out/
+build/
+dist/
+next-env.d.ts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Database — local SQLite files hold real user rows and password hashes
+# ─────────────────────────────────────────────────────────────────────────────
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+prisma/dev.db
+prisma/dev.db-journal
+prisma/migrations/dev.db*
+
+# ─────────────────────────────────────────────────────────────────────────────
+# User-generated uploads (avatars). Runtime data, not source.
+# ─────────────────────────────────────────────────────────────────────────────
+public/uploads/*
+!public/uploads/.gitkeep
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Testing & coverage
+# ─────────────────────────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Deployment & tooling caches
+# ─────────────────────────────────────────────────────────────────────────────
+.vercel
+.turbo
+.eslintcache
+.cache/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Logs
+# ─────────────────────────────────────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+logs/
+*.log
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Editors & OS cruft
+# ─────────────────────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Artifacts left behind by in-place edits on FUSE-mounted drives
+# ─────────────────────────────────────────────────────────────────────────────
+.fuse_hidden*

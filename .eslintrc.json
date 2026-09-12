@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals"],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "out/",
+    "next-env.d.ts",
+    "prisma/generated/"
+  ],
+  "rules": {
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "@next/next/no-img-element": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["src/lib/email.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}
