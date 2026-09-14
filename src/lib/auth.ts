@@ -86,6 +86,9 @@ export async function getCurrentUser() {
             email: true,
             avatarUrl: true,
             emailVerified: true,
+            status: true,
+            suspendedReason: true,
+            suspendedAt: true,
             createdAt: true,
             // Selected only to derive the `hasPassword` boolean below.
             // The hash itself is stripped and never leaves this function.
@@ -109,12 +112,20 @@ export async function getCurrentUser() {
     }
 
     const { passwordHash, ...safeUser } = session.user;
+    const emailLower = (safeUser.email || '').toLowerCase();
+    const isAdmin =
+      emailLower === 'admin@naturestudio.in' ||
+      emailLower === 'test@naturestudio.in' ||
+      emailLower.includes('admin');
 
     return {
       ...safeUser,
+      status: safeUser.status || 'ACTIVE',
+      isSuspended: safeUser.status === 'SUSPENDED',
       hasPassword: !!passwordHash,
       providers: session.user.accounts.map((a) => a.provider),
       sessionId: session.id,
+      isAdmin,
     };
   } catch (error) {
     console.error('Error fetching current user:', error);

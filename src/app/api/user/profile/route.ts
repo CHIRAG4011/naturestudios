@@ -68,6 +68,12 @@ export async function PATCH(req: NextRequest) {
       // rejected rather than stored and later rendered into an <img src>.
       if (avatarUrl === null || avatarUrl === '') {
         dataToUpdate.avatarUrl = null;
+      } else if (typeof avatarUrl === 'string' && avatarUrl.startsWith('data:image/')) {
+        // Safe base64 image data URL (up to 4MB)
+        if (avatarUrl.length > 4 * 1024 * 1024) {
+          return NextResponse.json({ error: 'Avatar image payload too large' }, { status: 400 });
+        }
+        dataToUpdate.avatarUrl = avatarUrl;
       } else if (typeof avatarUrl !== 'string' || avatarUrl.length > 2048) {
         return NextResponse.json({ error: 'Invalid avatar URL' }, { status: 400 });
       } else if (avatarUrl.startsWith('/uploads/') && !avatarUrl.includes('..')) {
@@ -207,19 +213,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadsDir, { recursive: true });
+    let publicUrl = '';
+    try {
+      const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+      await fs.mkdir(uploadsDir, { recursive: true });
 
-    // Every component of the name is server-controlled. The uploaded
-    // filename is never used: `name.split('.').pop()` would let a caller
-    // smuggle `../` segments into path.join and write outside the directory.
-    const filename = `avatar-${user.id}-${Date.now()}.${extension}`;
-    const filePath = path.join(uploadsDir, filename);
+      const filename = `avatar-${user.id}-${Date.now()}.${extension}`;
+      const filePath = path.join(uploadsDir, filename);
 
-    await fs.writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/${filename}`;
+      await fs.writeFile(filePath, buffer);
+      publicUrl = `/uploads/${filename}`;
+    } catch (fsErr) {
+      // Graceful fallback for read-only filesystem environments (Vercel serverless)
+      console.warn('Read-only filesystem detected, storing avatar as base64 data URL.');
+      publicUrl = `data:${file.type};base64,${buffer.toString('base64')}`;
+    }
 
     // Update user in database
     const updatedUser = await prisma.user.update({
@@ -248,27 +256,8 @@ export async function POST(req: NextRequest) {
       avatarUrl: publicUrl,
       user: updatedUser,
     });
-  } catch (error) {
-    const code =
-      typeof error === 'object' && error !== null && 'code' in error
-        ? String((error as { code?: unknown }).code)
-        : '';
-
-    // Serverless hosts (Vercel included) run on a read-only filesystem, so
-    // disk-backed uploads cannot work there. Say so plainly and point at the
-    // two paths that do work, rather than returning an opaque 500.
-    if (READ_ONLY_FS_CODES.has(code)) {
-      console.error('Avatar upload failed — filesystem is not writable on this host.');
-      return NextResponse.json(
-        {
-          error:
-            'File uploads are not available on this deployment. Paste an image URL or pick a studio avatar instead.',
-        },
-        { status: 503 }
-      );
-    }
-
+  } catch (error: any) {
     console.error('Error uploading avatar:', error);
-    return NextResponse.json({ error: 'Failed to upload profile picture' }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Failed to upload profile picture' }, { status: 500 });
   }
 }

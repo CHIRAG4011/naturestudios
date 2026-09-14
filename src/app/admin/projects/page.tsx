@@ -12,6 +12,9 @@ import {
   Star,
   RefreshCw,
   Eye,
+  Image as ImageIcon,
+  Upload,
+  Loader2,
 } from 'lucide-react';
 
 export default function AdminProjectsPage() {
@@ -23,6 +26,8 @@ export default function AdminProjectsPage() {
   const [client, setClient] = useState('');
   const [category, setCategory] = useState('BROADCAST');
   const [desc, setDesc] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -45,6 +50,31 @@ export default function AdminProjectsPage() {
     fetchProjects();
   }, []);
 
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed');
+      setImageUrl(data.url);
+      setToastMessage('Project showcase image uploaded.');
+    } catch (err: any) {
+      alert(err.message || 'Failed to upload image');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title) return;
@@ -59,6 +89,7 @@ export default function AdminProjectsPage() {
           client: client || 'NatureStudios Commission',
           category,
           description: desc,
+          imageUrl: imageUrl.trim() || null,
           featured: true,
           status: 'PUBLISHED',
         }),
@@ -69,6 +100,7 @@ export default function AdminProjectsPage() {
       setTitle('');
       setClient('');
       setDesc('');
+      setImageUrl('');
       setToastMessage('Studio project created and published.');
       fetchProjects();
     } catch (err: any) {
@@ -130,13 +162,23 @@ export default function AdminProjectsPage() {
           projects.map((proj) => (
             <div
               key={proj.id}
-              className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] transition-all space-y-3 flex flex-col justify-between group"
+              className="rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] transition-all overflow-hidden flex flex-col justify-between group"
             >
-              <div className="space-y-2">
+              {proj.imageUrl && (
+                <div className="h-36 w-full overflow-hidden bg-[#150304] relative">
+                  <img
+                    src={proj.imageUrl}
+                    alt={proj.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1D0608] via-transparent to-transparent opacity-80" />
+                </div>
+              )}
+              <div className="p-5 space-y-2 flex-1">
                 <div className="flex items-center justify-between">
                   <Link
                     href={`/admin/projects/${proj.id}`}
-                    className="font-syne font-bold text-sm text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors"
+                    className="font-syne font-bold text-sm text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors line-clamp-1"
                   >
                     {proj.title}
                   </Link>
@@ -241,6 +283,40 @@ export default function AdminProjectsPage() {
                   placeholder="Key creative achievements..."
                   className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[#B89B8D] block text-xs">Project Cover Image</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    placeholder="https://... or upload below"
+                    className="flex-1 px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none"
+                  />
+                  <label className="px-3 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-semibold text-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0 transition-colors">
+                    {uploadingImage ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Upload className="w-3.5 h-3.5" />
+                    )}
+                    <span>{uploadingImage ? 'Uploading...' : 'Upload'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+
+                {imageUrl && (
+                  <div className="h-20 w-32 rounded-lg overflow-hidden border border-[#3D0D13] bg-[#150304]">
+                    <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-2">

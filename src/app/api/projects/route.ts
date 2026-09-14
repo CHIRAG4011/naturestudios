@@ -36,6 +36,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. New project submissions are restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const { title, description, projectType, budget, timeline } = body;
 

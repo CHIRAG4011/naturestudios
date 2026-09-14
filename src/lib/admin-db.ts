@@ -224,10 +224,19 @@ export interface SupportTicketDoc {
   email: string;
   subject: string;
   message: string;
+  category?: 'APPEAL' | 'ACCOUNT' | 'BILLING' | 'TECHNICAL' | 'GENERAL';
   priority: 'LOW' | 'NORMAL' | 'HIGH' | 'URGENT';
   status: 'OPEN' | 'IN_PROGRESS' | 'WAITING_CLIENT' | 'RESOLVED' | 'CLOSED';
   internalNotes?: string[];
   assignedTo?: string;
+  responses?: Array<{
+    id: string;
+    sender: 'USER' | 'ADMIN';
+    senderName: string;
+    senderEmail: string;
+    message: string;
+    createdAt: string;
+  }>;
   createdAt: string;
   updatedAt: string;
 }

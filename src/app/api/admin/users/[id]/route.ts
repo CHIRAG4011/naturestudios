@@ -13,6 +13,7 @@ import {
 } from '@/lib/admin-db';
 import { computeEffectivePermissions, ALL_PERMISSIONS } from '@/lib/admin-rbac';
 import { hashPassword } from '@/lib/auth';
+import { sendAccountSuspendedEmail, sendAccountReinstatedEmail } from '@/lib/email';
 
 export async function GET(
   req: NextRequest,
@@ -34,6 +35,9 @@ export async function GET(
         email: true,
         avatarUrl: true,
         emailVerified: true,
+        status: true,
+        suspendedReason: true,
+        suspendedAt: true,
         createdAt: true,
         updatedAt: true,
         accounts: {
@@ -182,6 +186,7 @@ export async function PUT(
       newPassword,
       permissionOverrides,
       portfolioSlug,
+      reason,
     } = body;
 
     const existingUser = await prisma.user.findUnique({
@@ -230,6 +235,17 @@ export async function PUT(
     if (avatarUrl !== undefined) updateData.avatarUrl = avatarUrl ? avatarUrl.trim() : null;
     if (emailVerified !== undefined) updateData.emailVerified = Boolean(emailVerified);
 
+    if (status !== undefined && ['ACTIVE', 'SUSPENDED', 'DISABLED'].includes(status)) {
+      updateData.status = status;
+      if (status === 'SUSPENDED') {
+        updateData.suspendedReason = reason?.trim() || 'Violation of platform policies or community guidelines.';
+        updateData.suspendedAt = new Date();
+      } else if (status === 'ACTIVE') {
+        updateData.suspendedReason = null;
+        updateData.suspendedAt = null;
+      }
+    }
+
     if (newPassword && typeof newPassword === 'string' && newPassword.length >= 6) {
       const hash = await hashPassword(newPassword);
       updateData.passwordHash = hash;
@@ -250,25 +266,60 @@ export async function PUT(
       }
     }
 
-    // 3. Update Status in MongoDB
+    // 3. Update Status in MongoDB & send emails
     const db = await getMongoDb();
-    if (db && status && ['ACTIVE', 'SUSPENDED', 'DISABLED'].includes(status)) {
-      await db.collection('adminUserStatuses').updateOne(
-        { userId },
-        {
-          $set: {
-            userId,
-            status,
-            updatedBy: auth.user!.id,
-            updatedAt: new Date().toISOString(),
+    if (status && ['ACTIVE', 'SUSPENDED', 'DISABLED'].includes(status)) {
+      const suspendReason = reason?.trim() || 'Violation of platform policies or community guidelines.';
+      if (db) {
+        await db.collection('adminUserStatuses').updateOne(
+          { userId },
+          {
+            $set: {
+              userId,
+              status,
+              reason: status === 'SUSPENDED' ? suspendReason : null,
+              updatedBy: auth.user!.id,
+              updatedAt: new Date().toISOString(),
+            },
           },
-        },
-        { upsert: true }
-      );
+          { upsert: true }
+        );
+      }
 
-      // If suspended or disabled, terminate all active sessions
-      if (status === 'SUSPENDED' || status === 'DISABLED') {
-        await prisma.session.deleteMany({ where: { userId } });
+      if (status === 'SUSPENDED') {
+        try {
+          await sendAccountSuspendedEmail(existingUser.email, {
+            name: existingUser.name || undefined,
+            reason: suspendReason,
+            appealUrl: `${process.env.APP_URL || 'https://naturestudio.in'}/dashboard/tickets?type=appeal`,
+          });
+        } catch (emailErr) {
+          console.error('Failed to send suspension email:', emailErr);
+        }
+
+        await prisma.notification.create({
+          data: {
+            userId,
+            type: 'account_suspended',
+            title: 'Account Suspended',
+            message: `Your account has been suspended: ${suspendReason}. You can appeal this decision via the support ticket system.`,
+          },
+        }).catch(() => {});
+      } else if (status === 'ACTIVE') {
+        try {
+          await sendAccountReinstatedEmail(existingUser.email, existingUser.name || undefined);
+        } catch (emailErr) {
+          console.error('Failed to send reinstatement email:', emailErr);
+        }
+
+        await prisma.notification.create({
+          data: {
+            userId,
+            type: 'account_reinstated',
+            title: 'Account Reinstated',
+            message: 'Your account suspension has been lifted. Full access to workspace features has been restored.',
+          },
+        }).catch(() => {});
       }
     }
 

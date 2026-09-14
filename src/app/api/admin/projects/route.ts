@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { title, description, projectType, budget, timeline, userId } = await req.json();
+    const { title, description, projectType, budget, timeline, userId, imageUrl } = await req.json();
 
     const targetUserId = userId || auth.user!.id;
     const project = await prisma.project.create({
@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
         projectType: projectType || 'ESPORTS / BROADCAST',
         budget: budget || '$25k - $50k',
         timeline: timeline || '4-6 Weeks',
+        imageUrl: imageUrl || null,
         status: 'IN_PRODUCTION',
         userId: targetUserId,
       },
@@ -64,7 +65,7 @@ export async function PUT(req: NextRequest) {
   }
 
   try {
-    const { id, title, description, status, budget, timeline } = await req.json();
+    const { id, title, description, status, budget, timeline, imageUrl } = await req.json();
 
     const updated = await prisma.project.update({
       where: { id },
@@ -74,6 +75,7 @@ export async function PUT(req: NextRequest) {
         ...(status && { status }),
         ...(budget && { budget }),
         ...(timeline && { timeline }),
+        ...(imageUrl !== undefined && { imageUrl: imageUrl || null }),
       },
     });
 

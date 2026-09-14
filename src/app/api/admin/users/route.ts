@@ -10,6 +10,7 @@ import {
   countSuperAdmins,
 } from '@/lib/admin-db';
 import { hashPassword } from '@/lib/auth';
+import { sendAccountSuspendedEmail, sendAccountReinstatedEmail } from '@/lib/email';
 
 export async function GET(req: NextRequest) {
   const auth = await requireAdminPermission(req, 'users.view');
@@ -20,6 +21,7 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const search = searchParams.get('search')?.toLowerCase() || '';
   const roleFilter = searchParams.get('role');
+  const statusFilter = searchParams.get('status');
   const page = parseInt(searchParams.get('page') || '1', 10);
   const limit = parseInt(searchParams.get('limit') || '20', 10);
   const skip = (page - 1) * limit;
@@ -32,6 +34,9 @@ export async function GET(req: NextRequest) {
         { email: { contains: search } },
       ];
     }
+    if (statusFilter) {
+      where.status = statusFilter;
+    }
 
     const total = await prisma.user.count({ where });
     const users = await prisma.user.findMany({
@@ -42,6 +47,9 @@ export async function GET(req: NextRequest) {
         email: true,
         avatarUrl: true,
         emailVerified: true,
+        status: true,
+        suspendedReason: true,
+        suspendedAt: true,
         createdAt: true,
         updatedAt: true,
         _count: {
@@ -78,6 +86,9 @@ export async function GET(req: NextRequest) {
 
         return {
           ...u,
+          status: u.status || 'ACTIVE',
+          suspendedReason: u.suspendedReason || null,
+          suspendedAt: u.suspendedAt || null,
           roles: roles.length > 0 ? roles : ['USER'],
           portfolio: portfolioInfo,
         };
@@ -213,6 +224,137 @@ export async function PUT(req: NextRequest) {
       }
       await logAdminAudit(auth.user!.id, auth.user!.email, 'USER_ROLE_CHANGED', 'users', userId, { from: currentRoles, to: role });
       return NextResponse.json({ success: true, role });
+    }
+
+    if (action === 'suspend') {
+      const suspendReason = body.reason?.trim() || 'Violation of platform policies or community guidelines.';
+
+      // Update Prisma User model
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          status: 'SUSPENDED',
+          suspendedReason: suspendReason,
+          suspendedAt: new Date(),
+        },
+      });
+
+      // Sync MongoDB adminUserStatuses
+      const db = await getMongoDb();
+      if (db) {
+        await db.collection('adminUserStatuses').updateOne(
+          { userId },
+          {
+            $set: {
+              userId,
+              status: 'SUSPENDED',
+              reason: suspendReason,
+              updatedBy: auth.user!.id,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          { upsert: true }
+        );
+      }
+
+      // Dispatch suspension notice email to user
+      try {
+        await sendAccountSuspendedEmail(targetUser.email, {
+          name: targetUser.name || undefined,
+          reason: suspendReason,
+          appealUrl: `${process.env.APP_URL || 'https://naturestudio.in'}/dashboard/tickets?type=appeal`,
+        });
+      } catch (emailErr) {
+        console.error('Failed to send suspension email:', emailErr);
+      }
+
+      // In-app notification
+      await prisma.notification.create({
+        data: {
+          userId,
+          type: 'account_suspended',
+          title: 'Account Suspended',
+          message: `Your account has been suspended: ${suspendReason}. You can appeal this decision via the support ticket system.`,
+        },
+      }).catch(() => {});
+
+      await logAdminAudit(
+        auth.user!.id,
+        auth.user!.email,
+        'USER_SUSPENDED',
+        'users',
+        userId,
+        { reason: suspendReason, email: targetUser.email }
+      );
+
+      return NextResponse.json({
+        success: true,
+        message: `Account for ${targetUser.email} has been suspended.`,
+        status: 'SUSPENDED',
+        reason: suspendReason,
+      });
+    }
+
+    if (action === 'unsuspend') {
+      // Update Prisma User model
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          status: 'ACTIVE',
+          suspendedReason: null,
+          suspendedAt: null,
+        },
+      });
+
+      // Sync MongoDB adminUserStatuses
+      const db = await getMongoDb();
+      if (db) {
+        await db.collection('adminUserStatuses').updateOne(
+          { userId },
+          {
+            $set: {
+              userId,
+              status: 'ACTIVE',
+              reason: null,
+              updatedBy: auth.user!.id,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          { upsert: true }
+        );
+      }
+
+      // Dispatch reinstatement email to user
+      try {
+        await sendAccountReinstatedEmail(targetUser.email, targetUser.name || undefined);
+      } catch (emailErr) {
+        console.error('Failed to send reinstatement email:', emailErr);
+      }
+
+      // In-app notification
+      await prisma.notification.create({
+        data: {
+          userId,
+          type: 'account_reinstated',
+          title: 'Account Reinstated',
+          message: 'Your account suspension has been lifted. Full access to workspace features has been restored.',
+        },
+      }).catch(() => {});
+
+      await logAdminAudit(
+        auth.user!.id,
+        auth.user!.email,
+        'USER_UNSUSPENDED',
+        'users',
+        userId,
+        { email: targetUser.email }
+      );
+
+      return NextResponse.json({
+        success: true,
+        message: `Account for ${targetUser.email} has been reinstated.`,
+        status: 'ACTIVE',
+      });
     }
 
     return NextResponse.json({ error: 'Unknown action' }, { status: 400 });

@@ -15,6 +15,10 @@ export interface User {
   hasPassword?: boolean;
   isAdmin?: boolean;
   roles?: string[];
+  status?: string;
+  suspendedReason?: string | null;
+  suspendedAt?: string | null;
+  isSuspended?: boolean;
 }
 
 

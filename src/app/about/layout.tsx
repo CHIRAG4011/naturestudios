@@ -1,13 +1,33 @@
 import type { Metadata } from 'next';
-import { pageMetadata } from '@/lib/seo';
+import { pageMetadata, getBreadcrumbJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'About',
+  title: 'About Nature Studios',
   description:
-    'The people, principles, and production philosophy behind NatureStudios — a creative studio working where nature, cinema, and competitive gaming meet.',
+    'The people, philosophy, and engineering behind Nature Studios — a creative studio where organic worldbuilding, cinema, and championship gaming intersect.',
   path: '/about',
+  keywords: [
+    'About Nature Studios',
+    'Esports creative directors',
+    'Nature Studios team',
+    'Live broadcast production philosophy',
+    'Biophilic stage design',
+  ],
 });
 
-export default function SegmentLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default function AboutLayout({ children }: { children: React.ReactNode }) {
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }

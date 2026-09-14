@@ -32,6 +32,12 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser();
+    if (user && (user.isSuspended || user.status === 'SUSPENDED')) {
+      return NextResponse.json(
+        { error: 'Account is suspended. Project requests are restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
+    }
     const body = await req.json();
     const { name, email, company, projectType, budget, timeline, message } = body;
 

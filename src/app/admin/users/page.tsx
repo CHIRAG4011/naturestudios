@@ -40,6 +40,7 @@ export default function AdminUsersPage() {
   >(null);
   const [typedConfirmation, setTypedConfirmation] = useState('');
   const [targetRole, setTargetRole] = useState('ADMIN');
+  const [suspendReason, setSuspendReason] = useState('Violation of Terms of Service');
   const [actionLoading, setActionLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -117,7 +118,7 @@ export default function AdminUsersPage() {
       } else {
         // SUSPEND, UNSUSPEND, VERIFY, FORCE_LOGOUT
         const bodyMap: Record<string, any> = {
-          SUSPEND: { status: 'SUSPENDED' },
+          SUSPEND: { status: 'SUSPENDED', reason: suspendReason },
           UNSUSPEND: { status: 'ACTIVE' },
           VERIFY: { emailVerified: true },
           FORCE_LOGOUT: { forceLogout: true },
@@ -134,7 +135,13 @@ export default function AdminUsersPage() {
           throw new Error(err.error || 'Operation failed');
         }
 
-        setToastMessage(`Action ${actionType} completed successfully.`);
+        if (actionType === 'SUSPEND') {
+          setToastMessage(`Account for ${selectedUser.email} suspended. Suspension email dispatched.`);
+        } else if (actionType === 'UNSUSPEND') {
+          setToastMessage(`Account for ${selectedUser.email} reinstated. Notification email dispatched.`);
+        } else {
+          setToastMessage(`Action ${actionType} completed successfully.`);
+        }
       }
 
       setActionType(null);
@@ -471,9 +478,45 @@ export default function AdminUsersPage() {
             )}
 
             {actionType === 'SUSPEND' && (
-              <p className="text-xs text-[#B89B8D]">
-                Suspended accounts will immediately lose access to authenticated features and custom portfolio publishing.
-              </p>
+              <div className="space-y-3">
+                <p className="text-xs text-[#B89B8D]">
+                  Suspended accounts will lose creative access and public portfolio publishing. An official notification email with the suspension reason and appeal ticket instructions will be dispatched to this creator.
+                </p>
+
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-mono uppercase tracking-wider text-[#FED7B8]">
+                    Select Suspension Reason
+                  </label>
+                  <select
+                    onChange={(e) => {
+                      if (e.target.value !== 'custom') {
+                        setSuspendReason(e.target.value);
+                      }
+                    }}
+                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none focus:border-[#E63946]"
+                  >
+                    <option value="Violation of Terms of Service">Violation of Terms of Service</option>
+                    <option value="Inappropriate or copyright-infringing content">Inappropriate or copyright-infringing content</option>
+                    <option value="Suspicious, spam, or automated bot activity">Suspicious, spam, or automated bot activity</option>
+                    <option value="Abusive conduct or harassment toward other users/staff">Abusive conduct or harassment toward other users/staff</option>
+                    <option value="Payment or billing dispute">Payment or billing dispute</option>
+                    <option value="custom">Custom Reason (Type below)...</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-mono uppercase tracking-wider text-[#FED7B8]">
+                    Reason Details / Note for Creator
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={suspendReason}
+                    onChange={(e) => setSuspendReason(e.target.value)}
+                    placeholder="Describe the reason for suspension (sent in user notification email)..."
+                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none focus:border-[#E63946] leading-relaxed"
+                  />
+                </div>
+              </div>
             )}
 
             {actionType === 'FORCE_LOGOUT' && (

@@ -11,6 +11,11 @@ import {
   ExternalLink,
   Shield,
   RefreshCw,
+  Copy,
+  Check,
+  Plus,
+  X,
+  Loader2,
 } from 'lucide-react';
 
 export default function AdminMediaPage() {
@@ -19,6 +24,17 @@ export default function AdminMediaPage() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+
+  // URL modal
+  const [showUrlModal, setShowUrlModal] = useState(false);
+  const [urlInput, setUrlInput] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [folderInput, setFolderInput] = useState('general');
+  const [registering, setRegistering] = useState(false);
+
+  // Preview modal
+  const [previewAsset, setPreviewAsset] = useState<any | null>(null);
 
   const fetchMedia = async () => {
     try {
@@ -26,7 +42,7 @@ export default function AdminMediaPage() {
       const res = await fetch('/api/admin/media');
       if (res.ok) {
         const data = await res.json();
-        setAssets(data.assets || []);
+        setAssets(data.media || data.assets || []);
       }
     } catch (err) {
       console.error('Failed to load media assets', err);
@@ -55,20 +71,82 @@ export default function AdminMediaPage() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('altText', file.name);
+      formData.append('folder', 'general');
 
       const res = await fetch('/api/admin/media', {
         method: 'POST',
         body: formData,
       });
 
-      if (!res.ok) throw new Error('Upload failed');
-      setToastMessage(`Media asset ${file.name} uploaded successfully.`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed');
+
+      setToastMessage(`Media asset "${file.name}" uploaded successfully.`);
       fetchMedia();
     } catch (err: any) {
       alert(err.message || 'Error uploading file');
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
+  };
+
+  const handleRegisterUrl = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!urlInput.trim() || !nameInput.trim()) return;
+
+    setRegistering(true);
+    try {
+      const res = await fetch('/api/admin/media', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: nameInput.trim(),
+          url: urlInput.trim(),
+          folder: folderInput,
+          altText: nameInput.trim(),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to register image URL');
+
+      setToastMessage(`Image "${nameInput.trim()}" registered to library.`);
+      setShowUrlModal(false);
+      setUrlInput('');
+      setNameInput('');
+      fetchMedia();
+    } catch (err: any) {
+      alert(err.message || 'Error registering image');
+    } finally {
+      setRegistering(false);
+    }
+  };
+
+  const handleDeleteAsset = async (id: string, name: string) => {
+    const confirm = window.confirm(`Delete media asset "${name}" permanently?`);
+    if (!confirm) return;
+
+    try {
+      const res = await fetch('/api/admin/media', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!res.ok) throw new Error('Failed to delete asset');
+
+      setToastMessage(`Asset "${name}" removed.`);
+      fetchMedia();
+    } catch (err: any) {
+      alert(err.message || 'Error deleting asset');
+    }
+  };
+
+  const handleCopyUrl = (url: string) => {
+    navigator.clipboard.writeText(url);
+    setCopiedUrl(url);
+    setTimeout(() => setCopiedUrl(null), 2000);
   };
 
   return (
@@ -94,36 +172,59 @@ export default function AdminMediaPage() {
             </span>
           </div>
           <p className="text-xs text-[#B89B8D] mt-1">
-            Studio branding imagery, hero background assets, tournament logos, and creator media.
+            Studio branding imagery, hero assets, tournament logos, and creator media. Direct upload or CDN URL registration.
           </p>
         </div>
 
-        {(isSuperAdmin || hasPermission('media.upload')) && (
-          <label className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg cursor-pointer transition-all">
-            <Upload className="w-4 h-4 text-[#FED7B8]" />
-            <span>{uploading ? 'Uploading...' : 'Upload Asset'}</span>
-            <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
-          </label>
-        )}
+        <div className="flex items-center gap-2">
+          {(isSuperAdmin || hasPermission('media.upload')) && (
+            <>
+              <button
+                onClick={() => setShowUrlModal(true)}
+                className="px-3.5 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-semibold text-[#FED7B8] flex items-center gap-1.5 transition-all"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add by URL</span>
+              </button>
+
+              <label className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg cursor-pointer transition-all">
+                <Upload className="w-4 h-4 text-[#FED7B8]" />
+                <span>{uploading ? 'Uploading...' : 'Upload Image File'}</span>
+                <input type="file" accept="image/*" onChange={handleFileUpload} disabled={uploading} className="hidden" />
+              </label>
+            </>
+          )}
+
+          <button
+            onClick={fetchMedia}
+            className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
       </div>
 
       {/* Media Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {loading ? (
-          <div className="col-span-full py-12 text-center text-xs text-[#B89B8D]">
-            Loading media assets...
+          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D] flex flex-col items-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin text-[#FED7B8]" />
+            <span>Loading media library assets...</span>
           </div>
         ) : assets.length === 0 ? (
-          <div className="col-span-full py-12 text-center text-xs text-[#B89B8D]">
-            No uploaded media assets yet.
+          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D]">
+            No uploaded media assets found in database.
           </div>
         ) : (
           assets.map((asset) => (
             <div
               key={asset.id}
-              className="rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] overflow-hidden transition-all group space-y-2 p-2"
+              className="rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] overflow-hidden transition-all group space-y-2 p-2 flex flex-col justify-between"
             >
-              <div className="aspect-square rounded-xl bg-[#150304] flex items-center justify-center overflow-hidden relative">
+              <div
+                onClick={() => setPreviewAsset(asset)}
+                className="aspect-square rounded-xl bg-[#150304] flex items-center justify-center overflow-hidden relative cursor-pointer"
+              >
                 {asset.url ? (
                   <img
                     src={asset.url}
@@ -133,18 +234,179 @@ export default function AdminMediaPage() {
                 ) : (
                   <ImageIcon className="w-8 h-8 text-[#FED7B8]/40" />
                 )}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#FED7B8] text-[11px] font-mono">
+                  Click to Zoom
+                </div>
               </div>
 
-              <div className="px-1 text-xs">
-                <div className="font-semibold text-[#FFF5ED] truncate">{asset.name}</div>
-                <div className="text-[10px] text-[#B89B8D] font-mono">
-                  {(asset.size ? asset.size / 1024 : 12).toFixed(1)} KB
+              <div className="px-1 text-xs space-y-1">
+                <div className="font-semibold text-[#FFF5ED] truncate" title={asset.name}>
+                  {asset.name}
                 </div>
+                <div className="flex items-center justify-between text-[10px] text-[#B89B8D] font-mono">
+                  <span>{(asset.size ? asset.size / 1024 : 150).toFixed(0)} KB</span>
+                  <span className="uppercase text-[#FED7B8]/70">{asset.folder || 'general'}</span>
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="pt-2 border-t border-[#3D0D13]/60 flex items-center justify-between gap-1">
+                <button
+                  type="button"
+                  onClick={() => handleCopyUrl(asset.url)}
+                  className="flex-1 py-1 px-2 rounded-lg bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[10px] font-mono text-[#FED7B8] flex items-center justify-center gap-1 transition-colors"
+                  title="Copy image URL"
+                >
+                  {copiedUrl === asset.url ? (
+                    <>
+                      <Check className="w-3 h-3 text-emerald-400" />
+                      <span className="text-emerald-400">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3" />
+                      <span>Copy URL</span>
+                    </>
+                  )}
+                </button>
+
+                {(isSuperAdmin || hasPermission('media.delete')) && (
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteAsset(asset.id, asset.name)}
+                    className="p-1.5 rounded-lg bg-[#E63946]/10 hover:bg-[#E63946]/20 text-[#E63946] transition-colors"
+                    title="Delete image asset"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                )}
               </div>
             </div>
           ))
         )}
       </div>
+
+      {/* Add by URL Modal */}
+      {showUrlModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-100">
+          <div className="w-full max-w-md bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 shadow-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-[#3D0D13] pb-3">
+              <h3 className="font-syne text-base font-bold text-[#FFF5ED]">
+                Register External Image URL
+              </h3>
+              <button
+                onClick={() => setShowUrlModal(false)}
+                className="p-1 rounded-lg text-[#B89B8D] hover:text-[#FFF5ED]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleRegisterUrl} className="space-y-4 text-xs">
+              <div>
+                <label className="block text-[#FED7B8] font-mono mb-1 uppercase text-[10px]">
+                  Asset Name / Title
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Valorant Champions Hero Plate"
+                  value={nameInput}
+                  onChange={(e) => setNameInput(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#FED7B8] font-mono mb-1 uppercase text-[10px]">
+                  Direct Image URL (HTTPS)
+                </label>
+                <input
+                  type="url"
+                  required
+                  placeholder="https://images.unsplash.com/... or CDN link"
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#FED7B8] font-mono mb-1 uppercase text-[10px]">
+                  Folder Category
+                </label>
+                <select
+                  value={folderInput}
+                  onChange={(e) => setFolderInput(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                >
+                  <option value="general">General Media</option>
+                  <option value="hero">Hero Backgrounds</option>
+                  <option value="studio">Studio Plates</option>
+                  <option value="work">Project Showcases</option>
+                  <option value="branding">Brand Identity</option>
+                </select>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowUrlModal(false)}
+                  className="px-4 py-2 rounded-xl bg-[#240709] text-[#FFF5ED]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={registering}
+                  className="px-4 py-2 rounded-xl bg-[#59171B] hover:bg-[#721C22] text-[#FED7B8] font-semibold"
+                >
+                  {registering ? 'Registering...' : 'Save to Media Library'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Full Preview Modal */}
+      {previewAsset && (
+        <div
+          onClick={() => setPreviewAsset(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md cursor-pointer animate-in fade-in duration-100"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-3xl max-h-[85vh] bg-[#1D0608] border border-[#59171B] rounded-3xl overflow-hidden p-4 space-y-3 cursor-default"
+          >
+            <div className="flex items-center justify-between border-b border-[#3D0D13] pb-2 text-xs">
+              <span className="font-semibold text-[#FFF5ED]">{previewAsset.name}</span>
+              <button
+                onClick={() => setPreviewAsset(null)}
+                className="p-1 rounded-lg text-[#B89B8D] hover:text-[#FFF5ED]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="max-h-[65vh] overflow-hidden rounded-2xl flex items-center justify-center bg-black">
+              <img
+                src={previewAsset.url}
+                alt={previewAsset.altText || previewAsset.name}
+                className="max-h-[65vh] w-auto object-contain"
+              />
+            </div>
+            <div className="flex items-center justify-between text-xs font-mono text-[#B89B8D] pt-1">
+              <span className="truncate max-w-md">{previewAsset.url}</span>
+              <button
+                onClick={() => handleCopyUrl(previewAsset.url)}
+                className="px-3 py-1 rounded-lg bg-[#59171B] text-[#FED7B8] font-bold"
+              >
+                {copiedUrl === previewAsset.url ? 'Copied URL!' : 'Copy Direct Link'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

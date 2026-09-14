@@ -3,6 +3,10 @@ import { requireAdminPermission, unauthorizedResponse } from '@/lib/admin-guard'
 import { getMongoDb } from '@/lib/mongodb';
 import { logAdminAudit, MediaAssetDoc } from '@/lib/admin-db';
 import { ObjectId } from 'mongodb';
+import fs from 'fs/promises';
+import path from 'path';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   const auth = await requireAdminPermission(req, 'media.view');
@@ -75,7 +79,7 @@ export async function GET(req: NextRequest) {
     ];
   }
 
-  return NextResponse.json({ media });
+  return NextResponse.json({ success: true, media, assets: media });
 }
 
 export async function POST(req: NextRequest) {
@@ -84,25 +88,83 @@ export async function POST(req: NextRequest) {
     return unauthorizedResponse(auth);
   }
 
+  const contentType = req.headers.get('content-type') || '';
+
   try {
-    const { name, url, mimeType, size, folder, altText } = await req.json();
+    let name = '';
+    let url = '';
+    let mimeType = 'image/jpeg';
+    let size = 0;
+    let folder = 'general';
+    let altText = '';
 
-    if (!name || !url) {
-      return NextResponse.json({ error: 'Name and URL are required' }, { status: 400 });
-    }
+    // Handle Multipart Form Data (Direct File Upload)
+    if (contentType.includes('multipart/form-data')) {
+      const formData = await req.formData();
+      const file = (formData.get('file') || formData.get('image')) as File | null;
+      altText = (formData.get('altText') as string) || '';
+      folder = (formData.get('folder') as string) || 'general';
 
-    // Security check: Reject executable/script extensions
-    const forbidden = ['.exe', '.bat', '.cmd', '.sh', '.js', '.mjs', '.php', '.py'];
-    if (forbidden.some((ext) => url.toLowerCase().endsWith(ext) || name.toLowerCase().endsWith(ext))) {
-      return NextResponse.json({ error: 'Malicious or executable file extensions rejected.' }, { status: 400 });
+      if (!file) {
+        return NextResponse.json({ error: 'No image file provided in form data' }, { status: 400 });
+      }
+
+      // Security check: reject executable or script extensions
+      const forbidden = ['.exe', '.bat', '.cmd', '.sh', '.js', '.mjs', '.php', '.py', '.html', '.htm'];
+      if (forbidden.some((ext) => file.name.toLowerCase().endsWith(ext))) {
+        return NextResponse.json({ error: 'File type rejected by media security policy.' }, { status: 400 });
+      }
+
+      name = file.name;
+      mimeType = file.type || 'image/jpeg';
+      size = file.size;
+
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      // Attempt to save to public/uploads directory
+      try {
+        const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+        await fs.mkdir(uploadsDir, { recursive: true });
+
+        const ext = path.extname(file.name) || '.jpg';
+        const cleanName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 30);
+        const filename = `media-${Date.now()}-${cleanName}${ext}`;
+        const filePath = path.join(uploadsDir, filename);
+
+        await fs.writeFile(filePath, buffer);
+        url = `/uploads/${filename}`;
+      } catch (fsError: any) {
+        // Fallback for read-only environments (e.g. serverless)
+        console.warn('Filesystem write unavailable, persisting as data URL:', fsError?.message);
+        url = `data:${mimeType};base64,${buffer.toString('base64')}`;
+      }
+    } else {
+      // Handle JSON payload (URL registration)
+      const body = await req.json();
+      name = body.name;
+      url = body.url;
+      mimeType = body.mimeType || 'image/jpeg';
+      size = body.size || 150000;
+      folder = body.folder || 'general';
+      altText = body.altText || name;
+
+      if (!name || !url) {
+        return NextResponse.json({ error: 'Name and URL are required' }, { status: 400 });
+      }
+
+      const forbidden = ['.exe', '.bat', '.cmd', '.sh', '.js', '.mjs', '.php', '.py'];
+      if (forbidden.some((ext) => url.toLowerCase().endsWith(ext) || name.toLowerCase().endsWith(ext))) {
+        return NextResponse.json({ error: 'Malicious or executable file extensions rejected.' }, { status: 400 });
+      }
     }
 
     const doc: MediaAssetDoc = {
       name,
       url,
-      mimeType: mimeType || 'image/jpeg',
-      size: size || 150000,
-      folder: folder || 'general',
+      mimeType,
+      size,
+      folder,
       altText: altText || name,
       usageCount: 1,
       usedIn: ['Media Library'],
@@ -111,14 +173,23 @@ export async function POST(req: NextRequest) {
     };
 
     const db = await getMongoDb();
+    let createdId = '';
     if (db) {
-      await db.collection('mediaAssets').insertOne(doc as any);
+      const res = await db.collection('mediaAssets').insertOne(doc as any);
+      createdId = res.insertedId.toString();
     }
 
     await logAdminAudit(auth.user!.id, auth.user!.email, 'MEDIA_UPLOADED', 'media', name, { url, size });
-    return NextResponse.json({ success: true, media: doc });
-  } catch (e) {
-    return NextResponse.json({ error: 'Failed to record media asset' }, { status: 500 });
+
+    const savedDoc = { id: createdId, ...doc };
+    return NextResponse.json({
+      success: true,
+      media: savedDoc,
+      asset: savedDoc,
+    });
+  } catch (e: any) {
+    console.error('Failed to process media upload:', e);
+    return NextResponse.json({ error: e.message || 'Failed to record media asset' }, { status: 500 });
   }
 }
 

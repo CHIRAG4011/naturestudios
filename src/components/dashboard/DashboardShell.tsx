@@ -15,6 +15,8 @@ import {
   Plus,
   ArrowLeft,
   Shield,
+  AlertTriangle,
+  HelpCircle,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useDashboard } from '@/context/DashboardContext';
@@ -24,6 +26,7 @@ const NAV_ITEMS = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard, exact: true },
   { href: '/dashboard/projects', label: 'Projects', icon: FolderKanban },
   { href: '/dashboard/requests', label: 'Requests', icon: FileText },
+  { href: '/dashboard/tickets', label: 'Support & Tickets', icon: HelpCircle },
   { href: '/dashboard/messages', label: 'Messages', icon: MessageSquare },
   { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings2 },
@@ -203,6 +206,43 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </aside>
 
         <main id="main" className="min-w-0 flex-1">
+          {/* Account Suspension Banner */}
+          {(user?.isSuspended || user?.status === 'SUSPENDED') && (
+            <div className="mb-6 rounded-2xl border border-red-500/40 bg-gradient-to-r from-[#2A080C] via-[#3A0A10] to-[#2A080C] p-4 sm:p-5 text-red-200 shadow-2xl backdrop-blur-md relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="p-2.5 rounded-xl bg-red-500/20 text-red-400 shrink-0 border border-red-500/30">
+                    <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-bold tracking-wider bg-red-500/20 text-red-300 border border-red-500/30">
+                        Account Suspended
+                      </span>
+                      <span className="text-xs text-red-300/70 font-mono">
+                        Restricted Access Mode
+                      </span>
+                    </div>
+                    <p className="text-xs text-red-100 font-medium leading-relaxed">
+                      Your account has been suspended: <span className="font-bold text-white underline decoration-red-400">{user.suspendedReason || 'Administrative review or policy violation'}</span>.
+                    </p>
+                    <p className="text-[11px] text-red-300/80 leading-relaxed">
+                      New brief submissions, project requests, and portfolio publishing are temporarily restricted. If you believe this is in error, please submit an appeal ticket.
+                    </p>
+                  </div>
+                </div>
+
+                <Link
+                  href="/dashboard/tickets?type=appeal"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-red-600/30 text-center"
+                >
+                  <span>Appeal at Tickets</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+          )}
           {children}
         </main>
       </div>

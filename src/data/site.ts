@@ -199,7 +199,7 @@ export const PROJECTS: readonly Project[] = [
     tags: ['CONTENT', 'DOCUMENTARY', 'FILM'],
     year: '2023',
     client: 'Global Esports Alliance',
-    image: '/media/grain.png',
+    image: '/media/studio-plate.jpg',
     challenge: 'Capture raw, vulnerable human stories behind the relentless drive to compete on the world stage.',
     strategy: 'Editorial cinematography, warm natural lighting, and intimate documentary filmmaking.',
     creativeDirection: 'Organic realism meeting competitive fire.',

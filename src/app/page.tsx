@@ -13,6 +13,7 @@ import { Process } from '@/components/Process';
 import { Stats } from '@/components/Stats';
 import { Testimonial } from '@/components/Testimonial';
 import { Ticker } from '@/components/Ticker';
+import { FAQ } from '@/components/FAQ';
 import { CallToAction } from '@/components/CallToAction';
 import { Footer } from '@/components/Footer';
 
@@ -54,10 +55,13 @@ export default function HomePage() {
         {/* 10. Testimonial */}
         <Testimonial />
 
-        {/* 11. Final CTA */}
+        {/* 11. FAQ Knowledge Section */}
+        <FAQ />
+
+        {/* 12. Final CTA */}
         <CallToAction />
       </main>
-      {/* 12. Footer */}
+      {/* 13. Footer */}
       <Footer />
     </div>
   );

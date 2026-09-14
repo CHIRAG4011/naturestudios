@@ -2,26 +2,43 @@ import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seo';
 
 /**
- * Keeps crawlers off the API surface, the client workspace, and every
- * transactional auth screen. Those routes also carry `robots: noindex` in
- * their own metadata — robots.txt stops the crawl, the meta tag stops any
- * URL that was reached some other way from being indexed.
+ * Robots configuration directing Googlebot and web crawlers to public portfolio,
+ * case studies, and services while blocking private admin surfaces, dashboards,
+ * auth screens, and internal API routes.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/work',
+          '/work/*',
+          '/services',
+          '/studio',
+          '/about',
+          '/contact',
+          '/portfolio',
+          '/privacy',
+          '/terms',
+          '/media/*',
+          '/_next/static/*',
+          '/_next/image*',
+          '/favicon.svg',
+        ],
         disallow: [
-          '/api/',
+          '/admin',
+          '/admin/*',
           '/dashboard',
-          '/dashboard/',
+          '/dashboard/*',
+          '/api/*',
           '/login',
           '/register',
           '/verify',
           '/forgot-password',
           '/reset-password',
+          '/*?*draft=*',
         ],
       },
     ],

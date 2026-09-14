@@ -60,6 +60,7 @@ export default function AdminUserDetailPage() {
   const [newPassword, setNewPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [portfolioSlug, setPortfolioSlug] = useState('');
+  const [suspendReason, setSuspendReason] = useState('');
   const [overrides, setOverrides] = useState<Record<string, 'ALLOW' | 'DENY' | 'RESET'>>({});
   const [permSearch, setPermSearch] = useState('');
   const [copiedId, setCopiedId] = useState(false);
@@ -85,6 +86,7 @@ export default function AdminUserDetailPage() {
       setEmail(json.user.email || '');
       setAvatarUrl(json.user.avatarUrl || '');
       setStatus(json.user.status || 'ACTIVE');
+      setSuspendReason(json.user.suspendedReason || '');
       setEmailVerified(Boolean(json.user.emailVerified));
       setRole(json.roles?.[0] || 'USER');
       setPortfolioSlug(json.portfolio?.slug || '');
@@ -145,6 +147,7 @@ export default function AdminUserDetailPage() {
         avatarUrl,
         role,
         status,
+        reason: suspendReason,
         emailVerified,
         portfolioSlug,
         permissionOverrides: Object.entries(overrides).map(([permissionKey, effect]) => ({
@@ -537,6 +540,21 @@ export default function AdminUserDetailPage() {
                   <option value="DISABLED">DISABLED (Administrative Lock)</option>
                 </select>
               </div>
+
+              {status === 'SUSPENDED' && (
+                <div className="sm:col-span-2 space-y-1.5 p-3 rounded-xl bg-[#150304] border border-[#E63946]/30">
+                  <label className="block text-[#E63946] font-mono uppercase text-[10px] tracking-wider font-bold">
+                    Suspension Reason (Sent in notification email and shown on user dashboard)
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={suspendReason}
+                    onChange={(e) => setSuspendReason(e.target.value)}
+                    placeholder="e.g. Violation of Terms of Service — Inappropriate content"
+                    className="w-full px-3.5 py-2 rounded-xl bg-[#240709] border border-[#3D0D13] focus:border-[#E63946] text-[#FFF5ED] focus:outline-none text-xs leading-relaxed"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px] tracking-wider">

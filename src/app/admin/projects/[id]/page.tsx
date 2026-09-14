@@ -18,6 +18,8 @@ import {
   User,
   MessageSquare,
   ExternalLink,
+  Upload,
+  Loader2,
 } from 'lucide-react';
 
 const STATUSES = [
@@ -56,6 +58,8 @@ export default function AdminProjectDetailPage() {
   const [budget, setBudget] = useState('');
   const [timeline, setTimeline] = useState('');
   const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const fetchProject = async () => {
     if (!projectId) return;
@@ -74,6 +78,7 @@ export default function AdminProjectDetailPage() {
       setBudget(data.project.budget || '');
       setTimeline(data.project.timeline || '');
       setDescription(data.project.description || '');
+      setImageUrl(data.project.imageUrl || '');
     } catch (err: any) {
       setError(err.message || 'Failed to retrieve project details.');
     } finally {
@@ -104,6 +109,7 @@ export default function AdminProjectDetailPage() {
           budget,
           timeline,
           description,
+          imageUrl: imageUrl.trim() || null,
         }),
       });
 
@@ -301,8 +307,61 @@ export default function AdminProjectDetailPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter scope, deliverables, motion packaging details..."
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none leading-relaxed"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
               />
+            </div>
+
+            <div className="sm:col-span-2 space-y-2">
+              <label className="block text-[#FED7B8] font-mono uppercase text-[10px]">
+                Project Cover / Hero Image
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="https://... or upload local image"
+                  className="flex-1 px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                />
+                <label className="px-3.5 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-semibold text-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0 transition-colors">
+                  {uploadingImage ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Upload className="w-3.5 h-3.5" />
+                  )}
+                  <span>{uploadingImage ? 'Uploading...' : 'Upload'}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    disabled={uploadingImage}
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setUploadingImage(true);
+                      try {
+                        const fd = new FormData();
+                        fd.append('file', file);
+                        const uploadRes = await fetch('/api/upload', { method: 'POST', body: fd });
+                        const uploadData = await uploadRes.json();
+                        if (!uploadRes.ok) throw new Error(uploadData.error || 'Upload failed');
+                        setImageUrl(uploadData.url);
+                        setToast({ message: 'Cover image uploaded. Click Save Changes to commit.', type: 'success' });
+                      } catch (uErr: any) {
+                        setToast({ message: uErr.message || 'Upload failed', type: 'error' });
+                      } finally {
+                        setUploadingImage(false);
+                      }
+                    }}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+
+              {imageUrl && (
+                <div className="h-32 w-full max-w-sm rounded-xl overflow-hidden border border-[#3D0D13] bg-[#150304]">
+                  <img src={imageUrl} alt="Project Cover Preview" className="w-full h-full object-cover" />
+                </div>
+              )}
             </div>
           </div>
         </div>

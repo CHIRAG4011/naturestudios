@@ -408,3 +408,148 @@ export async function sendPortfolioUnpublishedEmail(to: string, name?: string): 
   });
   return result.success;
 }
+
+// ─── 10. ACCOUNT SUSPENDED ──────────────────────────────────────────────────
+export async function sendAccountSuspendedEmail(
+  to: string,
+  params: {
+    name?: string;
+    reason: string;
+    appealUrl?: string;
+  }
+): Promise<boolean> {
+  const subject = `Account Suspension Notice — NatureStudios`;
+  const greeting = params.name ? `Hello ${params.name},` : 'Hello,';
+  const appealLink = params.appealUrl || 'https://naturestudio.in/dashboard/tickets?type=appeal';
+
+  const content = `
+    <div class="text">${greeting}</div>
+    <div class="text">This is an official notice that your NatureStudios account has been <span class="highlight" style="color: #E63946;">SUSPENDED</span> by platform moderation.</div>
+    
+    <div style="background: #150304; border-left: 4px solid #E63946; border-radius: 8px; padding: 18px; margin: 24px 0;">
+      <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #E63946; margin-bottom: 6px;">Reason for Suspension:</div>
+      <div style="font-size: 15px; color: #FFF5ED; font-weight: 600;">${params.reason || 'Violation of platform terms of service or acceptable use policy.'}</div>
+    </div>
+
+    <div class="text">While your account is suspended, access to creative project submissions, brief updates, and custom portfolio publishing is restricted.</div>
+
+    <div class="text" style="margin-top: 20px;"><strong>How to Appeal:</strong> If you believe this action was made in error, or if you have resolved the underlying issue, you can appeal this decision directly through our ticket support center:</div>
+
+    <div class="btn-container">
+      <a href="${appealLink}" class="btn" style="background: #59171B; border-color: #FED7B8;">APPEAL AT SUPPORT TICKETS</a>
+    </div>
+
+    <div class="text" style="font-size: 13px; color: #B89B8D; text-align: center;">You can also reply to this email or contact our support team at <a href="mailto:${EMAIL_ADDRESSES.support}" style="color: #FED7B8;">${EMAIL_ADDRESSES.support}</a> with your account email and details.</div>
+  `;
+
+  const result = await sendEmail({
+    to,
+    subject,
+    html: wrapEmailTemplate('Account Suspension Notice', content),
+    from: `NatureStudios Moderation <${EMAIL_ADDRESSES.noreply}>`,
+    replyTo: EMAIL_ADDRESSES.support,
+  });
+  return result.success;
+}
+
+// ─── 11. ACCOUNT REINSTATED ─────────────────────────────────────────────────
+export async function sendAccountReinstatedEmail(to: string, name?: string): Promise<boolean> {
+  const subject = `Your NatureStudios Account Has Been Reinstated`;
+  const greeting = name ? `Hello ${name},` : 'Hello,';
+
+  const content = `
+    <div class="text">${greeting}</div>
+    <div class="text">Good news! Your NatureStudios account has been reviewed and <span class="highlight" style="color: #52B788;">REINSTATED</span>.</div>
+    <div class="text">Full access to your workspace, project submissions, briefs, and creator portfolios has been completely restored.</div>
+    <div class="btn-container">
+      <a href="https://naturestudio.in/dashboard" class="btn">GO TO WORKSPACE</a>
+    </div>
+  `;
+
+  const result = await sendEmail({
+    to,
+    subject,
+    html: wrapEmailTemplate('Account Reinstated', content),
+    from: `NatureStudios Moderation <${EMAIL_ADDRESSES.noreply}>`,
+    replyTo: EMAIL_ADDRESSES.support,
+  });
+  return result.success;
+}
+
+// ─── 12. TICKET CREATED NOTIFICATION ─────────────────────────────────────────
+export async function sendTicketCreatedEmail(
+  to: string,
+  params: {
+    ticketNumber: string;
+    subject: string;
+    name?: string;
+    category?: string;
+  }
+): Promise<boolean> {
+  const subject = `[${params.ticketNumber}] Ticket Received: ${params.subject}`;
+  const greeting = params.name ? `Hello ${params.name},` : 'Hello,';
+
+  const content = `
+    <div class="text">${greeting}</div>
+    <div class="text">Your support request has been received by our studio operations and moderation team.</div>
+    
+    <div style="background: #150304; border: 1px solid #59171B; border-radius: 8px; padding: 18px; margin: 24px 0;">
+      <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #FED7B8; margin-bottom: 4px;">Ticket Number:</div>
+      <div style="font-size: 20px; font-weight: 900; color: #FFF5ED; font-family: monospace;">${params.ticketNumber}</div>
+      <div style="font-size: 13px; color: #B89B8D; margin-top: 8px;"><strong>Subject:</strong> ${params.subject}</div>
+      ${params.category ? `<div style="font-size: 13px; color: #B89B8D; margin-top: 4px;"><strong>Category:</strong> ${params.category}</div>` : ''}
+    </div>
+
+    <div class="text">Our team reviews tickets actively. You can track progress and add further details through your workspace tickets page:</div>
+
+    <div class="btn-container">
+      <a href="https://naturestudio.in/dashboard/tickets" class="btn">VIEW TICKET IN WORKSPACE</a>
+    </div>
+  `;
+
+  const result = await sendEmail({
+    to,
+    subject,
+    html: wrapEmailTemplate('Support Request Received', content),
+    from: `NatureStudios Support <${EMAIL_ADDRESSES.support}>`,
+    replyTo: EMAIL_ADDRESSES.support,
+  });
+  return result.success;
+}
+
+// ─── 13. TICKET REPLY NOTIFICATION ──────────────────────────────────────────
+export async function sendTicketReplyEmail(
+  to: string,
+  params: {
+    ticketNumber: string;
+    subject: string;
+    name?: string;
+    replyMessage: string;
+    staffName?: string;
+  }
+): Promise<boolean> {
+  const subject = `[${params.ticketNumber}] New Reply: ${params.subject}`;
+  const greeting = params.name ? `Hello ${params.name},` : 'Hello,';
+
+  const content = `
+    <div class="text">${greeting}</div>
+    <div class="text">Support staff (${params.staffName || 'NatureStudios Team'}) has posted an update to your ticket <span class="highlight font-mono">${params.ticketNumber}</span>:</div>
+
+    <div style="background: #150304; border-left: 4px solid #FED7B8; border-radius: 8px; padding: 18px; margin: 24px 0; color: #FFF5ED; line-height: 1.6; font-size: 14px;">
+      ${params.replyMessage.replace(/\n/g, '<br>')}
+    </div>
+
+    <div class="btn-container">
+      <a href="https://naturestudio.in/dashboard/tickets" class="btn">REPLY IN WORKSPACE</a>
+    </div>
+  `;
+
+  const result = await sendEmail({
+    to,
+    subject,
+    html: wrapEmailTemplate('Ticket Update', content),
+    from: `NatureStudios Support <${EMAIL_ADDRESSES.support}>`,
+    replyTo: EMAIL_ADDRESSES.support,
+  });
+  return result.success;
+}
