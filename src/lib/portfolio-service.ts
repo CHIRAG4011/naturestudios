@@ -423,13 +423,13 @@ export async function isSlugAvailable(slug: string, currentUserId: string): Prom
     if (db) {
       const existing = await db.collection('portfolios').findOne({ slug: cleanSlug });
       if (!existing) return true;
-      return existing.userId === currentUserId;
+      return String(existing.userId) === String(currentUserId);
     }
   }
 
   const cached = devPortfolioStore.get(cleanSlug);
   if (!cached) return true;
-  return cached.userId === currentUserId;
+  return String(cached.userId) === String(currentUserId);
 }
 
 /**
@@ -448,7 +448,15 @@ export async function savePortfolio(userId: string, data: Partial<PortfolioData>
   // Ensure slug uniqueness
   const available = await isSlugAvailable(slug, userId);
   if (!available) {
-    slug = `${slug}-${Math.floor(1000 + Math.random() * 9000)}`;
+    // Only append random suffix if there is a conflict with ANOTHER user's portfolio
+    if (!existing || existing.slug !== slug) {
+      slug = `${slug}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+  }
+
+  // If slug has changed, remove old slug from memory cache
+  if (existing?.slug && existing.slug !== slug) {
+    devPortfolioStore.delete(existing.slug);
   }
 
   const portfolioId = existing?.id || `pf_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;

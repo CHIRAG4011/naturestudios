@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
-import { getPortfolioByUserId, savePortfolio, isSlugAvailable } from '@/lib/portfolio-service';
+import { getPortfolioByUserId, savePortfolio, isSlugAvailable, sanitizeSlug } from '@/lib/portfolio-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,15 +71,23 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    // Check slug availability if changed
-    if (body.slug) {
-      const isAvail = await isSlugAvailable(body.slug, user.id);
-      if (!isAvail) {
+    // Check slug availability and sanitize if changed
+    if (body.slug !== undefined) {
+      const cleanSlug = sanitizeSlug(body.slug);
+      if (cleanSlug.length < 3) {
         return NextResponse.json(
-          { error: 'This portfolio username is already taken or reserved. Please choose another.' },
+          { error: 'Portfolio subdomain slug must be at least 3 lowercase letters or numbers.' },
           { status: 400 }
         );
       }
+      const isAvail = await isSlugAvailable(cleanSlug, user.id);
+      if (!isAvail) {
+        return NextResponse.json(
+          { error: `The subdomain "${cleanSlug}.naturestudio.in" is already taken or reserved. Please choose another.` },
+          { status: 400 }
+        );
+      }
+      body.slug = cleanSlug;
     }
 
     // Save with strict tenant isolation

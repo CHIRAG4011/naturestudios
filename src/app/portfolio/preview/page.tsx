@@ -137,7 +137,7 @@ export default function PortfolioPreviewPage() {
           </Link>
 
           <a
-            href={`/portfolio-render/${portfolio.slug}`}
+            href={`/p/${portfolio.slug}`}
             target="_blank"
             rel="noreferrer"
             className="btn-primary text-xs py-1.5 px-3 flex items-center gap-1.5"

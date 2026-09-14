@@ -31,12 +31,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Portfolio not found' }, { status: 404 });
     }
 
-    const updated = await savePortfolio(user.id, {
+    const payload: Partial<typeof portfolio> = {
       ...portfolio,
       status: targetStatus,
-    });
+    };
+
+    if (body.slug) {
+      payload.slug = body.slug;
+    }
+
+    const updated = await savePortfolio(user.id, payload);
 
     const publicUrl = `https://${updated.slug}.naturestudio.in`;
+    const directUrl = `${process.env.APP_URL || 'https://naturestudio.in'}/p/${updated.slug}`;
 
     // Email notifications
     if (targetStatus === 'PUBLISHED') {
@@ -53,6 +60,7 @@ export async function POST(req: NextRequest) {
       success: true,
       status: targetStatus,
       publicUrl,
+      directUrl,
       portfolio: updated,
     });
   } catch (error) {

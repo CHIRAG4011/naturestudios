@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { PortfolioData, PortfolioThemeId } from '@/lib/portfolio-service';
+import { PortfolioData, PortfolioThemeId, sanitizeSlug } from '@/lib/portfolio-service';
 import {
   User,
   Briefcase,
@@ -149,6 +149,8 @@ export default function PortfolioWizard() {
   const [loading, setLoading] = useState(true);
   const [autosaveStatus, setAutosaveStatus] = useState<'Saved' | 'Saving...' | 'Unsaved Changes' | 'Save Failed'>('Saved');
   const autosaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [slugStatus, setSlugStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+  const [slugFeedback, setSlugFeedback] = useState<string | null>(null);
 
   // Load initial portfolio
   useEffect(() => {
@@ -168,6 +170,7 @@ export default function PortfolioWizard() {
         .then((data) => {
           if (data.portfolio) {
             setPortfolio(data.portfolio);
+            setSlugStatus('available');
           }
         })
         .finally(() => setLoading(false));
@@ -190,6 +193,10 @@ export default function PortfolioWizard() {
           body: JSON.stringify(updated),
         });
         if (res.ok) {
+          const d = await res.json();
+          if (d.portfolio) {
+            setPortfolio(d.portfolio);
+          }
           setAutosaveStatus('Saved');
         } else {
           setAutosaveStatus('Save Failed');
@@ -198,6 +205,60 @@ export default function PortfolioWizard() {
         setAutosaveStatus('Save Failed');
       }
     }, 1200);
+  };
+
+  const handleSlugChange = (val: string) => {
+    const clean = sanitizeSlug(val);
+    if (!portfolio) return;
+    setPortfolio({
+      ...portfolio,
+      slug: clean,
+      personalInfo: { ...portfolio.personalInfo, username: clean },
+    });
+    setSlugFeedback(null);
+
+    if (clean.length < 3) {
+      setSlugStatus('idle');
+      return;
+    }
+
+    setSlugStatus('checking');
+    fetch(`/api/portfolio/check-slug?slug=${encodeURIComponent(clean)}`)
+      .then((res) => res.json())
+      .then((d) => {
+        setSlugStatus(d.available ? 'available' : 'taken');
+      })
+      .catch(() => setSlugStatus('idle'));
+  };
+
+  const saveSlugExplicit = async () => {
+    if (!portfolio || !portfolio.slug || portfolio.slug.length < 3) return;
+    setAutosaveStatus('Saving...');
+    try {
+      const res = await fetch('/api/portfolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...portfolio,
+          slug: portfolio.slug,
+          personalInfo: { ...portfolio.personalInfo, username: portfolio.slug },
+        }),
+      });
+      const d = await res.json();
+      if (res.ok && d.portfolio) {
+        setPortfolio(d.portfolio);
+        setAutosaveStatus('Saved');
+        setSlugStatus('available');
+        setSlugFeedback(`Subdomain successfully locked as "${d.portfolio.slug}.naturestudio.in"!`);
+        setTimeout(() => setSlugFeedback(null), 3000);
+      } else {
+        setAutosaveStatus('Save Failed');
+        setSlugFeedback(d.error || 'Failed to save subdomain slug');
+      }
+    } catch {
+      setAutosaveStatus('Save Failed');
+      setSlugFeedback('Failed to save subdomain slug');
+    }
   };
 
   const updatePersonalInfo = (field: string, val: any) => {
@@ -223,6 +284,15 @@ export default function PortfolioWizard() {
     const updated = {
       ...portfolio,
       socialLinks: { ...portfolio.socialLinks, [field]: val },
+    };
+    triggerAutosave(updated);
+  };
+
+  const updateContactConfig = (field: string, val: any) => {
+    if (!portfolio) return;
+    const updated = {
+      ...portfolio,
+      contactConfig: { ...(portfolio.contactConfig || { contactFormEnabled: true }), [field]: val },
     };
     triggerAutosave(updated);
   };
@@ -318,6 +388,120 @@ export default function PortfolioWizard() {
     const sks = [...(portfolio.skills || [])];
     sks.splice(index, 1);
     triggerAutosave({ ...portfolio, skills: sks });
+  };
+
+  // Step 5: Experience helpers
+  const addExperience = () => {
+    if (!portfolio) return;
+    const newExp = {
+      id: `exp_${Date.now()}`,
+      company: 'Creative Studio / Organization',
+      role: 'Lead Designer',
+      location: 'Remote / Studio',
+      startDate: '2023',
+      endDate: 'Present',
+      currentPosition: true,
+      description: 'Directed broadcast design packages, key art, and visual identity.',
+    };
+    triggerAutosave({ ...portfolio, experience: [...(portfolio.experience || []), newExp] });
+  };
+
+  const removeExperience = (index: number) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.experience || [])];
+    list.splice(index, 1);
+    triggerAutosave({ ...portfolio, experience: list });
+  };
+
+  const updateExperience = (index: number, field: string, val: any) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.experience || [])];
+    list[index] = { ...list[index], [field]: val };
+    triggerAutosave({ ...portfolio, experience: list });
+  };
+
+  // Step 6: Education helpers
+  const addEducation = () => {
+    if (!portfolio) return;
+    const newEdu = {
+      id: `edu_${Date.now()}`,
+      institution: 'Design Academy / University',
+      degree: 'Bachelor of Design',
+      field: 'Visual Communication & Digital Media',
+      startDate: '2020',
+      endDate: '2024',
+      description: 'Specialized in kinetic typography, 3D broadcast design, and interactive media.',
+    };
+    triggerAutosave({ ...portfolio, education: [...(portfolio.education || []), newEdu] });
+  };
+
+  const removeEducation = (index: number) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.education || [])];
+    list.splice(index, 1);
+    triggerAutosave({ ...portfolio, education: list });
+  };
+
+  const updateEducation = (index: number, field: string, val: any) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.education || [])];
+    list[index] = { ...list[index], [field]: val };
+    triggerAutosave({ ...portfolio, education: list });
+  };
+
+  // Step 7: Achievements / Certifications helpers
+  const addCertification = () => {
+    if (!portfolio) return;
+    const newCert = {
+      id: `cert_${Date.now()}`,
+      title: 'Esports Creative Excellence Award',
+      issuer: 'Broadcast Graphics Guild',
+      date: '2025',
+      award: 'First Place',
+      credentialUrl: '',
+    };
+    triggerAutosave({ ...portfolio, certifications: [...(portfolio.certifications || []), newCert] });
+  };
+
+  const removeCertification = (index: number) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.certifications || [])];
+    list.splice(index, 1);
+    triggerAutosave({ ...portfolio, certifications: list });
+  };
+
+  const updateCertification = (index: number, field: string, val: any) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.certifications || [])];
+    list[index] = { ...list[index], [field]: val };
+    triggerAutosave({ ...portfolio, certifications: list });
+  };
+
+  // Step 8: Services helpers
+  const addService = () => {
+    if (!portfolio) return;
+    const newSvc = {
+      id: `svc_${Date.now()}`,
+      name: 'Broadcast Overlay & HUD Package',
+      description: 'Full-stream esports branding with animated stingers, camera borders, and lower thirds.',
+      startingPrice: '$1,200',
+      deliveryTime: '5 Days',
+    };
+    triggerAutosave({ ...portfolio, services: [...(portfolio.services || []), newSvc] });
+  };
+
+  const removeService = (index: number) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.services || [])];
+    list.splice(index, 1);
+    triggerAutosave({ ...portfolio, services: list });
+  };
+
+  const updateService = (index: number, field: string, val: any) => {
+    if (!portfolio) return;
+    const list = [...(portfolio.services || [])];
+    list[index] = { ...list[index], [field]: val };
+    triggerAutosave({ ...portfolio, services: list });
   };
 
   if (authLoading || loading || !portfolio) {
@@ -430,20 +614,43 @@ export default function PortfolioWizard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">
-                  Portfolio Subdomain Slug (username.naturestudio.in) *
-                </label>
-                <input
-                  type="text"
-                  value={portfolio.slug || ''}
-                  onChange={(e) => triggerAutosave({ ...portfolio, slug: e.target.value })}
-                  className="field font-mono"
-                  placeholder="alex"
-                />
-                <span className="text-[11px] font-mono text-[#FED7B8] block mt-1">
-                  URL: https://{portfolio.slug || 'username'}.naturestudio.in
-                </span>
+              <div className="p-4 rounded-xl bg-[#2D0A0E]/60 border border-[#52141A] space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                    Portfolio Subdomain Slug *
+                  </label>
+                  <button
+                    type="button"
+                    onClick={saveSlugExplicit}
+                    disabled={!portfolio.slug || portfolio.slug.length < 3 || slugStatus === 'taken'}
+                    className="text-[11px] font-mono px-2.5 py-1 rounded bg-[#59171B] hover:bg-[#721D22] text-[#FED7B8] border border-[#FED7B8]/30 flex items-center gap-1 disabled:opacity-40"
+                  >
+                    <Save className="w-3 h-3" /> Lock & Save Slug
+                  </button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={portfolio.slug || ''}
+                    onChange={(e) => handleSlugChange(e.target.value)}
+                    className="field font-mono text-sm"
+                    placeholder="creator"
+                  />
+                  <span className="text-xs font-mono text-[#B89B8D] shrink-0">.naturestudio.in</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] font-mono">
+                  <div>
+                    {slugStatus === 'checking' && <span className="text-[#FED7B8]">Checking availability...</span>}
+                    {slugStatus === 'available' && <span className="text-[#18A957]">✓ Subdomain available</span>}
+                    {slugStatus === 'taken' && <span className="text-[#E63946]">✗ Subdomain already taken</span>}
+                  </div>
+                  <span className="text-[#B89B8D]">
+                    Direct: naturestudio.in/p/{portfolio.slug || 'slug'}
+                  </span>
+                </div>
+                {slugFeedback && (
+                  <p className="text-[11px] font-mono text-[#18A957]">{slugFeedback}</p>
+                )}
               </div>
               <div>
                 <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Professional Title</label>
@@ -767,6 +974,663 @@ export default function PortfolioWizard() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 5: EXPERIENCE */}
+        {currentStep === 5 && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                  Step 05 / 13
+                </span>
+                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Work Experience</h2>
+                <p className="text-xs text-[#B89B8D] mt-1">
+                  Showcase your professional timeline, studios, organizations, and broadcast tenures.
+                </p>
+              </div>
+              <button onClick={addExperience} className="btn-secondary text-xs py-2 px-3 flex items-center gap-1">
+                <Plus className="w-3.5 h-3.5" /> Add Experience
+              </button>
+            </div>
+
+            {(!portfolio.experience || portfolio.experience.length === 0) ? (
+              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
+                <Clock className="w-8 h-8 text-[#52141A] mx-auto" />
+                <p className="text-xs font-mono text-[#B89B8D]">No work experience entries added yet.</p>
+                <button onClick={addExperience} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                  <Plus className="w-3.5 h-3.5" /> Add First Experience
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {portfolio.experience.map((exp, idx) => (
+                  <div key={exp.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                        Experience #{idx + 1}
+                      </span>
+                      <button
+                        onClick={() => removeExperience(idx)}
+                        className="text-xs font-mono text-[#E63946] hover:underline flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Remove
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Job Title / Role</label>
+                        <input
+                          type="text"
+                          value={exp.role || ''}
+                          onChange={(e) => updateExperience(idx, 'role', e.target.value)}
+                          className="field"
+                          placeholder="Senior Motion Designer"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Company / Studio</label>
+                        <input
+                          type="text"
+                          value={exp.company || ''}
+                          onChange={(e) => updateExperience(idx, 'company', e.target.value)}
+                          className="field"
+                          placeholder="Riot Games / ESL"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Location</label>
+                        <input
+                          type="text"
+                          value={exp.location || ''}
+                          onChange={(e) => updateExperience(idx, 'location', e.target.value)}
+                          className="field"
+                          placeholder="Berlin / Remote"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Start Date</label>
+                        <input
+                          type="text"
+                          value={exp.startDate || ''}
+                          onChange={(e) => updateExperience(idx, 'startDate', e.target.value)}
+                          className="field"
+                          placeholder="2023 or Jan 2023"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">End Date</label>
+                        <input
+                          type="text"
+                          disabled={exp.currentPosition}
+                          value={exp.currentPosition ? 'Present' : (exp.endDate || '')}
+                          onChange={(e) => updateExperience(idx, 'endDate', e.target.value)}
+                          className="field disabled:opacity-50"
+                          placeholder="2025"
+                        />
+                      </div>
+                    </div>
+
+                    <label className="flex items-center gap-2 cursor-pointer text-xs font-mono text-[#FED7B8]">
+                      <input
+                        type="checkbox"
+                        checked={!!exp.currentPosition}
+                        onChange={(e) => updateExperience(idx, 'currentPosition', e.target.checked)}
+                        className="rounded border-[#52141A] bg-[#150304] text-[#E63946] focus:ring-0"
+                      />
+                      <span>I currently work here</span>
+                    </label>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Key Responsibilities & Highlights</label>
+                      <textarea
+                        rows={3}
+                        value={exp.description || ''}
+                        onChange={(e) => updateExperience(idx, 'description', e.target.value)}
+                        className="field resize-none"
+                        placeholder="Led the seasonal broadcast package, oversaw 3D tournament transitions, and maintained design systems..."
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* STEP 6: EDUCATION */}
+        {currentStep === 6 && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                  Step 06 / 13
+                </span>
+                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Education & Training</h2>
+                <p className="text-xs text-[#B89B8D] mt-1">
+                  List academic degrees, diplomas, bootcamps, or specialized design programs.
+                </p>
+              </div>
+              <button onClick={addEducation} className="btn-secondary text-xs py-2 px-3 flex items-center gap-1">
+                <Plus className="w-3.5 h-3.5" /> Add Education
+              </button>
+            </div>
+
+            {(!portfolio.education || portfolio.education.length === 0) ? (
+              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
+                <GraduationCap className="w-8 h-8 text-[#52141A] mx-auto" />
+                <p className="text-xs font-mono text-[#B89B8D]">No education records added yet.</p>
+                <button onClick={addEducation} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                  <Plus className="w-3.5 h-3.5" /> Add First Education
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {portfolio.education.map((edu, idx) => (
+                  <div key={edu.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                        Education #{idx + 1}
+                      </span>
+                      <button
+                        onClick={() => removeEducation(idx)}
+                        className="text-xs font-mono text-[#E63946] hover:underline flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Remove
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Degree / Certificate</label>
+                        <input
+                          type="text"
+                          value={edu.degree || ''}
+                          onChange={(e) => updateEducation(idx, 'degree', e.target.value)}
+                          className="field"
+                          placeholder="Bachelor of Fine Arts"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Institution / University</label>
+                        <input
+                          type="text"
+                          value={edu.institution || ''}
+                          onChange={(e) => updateEducation(idx, 'institution', e.target.value)}
+                          className="field"
+                          placeholder="National Institute of Design"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Field of Study</label>
+                        <input
+                          type="text"
+                          value={edu.field || ''}
+                          onChange={(e) => updateEducation(idx, 'field', e.target.value)}
+                          className="field"
+                          placeholder="Animation & Interaction Design"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Start Year</label>
+                        <input
+                          type="text"
+                          value={edu.startDate || ''}
+                          onChange={(e) => updateEducation(idx, 'startDate', e.target.value)}
+                          className="field"
+                          placeholder="2019"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Graduation Year</label>
+                        <input
+                          type="text"
+                          value={edu.endDate || ''}
+                          onChange={(e) => updateEducation(idx, 'endDate', e.target.value)}
+                          className="field"
+                          placeholder="2023"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Description / Coursework</label>
+                      <textarea
+                        rows={2}
+                        value={edu.description || ''}
+                        onChange={(e) => updateEducation(idx, 'description', e.target.value)}
+                        className="field resize-none"
+                        placeholder="Specialized in kinetic brand typography and digital broadcast architectures..."
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* STEP 7: ACHIEVEMENTS & CERTIFICATIONS */}
+        {currentStep === 7 && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                  Step 07 / 13
+                </span>
+                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Achievements & Awards</h2>
+                <p className="text-xs text-[#B89B8D] mt-1">
+                  Highlight industry trophies, design awards, verified certifications, and recognitions.
+                </p>
+              </div>
+              <button onClick={addCertification} className="btn-secondary text-xs py-2 px-3 flex items-center gap-1">
+                <Plus className="w-3.5 h-3.5" /> Add Achievement
+              </button>
+            </div>
+
+            {(!portfolio.certifications || portfolio.certifications.length === 0) ? (
+              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
+                <Award className="w-8 h-8 text-[#52141A] mx-auto" />
+                <p className="text-xs font-mono text-[#B89B8D]">No achievements or certifications added yet.</p>
+                <button onClick={addCertification} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                  <Plus className="w-3.5 h-3.5" /> Add First Achievement
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {portfolio.certifications.map((cert, idx) => (
+                  <div key={cert.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                        Achievement #{idx + 1}
+                      </span>
+                      <button
+                        onClick={() => removeCertification(idx)}
+                        className="text-xs font-mono text-[#E63946] hover:underline flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Remove
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Title / Honor</label>
+                        <input
+                          type="text"
+                          value={cert.title || ''}
+                          onChange={(e) => updateCertification(idx, 'title', e.target.value)}
+                          className="field"
+                          placeholder="Motion Design Winner 2025"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Issuer / Organization</label>
+                        <input
+                          type="text"
+                          value={cert.issuer || ''}
+                          onChange={(e) => updateCertification(idx, 'issuer', e.target.value)}
+                          className="field"
+                          placeholder="Awwwards / The FWA / Adobe"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Date / Year</label>
+                        <input
+                          type="text"
+                          value={cert.date || ''}
+                          onChange={(e) => updateCertification(idx, 'date', e.target.value)}
+                          className="field"
+                          placeholder="2025"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Award Rank / Tier</label>
+                        <input
+                          type="text"
+                          value={cert.award || ''}
+                          onChange={(e) => updateCertification(idx, 'award', e.target.value)}
+                          className="field"
+                          placeholder="Gold Trophy / Site of the Day"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Credential URL (Optional)</label>
+                        <input
+                          type="text"
+                          value={cert.credentialUrl || ''}
+                          onChange={(e) => updateCertification(idx, 'credentialUrl', e.target.value)}
+                          className="field"
+                          placeholder="https://..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* STEP 8: SERVICES & OFFERINGS */}
+        {currentStep === 8 && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                  Step 08 / 13
+                </span>
+                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Services & Packages</h2>
+                <p className="text-xs text-[#B89B8D] mt-1">
+                  Define commission offerings, freelance capabilities, starting rates, and delivery speeds.
+                </p>
+              </div>
+              <button onClick={addService} className="btn-secondary text-xs py-2 px-3 flex items-center gap-1">
+                <Plus className="w-3.5 h-3.5" /> Add Service
+              </button>
+            </div>
+
+            {(!portfolio.services || portfolio.services.length === 0) ? (
+              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
+                <Package className="w-8 h-8 text-[#52141A] mx-auto" />
+                <p className="text-xs font-mono text-[#B89B8D]">No services or commission packages configured yet.</p>
+                <button onClick={addService} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                  <Plus className="w-3.5 h-3.5" /> Add First Service
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {portfolio.services.map((svc, idx) => (
+                  <div key={svc.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                        Service #{idx + 1}
+                      </span>
+                      <button
+                        onClick={() => removeService(idx)}
+                        className="text-xs font-mono text-[#E63946] hover:underline flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Remove
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Service Name</label>
+                        <input
+                          type="text"
+                          value={svc.name || ''}
+                          onChange={(e) => updateService(idx, 'name', e.target.value)}
+                          className="field"
+                          placeholder="Full Stream Broadcast Package"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Starting Price</label>
+                        <input
+                          type="text"
+                          value={svc.startingPrice || ''}
+                          onChange={(e) => updateService(idx, 'startingPrice', e.target.value)}
+                          className="field"
+                          placeholder="From $800"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Delivery Time</label>
+                        <input
+                          type="text"
+                          value={svc.deliveryTime || ''}
+                          onChange={(e) => updateService(idx, 'deliveryTime', e.target.value)}
+                          className="field"
+                          placeholder="5-7 Days"
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Scope & Deliverables</label>
+                        <textarea
+                          rows={2}
+                          value={svc.description || ''}
+                          onChange={(e) => updateService(idx, 'description', e.target.value)}
+                          className="field resize-none"
+                          placeholder="Includes 3 animated scenes, 4 Twitch overlays, stinger transition, and project source files."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* STEP 9: SOCIAL LINKS */}
+        {currentStep === 9 && (
+          <div className="space-y-6">
+            <div>
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                Step 09 / 13
+              </span>
+              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Social Coordinates</h2>
+              <p className="text-xs text-[#B89B8D] mt-1">
+                Connect your professional networks, streaming channels, and design profiles.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Twitter / X</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.twitter || ''}
+                    onChange={(e) => updateSocialLinks('twitter', e.target.value)}
+                    className="field"
+                    placeholder="https://x.com/username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Instagram</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.instagram || ''}
+                    onChange={(e) => updateSocialLinks('instagram', e.target.value)}
+                    className="field"
+                    placeholder="https://instagram.com/username"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">LinkedIn</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.linkedin || ''}
+                    onChange={(e) => updateSocialLinks('linkedin', e.target.value)}
+                    className="field"
+                    placeholder="https://linkedin.com/in/username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">GitHub</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.github || ''}
+                    onChange={(e) => updateSocialLinks('github', e.target.value)}
+                    className="field"
+                    placeholder="https://github.com/username"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Behance</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.behance || ''}
+                    onChange={(e) => updateSocialLinks('behance', e.target.value)}
+                    className="field"
+                    placeholder="https://behance.net/username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Dribbble</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.dribbble || ''}
+                    onChange={(e) => updateSocialLinks('dribbble', e.target.value)}
+                    className="field"
+                    placeholder="https://dribbble.com/username"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">YouTube</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.youtube || ''}
+                    onChange={(e) => updateSocialLinks('youtube', e.target.value)}
+                    className="field"
+                    placeholder="https://youtube.com/@channel"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Twitch</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.twitch || ''}
+                    onChange={(e) => updateSocialLinks('twitch', e.target.value)}
+                    className="field"
+                    placeholder="https://twitch.tv/username"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Discord Tag / Invite</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.discord || ''}
+                    onChange={(e) => updateSocialLinks('discord', e.target.value)}
+                    className="field"
+                    placeholder="discord.gg/server or handle#0001"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Personal Website</label>
+                  <input
+                    type="text"
+                    value={portfolio.socialLinks?.website || ''}
+                    onChange={(e) => updateSocialLinks('website', e.target.value)}
+                    className="field"
+                    placeholder="https://mycreativestudio.com"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 10: CONTACT CONFIGURATION */}
+        {currentStep === 10 && (
+          <div className="space-y-6">
+            <div>
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                Step 10 / 13
+              </span>
+              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Contact & Booking Configuration</h2>
+              <p className="text-xs text-[#B89B8D] mt-1">
+                Configure how prospective teams, brands, and clients get in touch with you.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Public Inquiries Email</label>
+                  <input
+                    type="email"
+                    value={portfolio.contactConfig?.publicEmail || portfolio.personalInfo?.publicEmail || ''}
+                    onChange={(e) => updateContactConfig('publicEmail', e.target.value)}
+                    className="field"
+                    placeholder="business@creator.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Geographic Location</label>
+                  <input
+                    type="text"
+                    value={portfolio.contactConfig?.location || portfolio.personalInfo?.location || ''}
+                    onChange={(e) => updateContactConfig('location', e.target.value)}
+                    className="field"
+                    placeholder="Los Angeles, CA / Remote Worldwide"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Availability Status</label>
+                  <input
+                    type="text"
+                    value={portfolio.contactConfig?.availability || portfolio.personalInfo?.availability || 'Available for projects'}
+                    onChange={(e) => updateContactConfig('availability', e.target.value)}
+                    className="field"
+                    placeholder="Available for Q4 2026 Projects"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Preferred Contact Method</label>
+                  <select
+                    value={portfolio.contactConfig?.preferredContactMethod || 'Email'}
+                    onChange={(e) => updateContactConfig('preferredContactMethod', e.target.value)}
+                    className="field"
+                  >
+                    <option value="Email">Email</option>
+                    <option value="Discord">Discord</option>
+                    <option value="Twitter DM">Twitter / X Direct Message</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Telegram">Telegram</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-[#3D0D13]">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={portfolio.contactConfig?.contactFormEnabled !== false}
+                    onChange={(e) => updateContactConfig('contactFormEnabled', e.target.checked)}
+                    className="rounded border-[#52141A] bg-[#150304] text-[#18A957] focus:ring-0"
+                  />
+                  <div>
+                    <span className="text-xs font-bold font-mono text-[#FFF5ED] block">
+                      Enable Direct Inquiries Form
+                    </span>
+                    <span className="text-[11px] text-[#B89B8D]">
+                      Renders an encrypted contact form directly on your public portfolio page.
+                    </span>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         )}
@@ -1301,9 +2165,13 @@ export default function PortfolioWizard() {
             </div>
 
             <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4 font-mono text-xs">
-              <div className="flex justify-between border-b border-[#3D0D13] pb-3">
-                <span className="text-[#B89B8D]">SUBDOMAIN:</span>
-                <span className="text-[#FED7B8] font-bold">https://{portfolio.slug}.naturestudio.in</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
+                <span className="text-[#B89B8D]">CUSTOM SUBDOMAIN:</span>
+                <span className="text-[#FED7B8] font-bold break-all">https://{portfolio.slug}.naturestudio.in</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
+                <span className="text-[#B89B8D]">DIRECT LIVE ROUTE:</span>
+                <span className="text-[#18A957] font-bold break-all">https://naturestudio.in/p/{portfolio.slug}</span>
               </div>
               <div className="flex justify-between border-b border-[#3D0D13] pb-3">
                 <span className="text-[#B89B8D]">THEME:</span>
@@ -1322,18 +2190,45 @@ export default function PortfolioWizard() {
             <div className="flex flex-wrap gap-4">
               <button
                 onClick={async () => {
-                  await fetch('/api/portfolio/publish', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: 'PUBLISHED' }),
-                  });
-                  setPortfolio({ ...portfolio, status: 'PUBLISHED' });
-                  alert(`Portfolio successfully published to https://${portfolio.slug}.naturestudio.in!`);
+                  setAutosaveStatus('Saving...');
+                  try {
+                    // 1. Save all wizard modifications first
+                    await fetch('/api/portfolio', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(portfolio),
+                    });
+
+                    // 2. Publish portfolio
+                    const res = await fetch('/api/portfolio/publish', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ status: 'PUBLISHED', slug: portfolio.slug }),
+                    });
+                    const d = await res.json();
+                    if (d.portfolio) {
+                      setPortfolio(d.portfolio);
+                    } else {
+                      setPortfolio({ ...portfolio, status: 'PUBLISHED' });
+                    }
+                    setAutosaveStatus('Saved');
+                    alert(`Portfolio successfully published! Access it live at: https://naturestudio.in/p/${portfolio.slug}`);
+                  } catch (e) {
+                    alert('Error publishing portfolio. Please try again.');
+                  }
                 }}
                 className="btn-primary text-xs py-3 px-6"
               >
                 Publish Live to {portfolio.slug}.naturestudio.in
               </button>
+              <a
+                href={`https://naturestudio.in/p/${portfolio.slug}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary text-xs py-3 px-6 flex items-center gap-1.5"
+              >
+                <ExternalLink className="w-3.5 h-3.5" /> Open Direct Route (/p/{portfolio.slug})
+              </a>
               <Link href="/portfolio/preview" className="btn-secondary text-xs py-3 px-6">
                 Open Device Preview
               </Link>

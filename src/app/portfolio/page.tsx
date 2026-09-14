@@ -46,6 +46,7 @@ export default function MyPortfolioDashboard() {
   const [loading, setLoading] = useState(true);
   const [publishing, setPublishing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copiedDirect, setCopiedDirect] = useState(false);
   const [error, setError] = useState('');
 
   // Scroll animations for 3D device preview
@@ -123,6 +124,14 @@ export default function MyPortfolioDashboard() {
   }
 
   const publicUrl = portfolio ? `https://${portfolio.slug}.naturestudio.in` : '';
+  const directUrl = portfolio ? `https://naturestudio.in/p/${portfolio.slug}` : '';
+
+  const copyDirectUrl = () => {
+    if (!directUrl) return;
+    navigator.clipboard.writeText(directUrl);
+    setCopiedDirect(true);
+    setTimeout(() => setCopiedDirect(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-[#150304] text-[#FFF5ED] font-sans selection:bg-[#59171B] selection:text-[#FED7B8] overflow-x-hidden">
@@ -144,10 +153,10 @@ export default function MyPortfolioDashboard() {
           </Link>
           {portfolio?.status === 'PUBLISHED' && (
             <a
-              href={`/portfolio-render/${portfolio.slug}`}
+              href={`/p/${portfolio.slug}`}
               target="_blank"
               rel="noreferrer"
-              className="btn-primary text-xs py-2 px-4"
+              className="btn-primary text-xs py-2 px-4 flex items-center gap-1.5"
             >
               <ExternalLink className="w-3.5 h-3.5" /> View Public
             </a>
@@ -217,22 +226,61 @@ export default function MyPortfolioDashboard() {
                 </span>
               </div>
 
-              <div className="mb-6 relative z-10">
-                <label className="text-[11px] font-mono uppercase text-[#B89B8D] block mb-2">
-                  Public Subdomain Link
-                </label>
-                <div className="flex items-center gap-2 p-3 bg-[#150304] border border-[#3D0D13] rounded-xl">
-                  <Globe className="w-4 h-4 text-[#FED7B8] flex-shrink-0" />
-                  <span className="font-mono text-sm text-[#FED7B8] truncate flex-1">
-                    {publicUrl}
-                  </span>
-                  <button
-                    onClick={copyPublicUrl}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#2D0A0E] text-[11px] font-mono uppercase text-[#FED7B8] hover:bg-[#3A0E11] transition-colors"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-[#18A957]" /> : <Copy className="w-3.5 h-3.5 text-[#FED7B8]" />}
-                    {copied ? 'Copied' : 'Copy'}
-                  </button>
+              <div className="mb-6 space-y-3 relative z-10">
+                {/* Direct Instant Link */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-[11px] font-mono uppercase text-[#FED7B8] font-bold flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#18A957]" /> Direct Instant Link (Always Works)
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-2 p-2.5 bg-[#150304] border border-[#52141A] rounded-xl">
+                    <Globe className="w-4 h-4 text-[#18A957] flex-shrink-0" />
+                    <span className="font-mono text-xs text-[#FFF5ED] truncate flex-1">
+                      {directUrl}
+                    </span>
+                    <button
+                      onClick={copyDirectUrl}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#2D0A0E] text-[11px] font-mono text-[#FED7B8] hover:bg-[#3A0E11] transition-colors"
+                    >
+                      {copiedDirect ? <Check className="w-3.5 h-3.5 text-[#18A957]" /> : <Copy className="w-3.5 h-3.5 text-[#FED7B8]" />}
+                      {copiedDirect ? 'Copied' : 'Copy'}
+                    </button>
+                    <a
+                      href={directUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#59171B] text-[11px] font-mono text-[#FED7B8] hover:bg-[#721D22] transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" /> Open
+                    </a>
+                  </div>
+                </div>
+
+                {/* Subdomain Link */}
+                <div>
+                  <label className="text-[11px] font-mono uppercase text-[#B89B8D] block mb-1.5">
+                    Custom Subdomain (Requires Wildcard DNS)
+                  </label>
+                  <div className="flex items-center gap-2 p-2.5 bg-[#150304] border border-[#3D0D13] rounded-xl">
+                    <Globe className="w-4 h-4 text-[#FED7B8] flex-shrink-0" />
+                    <span className="font-mono text-xs text-[#B89B8D] truncate flex-1">
+                      {publicUrl}
+                    </span>
+                    <button
+                      onClick={copyPublicUrl}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#2D0A0E] text-[11px] font-mono text-[#FED7B8] hover:bg-[#3A0E11] transition-colors"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5 text-[#18A957]" /> : <Copy className="w-3.5 h-3.5 text-[#FED7B8]" />}
+                      {copied ? 'Copied' : 'Copy'}
+                    </button>
+                    <Link
+                      href="/portfolio/settings"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#2D0A0E] text-[11px] font-mono text-[#FED7B8] hover:bg-[#3A0E11] transition-colors"
+                    >
+                      Setup DNS
+                    </Link>
+                  </div>
                 </div>
               </div>
 
