@@ -56,18 +56,34 @@ export function middleware(req: NextRequest) {
   }
 
   // Determine potential subdomain:
-  // 1. In production: [subdomain].naturestudio.in
-  // 2. In local testing: [subdomain].localhost, or test query / header ?subdomain=xyz
+  // 1. URL query param (?subdomain=xyz) for local/preview testing
+  // 2. Custom header (x-subdomain: xyz)
+  // 3. Production domain (*.naturestudio.in, *.naturestudios.art)
+  // 4. Local testing (*.localhost)
   let subdomain: string | null = null;
 
-  if (hostname.endsWith('.naturestudio.in')) {
-    const parts = hostname.replace('.naturestudio.in', '').split('.');
-    subdomain = parts[parts.length - 1];
-  } else if (hostname.endsWith('.localhost')) {
-    const parts = hostname.replace('.localhost', '').split('.');
-    subdomain = parts[parts.length - 1];
+  if (url.searchParams.has('subdomain')) {
+    subdomain = url.searchParams.get('subdomain');
   } else if (req.headers.get('x-subdomain')) {
     subdomain = req.headers.get('x-subdomain');
+  } else if (hostname.endsWith('.naturestudio.in')) {
+    const prefix = hostname.replace('.naturestudio.in', '');
+    if (prefix && prefix !== 'www') {
+      const parts = prefix.split('.');
+      subdomain = parts[parts.length - 1];
+    }
+  } else if (hostname.endsWith('.naturestudios.art')) {
+    const prefix = hostname.replace('.naturestudios.art', '');
+    if (prefix && prefix !== 'www') {
+      const parts = prefix.split('.');
+      subdomain = parts[parts.length - 1];
+    }
+  } else if (hostname.endsWith('.localhost')) {
+    const prefix = hostname.replace('.localhost', '');
+    if (prefix && prefix !== 'www') {
+      const parts = prefix.split('.');
+      subdomain = parts[parts.length - 1];
+    }
   }
 
   // If a valid, non-reserved subdomain is detected, rewrite internally to /portfolio-render/[slug]

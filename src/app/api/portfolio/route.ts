@@ -15,6 +15,13 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. Portfolio access is restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
+    }
+
     let portfolio = await getPortfolioByUserId(user.id);
     if (!portfolio) {
       // Auto-initialize default draft portfolio with user profile info

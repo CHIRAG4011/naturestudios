@@ -239,7 +239,7 @@ export async function PUT(req: NextRequest) {
         },
       });
 
-      // Sync MongoDB adminUserStatuses
+      // Sync MongoDB adminUserStatuses and portfolios
       const db = await getMongoDb();
       if (db) {
         await db.collection('adminUserStatuses').updateOne(
@@ -254,6 +254,18 @@ export async function PUT(req: NextRequest) {
             },
           },
           { upsert: true }
+        );
+
+        // Synchronize portfolio status to SUSPENDED
+        await db.collection('portfolios').updateMany(
+          { userId },
+          {
+            $set: {
+              status: 'SUSPENDED',
+              suspendedReason: suspendReason,
+              suspendedAt: new Date().toISOString(),
+            },
+          }
         );
       }
 
@@ -306,7 +318,7 @@ export async function PUT(req: NextRequest) {
         },
       });
 
-      // Sync MongoDB adminUserStatuses
+      // Sync MongoDB adminUserStatuses and portfolios
       const db = await getMongoDb();
       if (db) {
         await db.collection('adminUserStatuses').updateOne(
@@ -321,6 +333,18 @@ export async function PUT(req: NextRequest) {
             },
           },
           { upsert: true }
+        );
+
+        // Restore previously suspended portfolios
+        await db.collection('portfolios').updateMany(
+          { userId, status: 'SUSPENDED' },
+          {
+            $set: {
+              status: 'PUBLISHED',
+              suspendedReason: null,
+              suspendedAt: null,
+            },
+          }
         );
       }
 

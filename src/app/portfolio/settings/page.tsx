@@ -32,6 +32,11 @@ export default function PortfolioSettingsPage() {
       return;
     }
 
+    if (user && (user.isSuspended || user.status === 'SUSPENDED')) {
+      router.replace('/dashboard/tickets?type=appeal');
+      return;
+    }
+
     if (user) {
       fetch('/api/portfolio')
         .then((res) => res.json())

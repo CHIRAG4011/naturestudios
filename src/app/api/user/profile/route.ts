@@ -44,6 +44,13 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. Profile updates are restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const { name, avatarUrl } = body;
 
@@ -181,6 +188,13 @@ export async function POST(req: NextRequest) {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. Avatar uploads are restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
     }
 
     const formData = await req.formData();

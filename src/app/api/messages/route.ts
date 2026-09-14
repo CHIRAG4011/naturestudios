@@ -11,6 +11,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. Messaging is restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const projectId = searchParams.get('projectId');
 
@@ -53,6 +60,13 @@ export async function POST(req: NextRequest) {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. Messaging is restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
     }
 
     const body = await req.json();

@@ -11,6 +11,13 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (user.isSuspended || user.status === 'SUSPENDED') {
+      return NextResponse.json(
+        { error: 'Account is suspended. Project access is restricted. Please appeal via Support Tickets.' },
+        { status: 403 }
+      );
+    }
+
     const projects = await prisma.project.findMany({
       where: { userId: user.id },
       include: {

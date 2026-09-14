@@ -284,6 +284,30 @@ export async function PUT(
           },
           { upsert: true }
         );
+
+        if (status === 'SUSPENDED') {
+          await db.collection('portfolios').updateMany(
+            { userId },
+            {
+              $set: {
+                status: 'SUSPENDED',
+                suspendedReason: suspendReason,
+                suspendedAt: new Date().toISOString(),
+              },
+            }
+          );
+        } else if (status === 'ACTIVE') {
+          await db.collection('portfolios').updateMany(
+            { userId, status: 'SUSPENDED' },
+            {
+              $set: {
+                status: 'PUBLISHED',
+                suspendedReason: null,
+                suspendedAt: null,
+              },
+            }
+          );
+        }
       }
 
       if (status === 'SUSPENDED') {

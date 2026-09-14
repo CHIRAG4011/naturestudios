@@ -5,7 +5,13 @@ import { prisma } from './prisma';
  * Portfolio Data Types and Configurations
  */
 
-export type PortfolioStatus = 'DRAFT' | 'PUBLISHED' | 'UNPUBLISHED' | 'ARCHIVED';
+export type PortfolioStatus = 'DRAFT' | 'PUBLISHED' | 'UNPUBLISHED' | 'ARCHIVED' | 'SUSPENDED';
+
+export interface PortfolioResolution {
+  portfolio: PortfolioData | null;
+  state: 'PUBLISHED' | 'SUSPENDED' | 'DRAFT' | 'NOT_FOUND';
+  suspendedReason?: string | null;
+}
 
 export type PortfolioThemeId =
   | 'editorial'
@@ -300,54 +306,106 @@ export async function getPortfolioByUserId(userId: string): Promise<PortfolioDat
 }
 
 /**
- * Find public published portfolio by slug (subdomain lookup)
+ * Resolve public portfolio status by slug (for subdomains and /portfolio-render/[slug])
+ * Detects whether portfolio is PUBLISHED, SUSPENDED (directly or via owner account), DRAFT, or NOT_FOUND
  */
-export async function getPublishedPortfolioBySlug(slug: string): Promise<PortfolioData | null> {
+export async function getPortfolioResolutionBySlug(slug: string): Promise<PortfolioResolution> {
   const cleanSlug = sanitizeSlug(slug);
 
   if (isMongoConfigured()) {
     await ensureMongoIndexes();
     const db = await getMongoDb();
     if (db) {
-      const doc = await db.collection('portfolios').findOne({
-        slug: cleanSlug,
-        status: 'PUBLISHED',
-      });
+      const doc = await db.collection('portfolios').findOne({ slug: cleanSlug });
       if (doc) {
         const { _id, ...rest } = doc;
-        // Strip sensitive internal fields:
-        return {
+        const portfolioData = {
           id: _id.toString(),
-          slug: doc.slug,
-          status: doc.status,
-          title: doc.title,
-          description: doc.description,
-          themeId: doc.themeId,
-          personalInfo: doc.personalInfo,
-          professionalIdentity: doc.professionalIdentity,
-          skills: doc.skills,
-          projects: doc.projects,
-          experience: doc.experience,
-          education: doc.education,
-          certifications: doc.certifications,
-          services: doc.services,
-          socialLinks: doc.socialLinks,
-          contactConfig: doc.contactConfig,
-          designConfig: doc.designConfig,
-          seoConfig: doc.seoConfig,
-          publishedAt: doc.publishedAt,
-          createdAt: doc.createdAt,
-          updatedAt: doc.updatedAt,
+          ...rest,
         } as PortfolioData;
+
+        // 1. Check if portfolio itself is marked SUSPENDED
+        if (doc.status === 'SUSPENDED') {
+          return {
+            portfolio: portfolioData,
+            state: 'SUSPENDED',
+            suspendedReason: doc.suspendedReason || 'Portfolio access has been suspended by platform moderation.',
+          };
+        }
+
+        // 2. Check if the creator/owner account is marked SUSPENDED
+        if (doc.userId) {
+          try {
+            const ownerStatus = await db.collection('adminUserStatuses').findOne({ userId: doc.userId });
+            if (ownerStatus && ownerStatus.status === 'SUSPENDED') {
+              return {
+                portfolio: portfolioData,
+                state: 'SUSPENDED',
+                suspendedReason: ownerStatus.reason || 'Creator account is currently suspended.',
+              };
+            }
+
+            const ownerPrisma = await prisma.user.findUnique({
+              where: { id: doc.userId },
+              select: { status: true, suspendedReason: true, suspendedAt: true },
+            }).catch(() => null);
+
+            if (ownerPrisma && ownerPrisma.status === 'SUSPENDED') {
+              return {
+                portfolio: portfolioData,
+                state: 'SUSPENDED',
+                suspendedReason: ownerPrisma.suspendedReason || 'Creator account is currently suspended.',
+              };
+            }
+          } catch (err) {
+            console.error('Error checking portfolio owner status:', err);
+          }
+        }
+
+        // 3. If published and owner is active
+        if (doc.status === 'PUBLISHED') {
+          return {
+            portfolio: portfolioData,
+            state: 'PUBLISHED',
+          };
+        }
+
+        // 4. In draft / unverified
+        return {
+          portfolio: portfolioData,
+          state: 'DRAFT',
+        };
       }
-      return null;
+      return { portfolio: null, state: 'NOT_FOUND' };
     }
   }
 
   // Dev fallback
   const cached = devPortfolioStore.get(cleanSlug);
-  if (cached && cached.status === 'PUBLISHED') {
-    return cached;
+  if (cached) {
+    if (cached.status === 'SUSPENDED') {
+      return {
+        portfolio: cached,
+        state: 'SUSPENDED',
+        suspendedReason: 'Portfolio suspended.',
+      };
+    }
+    if (cached.status === 'PUBLISHED') {
+      return { portfolio: cached, state: 'PUBLISHED' };
+    }
+    return { portfolio: cached, state: 'DRAFT' };
+  }
+
+  return { portfolio: null, state: 'NOT_FOUND' };
+}
+
+/**
+ * Find public published portfolio by slug (subdomain lookup)
+ */
+export async function getPublishedPortfolioBySlug(slug: string): Promise<PortfolioData | null> {
+  const resolution = await getPortfolioResolutionBySlug(slug);
+  if (resolution.state === 'PUBLISHED') {
+    return resolution.portfolio;
   }
   return null;
 }
