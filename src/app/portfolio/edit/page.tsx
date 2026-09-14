@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { PortfolioData, PortfolioThemeId, sanitizeSlug } from '@/lib/portfolio-service';
+import type { PortfolioData, PortfolioThemeId } from '@/lib/portfolio-shared';
+import { sanitizeSlug } from '@/lib/portfolio-shared';
 import {
   User,
   Briefcase,

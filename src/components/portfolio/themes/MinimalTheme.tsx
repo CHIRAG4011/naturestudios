@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PortfolioData } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
 import { ExternalLink, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 

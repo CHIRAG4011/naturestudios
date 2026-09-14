@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { PortfolioData } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
 import { EditorialTheme } from './themes/EditorialTheme';
 import { CinematicTheme } from './themes/CinematicTheme';
 import { EsportsTheme } from './themes/EsportsTheme';

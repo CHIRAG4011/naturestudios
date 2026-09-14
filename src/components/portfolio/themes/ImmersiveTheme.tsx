@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PortfolioData } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
 import { Sparkles, ArrowDown, MapPin, Globe } from 'lucide-react';
 import Image from 'next/image';
 

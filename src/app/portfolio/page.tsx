@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
-import { PortfolioData } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
 import {
   Globe,
   Edit3,

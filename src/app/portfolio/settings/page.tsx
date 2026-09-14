@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { PortfolioData, sanitizeSlug } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
+import { sanitizeSlug } from '@/lib/portfolio-shared';
 import {
   Globe,
   Shield,

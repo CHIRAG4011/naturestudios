@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PortfolioData } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
 import { ExternalLink, Play, Sparkles, MapPin, CheckCircle2 } from 'lucide-react';
 
 export function CinematicTheme({ portfolio }: { portfolio: PortfolioData }) {

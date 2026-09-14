@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { PortfolioData, PortfolioThemeId } from '@/lib/portfolio-service';
+import type { PortfolioData, PortfolioThemeId } from '@/lib/portfolio-shared';
 import { PortfolioRenderer } from '@/components/portfolio/PortfolioRenderer';
 import {
   Monitor,

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PortfolioData } from '@/lib/portfolio-service';
+import type { PortfolioData } from '@/lib/portfolio-shared';
 import { Shield, Zap, Target, Trophy, ExternalLink, Activity } from 'lucide-react';
 
 export function EsportsTheme({ portfolio }: { portfolio: PortfolioData }) {
