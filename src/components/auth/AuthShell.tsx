@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 
@@ -52,6 +53,24 @@ export function AuthShell({
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-full max-w-md p-7 sm:p-9 rounded-2xl border border-[#52141A] bg-[#240709]/95 backdrop-blur-xl shadow-2xl"
       >
+        {/* Branded Studio Mark */}
+        <div className="flex justify-center mb-6">
+          <Link
+            href="/"
+            className="group relative flex h-14 w-14 items-center justify-center rounded-2xl bg-[#2D0A0E] border border-[#52141A] p-2.5 shadow-glow-burgundy transition-all duration-300 hover:scale-105 hover:border-[#FED7B8]/50"
+            aria-label="Return to NatureStudios homepage"
+          >
+            <Image
+              src="/logo.png"
+              alt="NatureStudios Logo"
+              width={48}
+              height={48}
+              className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(255,107,0,0.5)]"
+              priority
+            />
+          </Link>
+        </div>
+
         {(eyebrow || title || subtitle) && (
           <div className="text-center mb-6 space-y-2.5">
             {eyebrow && (

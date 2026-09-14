@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AdminProvider, useAdmin } from './AdminContext';
 import AdminSidebar from './AdminSidebar';
 import AdminTopbar from './AdminTopbar';
@@ -15,8 +16,15 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#150304] flex flex-col items-center justify-center p-6 text-center text-[#FFF5ED]">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#59171B] to-[#FED7B8] flex items-center justify-center font-bold text-lg text-[#150304] shadow-2xl animate-pulse mb-4">
-          NS
+        <div className="relative w-14 h-14 rounded-2xl bg-[#2D0A0E] border border-[#52141A] p-2.5 flex items-center justify-center shadow-2xl animate-pulse mb-4">
+          <Image
+            src="/logo.png"
+            alt="NatureStudios Logo"
+            width={44}
+            height={44}
+            className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(255,107,0,0.6)]"
+            priority
+          />
         </div>
         <div className="font-syne text-lg font-bold tracking-wider text-[#FED7B8]">
           NATURESTUDIOS ADMIN CONTROL CENTER

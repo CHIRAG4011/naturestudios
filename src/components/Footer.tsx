@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 
@@ -29,9 +30,15 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Brand */}
           <div className="md:col-span-5 space-y-5">
-            <Link href="/" className="inline-flex items-center gap-2.5 group">
-              <div className="h-9 w-9 rounded-lg bg-[#59171B] border border-[#FED7B8]/40 flex items-center justify-center text-[#FED7B8] font-black text-base shadow-glow-burgundy group-hover:scale-105 transition-transform duration-200">
-                N
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="h-10 w-10 rounded-xl bg-[#2D0A0E] border border-[#52141A] p-1.5 flex items-center justify-center shadow-glow-burgundy group-hover:scale-105 group-hover:border-[#FED7B8]/50 transition-all duration-200">
+                <Image
+                  src="/logo.png"
+                  alt="NatureStudios Logo"
+                  width={36}
+                  height={36}
+                  className="h-full w-full object-contain drop-shadow-[0_0_8px_rgba(255,107,0,0.4)]"
+                />
               </div>
               <span className="font-black tracking-wider text-base text-[#FFF5ED] uppercase group-hover:text-[#FED7B8] transition-colors duration-200">
                 NatureStudios

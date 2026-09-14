@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Menu, Search, Shield, Sparkles, User as UserIcon, X } from 'lucide-react';
@@ -78,10 +79,17 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
           {/* Brand */}
-          <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="NatureStudios home">
-            <span className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-[#59171B] border border-[#FED7B8]/40 text-base font-black text-[#FED7B8] shadow-glow-burgundy transition-transform duration-300 group-hover:scale-105">
-              N
-            </span>
+          <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="NatureStudios home">
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#2D0A0E] border border-[#52141A] p-1.5 shadow-glow-burgundy transition-transform duration-300 group-hover:scale-105 group-hover:border-[#FED7B8]/50">
+              <Image
+                src="/logo.png"
+                alt="NatureStudios Logo"
+                width={36}
+                height={36}
+                className="h-full w-full object-contain drop-shadow-[0_0_8px_rgba(255,107,0,0.4)]"
+                priority
+              />
+            </div>
             <span className="flex flex-col">
               <span className="text-sm font-black uppercase leading-tight tracking-wider text-[#FFF5ED] transition-colors duration-300 group-hover:text-[#FED7B8]">
                 NatureStudios

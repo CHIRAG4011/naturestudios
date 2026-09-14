@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAdmin } from './AdminContext';
 import {
@@ -147,8 +148,14 @@ export default function AdminSidebar({
         {/* Sidebar Header */}
         <div className="h-16 flex items-center justify-between px-5 border-b border-[#3D0D13] bg-[#180406]">
           <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#59171B] to-[#FED7B8] flex items-center justify-center font-bold text-xs text-[#150304] shadow-md">
-              NS
+            <div className="relative w-8 h-8 rounded-lg bg-[#2D0A0E] border border-[#52141A] p-1 flex items-center justify-center shadow-md">
+              <NextImage
+                src="/logo.png"
+                alt="NatureStudios Logo"
+                width={26}
+                height={26}
+                className="w-full h-full object-contain drop-shadow-[0_0_6px_rgba(255,107,0,0.4)]"
+              />
             </div>
             <div>
               <div className="font-syne font-bold text-sm tracking-wider text-[#FFF5ED]">
