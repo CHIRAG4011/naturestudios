@@ -37,6 +37,10 @@ import {
   Layers,
   Check,
   Globe,
+  Image as ImageIcon,
+  Film,
+  Play,
+  Upload,
 } from 'lucide-react';
 
 const STEPS = [
@@ -347,7 +351,7 @@ export default function PortfolioWizard() {
     triggerAutosave(updated);
   };
 
-  // Add Project
+  // Add Project with GFX / VFX tracks
   const addProject = () => {
     if (!portfolio) return;
     const newProj = {
@@ -355,7 +359,11 @@ export default function PortfolioWizard() {
       title: 'New Project',
       slug: `project-${(portfolio.projects?.length || 0) + 1}`,
       description: 'Comprehensive project description and strategy.',
-      category: 'ESPORTS',
+      category: 'GFX',
+      workType: 'GFX' as const,
+      gfxCategory: 'Tournament' as const,
+      thumbnail: '',
+      videoUrl: '',
       order: (portfolio.projects?.length || 0) + 1,
     };
     const updated = {
@@ -363,6 +371,31 @@ export default function PortfolioWizard() {
       projects: [...(portfolio.projects || []), newProj],
     };
     triggerAutosave(updated);
+  };
+
+  const handleProjectFileUpload = async (idx: number, file: File, type: 'image' | 'video') => {
+    try {
+      const formData = new FormData();
+      formData.append(type === 'video' ? 'video' : 'file', file);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed');
+      const updated = [...(portfolio?.projects || [])];
+      if (type === 'image') {
+        updated[idx].thumbnail = data.url;
+      } else {
+        updated[idx].videoUrl = data.url;
+        if (!updated[idx].thumbnail) {
+          updated[idx].thumbnail = '/media/work-valorant-championship.jpg';
+        }
+      }
+      triggerAutosave({ ...portfolio!, projects: updated });
+    } catch (err: any) {
+      alert(err.message || 'Failed to upload file');
+    }
   };
 
   const removeProject = (index: number) => {
@@ -882,9 +915,86 @@ export default function PortfolioWizard() {
                     </button>
                   </div>
 
+                  {/* Work Medium Track: GFX or VFX */}
+                  <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-3">
+                    <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                      Work Medium Track *
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = [...portfolio.projects];
+                          updated[idx].workType = 'GFX';
+                          updated[idx].category = updated[idx].gfxCategory || 'Tournament';
+                          triggerAutosave({ ...portfolio, projects: updated });
+                        }}
+                        className={`py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 border ${
+                          (proj.workType || 'GFX') === 'GFX'
+                            ? 'bg-[#59171B] text-[#FED7B8] border-[#FED7B8] shadow-glow-burgundy'
+                            : 'bg-[#240709] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                        }`}
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" />
+                        <span>GFX (Graphics)</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = [...portfolio.projects];
+                          updated[idx].workType = 'VFX';
+                          updated[idx].category = 'VFX';
+                          triggerAutosave({ ...portfolio, projects: updated });
+                        }}
+                        className={`py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 border ${
+                          proj.workType === 'VFX'
+                            ? 'bg-[#59171B] text-[#FED7B8] border-[#FED7B8] shadow-glow-burgundy'
+                            : 'bg-[#240709] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                        }`}
+                      >
+                        <Film className="w-3.5 h-3.5" />
+                        <span>VFX (Video Reel)</span>
+                      </button>
+                    </div>
+
+                    {/* GFX Subsection Selector */}
+                    {(proj.workType || 'GFX') === 'GFX' && (
+                      <div className="pt-2 border-t border-[#3D0D13]/60">
+                        <label className="block text-[11px] font-mono uppercase text-[#B89B8D] mb-1.5">
+                          GFX Subsection *
+                        </label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {(['Tournament', 'Roster', 'Thumbnail', 'Logo/Banners'] as const).map((sub) => {
+                            const isSelected = (proj.gfxCategory || 'Tournament') === sub;
+                            return (
+                              <button
+                                key={sub}
+                                type="button"
+                                onClick={() => {
+                                  const updated = [...portfolio.projects];
+                                  updated[idx].gfxCategory = sub;
+                                  updated[idx].category = sub;
+                                  triggerAutosave({ ...portfolio, projects: updated });
+                                }}
+                                className={`py-1.5 px-2 rounded text-[11px] font-mono uppercase transition-colors border ${
+                                  isSelected
+                                    ? 'bg-[#2D0A0E] text-[#FED7B8] border-[#FED7B8]'
+                                    : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                                }`}
+                              >
+                                {sub}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Title</label>
+                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Title *</label>
                       <input
                         type="text"
                         value={proj.title}
@@ -894,43 +1004,11 @@ export default function PortfolioWizard() {
                           triggerAutosave({ ...portfolio, projects: updated });
                         }}
                         className="field"
-                        placeholder="VALORANT Champions 2026"
+                        placeholder="Project Title"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Category</label>
-                      <input
-                        type="text"
-                        value={proj.category}
-                        onChange={(e) => {
-                          const updated = [...portfolio.projects];
-                          updated[idx].category = e.target.value;
-                          triggerAutosave({ ...portfolio, projects: updated });
-                        }}
-                        className="field"
-                        placeholder="ESPORTS / BROADCAST"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Description</label>
-                    <textarea
-                      rows={3}
-                      value={proj.description}
-                      onChange={(e) => {
-                        const updated = [...portfolio.projects];
-                        updated[idx].description = e.target.value;
-                        triggerAutosave({ ...portfolio, projects: updated });
-                      }}
-                      className="field resize-none"
-                      placeholder="Comprehensive project narrative and results..."
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Client (Optional)</label>
+                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Client / Org (Optional)</label>
                       <input
                         type="text"
                         value={proj.client || ''}
@@ -940,39 +1018,112 @@ export default function PortfolioWizard() {
                           triggerAutosave({ ...portfolio, projects: updated });
                         }}
                         className="field"
-                        placeholder="Riot Games / ESL"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Project Link (URL)</label>
-                      <input
-                        type="text"
-                        value={proj.projectUrl || ''}
-                        onChange={(e) => {
-                          const updated = [...portfolio.projects];
-                          updated[idx].projectUrl = e.target.value;
-                          triggerAutosave({ ...portfolio, projects: updated });
-                        }}
-                        className="field"
-                        placeholder="https://..."
+                        placeholder="Riot Games / Sentinels / ESL"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Image Thumbnail URL</label>
-                    <input
-                      type="text"
-                      value={proj.thumbnail || ''}
+                    <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Description</label>
+                    <textarea
+                      rows={2}
+                      value={proj.description}
                       onChange={(e) => {
                         const updated = [...portfolio.projects];
-                        updated[idx].thumbnail = e.target.value;
+                        updated[idx].description = e.target.value;
                         triggerAutosave({ ...portfolio, projects: updated });
                       }}
-                      className="field"
-                      placeholder="https://images.unsplash.com/..."
+                      className="field resize-none"
+                      placeholder="Narrative, tools, and visual direction..."
                     />
                   </div>
+
+                  {/* Media Upload & URL Configuration */}
+                  <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-3">
+                    <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                      {proj.workType === 'VFX' ? 'Video Reel & Cover Artwork' : 'Showcase Image Artwork'}
+                    </label>
+
+                    {/* VFX Video URL / File Upload */}
+                    {proj.workType === 'VFX' && (
+                      <div className="space-y-2">
+                        <label className="block text-[11px] font-mono uppercase text-[#B89B8D]">
+                          Video URL (YouTube, Vimeo, or MP4)
+                        </label>
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={proj.videoUrl || ''}
+                            onChange={(e) => {
+                              const updated = [...portfolio.projects];
+                              updated[idx].videoUrl = e.target.value;
+                              triggerAutosave({ ...portfolio, projects: updated });
+                            }}
+                            className="field flex-1"
+                            placeholder="https://youtube.com/watch?v=... or https://.../video.mp4"
+                          />
+                          <label className="px-3 py-2 rounded-xl bg-[#2D0A0E] border border-[#52141A] text-xs font-mono text-[#FED7B8] hover:border-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0">
+                            <Film className="w-3.5 h-3.5" />
+                            <span>Upload MP4</span>
+                            <input
+                              type="file"
+                              accept="video/mp4,video/webm,video/quicktime"
+                              className="hidden"
+                              onChange={(e) => {
+                                const f = e.target.files?.[0];
+                                if (f) handleProjectFileUpload(idx, f, 'video');
+                              }}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Image Thumbnail / Artwork */}
+                    <div className="space-y-2">
+                      <label className="block text-[11px] font-mono uppercase text-[#B89B8D]">
+                        {proj.workType === 'VFX' ? 'Video Cover Thumbnail (Image)' : 'Image Artwork URL or File'}
+                      </label>
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="text"
+                          value={proj.thumbnail || ''}
+                          onChange={(e) => {
+                            const updated = [...portfolio.projects];
+                            updated[idx].thumbnail = e.target.value;
+                            triggerAutosave({ ...portfolio, projects: updated });
+                          }}
+                          className="field flex-1"
+                          placeholder="https://... or click Upload"
+                        />
+                        <label className="px-3 py-2 rounded-xl bg-[#2D0A0E] border border-[#52141A] text-xs font-mono text-[#FED7B8] hover:border-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0">
+                          <ImageIcon className="w-3.5 h-3.5" />
+                          <span>Upload Image</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const f = e.target.files?.[0];
+                              if (f) handleProjectFileUpload(idx, f, 'image');
+                            }}
+                          />
+                        </label>
+                      </div>
+
+                      {/* Image Preview */}
+                      {proj.thumbnail && (
+                        <div className="relative w-32 h-20 rounded-lg overflow-hidden border border-[#52141A] mt-2">
+                          <img
+                            src={proj.thumbnail}
+                            alt="Project Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
                 </div>
               ))}
             </div>

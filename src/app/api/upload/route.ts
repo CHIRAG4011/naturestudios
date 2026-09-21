@@ -5,12 +5,18 @@ import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-const ALLOWED_IMAGE_TYPES: Record<string, string> = {
+const ALLOWED_TYPES: Record<string, string> = {
+  // Images
   'image/jpeg': 'jpg',
   'image/png': 'png',
   'image/webp': 'webp',
   'image/gif': 'gif',
   'image/svg+xml': 'svg',
+  // Videos
+  'video/mp4': 'mp4',
+  'video/webm': 'webm',
+  'video/quicktime': 'mov',
+  'video/ogg': 'ogv',
 };
 
 export async function POST(req: NextRequest) {
@@ -28,23 +34,31 @@ export async function POST(req: NextRequest) {
     }
 
     const formData = await req.formData();
-    const file = (formData.get('file') || formData.get('image')) as File | null;
+    const file = (formData.get('file') || formData.get('image') || formData.get('video')) as File | null;
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    const extension = ALLOWED_IMAGE_TYPES[file.type] || 'jpg';
-    if (!file.type.startsWith('image/')) {
+    const isImage = file.type.startsWith('image/');
+    const isVideo = file.type.startsWith('video/');
+
+    if (!isImage && !isVideo) {
       return NextResponse.json(
-        { error: 'Only image files (JPEG, PNG, WebP, GIF, SVG) are permitted.' },
+        { error: 'Only image files (JPEG, PNG, WebP, GIF, SVG) or video files (MP4, WebM, QuickTime) are permitted.' },
         { status: 400 }
       );
     }
 
-    // 10MB limit
-    if (file.size > 10 * 1024 * 1024) {
-      return NextResponse.json({ error: 'Image size exceeds 10MB limit.' }, { status: 400 });
+    const extension = ALLOWED_TYPES[file.type] || (isVideo ? 'mp4' : 'jpg');
+
+    // 50MB limit for video, 15MB for image
+    const maxLimit = isVideo ? 50 * 1024 * 1024 : 15 * 1024 * 1024;
+    if (file.size > maxLimit) {
+      return NextResponse.json(
+        { error: `File size exceeds ${isVideo ? '50MB' : '15MB'} limit.` },
+        { status: 400 }
+      );
     }
 
     const bytes = await file.arrayBuffer();

@@ -36,6 +36,7 @@ import {
   Settings,
   HelpCircle,
   X,
+  Sparkles,
 } from 'lucide-react';
 
 interface NavItem {
@@ -63,6 +64,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     group: 'CONTENT',
     items: [
+      { label: 'Studio Portfolio (GFX/VFX)', href: '/admin/studio-portfolio', icon: Sparkles, permission: 'content.view', badge: 'GFX/VFX' },
       { label: 'Site Content CMS', href: '/admin/content', icon: FileText, permission: 'content.view' },
       { label: 'Global Theme Studio', href: '/admin/theme', icon: Sliders, permission: 'theme.view', badge: 'v2' },
       { label: 'Studio Projects', href: '/admin/projects', icon: Briefcase, permission: 'projects.view' },

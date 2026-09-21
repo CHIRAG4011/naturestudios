@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdmin } from './AdminContext';
-import { Search, X, User, Folder, Briefcase, FileText, Shield, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { Search, X, User, Folder, Briefcase, FileText, Shield, ArrowRight, CornerDownLeft, Sparkles } from 'lucide-react';
 
 export default function CommandPalette() {
   const router = useRouter();
@@ -68,6 +68,7 @@ export default function CommandPalette() {
 
   const quickLinks = [
     { label: 'Overview Dashboard', url: '/admin', icon: Briefcase, perm: 'analytics.view' },
+    { label: 'Studio Portfolio (GFX/VFX)', url: '/admin/studio-portfolio', icon: Sparkles, perm: 'content.view' },
     { label: 'User Directory', url: '/admin/users', icon: User, perm: 'users.view' },
     { label: 'Roles & RBAC', url: '/admin/roles', icon: Shield, perm: 'roles.view' },
     { label: 'Granular Permissions', url: '/admin/permissions', icon: Shield, perm: 'permissions.view' },

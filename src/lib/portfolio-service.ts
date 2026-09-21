@@ -2,8 +2,19 @@ import { getMongoDb, isMongoConfigured, ensureMongoIndexes } from './mongodb';
 import { prisma } from './prisma';
 
 export * from './portfolio-shared';
-import type { PortfolioData, PortfolioResolution } from './portfolio-shared';
-import { sanitizeSlug, isReservedSlug, DEFAULT_DESIGN_CONFIG } from './portfolio-shared';
+import type {
+  PortfolioData,
+  PortfolioResolution,
+  StudioPortfolioItem,
+  StudioWorkType,
+  GfxSubsection,
+} from './portfolio-shared';
+import {
+  sanitizeSlug,
+  isReservedSlug,
+  DEFAULT_DESIGN_CONFIG,
+  DEFAULT_STUDIO_PORTFOLIO_ITEMS,
+} from './portfolio-shared';
 
 
 /**
@@ -279,3 +290,200 @@ export async function savePortfolioContactMessage(
 
   return true;
 }
+
+/**
+ * Fetch all published creator portfolios for public showcase / directory
+ */
+export async function getPublishedPortfolios(): Promise<PortfolioData[]> {
+  const results: PortfolioData[] = [];
+
+  if (isMongoConfigured()) {
+    await ensureMongoIndexes();
+    const db = await getMongoDb();
+    if (db) {
+      // Find all portfolios with status 'PUBLISHED'
+      const docs = await db
+        .collection('portfolios')
+        .find({ status: 'PUBLISHED' })
+        .sort({ updatedAt: -1 })
+        .limit(50)
+        .toArray();
+
+      for (const doc of docs) {
+        // Verify owner is not suspended
+        let isSuspended = false;
+        try {
+          const userDoc = await db.collection('users').findOne({
+            $or: [{ id: doc.userId }, { _id: doc.userId }],
+          });
+          if (userDoc && (userDoc.isSuspended || userDoc.status === 'SUSPENDED')) {
+            isSuspended = true;
+          }
+        } catch {
+          // ignore user lookup error
+        }
+
+        if (!isSuspended) {
+          const { _id, ...rest } = doc;
+          results.push({ id: _id.toString(), ...rest } as PortfolioData);
+        }
+      }
+      return results;
+    }
+  }
+
+  // Fallback to dev store if MongoDB is not available
+  for (const p of Array.from(devPortfolioStore.values())) {
+    if (p.status === 'PUBLISHED') {
+      results.push(p);
+    }
+  }
+
+  return results;
+}
+
+// In-memory fallback for studio portfolio items
+const devStudioItemsStore = new Map<string, StudioPortfolioItem>(
+  DEFAULT_STUDIO_PORTFOLIO_ITEMS.map((item) => [item.id, item])
+);
+
+/**
+ * Fetch studio portfolio items (GFX & VFX)
+ */
+export async function getStudioPortfolioItems(filter?: {
+  type?: StudioWorkType;
+  category?: GfxSubsection;
+  status?: string;
+}): Promise<StudioPortfolioItem[]> {
+  if (isMongoConfigured()) {
+    await ensureMongoIndexes();
+    const db = await getMongoDb();
+    if (db) {
+      const col = db.collection('studio_portfolio_items');
+      const count = await col.countDocuments();
+      if (count === 0) {
+        // Seed default items
+        await col.insertMany(DEFAULT_STUDIO_PORTFOLIO_ITEMS as any[]);
+      }
+
+      const query: any = {};
+      if (filter?.status) {
+        query.status = filter.status;
+      } else {
+        query.status = 'PUBLISHED';
+      }
+
+      if (filter?.type) {
+        query.type = filter.type;
+      }
+      if (filter?.category) {
+        query.gfxCategory = filter.category;
+      }
+
+      const docs = await col.find(query).sort({ order: 1, createdAt: -1 }).toArray();
+      return docs.map((doc) => {
+        const { _id, ...rest } = doc;
+        return { id: _id.toString(), ...rest } as StudioPortfolioItem;
+      });
+    }
+  }
+
+  // In-memory fallback
+  let items = Array.from(devStudioItemsStore.values());
+  if (filter?.status) {
+    items = items.filter((i) => i.status === filter.status);
+  } else {
+    items = items.filter((i) => i.status === 'PUBLISHED');
+  }
+
+  if (filter?.type) {
+    items = items.filter((i) => i.type === filter.type);
+  }
+  if (filter?.category) {
+    items = items.filter((i) => i.gfxCategory === filter.category);
+  }
+
+  return items.sort((a, b) => (a.order || 0) - (b.order || 0));
+}
+
+/**
+ * Create a new Studio Portfolio item (Admin)
+ */
+export async function createStudioPortfolioItem(
+  data: Omit<StudioPortfolioItem, 'id' | 'createdAt' | 'updatedAt'>
+): Promise<StudioPortfolioItem> {
+  const now = new Date().toISOString();
+  const id = `studio-${data.type.toLowerCase()}-${Date.now()}`;
+  const newItem: StudioPortfolioItem = {
+    ...data,
+    id,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  if (isMongoConfigured()) {
+    const db = await getMongoDb();
+    if (db) {
+      await db.collection('studio_portfolio_items').insertOne(newItem as any);
+      return newItem;
+    }
+  }
+
+  devStudioItemsStore.set(id, newItem);
+  return newItem;
+}
+
+/**
+ * Update an existing Studio Portfolio item (Admin)
+ */
+export async function updateStudioPortfolioItem(
+  id: string,
+  updates: Partial<StudioPortfolioItem>
+): Promise<StudioPortfolioItem | null> {
+  const now = new Date().toISOString();
+  const updateData = { ...updates, updatedAt: now };
+
+  if (isMongoConfigured()) {
+    const db = await getMongoDb();
+    if (db) {
+      await db
+        .collection('studio_portfolio_items')
+        .updateOne({ $or: [{ id }, { _id: id } as any] }, { $set: updateData });
+
+      const updated = await db
+        .collection('studio_portfolio_items')
+        .findOne({ $or: [{ id }, { _id: id } as any] });
+      if (updated) {
+        const { _id, ...rest } = updated;
+        return { id: _id.toString(), ...rest } as StudioPortfolioItem;
+      }
+    }
+  }
+
+  const existing = devStudioItemsStore.get(id);
+  if (existing) {
+    const merged = { ...existing, ...updateData };
+    devStudioItemsStore.set(id, merged);
+    return merged;
+  }
+  return null;
+}
+
+/**
+ * Delete a Studio Portfolio item (Admin)
+ */
+export async function deleteStudioPortfolioItem(id: string): Promise<boolean> {
+  if (isMongoConfigured()) {
+    const db = await getMongoDb();
+    if (db) {
+      await db
+        .collection('studio_portfolio_items')
+        .deleteOne({ $or: [{ id }, { _id: id } as any] });
+      return true;
+    }
+  }
+
+  devStudioItemsStore.delete(id);
+  return true;
+}
+
