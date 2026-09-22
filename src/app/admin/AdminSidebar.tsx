@@ -68,7 +68,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Site Content CMS', href: '/admin/content', icon: FileText, permission: 'content.view' },
       { label: 'Global Theme Studio', href: '/admin/theme', icon: Sliders, permission: 'theme.view', badge: 'v2' },
       { label: 'Studio Projects', href: '/admin/projects', icon: Briefcase, permission: 'projects.view' },
-      { label: 'Portfolios & Reports', href: '/admin/portfolios', icon: Layers, permission: 'portfolios.view' },
+      { label: 'Global User Portfolios', href: '/admin/portfolios', icon: Layers, permission: 'portfolios.view', badge: 'User' },
       { label: 'Media Library', href: '/admin/media', icon: ImageIcon, permission: 'media.view' },
       { label: 'Navigation Menu', href: '/admin/navigation', icon: Compass, permission: 'navigation.view' },
       { label: 'SEO & Redirects', href: '/admin/seo', icon: SearchCheck, permission: 'seo.view' },

@@ -188,6 +188,15 @@ export interface PortfolioData {
   status: PortfolioStatus;
   title: string;
   description?: string;
+  portfolioSource?: 'studio' | 'user';
+  category?: 'GFX' | 'VFX' | 'Other';
+  gfxSubcategory?: GfxSubsection;
+  customCategory?: string;
+  mediaType?: 'image' | 'video';
+  mediaUrl?: string;
+  mediaGallery?: string[];
+  videoThumbnailUrl?: string;
+  duration?: string;
   themeId: PortfolioThemeId;
   personalInfo: PortfolioPersonalInfo;
   professionalIdentity: PortfolioProfessionalIdentity;
@@ -280,10 +289,11 @@ export const DEFAULT_DESIGN_CONFIG: PortfolioDesignConfig = {
  * Studio Portfolio Types & Subsections
  */
 export type StudioWorkType = 'GFX' | 'VFX';
-export type GfxSubsection = 'Tournament' | 'Roster' | 'Thumbnail' | 'Logo/Banners';
+export type GfxSubsection = 'Tournament' | 'Roster' | 'Thumbnail' | 'Logo/Banner' | 'Logo/Banners';
 
 export interface StudioPortfolioItem {
   id: string;
+  portfolioSource?: 'studio';
   type: StudioWorkType;
   gfxCategory?: GfxSubsection;
   title: string;
@@ -305,8 +315,27 @@ export const GFX_SUBSECTIONS: GfxSubsection[] = [
   'Tournament',
   'Roster',
   'Thumbnail',
-  'Logo/Banners',
+  'Logo/Banner',
 ];
+
+export function toGfxCategorySlug(category: string): string {
+  const norm = category.toLowerCase().trim();
+  if (norm.includes('tourn')) return 'tournament';
+  if (norm.includes('roster')) return 'roster';
+  if (norm.includes('thumb')) return 'thumbnail';
+  if (norm.includes('logo') || norm.includes('banner')) return 'logo-banner';
+  return norm.replace(/[^a-z0-9]+/g, '-');
+}
+
+export function fromGfxCategorySlug(slug?: string): GfxSubsection | undefined {
+  if (!slug) return undefined;
+  const s = slug.toLowerCase().trim();
+  if (s === 'tournament') return 'Tournament';
+  if (s === 'roster') return 'Roster';
+  if (s === 'thumbnail') return 'Thumbnail';
+  if (s === 'logo-banner' || s === 'logo' || s === 'banners' || s === 'banner') return 'Logo/Banner';
+  return undefined;
+}
 
 export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
   // GFX - Tournament

@@ -97,6 +97,12 @@ export async function ensureMongoIndexes(): Promise<void> {
     await db.collection('portfolios').createIndex({ slug: 1 }, { unique: true });
     await db.collection('portfolios').createIndex({ userId: 1 });
     await db.collection('portfolios').createIndex({ status: 1 });
+    await db.collection('portfolios').createIndex({ portfolioSource: 1, category: 1, gfxSubcategory: 1, status: 1 });
+    await db.collection('portfolios').createIndex({ portfolioSource: 1, status: 1, publishedAt: -1 });
+
+    // 8b. Studio Portfolio Items
+    await db.collection('studio_portfolio_items').createIndex({ portfolioSource: 1, type: 1, gfxCategory: 1, status: 1 });
+    await db.collection('studio_portfolio_items').createIndex({ order: 1, createdAt: -1 });
 
     // 9. Portfolio Sub-collections
     await db.collection('portfolioProjects').createIndex({ portfolioId: 1 });

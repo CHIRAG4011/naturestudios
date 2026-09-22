@@ -42,6 +42,8 @@ import {
   Play,
   Upload,
 } from 'lucide-react';
+import { VfxVideoPlayer } from '@/components/portfolio/VfxVideoPlayer';
+import type { GfxSubsection } from '@/lib/portfolio-shared';
 
 const STEPS = [
   { id: 1, name: 'Personal Info', icon: User },
@@ -377,6 +379,8 @@ export default function PortfolioWizard() {
     try {
       const formData = new FormData();
       formData.append(type === 'video' ? 'video' : 'file', file);
+      formData.append('category', type === 'video' ? 'VFX' : 'GFX');
+      formData.append('mediaType', type);
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
@@ -395,6 +399,70 @@ export default function PortfolioWizard() {
       triggerAutosave({ ...portfolio!, projects: updated });
     } catch (err: any) {
       alert(err.message || 'Failed to upload file');
+    }
+  };
+
+  const handlePrimaryMediaUpload = async (file: File, expectedType: 'image' | 'video') => {
+    if (!portfolio) return;
+    setAutosaveStatus('Saving...');
+    try {
+      const formData = new FormData();
+      formData.append(expectedType === 'video' ? 'video' : 'file', file);
+      formData.append('category', portfolio.category || (expectedType === 'video' ? 'VFX' : 'GFX'));
+      formData.append('mediaType', expectedType);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed');
+
+      if (expectedType === 'image') {
+        const gallery = portfolio.mediaGallery || [];
+        const updated = {
+          ...portfolio,
+          mediaType: 'image' as const,
+          mediaUrl: portfolio.mediaUrl || data.url,
+          mediaGallery: [...gallery, data.url],
+        };
+        triggerAutosave(updated);
+      } else {
+        const updated = {
+          ...portfolio,
+          mediaType: 'video' as const,
+          mediaUrl: data.url,
+        };
+        triggerAutosave(updated);
+      }
+    } catch (err: any) {
+      alert(err.message || 'Failed to upload media');
+    }
+  };
+
+  const handleVideoThumbnailUpload = async (file: File) => {
+    if (!portfolio) return;
+    setAutosaveStatus('Saving...');
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('category', 'GFX');
+      formData.append('mediaType', 'image');
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed');
+
+      const updated = {
+        ...portfolio,
+        videoThumbnailUrl: data.url,
+      };
+      triggerAutosave(updated);
+    } catch (err: any) {
+      alert(err.message || 'Failed to upload cover poster');
     }
   };
 
@@ -611,16 +679,330 @@ export default function PortfolioWizard() {
       </div>
 
       <main className="max-w-4xl mx-auto px-6 py-12">
-        {/* STEP 1: PERSONAL INFORMATION */}
+        {/* STEP 1: PORTFOLIO CLASSIFICATION & PERSONAL INFORMATION */}
         {currentStep === 1 && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
               <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
                 Step 01 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Personal Information</h2>
+              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Portfolio Track & Creator Info</h2>
               <p className="text-xs text-[#B89B8D] mt-1">
-                Your core public presence and creator coordinates.
+                Classify your creative track (GFX / VFX), upload showcase work, and set creator coordinates.
+              </p>
+            </div>
+
+            {/* SECTION: PORTFOLIO CLASSIFICATION & MEDIA UPLOAD */}
+            <div className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6 shadow-xl">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#FED7B8]" />
+                  <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#FFF5ED]">
+                    01 // Creative Discipline & Portfolio Track
+                  </h3>
+                </div>
+                <p className="text-xs text-[#B89B8D] mt-1">
+                  Choose your discipline. GFX portfolios require graphic design image uploads; VFX portfolios require video reels.
+                </p>
+              </div>
+
+              {/* 1. Portfolio Type (GFX / VFX / Other) */}
+              <div>
+                <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold mb-2">
+                  Portfolio Type *
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      triggerAutosave({
+                        ...portfolio,
+                        category: 'GFX',
+                        mediaType: 'image',
+                        gfxSubcategory: portfolio.gfxSubcategory || 'Tournament',
+                      });
+                    }}
+                    className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
+                      (portfolio.category || 'GFX') === 'GFX'
+                        ? 'bg-[#59171B]/70 border-[#FED7B8] shadow-glow-burgundy'
+                        : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 text-[#FED7B8]">
+                      <ImageIcon className="w-4 h-4" />
+                      <span className="font-mono text-xs font-bold uppercase">GFX</span>
+                    </div>
+                    <p className="text-[11px] text-[#B89B8D] mt-1">
+                      Graphic design: Tournaments, rosters, thumbnails, logos & banners (Images only).
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      triggerAutosave({
+                        ...portfolio,
+                        category: 'VFX',
+                        mediaType: 'video',
+                      });
+                    }}
+                    className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
+                      portfolio.category === 'VFX'
+                        ? 'bg-[#59171B]/70 border-[#FED7B8] shadow-glow-burgundy'
+                        : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 text-[#FED7B8]">
+                      <Film className="w-4 h-4" />
+                      <span className="font-mono text-xs font-bold uppercase">VFX</span>
+                    </div>
+                    <p className="text-[11px] text-[#B89B8D] mt-1">
+                      Visual effects, motion graphics, video showcases & cinematic edits (Videos only).
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      triggerAutosave({
+                        ...portfolio,
+                        category: 'Other',
+                      });
+                    }}
+                    className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
+                      portfolio.category === 'Other'
+                        ? 'bg-[#59171B]/70 border-[#FED7B8] shadow-glow-burgundy'
+                        : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 text-[#FED7B8]">
+                      <Sparkles className="w-4 h-4" />
+                      <span className="font-mono text-xs font-bold uppercase">Other</span>
+                    </div>
+                    <p className="text-[11px] text-[#B89B8D] mt-1">
+                      Multidisciplinary art direction, 3D worldbuilding, or custom creative category.
+                    </p>
+                  </button>
+                </div>
+              </div>
+
+              {/* GFX Subcategory Selection */}
+              {(portfolio.category || 'GFX') === 'GFX' && (
+                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-3">
+                  <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                    GFX Subcategory *
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {(['Tournament', 'Roster', 'Thumbnail', 'Logo/Banner'] as const).map((sub) => {
+                      const isSelected = (portfolio.gfxSubcategory || 'Tournament') === sub;
+                      return (
+                        <button
+                          key={sub}
+                          type="button"
+                          onClick={() => {
+                            triggerAutosave({ ...portfolio, gfxSubcategory: sub });
+                          }}
+                          className={`py-2 px-3 rounded-lg text-xs font-mono uppercase font-bold transition-all border cursor-pointer text-center ${
+                            isSelected
+                              ? 'bg-[#59171B] text-[#FED7B8] border-[#FED7B8] shadow-glow-burgundy'
+                              : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                          }`}
+                        >
+                          {sub}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="text-[11px] text-[#B89B8D]">
+                    Your portfolio will appear in the Global Portfolio directory under <strong>GFX → {portfolio.gfxSubcategory || 'Tournament'}</strong>.
+                  </p>
+                </div>
+              )}
+
+              {/* Other Custom Category Field */}
+              {portfolio.category === 'Other' && (
+                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-2">
+                  <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                    Custom Category / Type *
+                  </label>
+                  <input
+                    type="text"
+                    value={portfolio.customCategory || ''}
+                    onChange={(e) => triggerAutosave({ ...portfolio, customCategory: e.target.value })}
+                    className="field font-mono text-sm"
+                    placeholder="e.g. 3D Environment Design, Cosplay Craft, Audio Design"
+                  />
+                </div>
+              )}
+
+              {/* GFX Images Upload & Gallery */}
+              {(portfolio.category || 'GFX') === 'GFX' && (
+                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                        GFX Showcase Images (PNG, JPG, JPEG, WEBP) *
+                      </label>
+                      <span className="text-[11px] text-[#B89B8D]">
+                        Upload your esports graphics. Multiple images supported.
+                      </span>
+                    </div>
+
+                    <label className="btn-secondary text-xs py-2 px-3.5 flex items-center gap-2 shrink-0 cursor-pointer">
+                      <Upload className="w-3.5 h-3.5 text-[#FED7B8]" />
+                      <span>Upload Image</span>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/jpg,image/webp"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handlePrimaryMediaUpload(file, 'image');
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Gallery display */}
+                  {portfolio.mediaGallery && portfolio.mediaGallery.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                      {portfolio.mediaGallery.map((imgUrl, imgIdx) => {
+                        const isPrimary = portfolio.mediaUrl === imgUrl || (!portfolio.mediaUrl && imgIdx === 0);
+                        return (
+                          <div
+                            key={imgIdx}
+                            className={`group relative aspect-video rounded-xl overflow-hidden border bg-[#150304] transition-all ${
+                              isPrimary ? 'border-[#FED7B8] ring-1 ring-[#FED7B8]' : 'border-[#3D0D13]'
+                            }`}
+                          >
+                            <img src={imgUrl} alt="Showcase" className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
+                              <div className="flex justify-end">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newGallery = (portfolio.mediaGallery || []).filter((_, i) => i !== imgIdx);
+                                    const newPrimary = isPrimary ? (newGallery[0] || '') : portfolio.mediaUrl;
+                                    triggerAutosave({ ...portfolio, mediaGallery: newGallery, mediaUrl: newPrimary });
+                                  }}
+                                  className="p-1 rounded bg-[#E63946] text-white hover:bg-red-700 transition-colors"
+                                  title="Remove image"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  triggerAutosave({ ...portfolio, mediaUrl: imgUrl });
+                                }}
+                                className={`text-[10px] font-mono py-1 px-1.5 rounded text-center uppercase font-bold ${
+                                  isPrimary ? 'bg-[#18A957] text-white' : 'bg-[#59171B] text-[#FED7B8] hover:bg-[#721D22]'
+                                }`}
+                              >
+                                {isPrimary ? 'Primary Cover' : 'Set as Cover'}
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="p-6 rounded-xl border border-dashed border-[#3D0D13] text-center text-[#B89B8D] text-xs">
+                      No graphics uploaded yet. Click &quot;Upload Image&quot; above to add your design files.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* VFX Video Upload & Player */}
+              {portfolio.category === 'VFX' && (
+                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                        VFX Showcase Video (MP4, WEBM, MOV) *
+                      </label>
+                      <span className="text-[11px] text-[#B89B8D]">
+                        Upload your motion graphics reel or provide an external video link.
+                      </span>
+                    </div>
+
+                    <label className="btn-secondary text-xs py-2 px-3.5 flex items-center gap-2 shrink-0 cursor-pointer">
+                      <Film className="w-3.5 h-3.5 text-[#FED7B8]" />
+                      <span>Upload Video</span>
+                      <input
+                        type="file"
+                        accept="video/mp4,video/webm,video/quicktime"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handlePrimaryMediaUpload(file, 'video');
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={portfolio.mediaUrl || ''}
+                      onChange={(e) => triggerAutosave({ ...portfolio, mediaUrl: e.target.value, mediaType: 'video' })}
+                      className="field flex-1 text-xs font-mono"
+                      placeholder="https://.../reel.mp4 or YouTube / Vimeo URL"
+                    />
+                  </div>
+
+                  {/* Video Preview Player */}
+                  {portfolio.mediaUrl && (
+                    <div className="pt-2">
+                      <span className="text-[11px] font-mono text-[#FED7B8] uppercase block mb-2 font-bold">
+                        Interactive Video Player Preview
+                      </span>
+                      <div className="max-w-xl rounded-2xl overflow-hidden border border-[#52141A] shadow-2xl">
+                        <VfxVideoPlayer src={portfolio.mediaUrl} title="Showcase Preview" poster={portfolio.videoThumbnailUrl} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Video Poster Thumbnail upload */}
+                  <div className="pt-2 border-t border-[#3D0D13] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <label className="block text-[11px] font-mono uppercase text-[#B89B8D]">
+                        Video Cover Poster (Optional Image)
+                      </label>
+                      <span className="text-[10px] text-[#B89B8D]/70">
+                        Displayed as the static preview card in the directory before playback begins.
+                      </span>
+                    </div>
+                    <label className="text-[11px] font-mono px-3 py-1.5 rounded-lg bg-[#2D0A0E] border border-[#52141A] text-[#FED7B8] hover:border-[#FED7B8] flex items-center gap-1.5 shrink-0 cursor-pointer">
+                      <ImageIcon className="w-3 h-3" />
+                      <span>Upload Poster</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleVideoThumbnailUpload(file);
+                        }}
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* SECTION: PERSONAL IDENTITY COORDINATES */}
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <User className="w-4 h-4 text-[#FED7B8]" />
+                <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#FFF5ED]">
+                  02 // Creator Coordinates & Identity
+                </h3>
+              </div>
+              <p className="text-xs text-[#B89B8D]">
+                Your public creator name, custom subdomain, and professional bio.
               </p>
             </div>
 
@@ -2317,6 +2699,26 @@ export default function PortfolioWizard() {
             </div>
 
             <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4 font-mono text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
+                <span className="text-[#B89B8D]">DIRECTORY DESTINATION:</span>
+                <span className="text-[#FED7B8] font-bold">Global Creator Portfolio (/global-portfolio)</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
+                <span className="text-[#B89B8D]">PORTFOLIO TRACK:</span>
+                <span className="text-[#FED7B8] font-bold uppercase">
+                  {portfolio.category || 'GFX'}
+                  {portfolio.category === 'GFX' && ` • ${portfolio.gfxSubcategory || 'Tournament'}`}
+                  {portfolio.category === 'Other' && portfolio.customCategory && ` (${portfolio.customCategory})`}
+                </span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
+                <span className="text-[#B89B8D]">PRIMARY MEDIA:</span>
+                <span className="text-[#FFF5ED]">
+                  {portfolio.category === 'VFX'
+                    ? (portfolio.mediaUrl ? 'VFX Video Attached' : 'No Video Uploaded')
+                    : `${portfolio.mediaGallery?.length || (portfolio.mediaUrl ? 1 : 0)} Showcase Graphic(s)`}
+                </span>
+              </div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
                 <span className="text-[#B89B8D]">CUSTOM SUBDOMAIN:</span>
                 <span className="text-[#FED7B8] font-bold break-all">https://{portfolio.slug}.naturestudio.in</span>

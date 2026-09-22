@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Menu, Search, Shield, Sparkles, User as UserIcon, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Globe, Menu, Search, Shield, Sparkles, User as UserIcon, X } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useCommandPalette } from '@/context/CommandPaletteContext';
 
@@ -28,6 +28,8 @@ export function Navbar() {
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [portfolioOpen, setPortfolioOpen] = useState(false);
+  const dropdownTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const isAdminUser = Boolean(
     user &&
@@ -103,6 +105,119 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
             {NAV_ITEMS.map((item) => {
+              if (item.label === 'Portfolio') {
+                const portfolioActive = isActive('/portfolio') || isActive('/global-portfolio');
+                return (
+                  <div
+                    key="portfolio-dropdown"
+                    className="relative"
+                    onMouseEnter={() => {
+                      if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+                      setPortfolioOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                      dropdownTimeoutRef.current = setTimeout(() => {
+                        setPortfolioOpen(false);
+                      }, 200);
+                    }}
+                  >
+                    <Link
+                      href="/portfolio"
+                      aria-current={portfolioActive ? 'page' : undefined}
+                      className={`relative inline-flex items-center gap-1 rounded-lg px-3.5 py-2 font-mono text-xs uppercase tracking-[0.18em] transition-colors duration-200 ${
+                        portfolioActive ? 'text-[#FED7B8]' : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                      }`}
+                    >
+                      {portfolioActive && !reduced && (
+                        <motion.span
+                          layoutId="nav-active-pill"
+                          className="absolute inset-0 -z-10 rounded-lg border border-[#59171B] bg-[#3A0E11]/60"
+                          transition={{ duration: 0.4, ease: EASE }}
+                        />
+                      )}
+                      {portfolioActive && reduced && (
+                        <span className="absolute inset-0 -z-10 rounded-lg border border-[#59171B] bg-[#3A0E11]/60" />
+                      )}
+                      <span>Portfolio</span>
+                      <ChevronDown
+                        className={`h-3 w-3 transition-transform duration-200 ${
+                          portfolioOpen ? 'rotate-180 text-[#FED7B8]' : 'text-[#B89B8D]'
+                        }`}
+                      />
+                    </Link>
+
+                    {/* Popover Dropdown */}
+                    <AnimatePresence>
+                      {portfolioOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-2xl border border-[#52141A] bg-[#1E0507]/95 p-2 shadow-2xl backdrop-blur-xl z-50"
+                        >
+                          <Link
+                            href="/portfolio"
+                            onClick={() => setPortfolioOpen(false)}
+                            className={`group flex items-start gap-3 rounded-xl p-2.5 transition-all ${
+                              isActive('/portfolio')
+                                ? 'bg-[#3A0E11] border border-[#FED7B8]/30'
+                                : 'hover:bg-[#2D0A0E] border border-transparent'
+                            }`}
+                          >
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#59171B]/50 border border-[#FED7B8]/20 text-[#FED7B8] group-hover:scale-105 transition-transform">
+                              <Sparkles className="h-4 w-4" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFF5ED] group-hover:text-[#FED7B8]">
+                                  Studio Portfolio
+                                </span>
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+                                  STUDIO
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-[#B89B8D] leading-tight mt-0.5">
+                                Official studio work — GFX tournaments & VFX reels
+                              </p>
+                            </div>
+                          </Link>
+
+                          <div className="my-1 border-t border-[#3D0D13]" />
+
+                          <Link
+                            href="/global-portfolio"
+                            onClick={() => setPortfolioOpen(false)}
+                            className={`group flex items-start gap-3 rounded-xl p-2.5 transition-all ${
+                              isActive('/global-portfolio')
+                                ? 'bg-[#3A0E11] border border-[#FED7B8]/30'
+                                : 'hover:bg-[#2D0A0E] border border-transparent'
+                            }`}
+                          >
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#240709] border border-[#52141A] text-[#FED7B8] group-hover:scale-105 transition-transform">
+                              <Globe className="h-4 w-4" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFF5ED] group-hover:text-[#FED7B8]">
+                                  Global Portfolio
+                                </span>
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#150304] text-[#B89B8D] border border-[#3D0D13]">
+                                  COMMUNITY
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-[#B89B8D] leading-tight mt-0.5">
+                                Community member directory & user portfolios
+                              </p>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
               const active = isActive(item.href);
               return (
                 <Link
@@ -249,31 +364,92 @@ export function Navbar() {
               aria-label="Mobile navigation"
               className="px-6 flex flex-1 flex-col justify-center gap-2 pb-10 relative z-10"
             >
-              {NAV_ITEMS.map((item, i) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.08 + i * 0.05, ease: EASE }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={closeMenu}
-                    className="group flex items-baseline justify-between border-b border-[#3D0D13] py-4"
-                  >
-                    <span
-                      className={`text-2xl sm:text-3xl font-black uppercase leading-none tracking-tight transition-colors duration-200 ${
-                        isActive(item.href) ? 'text-[#FED7B8]' : 'text-[#FFF5ED] group-hover:text-[#FED7B8]'
-                      }`}
+              {NAV_ITEMS.map((item, i) => {
+                if (item.label === 'Portfolio') {
+                  return (
+                    <motion.div
+                      key="mobile-portfolio-group"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.08 + i * 0.05, ease: EASE }}
+                      className="border-b border-[#3D0D13] py-3 space-y-2"
                     >
-                      {item.label}
-                    </span>
-                    <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#B89B8D]">
-                      0{i + 1}
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#B89B8D]">
+                          PORTFOLIO SYSTEM
+                        </span>
+                        <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#B89B8D]">
+                          0{i + 1}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1.5 pl-2">
+                        <Link
+                          href="/portfolio"
+                          onClick={closeMenu}
+                          className="flex items-center justify-between py-1.5 group"
+                        >
+                          <span
+                            className={`text-xl font-black uppercase tracking-tight transition-colors duration-200 ${
+                              isActive('/portfolio')
+                                ? 'text-[#FED7B8]'
+                                : 'text-[#FFF5ED] group-hover:text-[#FED7B8]'
+                            }`}
+                          >
+                            Studio Portfolio
+                          </span>
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+                            OFFICIAL
+                          </span>
+                        </Link>
+                        <Link
+                          href="/global-portfolio"
+                          onClick={closeMenu}
+                          className="flex items-center justify-between py-1.5 group"
+                        >
+                          <span
+                            className={`text-xl font-black uppercase tracking-tight transition-colors duration-200 ${
+                              isActive('/global-portfolio')
+                                ? 'text-[#FED7B8]'
+                                : 'text-[#FFF5ED] group-hover:text-[#FED7B8]'
+                            }`}
+                          >
+                            Global Portfolio
+                          </span>
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#150304] text-[#B89B8D] border border-[#3D0D13]">
+                            CREATORS
+                          </span>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  );
+                }
+
+                return (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.08 + i * 0.05, ease: EASE }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={closeMenu}
+                      className="group flex items-baseline justify-between border-b border-[#3D0D13] py-4"
+                    >
+                      <span
+                        className={`text-2xl sm:text-3xl font-black uppercase leading-none tracking-tight transition-colors duration-200 ${
+                          isActive(item.href) ? 'text-[#FED7B8]' : 'text-[#FFF5ED] group-hover:text-[#FED7B8]'
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                      <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#B89B8D]">
+                        0{i + 1}
+                      </span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

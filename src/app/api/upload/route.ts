@@ -40,8 +40,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
+    const category = (formData.get('category') as string)?.toUpperCase() || req.nextUrl.searchParams.get('category')?.toUpperCase();
+    const mediaType = (formData.get('mediaType') as string)?.toLowerCase() || req.nextUrl.searchParams.get('mediaType')?.toLowerCase();
+    const isPoster = formData.get('isPoster') === 'true' || formData.get('role') === 'poster';
+
     const isImage = file.type.startsWith('image/');
     const isVideo = file.type.startsWith('video/');
+
+    // Category-specific backend validation
+    if (category === 'GFX' || mediaType === 'image') {
+      if (!isImage) {
+        return NextResponse.json(
+          { error: 'GFX portfolios only support image files (PNG, JPG, JPEG, WEBP).' },
+          { status: 400 }
+        );
+      }
+    } else if (category === 'VFX' || mediaType === 'video') {
+      if (!isVideo && !isPoster) {
+        return NextResponse.json(
+          { error: 'VFX portfolios require a supported video file (MP4, WEBM, MOV).' },
+          { status: 400 }
+        );
+      }
+    }
 
     if (!isImage && !isVideo) {
       return NextResponse.json(

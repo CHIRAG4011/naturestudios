@@ -207,6 +207,15 @@ export async function savePortfolio(userId: string, data: Partial<PortfolioData>
     userId,
     slug,
     status: data.status || existing?.status || 'DRAFT',
+    portfolioSource: 'user',
+    category: data.category ?? existing?.category ?? 'GFX',
+    gfxSubcategory: data.gfxSubcategory ?? existing?.gfxSubcategory ?? 'Tournament',
+    customCategory: data.customCategory ?? existing?.customCategory ?? '',
+    mediaType: data.mediaType ?? existing?.mediaType ?? (data.category === 'VFX' ? 'video' : 'image'),
+    mediaUrl: data.mediaUrl ?? existing?.mediaUrl ?? '',
+    mediaGallery: data.mediaGallery ?? existing?.mediaGallery ?? [],
+    videoThumbnailUrl: data.videoThumbnailUrl ?? existing?.videoThumbnailUrl ?? '',
+    duration: data.duration ?? existing?.duration ?? '',
     title: data.title || existing?.title || data.personalInfo?.fullName || 'My Portfolio',
     description: data.description ?? existing?.description ?? '',
     themeId: data.themeId || existing?.themeId || 'editorial',
@@ -342,9 +351,110 @@ export async function getPublishedPortfolios(): Promise<PortfolioData[]> {
   return results;
 }
 
+export interface GlobalPortfolioFilter {
+  category?: string;
+  subcategory?: string;
+  search?: string;
+  limit?: number;
+}
+
+/**
+ * Fetch published user portfolios strictly for Global Portfolio directory
+ * Strictly excludes any studio-created portfolios
+ */
+export async function getGlobalPortfolios(filter?: GlobalPortfolioFilter): Promise<PortfolioData[]> {
+  const results: PortfolioData[] = [];
+
+  const normCategory = filter?.category?.toUpperCase().trim();
+  const normSubcategory = filter?.subcategory?.toLowerCase().trim();
+  const search = filter?.search?.toLowerCase().trim();
+
+  if (isMongoConfigured()) {
+    await ensureMongoIndexes();
+    const db = await getMongoDb();
+    if (db) {
+      const query: any = {
+        status: 'PUBLISHED',
+        portfolioSource: { $ne: 'studio' },
+      };
+
+      if (normCategory && ['GFX', 'VFX', 'OTHER'].includes(normCategory)) {
+        query.category = normCategory;
+      }
+
+      if (normSubcategory) {
+        // Match subcategory case-insensitively
+        query.$or = [
+          { gfxSubcategory: { $regex: normSubcategory.replace('-', '[ /-]'), $options: 'i' } },
+          { 'projects.gfxCategory': { $regex: normSubcategory.replace('-', '[ /-]'), $options: 'i' } },
+        ];
+      }
+
+      if (search) {
+        query.$and = query.$and || [];
+        query.$and.push({
+          $or: [
+            { title: { $regex: search, $options: 'i' } },
+            { 'personalInfo.fullName': { $regex: search, $options: 'i' } },
+            { 'personalInfo.tagline': { $regex: search, $options: 'i' } },
+            { 'skills.name': { $regex: search, $options: 'i' } },
+          ],
+        });
+      }
+
+      const docs = await db
+        .collection('portfolios')
+        .find(query)
+        .sort({ publishedAt: -1, updatedAt: -1 })
+        .limit(filter?.limit || 100)
+        .toArray();
+
+      for (const doc of docs) {
+        // Verify owner is not suspended
+        let isSuspended = false;
+        try {
+          const userDoc = await db.collection('users').findOne({
+            $or: [{ id: doc.userId }, { _id: doc.userId }],
+          });
+          if (userDoc && (userDoc.isSuspended || userDoc.status === 'SUSPENDED')) {
+            isSuspended = true;
+          }
+        } catch {
+          // ignore error
+        }
+
+        if (!isSuspended) {
+          const { _id, ...rest } = doc;
+          results.push({
+            id: _id.toString(),
+            portfolioSource: 'user',
+            ...rest,
+          } as PortfolioData);
+        }
+      }
+      return results;
+    }
+  }
+
+  // In-memory fallback
+  for (const p of Array.from(devPortfolioStore.values())) {
+    if (p.status === 'PUBLISHED' && p.portfolioSource !== 'studio') {
+      if (normCategory && p.category?.toUpperCase() !== normCategory) continue;
+      if (normSubcategory && p.gfxSubcategory?.toLowerCase().replace(/[^a-z]/g, '') !== normSubcategory.replace(/[^a-z]/g, '')) continue;
+      if (search) {
+        const text = `${p.title} ${p.personalInfo?.fullName} ${p.personalInfo?.tagline} ${(p.skills || []).map((s) => s.name).join(' ')}`.toLowerCase();
+        if (!text.includes(search)) continue;
+      }
+      results.push(p);
+    }
+  }
+
+  return results;
+}
+
 // In-memory fallback for studio portfolio items
 const devStudioItemsStore = new Map<string, StudioPortfolioItem>(
-  DEFAULT_STUDIO_PORTFOLIO_ITEMS.map((item) => [item.id, item])
+  DEFAULT_STUDIO_PORTFOLIO_ITEMS.map((item) => [item.id, { ...item, portfolioSource: 'studio' }])
 );
 
 /**
@@ -362,11 +472,14 @@ export async function getStudioPortfolioItems(filter?: {
       const col = db.collection('studio_portfolio_items');
       const count = await col.countDocuments();
       if (count === 0) {
-        // Seed default items
-        await col.insertMany(DEFAULT_STUDIO_PORTFOLIO_ITEMS as any[]);
+        // Seed default items with portfolioSource = 'studio'
+        const seeded = DEFAULT_STUDIO_PORTFOLIO_ITEMS.map((i) => ({ ...i, portfolioSource: 'studio' }));
+        await col.insertMany(seeded as any[]);
       }
 
-      const query: any = {};
+      const query: any = {
+        portfolioSource: 'studio',
+      };
       if (filter?.status) {
         query.status = filter.status;
       } else {
@@ -377,13 +490,18 @@ export async function getStudioPortfolioItems(filter?: {
         query.type = filter.type;
       }
       if (filter?.category) {
-        query.gfxCategory = filter.category;
+        const cat = filter.category;
+        query.$or = [
+          { gfxCategory: cat },
+          ...(cat === 'Logo/Banner' ? [{ gfxCategory: 'Logo/Banners' }] : []),
+          ...(cat === 'Logo/Banners' ? [{ gfxCategory: 'Logo/Banner' }] : []),
+        ];
       }
 
       const docs = await col.find(query).sort({ order: 1, createdAt: -1 }).toArray();
       return docs.map((doc) => {
         const { _id, ...rest } = doc;
-        return { id: _id.toString(), ...rest } as StudioPortfolioItem;
+        return { id: _id.toString(), portfolioSource: 'studio', ...rest } as StudioPortfolioItem;
       });
     }
   }
@@ -400,7 +518,8 @@ export async function getStudioPortfolioItems(filter?: {
     items = items.filter((i) => i.type === filter.type);
   }
   if (filter?.category) {
-    items = items.filter((i) => i.gfxCategory === filter.category);
+    const cat = filter.category;
+    items = items.filter((i) => i.gfxCategory === cat || (cat.startsWith('Logo') && i.gfxCategory?.startsWith('Logo')));
   }
 
   return items.sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -417,6 +536,7 @@ export async function createStudioPortfolioItem(
   const newItem: StudioPortfolioItem = {
     ...data,
     id,
+    portfolioSource: 'studio',
     createdAt: now,
     updatedAt: now,
   };

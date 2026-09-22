@@ -18,13 +18,20 @@ export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
     const status = searchParams.get('status');
+    const category = searchParams.get('category')?.toUpperCase();
+    const subcategory = searchParams.get('subcategory');
     const search = searchParams.get('search')?.toLowerCase();
 
-    const query: any = {};
+    const query: any = {
+      portfolioSource: { $ne: 'studio' },
+    };
     if (status) query.status = status;
+    if (category && ['GFX', 'VFX', 'OTHER'].includes(category)) query.category = category;
+    if (subcategory) query.gfxSubcategory = subcategory;
     if (search) {
       query.$or = [
         { slug: { $regex: search, $options: 'i' } },
+        { title: { $regex: search, $options: 'i' } },
         { 'personalInfo.fullName': { $regex: search, $options: 'i' } },
       ];
     }
