@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer';
 import { VfxVideoPlayer } from '@/components/portfolio/VfxVideoPlayer';
 import { ContactTicketModal } from '@/components/portfolio/ContactTicketModal';
 import type { StudioPortfolioItem } from '@/lib/portfolio-shared';
-import { DEFAULT_STUDIO_PORTFOLIO_ITEMS } from '@/lib/portfolio-shared';
+import { DEFAULT_STUDIO_PORTFOLIO_ITEMS, toGfxCategorySlug } from '@/lib/portfolio-shared';
 import {
   ArrowLeft,
   ArrowRight,
@@ -135,7 +135,7 @@ export default function StudioPortfolioDetailPage() {
             </Link>
             <span>/</span>
             <Link
-              href={`/portfolio?track=${item.type}`}
+              href={item.type === 'GFX' ? '/portfolio/gfx' : '/portfolio/vfx'}
               className="hover:text-[#FED7B8] transition-colors uppercase font-bold text-[#FED7B8]"
             >
               {item.type}
@@ -144,7 +144,7 @@ export default function StudioPortfolioDetailPage() {
               <>
                 <span>/</span>
                 <Link
-                  href={`/portfolio?track=GFX&cat=${subsectionSlug}`}
+                  href={`/portfolio/gfx/${toGfxCategorySlug(item.gfxCategory)}`}
                   className="hover:text-[#FED7B8] transition-colors uppercase"
                 >
                   {item.gfxCategory}
@@ -194,7 +194,13 @@ export default function StudioPortfolioDetailPage() {
                 </button>
 
                 <Link
-                  href={`/portfolio?track=${item.type}${item.gfxCategory ? `&cat=${subsectionSlug}` : ''}`}
+                  href={
+                    item.type === 'GFX' && item.gfxCategory
+                      ? `/portfolio/gfx/${toGfxCategorySlug(item.gfxCategory)}`
+                      : item.type === 'GFX'
+                      ? '/portfolio/gfx'
+                      : '/portfolio/vfx'
+                  }
                   className="btn-secondary text-xs py-3 px-5 flex items-center gap-2"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />

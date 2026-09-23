@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer';
 import { VfxVideoPlayer } from '@/components/portfolio/VfxVideoPlayer';
 import { ContactTicketModal } from '@/components/portfolio/ContactTicketModal';
 import type { PortfolioData } from '@/lib/portfolio-shared';
-import { DEFAULT_COMMUNITY_PORTFOLIO_ITEMS } from '@/lib/portfolio-shared';
+import { DEFAULT_COMMUNITY_PORTFOLIO_ITEMS, toGfxCategorySlug } from '@/lib/portfolio-shared';
 import {
   ArrowLeft,
   ArrowRight,
@@ -234,9 +234,13 @@ export default function GlobalCreatorPortfolioDetailPage() {
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-[#52141A]" />
               <Link
-                href={`/global-portfolio?track=${portfolio.category || 'GFX'}${
-                  portfolio.gfxSubcategory ? `&cat=${portfolio.gfxSubcategory.toLowerCase()}` : ''
-                }`}
+                href={
+                  portfolio.category === 'GFX' && portfolio.gfxSubcategory
+                    ? `/global-portfolio/gfx/${toGfxCategorySlug(portfolio.gfxSubcategory)}`
+                    : portfolio.category === 'GFX'
+                    ? '/global-portfolio/gfx'
+                    : '/global-portfolio/vfx'
+                }
                 className="text-[#FED7B8] hover:underline"
               >
                 {categoryLabel}
@@ -246,11 +250,17 @@ export default function GlobalCreatorPortfolioDetailPage() {
             </div>
 
             <Link
-              href="/global-portfolio"
+              href={
+                portfolio.category === 'GFX' && portfolio.gfxSubcategory
+                  ? `/global-portfolio/gfx/${toGfxCategorySlug(portfolio.gfxSubcategory)}`
+                  : portfolio.category === 'GFX'
+                  ? '/global-portfolio/gfx'
+                  : '/global-portfolio/vfx'
+              }
               className="px-3.5 py-1.5 rounded-xl bg-[#1D0608] hover:bg-[#2A080C] border border-[#3D0D13] hover:border-[#FED7B8]/40 text-xs font-mono uppercase text-[#FED7B8] inline-flex items-center gap-2 transition-all"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Directory</span>
+              <span>Back to {portfolio.gfxSubcategory ? `${portfolio.gfxSubcategory} Portfolios` : 'Directory'}</span>
             </Link>
           </div>
         </section>

@@ -112,21 +112,24 @@ function StudioPortfolioContent() {
   }, [activeTrack, activeGfxCategory]);
 
   const handleSelectTrack = (track: 'GFX' | 'VFX', subsection?: string) => {
-    setActiveTrack(track);
     setShowModal(false);
-    if (subsection) {
-      setActiveGfxCategory(subsection);
-      router.replace(`/portfolio?track=${track}&cat=${toGfxCategorySlug(subsection)}`);
-    } else {
-      setActiveGfxCategory('ALL');
-      router.replace(`/portfolio?track=${track}`);
+    if (track === 'GFX') {
+      if (subsection) {
+        router.push(`/portfolio/gfx/${toGfxCategorySlug(subsection)}`);
+      } else {
+        router.push('/portfolio/gfx');
+      }
+    } else if (track === 'VFX') {
+      router.push('/portfolio/vfx');
     }
   };
 
   const handleSelectGfxCategory = (cat: string) => {
-    setActiveGfxCategory(cat);
-    const catSlug = cat === 'ALL' ? '' : `&cat=${toGfxCategorySlug(cat)}`;
-    router.replace(`/portfolio?track=GFX${catSlug}`);
+    if (cat === 'ALL') {
+      router.push('/portfolio/gfx');
+    } else {
+      router.push(`/portfolio/gfx/${toGfxCategorySlug(cat)}`);
+    }
   };
 
   // Filter items in memory
@@ -239,8 +242,8 @@ function StudioPortfolioContent() {
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-8">
           <div className="grid grid-cols-2 gap-3 sm:gap-4 p-2 bg-[#1A0507] rounded-3xl border border-[#3D0D13] max-w-2xl">
             {/* GFX Button */}
-            <button
-              onClick={() => handleSelectTrack('GFX')}
+            <Link
+              href="/portfolio/gfx"
               className={`py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 ${
                 activeTrack === 'GFX'
                   ? 'bg-gradient-to-r from-[#59171B] to-[#7B1F25] text-[#FED7B8] font-bold shadow-glow-burgundy border border-[#FED7B8]/40'
@@ -249,11 +252,11 @@ function StudioPortfolioContent() {
             >
               <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>GFX Track (Images)</span>
-            </button>
+            </Link>
 
             {/* VFX Button */}
-            <button
-              onClick={() => handleSelectTrack('VFX')}
+            <Link
+              href="/portfolio/vfx"
               className={`py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 ${
                 activeTrack === 'VFX'
                   ? 'bg-gradient-to-r from-purple-950 to-purple-800 text-purple-200 font-bold shadow-2xl border border-purple-400/50'
@@ -262,7 +265,7 @@ function StudioPortfolioContent() {
             >
               <Film className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>VFX Track (Videos)</span>
-            </button>
+            </Link>
           </div>
         </section>
 
@@ -270,23 +273,19 @@ function StudioPortfolioContent() {
         {activeTrack === 'GFX' && (
           <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-10">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 p-2 bg-[#1D0608] rounded-2xl border border-[#3D0D13]">
-              <button
-                onClick={() => handleSelectGfxCategory('ALL')}
-                className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all ${
-                  activeGfxCategory === 'ALL'
-                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/40 shadow-sm'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709]'
-                }`}
+              <Link
+                href="/portfolio/gfx"
+                className="px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/40 shadow-sm"
               >
-                All GFX Works
-              </button>
+                All GFX Subsections →
+              </Link>
 
               {GFX_SUBSECTIONS.map((sub) => {
                 const isSelected = activeGfxCategory === sub || (sub.startsWith('Logo') && activeGfxCategory.startsWith('Logo'));
                 return (
-                  <button
+                  <Link
                     key={sub}
-                    onClick={() => handleSelectGfxCategory(sub)}
+                    href={`/portfolio/gfx/${toGfxCategorySlug(sub)}`}
                     className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 ${
                       isSelected
                         ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/40 shadow-sm'
@@ -294,7 +293,7 @@ function StudioPortfolioContent() {
                     }`}
                   >
                     <span>{sub}</span>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -415,30 +414,27 @@ function StudioPortfolioContent() {
                   className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all duration-300 hover:shadow-glow-burgundy flex flex-col md:flex-row"
                 >
                   {/* Media Thumbnail */}
-                  <div className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#150304]">
+                  <Link
+                    href={`/portfolio/${item.id}`}
+                    className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#150304] block cursor-pointer group/thumb"
+                  >
                     <img
                       src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3">
                       <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#150304]/90 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30">
                         {item.type} {item.gfxCategory ? `• ${item.gfxCategory}` : ''}
                       </span>
                     </div>
-                    <button
-                      onClick={() => {
-                        if (item.type === 'GFX') setActiveLightboxItem(item);
-                        else setActiveVideoModalItem(item);
-                      }}
-                      className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
-                    >
-                      <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40">
-                        {item.type === 'VFX' ? <Play className="w-3.5 h-3.5 fill-current" /> : <Maximize2 className="w-3.5 h-3.5" />}
-                        <span>{item.type === 'VFX' ? 'Quick Play' : 'Zoom Image'}</span>
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40 shadow-lg">
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>View Project & All Details</span>
                       </span>
-                    </button>
-                  </div>
+                    </div>
+                  </Link>
 
                   {/* Content & Actions */}
                   <div className="p-6 flex-1 flex flex-col justify-between gap-4">

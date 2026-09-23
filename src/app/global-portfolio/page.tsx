@@ -159,22 +159,24 @@ function GlobalPortfolioContent() {
   }, [activeTrack, activeGfxCategory, searchQuery]);
 
   const handleSelectTrack = (track: 'GFX' | 'VFX', subsection?: string) => {
-    setActiveTrack(track);
     setShowModal(false);
-    if (track === 'GFX' && subsection) {
-      setActiveGfxCategory(subsection);
-      const catSlug = toGfxCategorySlug(subsection);
-      router.replace(`/global-portfolio?track=GFX&cat=${catSlug}`);
-    } else {
-      setActiveGfxCategory('ALL');
-      router.replace(`/global-portfolio?track=${track}`);
+    if (track === 'GFX') {
+      if (subsection) {
+        router.push(`/global-portfolio/gfx/${toGfxCategorySlug(subsection)}`);
+      } else {
+        router.push('/global-portfolio/gfx');
+      }
+    } else if (track === 'VFX') {
+      router.push('/global-portfolio/vfx');
     }
   };
 
   const handleSelectGfxCategory = (cat: string) => {
-    setActiveGfxCategory(cat);
-    const catSlug = cat === 'ALL' ? '' : `&cat=${toGfxCategorySlug(cat)}`;
-    router.replace(`/global-portfolio?track=GFX${catSlug}`);
+    if (cat === 'ALL') {
+      router.push('/global-portfolio/gfx');
+    } else {
+      router.push(`/global-portfolio/gfx/${toGfxCategorySlug(cat)}`);
+    }
   };
 
   const handleCopySubdomain = (url: string, slug: string) => {
@@ -288,8 +290,8 @@ function GlobalPortfolioContent() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#1A0507] rounded-3xl border border-[#3D0D13] max-w-md w-full">
               {/* GFX Button */}
-              <button
-                onClick={() => handleSelectTrack('GFX')}
+              <Link
+                href="/global-portfolio/gfx"
                 className={`py-3 px-4 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${
                   activeTrack === 'GFX'
                     ? 'bg-gradient-to-r from-[#59171B] to-[#7B1F25] text-[#FED7B8] font-bold shadow-glow-burgundy border border-[#FED7B8]/40'
@@ -298,11 +300,11 @@ function GlobalPortfolioContent() {
               >
                 <ImageIcon className="w-4 h-4" />
                 <span>GFX Portfolios</span>
-              </button>
+              </Link>
 
               {/* VFX Button */}
-              <button
-                onClick={() => handleSelectTrack('VFX')}
+              <Link
+                href="/global-portfolio/vfx"
                 className={`py-3 px-4 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${
                   activeTrack === 'VFX'
                     ? 'bg-gradient-to-r from-purple-950 to-purple-800 text-purple-200 font-bold shadow-2xl border border-purple-400/50'
@@ -311,7 +313,7 @@ function GlobalPortfolioContent() {
               >
                 <Film className="w-4 h-4" />
                 <span>VFX Portfolios</span>
-              </button>
+              </Link>
             </div>
 
             {/* Search Input */}
@@ -332,25 +334,21 @@ function GlobalPortfolioContent() {
         {activeTrack === 'GFX' && (
           <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-10">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 p-2 bg-[#1D0608] rounded-2xl border border-[#3D0D13]">
-              <button
-                onClick={() => handleSelectGfxCategory('ALL')}
-                className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all ${
-                  activeGfxCategory === 'ALL'
-                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/40 shadow-sm'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709]'
-                }`}
+              <Link
+                href="/global-portfolio/gfx"
+                className="px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/40 shadow-sm"
               >
-                All GFX Works
-              </button>
+                All Community GFX →
+              </Link>
 
               {GFX_SUBSECTIONS.map((sub) => {
                 const isSelected =
                   activeGfxCategory === sub ||
                   (sub.startsWith('Logo') && activeGfxCategory.startsWith('Logo'));
                 return (
-                  <button
+                  <Link
                     key={sub}
-                    onClick={() => handleSelectGfxCategory(sub)}
+                    href={`/global-portfolio/gfx/${toGfxCategorySlug(sub)}`}
                     className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 ${
                       isSelected
                         ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/40 shadow-sm'
@@ -358,7 +356,7 @@ function GlobalPortfolioContent() {
                     }`}
                   >
                     <span>{sub}</span>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
