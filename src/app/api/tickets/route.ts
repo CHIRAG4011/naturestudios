@@ -18,10 +18,16 @@ export async function GET() {
     let tickets: any[] = [];
 
     if (db) {
+      const userEmail = user.email.toLowerCase().trim();
       const docs = await db
         .collection('supportTickets')
         .find({
-          $or: [{ userId: user.id }, { email: user.email.toLowerCase().trim() }],
+          $or: [
+            { userId: user.id },
+            { email: userEmail },
+            { targetUserId: user.id },
+            { targetUserEmail: userEmail },
+          ],
         })
         .sort({ updatedAt: -1, createdAt: -1 })
         .toArray();
@@ -42,12 +48,30 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await req.json();
-    const { subject, message, category, priority } = body;
+    const {
+      subject,
+      message,
+      category,
+      priority,
+      name: guestName,
+      email: guestEmail,
+      targetUserId,
+      targetUserEmail,
+      targetType,
+      portfolioSlug,
+      portfolioTitle,
+    } = body;
+
+    const senderName = user?.name || guestName?.trim() || 'Visitor';
+    const senderEmail = (user?.email || guestEmail?.trim() || '').toLowerCase();
+
+    if (!senderEmail || !senderEmail.includes('@')) {
+      return NextResponse.json(
+        { error: 'Valid email address is required to submit a ticket.' },
+        { status: 400 }
+      );
+    }
 
     if (!subject?.trim() || !message?.trim()) {
       return NextResponse.json(
@@ -58,26 +82,46 @@ export async function POST(req: NextRequest) {
 
     const isAppeal =
       category === 'APPEAL' ||
-      user.isSuspended ||
-      user.status === 'SUSPENDED';
+      (user && (user.isSuspended || user.status === 'SUSPENDED'));
 
-    const ticketCategory = isAppeal ? 'APPEAL' : category || 'GENERAL';
+    const ticketCategory = isAppeal
+      ? 'APPEAL'
+      : category || (targetType === 'STUDIO' ? 'COMMISSION' : targetType === 'CREATOR' ? 'PROJECT_INQUIRY' : 'GENERAL');
     const ticketPriority = isAppeal ? 'HIGH' : priority || 'NORMAL';
-    const ticketNumber = `NS-${isAppeal ? 'APL' : 'TCK'}-${Date.now().toString().slice(-6)}`;
+    
+    const prefix = isAppeal
+      ? 'NS-APL'
+      : targetType === 'STUDIO'
+      ? 'NS-STD'
+      : targetType === 'CREATOR'
+      ? 'NS-CRT'
+      : 'NS-TCK';
+    const ticketNumber = `${prefix}-${Date.now().toString().slice(-6)}`;
 
     const doc: SupportTicketDoc = {
       ticketNumber,
-      userId: user.id,
-      name: user.name || 'Creator',
-      email: user.email.toLowerCase().trim(),
+      userId: user?.id,
+      name: senderName,
+      email: senderEmail,
       subject: subject.trim(),
       message: message.trim(),
       category: ticketCategory as any,
       priority: ticketPriority as any,
       status: 'OPEN',
+      targetUserId: targetUserId || undefined,
+      targetUserEmail: (targetUserEmail || (targetType === 'STUDIO' ? 'admin@naturestudio.in' : undefined))?.toLowerCase().trim(),
+      targetType: targetType || (targetUserId ? 'CREATOR' : 'STUDIO'),
+      portfolioSlug: portfolioSlug?.trim() || undefined,
+      portfolioTitle: portfolioTitle?.trim() || undefined,
       internalNotes: isAppeal
-        ? [`[System]: Appeal ticket submitted by account currently marked as SUSPENDED (${user.suspendedReason || 'Reason not specified'}).`]
-        : [],
+        ? [`[System]: Appeal ticket submitted by account currently marked as SUSPENDED (${user?.suspendedReason || 'Reason not specified'}).`]
+        : [
+            targetType === 'STUDIO'
+              ? `[System]: Direct inquiry for Studio Portfolio (${portfolioTitle || 'Studio Work'}).`
+              : targetType === 'CREATOR'
+              ? `[System]: Direct inquiry for Creator Portfolio (@${portfolioSlug || 'creator'}).`
+              : `[System]: Direct support ticket created.`,
+          ],
       responses: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -93,25 +137,29 @@ export async function POST(req: NextRequest) {
 
     // Send confirmation email
     try {
-      await sendTicketCreatedEmail(user.email, {
-        ticketNumber,
-        subject: subject.trim(),
-        name: user.name || undefined,
-        category: ticketCategory,
-      });
+      if (senderEmail) {
+        await sendTicketCreatedEmail(senderEmail, {
+          ticketNumber,
+          subject: subject.trim(),
+          name: senderName || undefined,
+          category: ticketCategory,
+        });
+      }
     } catch (emailErr) {
       console.error('Error dispatching ticket receipt email:', emailErr);
     }
 
-    // In-app notification
-    await prisma.notification.create({
-      data: {
-        userId: user.id,
-        type: 'ticket_created',
-        title: `Ticket Submitted: ${ticketNumber}`,
-        message: `Your ticket regarding "${subject.trim()}" has been queued with our operations and moderation desk.`,
-      },
-    }).catch(() => {});
+    // In-app notification for logged-in user
+    if (user?.id) {
+      await prisma.notification.create({
+        data: {
+          userId: user.id,
+          type: 'ticket_created',
+          title: `Ticket Submitted: ${ticketNumber}`,
+          message: `Your ticket regarding "${subject.trim()}" has been queued with our operations and moderation desk.`,
+        },
+      }).catch(() => {});
+    }
 
     return NextResponse.json({
       success: true,

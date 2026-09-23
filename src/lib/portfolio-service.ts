@@ -14,6 +14,7 @@ import {
   isReservedSlug,
   DEFAULT_DESIGN_CONFIG,
   DEFAULT_STUDIO_PORTFOLIO_ITEMS,
+  DEFAULT_COMMUNITY_PORTFOLIO_ITEMS,
 } from './portfolio-shared';
 
 
@@ -135,6 +136,12 @@ export async function getPortfolioResolutionBySlug(slug: string): Promise<Portfo
       return { portfolio: cached, state: 'PUBLISHED' };
     }
     return { portfolio: cached, state: 'DRAFT' };
+  }
+
+  // Check default community creators
+  const defaultCommunity = DEFAULT_COMMUNITY_PORTFOLIO_ITEMS.find((c) => c.slug === cleanSlug);
+  if (defaultCommunity) {
+    return { portfolio: defaultCommunity, state: 'PUBLISHED' };
   }
 
   return { portfolio: null, state: 'NOT_FOUND' };
@@ -432,6 +439,20 @@ export async function getGlobalPortfolios(filter?: GlobalPortfolioFilter): Promi
           } as PortfolioData);
         }
       }
+      
+      // Supplement MongoDB results with default community items if any categories are empty
+      const existingSlugs = new Set(results.map((r) => r.slug));
+      for (const p of DEFAULT_COMMUNITY_PORTFOLIO_ITEMS) {
+        if (!existingSlugs.has(p.slug)) {
+          if (normCategory && p.category?.toUpperCase() !== normCategory) continue;
+          if (normSubcategory && p.gfxSubcategory?.toLowerCase().replace(/[^a-z]/g, '') !== normSubcategory.replace(/[^a-z]/g, '')) continue;
+          if (search) {
+            const text = `${p.title} ${p.personalInfo?.fullName} ${p.personalInfo?.tagline} ${(p.skills || []).map((s) => s.name).join(' ')}`.toLowerCase();
+            if (!text.includes(search)) continue;
+          }
+          results.push(p);
+        }
+      }
       return results;
     }
   }
@@ -439,6 +460,20 @@ export async function getGlobalPortfolios(filter?: GlobalPortfolioFilter): Promi
   // In-memory fallback
   for (const p of Array.from(devPortfolioStore.values())) {
     if (p.status === 'PUBLISHED' && p.portfolioSource !== 'studio') {
+      if (normCategory && p.category?.toUpperCase() !== normCategory) continue;
+      if (normSubcategory && p.gfxSubcategory?.toLowerCase().replace(/[^a-z]/g, '') !== normSubcategory.replace(/[^a-z]/g, '')) continue;
+      if (search) {
+        const text = `${p.title} ${p.personalInfo?.fullName} ${p.personalInfo?.tagline} ${(p.skills || []).map((s) => s.name).join(' ')}`.toLowerCase();
+        if (!text.includes(search)) continue;
+      }
+      results.push(p);
+    }
+  }
+
+  // Supplement in-memory fallback
+  const existingDevSlugs = new Set(results.map((r) => r.slug));
+  for (const p of DEFAULT_COMMUNITY_PORTFOLIO_ITEMS) {
+    if (!existingDevSlugs.has(p.slug)) {
       if (normCategory && p.category?.toUpperCase() !== normCategory) continue;
       if (normSubcategory && p.gfxSubcategory?.toLowerCase().replace(/[^a-z]/g, '') !== normSubcategory.replace(/[^a-z]/g, '')) continue;
       if (search) {
@@ -523,6 +558,39 @@ export async function getStudioPortfolioItems(filter?: {
   }
 
   return items.sort((a, b) => (a.order || 0) - (b.order || 0));
+}
+
+/**
+ * Get single Studio Portfolio item by ID
+ */
+export async function getStudioPortfolioItemById(id: string): Promise<StudioPortfolioItem | null> {
+  if (isMongoConfigured()) {
+    await ensureMongoIndexes();
+    const db = await getMongoDb();
+    if (db) {
+      const col = db.collection('studio_portfolio_items');
+      let doc: any = null;
+      try {
+        const { ObjectId } = await import('mongodb');
+        if (ObjectId.isValid(id)) {
+          doc = await col.findOne({ _id: new ObjectId(id) });
+        }
+      } catch (e) {}
+
+      if (!doc) {
+        doc = await col.findOne({ id });
+      }
+
+      if (doc) {
+        const { _id, ...rest } = doc;
+        return { id: _id.toString(), portfolioSource: 'studio', ...rest } as StudioPortfolioItem;
+      }
+    }
+  }
+
+  // Fallback in-memory / default items
+  const found = devStudioItemsStore.get(id) || DEFAULT_STUDIO_PORTFOLIO_ITEMS.find((i) => i.id === id);
+  return found || null;
 }
 
 /**

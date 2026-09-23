@@ -35,6 +35,8 @@ export async function GET(req: NextRequest) {
 
       return {
         id: p.id,
+        userId: p.userId,
+        userEmail: p.personalInfo?.publicEmail,
         portfolioSource: 'user',
         slug: p.slug,
         title: p.title,

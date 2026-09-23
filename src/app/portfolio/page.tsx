@@ -7,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PortfolioSelectionModal } from '@/components/portfolio/PortfolioSelectionModal';
 import { VfxVideoPlayer } from '@/components/portfolio/VfxVideoPlayer';
+import { ContactTicketModal } from '@/components/portfolio/ContactTicketModal';
 import type { StudioPortfolioItem, StudioWorkType, GfxSubsection } from '@/lib/portfolio-shared';
 import {
   GFX_SUBSECTIONS,
@@ -28,11 +29,14 @@ import {
   Trophy,
   Users,
   LayoutGrid,
+  LayoutList,
   Bookmark,
   ShieldCheck,
   Zap,
   Globe,
   SlidersHorizontal,
+  Send,
+  Eye,
 } from 'lucide-react';
 
 function StudioPortfolioContent() {
@@ -55,6 +59,9 @@ function StudioPortfolioContent() {
 
   // Popup modal state: Show modal if user lands on /portfolio without explicit track query
   const [showModal, setShowModal] = useState<boolean>(!trackParam);
+
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+  const [contactTargetItem, setContactTargetItem] = useState<StudioPortfolioItem | null>(null);
 
   const [studioItems, setStudioItems] = useState<StudioPortfolioItem[]>(DEFAULT_STUDIO_PORTFOLIO_ITEMS);
   const [loadingItems, setLoadingItems] = useState(false);
@@ -104,11 +111,16 @@ function StudioPortfolioContent() {
     fetchStudioItems();
   }, [activeTrack, activeGfxCategory]);
 
-  const handleSelectTrack = (track: 'GFX' | 'VFX') => {
+  const handleSelectTrack = (track: 'GFX' | 'VFX', subsection?: string) => {
     setActiveTrack(track);
     setShowModal(false);
-    setActiveGfxCategory('ALL');
-    router.replace(`/portfolio?track=${track}`);
+    if (subsection) {
+      setActiveGfxCategory(subsection);
+      router.replace(`/portfolio?track=${track}&cat=${toGfxCategorySlug(subsection)}`);
+    } else {
+      setActiveGfxCategory('ALL');
+      router.replace(`/portfolio?track=${track}`);
+    }
   };
 
   const handleSelectGfxCategory = (cat: string) => {
@@ -318,8 +330,59 @@ function StudioPortfolioContent() {
           </section>
         )}
 
-        {/* PORTFOLIO GRID: GFX (IMAGES ONLY) or VFX (VIDEOS ONLY) */}
+        {/* PORTFOLIO SHOWCASES: LIST OR GRID VIEW */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Section Toolbar: Title, Item Count & View Switcher */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#3D0D13]">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black uppercase text-[#FFF5ED] font-syne flex items-center gap-2">
+                <span>
+                  {activeTrack === 'GFX'
+                    ? activeGfxCategory === 'ALL'
+                      ? 'All Studio GFX Works'
+                      : `${activeGfxCategory} Portfolios`
+                    : 'Studio VFX Video Showcases'}
+                </span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#240709] border border-[#52141A] text-[#FED7B8]">
+                  {displayedItems.length} {displayedItems.length === 1 ? 'Production' : 'Productions'}
+                </span>
+              </h2>
+              <p className="text-xs text-[#B89B8D] mt-0.5">
+                {activeTrack === 'GFX' && activeGfxCategory !== 'ALL'
+                  ? `Displaying official studio ${activeGfxCategory.toLowerCase()} graphics and deliverables.`
+                  : 'Official studio productions designed for international esports arenas.'}
+              </p>
+            </div>
+
+            {/* View Mode Toggle: List vs Grid */}
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#1D0608] border border-[#3D0D13] shrink-0">
+              <button
+                type="button"
+                onClick={() => setViewMode('list')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  viewMode === 'list'
+                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
+                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                }`}
+              >
+                <LayoutList className="w-3.5 h-3.5" />
+                <span>List View</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('grid')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  viewMode === 'grid'
+                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
+                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                }`}
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Grid View</span>
+              </button>
+            </div>
+          </div>
+
           {loadingItems ? (
             <div className="py-24 text-center text-xs font-mono text-[#B89B8D]">
               Loading Studio {activeTrack} Showcases...
@@ -331,19 +394,111 @@ function StudioPortfolioContent() {
                 {activeTrack === 'GFX' ? <ImageIcon className="w-6 h-6" /> : <Film className="w-6 h-6" />}
               </div>
               <h3 className="font-syne text-lg font-bold text-[#FFF5ED] mb-1">
-                No {activeTrack} Showcases in this category yet.
+                No {activeGfxCategory !== 'ALL' ? activeGfxCategory : activeTrack} Showcases found.
               </h3>
               <p className="text-xs text-[#B89B8D] max-w-sm mx-auto mb-4">
-                Studio showcases for this category are being updated. Check back shortly or browse other subsections.
+                No designs have been added for this category yet. Browse other subsections or all GFX works.
               </p>
               <button
                 onClick={() => handleSelectGfxCategory('ALL')}
-                className="px-4 py-2 rounded-xl bg-[#59171B] text-[#FED7B8] text-xs font-mono uppercase"
+                className="px-4 py-2 rounded-xl bg-[#59171B] text-[#FED7B8] text-xs font-mono uppercase cursor-pointer"
               >
                 View All GFX
               </button>
             </div>
+          ) : viewMode === 'list' ? (
+            /* LIST TYPE VIEW */
+            <div className="space-y-6">
+              {displayedItems.map((item, idx) => (
+                <article
+                  key={item.id || idx}
+                  className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all duration-300 hover:shadow-glow-burgundy flex flex-col md:flex-row"
+                >
+                  {/* Media Thumbnail */}
+                  <div className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#150304]">
+                    <img
+                      src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#150304]/90 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30">
+                        {item.type} {item.gfxCategory ? `• ${item.gfxCategory}` : ''}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        if (item.type === 'GFX') setActiveLightboxItem(item);
+                        else setActiveVideoModalItem(item);
+                      }}
+                      className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                    >
+                      <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40">
+                        {item.type === 'VFX' ? <Play className="w-3.5 h-3.5 fill-current" /> : <Maximize2 className="w-3.5 h-3.5" />}
+                        <span>{item.type === 'VFX' ? 'Quick Play' : 'Zoom Image'}</span>
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Content & Actions */}
+                  <div className="p-6 flex-1 flex flex-col justify-between gap-4">
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="text-[11px] font-mono uppercase text-[#FED7B8]/80 font-bold">
+                          Client: {item.client}
+                        </span>
+                        <span className="text-[10px] font-mono text-[#B89B8D] uppercase">
+                          Verified Studio Asset
+                        </span>
+                      </div>
+
+                      <Link href={`/portfolio/${item.id}`} className="block group-hover:text-[#FED7B8] transition-colors">
+                        <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+                          {item.title}
+                        </h3>
+                      </Link>
+
+                      <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed line-clamp-3">
+                        {item.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {item.tags?.map((tag, tIdx) => (
+                          <span
+                            key={tIdx}
+                            className="px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Actions Bar */}
+                    <div className="pt-4 border-t border-[#3D0D13]/60 flex flex-wrap items-center justify-between gap-3">
+                      <Link
+                        href={`/portfolio/${item.id}`}
+                        className="btn-primary text-xs py-2 px-4 shadow-glow-burgundy inline-flex items-center gap-2"
+                      >
+                        <span>View Full Project & All Images</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => setContactTargetItem(item)}
+                        className="btn-secondary text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer"
+                      >
+                        <Send className="w-3 h-3 text-[#FED7B8]" />
+                        <span>Contact Now</span>
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           ) : (
+            /* GRID VIEW */
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {displayedItems.map((item, idx) => (
                 <article
@@ -409,39 +564,33 @@ function StudioPortfolioContent() {
                       <div className="text-[11px] font-mono text-[#FED7B8]/70 uppercase tracking-widest mb-1.5">
                         {item.client || 'NatureStudios Commission'}
                       </div>
-                      <h3 className="font-syne text-xl font-bold uppercase text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors mb-2 line-clamp-2">
-                        {item.title}
-                      </h3>
+                      <Link href={`/portfolio/${item.id}`} className="block group-hover:text-[#FED7B8] transition-colors">
+                        <h3 className="font-syne text-xl font-bold uppercase text-[#FFF5ED] mb-2 line-clamp-2">
+                          {item.title}
+                        </h3>
+                      </Link>
                       <p className="text-xs text-[#B89B8D] leading-relaxed line-clamp-3 mb-4">
                         {item.description}
                       </p>
                     </div>
 
-                    {/* Tags Footer */}
-                    <div className="pt-4 border-t border-[#3D0D13]/60 flex items-center justify-between">
-                      <div className="flex flex-wrap gap-1.5">
-                        {item.tags?.slice(0, 3).map((tag, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <button
-                        onClick={() => {
-                          if (activeTrack === 'GFX') {
-                            setActiveLightboxItem(item);
-                          } else {
-                            setActiveVideoModalItem(item);
-                          }
-                        }}
+                    {/* Actions Footer */}
+                    <div className="pt-4 border-t border-[#3D0D13]/60 flex items-center justify-between gap-2">
+                      <Link
+                        href={`/portfolio/${item.id}`}
                         className="text-xs font-mono uppercase text-[#FED7B8] hover:underline flex items-center gap-1"
                       >
-                        <span>{activeTrack === 'GFX' ? 'Inspect' : 'Play'}</span>
+                        <span>Full Details</span>
                         <ChevronRight className="w-3.5 h-3.5" />
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => setContactTargetItem(item)}
+                        className="px-2.5 py-1 rounded-lg bg-[#2D0A0E] hover:bg-[#59171B] border border-[#52141A] text-[11px] font-mono uppercase text-[#FED7B8] transition-colors flex items-center gap-1 cursor-pointer"
+                      >
+                        <Send className="w-3 h-3" />
+                        <span>Contact</span>
                       </button>
                     </div>
                   </div>
@@ -534,6 +683,15 @@ function StudioPortfolioContent() {
           </div>
         </div>
       )}
+
+      {/* CONTACT TICKET MODAL */}
+      <ContactTicketModal
+        isOpen={Boolean(contactTargetItem)}
+        onClose={() => setContactTargetItem(null)}
+        targetType="STUDIO"
+        targetName="NatureStudios Admin"
+        portfolioTitle={contactTargetItem?.title}
+      />
 
       <Footer />
     </div>

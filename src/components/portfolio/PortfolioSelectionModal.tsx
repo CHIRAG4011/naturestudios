@@ -6,7 +6,7 @@ import { Sparkles, Film, Image as ImageIcon, ArrowRight, X, Layers, Flame, Video
 interface PortfolioSelectionModalProps {
   isOpen: boolean;
   onClose?: () => void;
-  onSelect: (track: 'GFX' | 'VFX') => void;
+  onSelect: (track: 'GFX' | 'VFX', subsection?: string) => void;
   mode: 'studio' | 'global';
   title?: string;
   subtitle?: string;
@@ -103,16 +103,25 @@ export function PortfolioSelectionModal({
                 Tournament stage graphics, team rosters, high-CTR thumbnails, and branding logos/banners.
               </p>
 
-              {/* Subcategories tags preview */}
-              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#3D0D13]">
-                {['Tournament', 'Roster', 'Thumbnail', 'Logo/Banner'].map((sub) => (
-                  <span
-                    key={sub}
-                    className="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-[#120204] border border-[#3D0D13] text-[#FED7B8]/80"
-                  >
-                    {sub}
-                  </span>
-                ))}
+              {/* Subcategories direct selection */}
+              <div className="pt-2 border-t border-[#3D0D13] space-y-1.5">
+                <span className="text-[10px] font-mono uppercase text-[#B89B8D] block">
+                  Select Subsection Directly:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {['Tournament', 'Roster', 'Thumbnail', 'Logo/Banner'].map((sub) => (
+                    <span
+                      key={sub}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSelect('GFX', sub);
+                      }}
+                      className="text-[10px] font-mono uppercase px-2.5 py-1 rounded-md bg-[#2D0A0E] border border-[#52141A] text-[#FED7B8] hover:bg-[#59171B] hover:border-[#FED7B8] cursor-pointer transition-all hover:scale-105"
+                    >
+                      {sub} →
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 

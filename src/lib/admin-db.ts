@@ -224,11 +224,16 @@ export interface SupportTicketDoc {
   email: string;
   subject: string;
   message: string;
-  category?: 'APPEAL' | 'ACCOUNT' | 'BILLING' | 'TECHNICAL' | 'GENERAL';
+  category?: 'APPEAL' | 'ACCOUNT' | 'BILLING' | 'TECHNICAL' | 'GENERAL' | 'PROJECT_INQUIRY' | 'COMMISSION';
   priority: 'LOW' | 'NORMAL' | 'HIGH' | 'URGENT';
   status: 'OPEN' | 'IN_PROGRESS' | 'WAITING_CLIENT' | 'RESOLVED' | 'CLOSED';
   internalNotes?: string[];
   assignedTo?: string;
+  targetUserId?: string;
+  targetUserEmail?: string;
+  targetType?: 'STUDIO' | 'CREATOR';
+  portfolioSlug?: string;
+  portfolioTitle?: string;
   responses?: Array<{
     id: string;
     sender: 'USER' | 'ADMIN';

@@ -7,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PortfolioSelectionModal } from '@/components/portfolio/PortfolioSelectionModal';
 import { VfxVideoPlayer } from '@/components/portfolio/VfxVideoPlayer';
+import { ContactTicketModal } from '@/components/portfolio/ContactTicketModal';
 import {
   GFX_SUBSECTIONS,
   toGfxCategorySlug,
@@ -30,14 +31,18 @@ import {
   Bookmark,
   Zap,
   LayoutGrid,
+  LayoutList,
   SlidersHorizontal,
   ChevronRight,
   ArrowRight,
   ShieldCheck,
+  Send,
 } from 'lucide-react';
 
 interface GlobalCreatorCard {
   id: string;
+  userId?: string;
+  userEmail?: string;
   portfolioSource: 'user';
   slug: string;
   title: string;
@@ -85,6 +90,12 @@ function GlobalPortfolioContent() {
 
   // Popup modal state: Show modal if user lands on /global-portfolio without explicit track query
   const [showModal, setShowModal] = useState<boolean>(!trackParam);
+
+  // View Mode: List by default (per user specification)
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+
+  // Contact Modal State
+  const [contactTargetCreator, setContactTargetCreator] = useState<GlobalCreatorCard | null>(null);
 
   const [creators, setCreators] = useState<GlobalCreatorCard[]>([]);
   const [loading, setLoading] = useState(true);
@@ -147,11 +158,17 @@ function GlobalPortfolioContent() {
     fetchGlobalPortfolios();
   }, [activeTrack, activeGfxCategory, searchQuery]);
 
-  const handleSelectTrack = (track: 'GFX' | 'VFX') => {
+  const handleSelectTrack = (track: 'GFX' | 'VFX', subsection?: string) => {
     setActiveTrack(track);
     setShowModal(false);
-    setActiveGfxCategory('ALL');
-    router.replace(`/global-portfolio?track=${track}`);
+    if (track === 'GFX' && subsection) {
+      setActiveGfxCategory(subsection);
+      const catSlug = toGfxCategorySlug(subsection);
+      router.replace(`/global-portfolio?track=GFX&cat=${catSlug}`);
+    } else {
+      setActiveGfxCategory('ALL');
+      router.replace(`/global-portfolio?track=${track}`);
+    }
   };
 
   const handleSelectGfxCategory = (cat: string) => {
@@ -377,8 +394,59 @@ function GlobalPortfolioContent() {
           </section>
         )}
 
-        {/* CREATORS PORTFOLIO GRID */}
+        {/* CREATORS PORTFOLIO LIST / GRID */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Section Toolbar: Title, Item Count & View Switcher */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#3D0D13]">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black uppercase text-[#FFF5ED] font-syne flex items-center gap-2">
+                <span>
+                  {activeTrack === 'GFX'
+                    ? activeGfxCategory === 'ALL'
+                      ? 'All Community GFX Portfolios'
+                      : `${activeGfxCategory} Portfolios`
+                    : 'Community VFX Video Showcases'}
+                </span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#240709] border border-[#52141A] text-[#FED7B8]">
+                  {creators.length} {creators.length === 1 ? 'Creator' : 'Creators'}
+                </span>
+              </h2>
+              <p className="text-xs text-[#B89B8D] mt-0.5">
+                {activeTrack === 'GFX' && activeGfxCategory !== 'ALL'
+                  ? `Showing all verified global creator portfolios categorized under ${activeGfxCategory}.`
+                  : 'Independent creator portfolios published on custom NatureStudios subdomains.'}
+              </p>
+            </div>
+
+            {/* View Mode Toggle: List vs Grid */}
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#1D0608] border border-[#3D0D13] shrink-0">
+              <button
+                type="button"
+                onClick={() => setViewMode('list')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  viewMode === 'list'
+                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
+                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                }`}
+              >
+                <LayoutList className="w-3.5 h-3.5" />
+                <span>List View</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('grid')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  viewMode === 'grid'
+                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
+                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                }`}
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Grid View</span>
+              </button>
+            </div>
+          </div>
+
           {loading ? (
             <div className="py-24 text-center text-xs font-mono text-[#B89B8D]">
               Loading Global {activeTrack} Portfolios...
@@ -390,7 +458,7 @@ function GlobalPortfolioContent() {
                 {activeTrack === 'GFX' ? <ImageIcon className="w-6 h-6" /> : <Film className="w-6 h-6" />}
               </div>
               <h3 className="font-syne text-lg font-bold text-[#FFF5ED] mb-1">
-                No creator portfolios available in this category yet.
+                No creator portfolios found in this category.
               </h3>
               <p className="text-xs text-[#B89B8D] max-w-sm mx-auto mb-5">
                 Be the first creator to publish your work in this category and get featured on the NatureStudios Global Directory!
@@ -402,7 +470,200 @@ function GlobalPortfolioContent() {
                 Create Your Portfolio
               </Link>
             </div>
+          ) : viewMode === 'list' ? (
+            /* LIST TYPE VIEW */
+            <div className="space-y-6">
+              {creators.map((creator) => (
+                <article
+                  key={creator.id}
+                  className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all duration-300 hover:shadow-glow-burgundy flex flex-col md:flex-row"
+                >
+                  {/* Media Thumbnail */}
+                  <div className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#150304]">
+                    <img
+                      src={creator.mediaUrl}
+                      alt={creator.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-95 group-hover:brightness-105"
+                    />
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#150304]/90 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30">
+                        {creator.category === 'GFX' && creator.gfxSubcategory
+                          ? creator.gfxSubcategory
+                          : creator.category}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider bg-black/60 text-[#B89B8D] border border-white/10">
+                        {creator.themeId}
+                      </span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (activeTrack === 'GFX') {
+                          setActiveImagePreview({
+                            imageUrl: creator.mediaUrl,
+                            title: creator.title,
+                            creatorName: creator.name,
+                            subdomainUrl: creator.subdomainUrl,
+                            category: creator.gfxSubcategory,
+                          });
+                        } else {
+                          setActiveVideoModal({
+                            videoUrl: creator.videoUrl || creator.mediaUrl,
+                            posterUrl: creator.videoThumbnailUrl || creator.mediaUrl,
+                            title: creator.title,
+                            creatorName: creator.name,
+                            subdomainUrl: creator.subdomainUrl,
+                          });
+                        }
+                      }}
+                      className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                    >
+                      <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40 shadow-lg">
+                        {activeTrack === 'VFX' ? <Play className="w-3.5 h-3.5 fill-current" /> : <Maximize2 className="w-3.5 h-3.5" />}
+                        <span>{activeTrack === 'VFX' ? 'Quick Play' : 'Zoom Artwork'}</span>
+                      </span>
+                    </button>
+
+                    {creator.duration && (
+                      <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-[#FED7B8]">
+                        {creator.duration}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Creator Content & Actions */}
+                  <div className="p-6 flex-1 flex flex-col justify-between gap-4">
+                    <div className="space-y-3">
+                      {/* Masthead */}
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-[#2A080C] border border-[#52141A] overflow-hidden flex-shrink-0 flex items-center justify-center font-syne font-bold text-xs text-[#FED7B8]">
+                            {creator.avatar ? (
+                              <img
+                                src={creator.avatar}
+                                alt={creator.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              creator.name.slice(0, 2).toUpperCase()
+                            )}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-syne font-bold text-sm text-[#FFF5ED]">
+                                {creator.name}
+                              </h4>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.2 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-[9px] font-mono uppercase text-emerald-300">
+                                <ShieldCheck className="w-2.5 h-2.5" />
+                                <span>Verified Creator</span>
+                              </span>
+                            </div>
+                            <span className="text-[11px] font-mono text-[#B89B8D] block">
+                              {creator.role} {creator.location ? `• ${creator.location}` : ''}
+                            </span>
+                          </div>
+                        </div>
+
+                        {creator.availability && (
+                          <span className="text-[10px] font-mono text-[#FED7B8] px-2.5 py-1 rounded-full bg-[#2A080C] border border-[#52141A]">
+                            {creator.availability}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Title & Tagline */}
+                      <div>
+                        <Link
+                          href={`/global-portfolio/${creator.slug}`}
+                          className="block group-hover:text-[#FED7B8] transition-colors"
+                        >
+                          <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+                            {creator.title}
+                          </h3>
+                        </Link>
+                        {creator.tagline && (
+                          <p className="text-xs text-[#FED7B8]/80 italic mt-0.5">
+                            &quot;{creator.tagline}&quot;
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Description */}
+                      {creator.description && (
+                        <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed line-clamp-2">
+                          {creator.description}
+                        </p>
+                      )}
+
+                      {/* Skills Tags */}
+                      {creator.skills && creator.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {creator.skills.map((skill, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Actions Bar */}
+                    <div className="pt-4 border-t border-[#3D0D13]/60 flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Link
+                          href={`/global-portfolio/${creator.slug}`}
+                          className="btn-primary text-xs py-2 px-4 shadow-glow-burgundy inline-flex items-center gap-2"
+                        >
+                          <span>View Dedicated Portfolio</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+
+                        <button
+                          type="button"
+                          onClick={() => setContactTargetCreator(creator)}
+                          className="btn-secondary text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer"
+                        >
+                          <Send className="w-3 h-3 text-[#FED7B8]" />
+                          <span>Contact Creator</span>
+                        </button>
+                      </div>
+
+                      {/* Subdomain Link */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleCopySubdomain(creator.subdomainUrl, creator.slug)}
+                          className="text-[11px] font-mono text-[#B89B8D] hover:text-[#FED7B8] flex items-center gap-1.5"
+                          title="Click to copy subdomain"
+                        >
+                          {copiedSlug === creator.slug ? (
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          ) : (
+                            <Copy className="w-3.5 h-3.5" />
+                          )}
+                          <span>{creator.slug}.naturestudio.in</span>
+                        </button>
+                        <a
+                          href={creator.subdomainUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p-1.5 rounded-lg bg-[#240709] border border-[#52141A] text-[#FED7B8] hover:bg-[#59171B] transition-colors"
+                          title="Visit live subdomain"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           ) : (
+            /* GRID VIEW */
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {creators.map((creator) => (
                 <article
@@ -501,9 +762,11 @@ function GlobalPortfolioContent() {
                         </div>
                       </div>
 
-                      <h3 className="font-syne text-base font-bold uppercase text-[#FFF5ED] mb-2 line-clamp-1">
-                        {creator.title}
-                      </h3>
+                      <Link href={`/global-portfolio/${creator.slug}`}>
+                        <h3 className="font-syne text-base font-bold uppercase text-[#FFF5ED] mb-2 line-clamp-1 hover:text-[#FED7B8] transition-colors">
+                          {creator.title}
+                        </h3>
+                      </Link>
 
                       {creator.tagline && (
                         <p className="text-xs text-[#FED7B8]/80 italic mb-2 line-clamp-1">
@@ -532,30 +795,49 @@ function GlobalPortfolioContent() {
                       )}
                     </div>
 
-                    {/* Subdomain Link & Direct Route Footer */}
-                    <div className="pt-4 border-t border-[#3D0D13]/60 flex items-center justify-between gap-2">
-                      <button
-                        onClick={() => handleCopySubdomain(creator.subdomainUrl, creator.slug)}
-                        className="text-[11px] font-mono text-[#FED7B8] hover:text-white flex items-center gap-1.5 truncate max-w-[190px]"
-                        title="Click to copy subdomain link"
-                      >
-                        {copiedSlug === creator.slug ? (
-                          <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                        ) : (
-                          <Copy className="w-3.5 h-3.5 flex-shrink-0" />
-                        )}
-                        <span className="truncate">{creator.slug}.naturestudio.in</span>
-                      </button>
+                    {/* Actions & Subdomain Footer */}
+                    <div className="pt-4 border-t border-[#3D0D13]/60 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/global-portfolio/${creator.slug}`}
+                          className="flex-1 py-2 px-3 rounded-xl bg-[#59171B]/60 hover:bg-[#59171B] border border-[#FED7B8]/30 text-xs font-mono uppercase text-[#FED7B8] font-bold text-center flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <span>Full Detail</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => setContactTargetCreator(creator)}
+                          className="py-2 px-3 rounded-xl bg-[#240709] hover:bg-[#3D0D13] border border-[#52141A] text-xs font-mono uppercase text-[#FFF5ED] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                          title="Send ticket inquiry"
+                        >
+                          <Send className="w-3 h-3 text-[#FED7B8]" />
+                          <span>Contact</span>
+                        </button>
+                      </div>
 
-                      <a
-                        href={creator.subdomainUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-3 py-1.5 rounded-xl bg-[#59171B]/50 hover:bg-[#59171B] border border-[#FED7B8]/20 hover:border-[#FED7B8]/40 text-xs font-mono uppercase text-[#FED7B8] flex items-center gap-1.5 transition-colors"
-                      >
-                        <span>Visit</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <div className="flex items-center justify-between text-[11px] font-mono text-[#B89B8D] pt-1">
+                        <button
+                          type="button"
+                          onClick={() => handleCopySubdomain(creator.subdomainUrl, creator.slug)}
+                          className="hover:text-[#FED7B8] flex items-center gap-1 truncate max-w-[190px]"
+                        >
+                          {copiedSlug === creator.slug ? (
+                            <Check className="w-3 h-3 text-emerald-400" />
+                          ) : (
+                            <Copy className="w-3 h-3" />
+                          )}
+                          <span className="truncate">{creator.slug}.naturestudio.in</span>
+                        </button>
+                        <a
+                          href={creator.subdomainUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="hover:text-white"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </article>
@@ -662,6 +944,18 @@ function GlobalPortfolioContent() {
           </div>
         </div>
       )}
+
+      {/* CONTACT CREATOR TICKET MODAL */}
+      <ContactTicketModal
+        isOpen={Boolean(contactTargetCreator)}
+        onClose={() => setContactTargetCreator(null)}
+        targetType="CREATOR"
+        targetName={contactTargetCreator?.name || 'Creator'}
+        targetUserId={contactTargetCreator?.userId}
+        targetUserEmail={contactTargetCreator?.userEmail}
+        portfolioTitle={contactTargetCreator?.title}
+        portfolioSlug={contactTargetCreator?.slug}
+      />
 
       <Footer />
     </div>
