@@ -10,7 +10,6 @@ import { useAuth } from '@/context/AuthContext';
 import { useCommandPalette } from '@/context/CommandPaletteContext';
 
 const NAV_ITEMS = [
-  { label: 'Work', href: '/work' },
   { label: 'Services', href: '/services' },
   { label: 'Studio', href: '/studio' },
   { label: 'About', href: '/about' },

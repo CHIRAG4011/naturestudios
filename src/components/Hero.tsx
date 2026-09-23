@@ -166,14 +166,14 @@ export function Hero() {
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/work" className="btn-primary text-xs py-3 px-6 shadow-glow-burgundy">
-              <span>Explore Creative Work</span>
+            <Link href="/portfolio" className="btn-primary text-xs py-3 px-6 shadow-glow-burgundy">
+              <span>Explore Studio Portfolio</span>
               <ArrowRight className="w-4 h-4 text-[#FED7B8]" />
             </Link>
 
-            <Link href="/portfolio" className="btn-beige text-xs py-3 px-6 shadow-glow-beige">
+            <Link href="/portfolio/edit" className="btn-beige text-xs py-3 px-6 shadow-glow-beige">
               <span>Create Your Portfolio</span>
-              <Trophy className="w-4 h-4 text-[#3A0E11]" />
+              <Sparkles className="w-4 h-4 text-[#3A0E11]" />
             </Link>
 
             {user ? (

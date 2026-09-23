@@ -17,6 +17,7 @@ import {
   Shield,
   AlertTriangle,
   HelpCircle,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useDashboard } from '@/context/DashboardContext';
@@ -24,6 +25,7 @@ import { NotificationDropdown } from '@/components/dashboard/NotificationDropdow
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard, exact: true },
+  { href: '/portfolio/edit', label: 'My Portfolio', icon: Sparkles },
   { href: '/dashboard/projects', label: 'Projects', icon: FolderKanban },
   { href: '/dashboard/requests', label: 'Requests', icon: FileText },
   { href: '/dashboard/tickets', label: 'Support & Tickets', icon: HelpCircle },
@@ -88,6 +90,15 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         <div className="flex items-center gap-2 sm:gap-3">
           {!isSuspended && (
             <>
+              <Link
+                href="/portfolio/edit"
+                className="btn-beige hidden items-center gap-1.5 py-1.5 px-3 text-label-sm font-bold shadow-glow-beige sm:inline-flex"
+                title="Create / Edit Your Portfolio"
+              >
+                <Sparkles className="h-3.5 w-3.5 text-[#3A0E11]" aria-hidden="true" />
+                <span>My Portfolio</span>
+              </Link>
+
               <button
                 type="button"
                 onClick={openNewProject}
