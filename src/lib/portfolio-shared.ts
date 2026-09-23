@@ -300,6 +300,8 @@ export interface StudioPortfolioItem {
   client?: string;
   description: string;
   imageUrl: string;
+  images?: string[];
+  gallery?: string[];
   videoUrl?: string;
   thumbnailUrl?: string;
   duration?: string;

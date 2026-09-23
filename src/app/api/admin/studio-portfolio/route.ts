@@ -59,6 +59,7 @@ export async function POST(req: NextRequest) {
       client,
       description,
       imageUrl,
+      images,
       videoUrl,
       thumbnailUrl,
       duration,
@@ -68,6 +69,13 @@ export async function POST(req: NextRequest) {
       status,
     } = body;
 
+    const normalizedImages = Array.isArray(images)
+      ? images.filter((img) => typeof img === 'string' && img.trim().length > 0)
+      : imageUrl
+      ? [imageUrl]
+      : [];
+    const primaryImage = imageUrl || normalizedImages[0] || (type === 'VFX' ? thumbnailUrl : '');
+
     if (!type || !title) {
       return NextResponse.json(
         { error: 'Type (GFX/VFX) and Title are required' },
@@ -75,14 +83,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (type === 'GFX' && !imageUrl) {
+    if (type === 'GFX' && !primaryImage && normalizedImages.length === 0) {
       return NextResponse.json(
-        { error: 'Image URL is required for GFX items' },
+        { error: 'At least one image is required for GFX items' },
         { status: 400 }
       );
     }
 
-    if (type === 'VFX' && !videoUrl && !imageUrl) {
+    if (type === 'VFX' && !videoUrl && !primaryImage) {
       return NextResponse.json(
         { error: 'Video URL or thumbnail is required for VFX items' },
         { status: 400 }
@@ -95,9 +103,10 @@ export async function POST(req: NextRequest) {
       title: title.trim(),
       client: client?.trim() || 'NatureStudios Commission',
       description: description?.trim() || '',
-      imageUrl: imageUrl || thumbnailUrl || '/media/work-valorant-championship.jpg',
+      imageUrl: primaryImage || '/media/work-valorant-championship.jpg',
+      images: normalizedImages.length > 0 ? normalizedImages : primaryImage ? [primaryImage] : [],
       videoUrl: videoUrl?.trim() || undefined,
-      thumbnailUrl: thumbnailUrl?.trim() || imageUrl || undefined,
+      thumbnailUrl: thumbnailUrl?.trim() || primaryImage || undefined,
       duration: duration?.trim() || undefined,
       tags: Array.isArray(tags) ? tags : typeof tags === 'string' ? tags.split(',').map((t: string) => t.trim()) : [],
       featured: !!featured,

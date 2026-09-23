@@ -23,6 +23,7 @@ import {
   Film,
   Globe,
   Eye,
+  Image as ImageIcon,
 } from 'lucide-react';
 import type { StudioPortfolioItem, GfxSubsection } from '@/lib/portfolio-shared';
 import {
@@ -275,6 +276,14 @@ export default function StudioGfxCategoryWorkPage() {
                         {item.gfxCategory || categoryName}
                       </span>
                     </div>
+                    {item.images && item.images.length > 1 && (
+                      <div className="absolute top-3 right-3">
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-black/80 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30 flex items-center gap-1 shadow">
+                          <ImageIcon className="w-2.5 h-2.5 text-[#FED7B8]" />
+                          <span>{item.images.length} Assets</span>
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
                       <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40 shadow-lg">
                         <Eye className="w-3.5 h-3.5" />
@@ -363,6 +372,14 @@ export default function StudioGfxCategoryWorkPage() {
                         {item.gfxCategory || categoryName}
                       </span>
                     </div>
+                    {item.images && item.images.length > 1 && (
+                      <div className="absolute top-3 right-3">
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-black/80 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30 flex items-center gap-1 shadow">
+                          <ImageIcon className="w-2.5 h-2.5 text-[#FED7B8]" />
+                          <span>{item.images.length}</span>
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
                       <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40 shadow-lg">
                         <Eye className="w-3.5 h-3.5" />

@@ -603,6 +603,7 @@ export async function createStudioPortfolioItem(
   const id = `studio-${data.type.toLowerCase()}-${Date.now()}`;
   const newItem: StudioPortfolioItem = {
     ...data,
+    images: Array.isArray(data.images) && data.images.length > 0 ? data.images : data.imageUrl ? [data.imageUrl] : [],
     id,
     portfolioSource: 'studio',
     createdAt: now,

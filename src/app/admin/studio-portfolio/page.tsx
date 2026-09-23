@@ -34,6 +34,8 @@ interface StudioItem {
   client: string;
   description: string;
   imageUrl: string;
+  images?: string[];
+  gallery?: string[];
   videoUrl?: string;
   thumbnailUrl?: string;
   duration?: string;
@@ -74,6 +76,8 @@ export default function AdminStudioPortfolioPage() {
   const [formClient, setFormClient] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formImageUrl, setFormImageUrl] = useState('');
+  const [formImages, setFormImages] = useState<string[]>([]);
+  const [formDirectUrl, setFormDirectUrl] = useState('');
   const [formVideoUrl, setFormVideoUrl] = useState('');
   const [formThumbnailUrl, setFormThumbnailUrl] = useState('');
   const [formDuration, setFormDuration] = useState('');
@@ -110,30 +114,69 @@ export default function AdminStudioPortfolioPage() {
     fetchItems();
   }, []);
 
-  // Upload handler for image
-  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // Upload handler for image(s) (supports multiple file selection)
+  const handleImageFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
 
     setUploadingImage(true);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      const newUrls: string[] = [];
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append('file', file);
 
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Upload failed');
+        if (data.url) newUrls.push(data.url);
+      }
+
+      setFormImages((prev) => {
+        const combined = [...prev, ...newUrls];
+        return combined.filter((url, idx) => combined.indexOf(url) === idx);
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Upload failed');
-      setFormImageUrl(data.url);
-      setToastMessage('Image uploaded successfully.');
+      setFormImageUrl((prev) => prev || newUrls[0] || '');
+      setToastMessage(`Uploaded ${newUrls.length} image${newUrls.length > 1 ? 's' : ''} successfully.`);
     } catch (err: any) {
-      alert(err.message || 'Failed to upload image');
+      alert(err.message || 'Failed to upload image(s)');
     } finally {
       setUploadingImage(false);
+      e.target.value = '';
     }
+  };
+
+  const handleAddDirectUrl = () => {
+    const trimmed = formDirectUrl.trim();
+    if (!trimmed) return;
+    setFormImages((prev) => {
+      if (prev.includes(trimmed)) return prev;
+      return [...prev, trimmed];
+    });
+    if (!formImageUrl) {
+      setFormImageUrl(trimmed);
+    }
+    setFormDirectUrl('');
+  };
+
+  const handleRemoveImage = (imgUrl: string) => {
+    setFormImages((prev) => {
+      const next = prev.filter((img) => img !== imgUrl);
+      if (formImageUrl === imgUrl) {
+        setFormImageUrl(next[0] || '');
+      }
+      return next;
+    });
+  };
+
+  const handleSetPrimaryImage = (imgUrl: string) => {
+    setFormImageUrl(imgUrl);
+    setToastMessage('Set as primary cover artwork.');
   };
 
   // Upload handler for video
@@ -172,6 +215,8 @@ export default function AdminStudioPortfolioPage() {
     setFormClient('');
     setFormDescription('');
     setFormImageUrl('');
+    setFormImages([]);
+    setFormDirectUrl('');
     setFormVideoUrl('');
     setFormThumbnailUrl('');
     setFormDuration('');
@@ -191,7 +236,14 @@ export default function AdminStudioPortfolioPage() {
     setFormTitle(item.title);
     setFormClient(item.client || '');
     setFormDescription(item.description || '');
-    setFormImageUrl(item.imageUrl || '');
+    const existingImages = Array.isArray(item.images) && item.images.length > 0
+      ? item.images
+      : item.imageUrl
+      ? [item.imageUrl]
+      : [];
+    setFormImages(existingImages);
+    setFormImageUrl(item.imageUrl || existingImages[0] || '');
+    setFormDirectUrl('');
     setFormVideoUrl(item.videoUrl || '');
     setFormThumbnailUrl(item.thumbnailUrl || '');
     setFormDuration(item.duration || '');
@@ -210,12 +262,18 @@ export default function AdminStudioPortfolioPage() {
       return;
     }
 
-    if (formType === 'GFX' && !formImageUrl.trim()) {
-      alert('Image is required for GFX items');
+    let allImages = [...formImages];
+    if (formDirectUrl.trim() && !allImages.includes(formDirectUrl.trim())) {
+      allImages.push(formDirectUrl.trim());
+    }
+    const primaryImg = formImageUrl.trim() || allImages[0] || (formType === 'VFX' ? formThumbnailUrl.trim() : '');
+
+    if (formType === 'GFX' && allImages.length === 0 && !primaryImg) {
+      alert('At least one image is required for GFX items');
       return;
     }
 
-    if (formType === 'VFX' && !formVideoUrl.trim() && !formImageUrl.trim()) {
+    if (formType === 'VFX' && !formVideoUrl.trim() && !primaryImg) {
       alert('A video URL/upload or thumbnail image is required for VFX items');
       return;
     }
@@ -228,9 +286,10 @@ export default function AdminStudioPortfolioPage() {
         title: formTitle.trim(),
         client: formClient.trim() || 'NatureStudios Commission',
         description: formDescription.trim(),
-        imageUrl: formImageUrl.trim() || formThumbnailUrl.trim() || '/media/work-valorant-championship.jpg',
+        imageUrl: primaryImg || '/media/work-valorant-championship.jpg',
+        images: allImages,
         videoUrl: formVideoUrl.trim() || undefined,
-        thumbnailUrl: formThumbnailUrl.trim() || formImageUrl.trim() || undefined,
+        thumbnailUrl: formThumbnailUrl.trim() || primaryImg || undefined,
         duration: formDuration.trim() || undefined,
         tags: formTags ? formTags.split(',').map((t) => t.trim()).filter(Boolean) : [],
         featured: formFeatured,
@@ -658,7 +717,7 @@ export default function AdminStudioPortfolioPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSaveItem} className="space-y-5">
+            <form onSubmit={handleSaveItem} noValidate className="space-y-5">
               {/* Type Switcher: GFX vs VFX */}
               <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#150304] rounded-2xl border border-[#3D0D13]">
                 <button
@@ -754,40 +813,114 @@ export default function AdminStudioPortfolioPage() {
 
                 {/* GFX Image Upload */}
                 {formType === 'GFX' && (
-                  <div className="space-y-2">
-                    <div className="flex flex-col sm:flex-row items-center gap-3">
-                      <label className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#59171B]/70 hover:bg-[#59171B] border border-[#FED7B8]/30 cursor-pointer flex items-center justify-center gap-2 text-xs font-mono text-[#FED7B8] transition-colors">
+                  <div className="space-y-4">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                      <label className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#59171B]/70 hover:bg-[#59171B] border border-[#FED7B8]/30 cursor-pointer flex items-center justify-center gap-2 text-xs font-mono text-[#FED7B8] transition-colors shrink-0">
                         {uploadingImage ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
                           <Upload className="w-4 h-4" />
                         )}
-                        <span>{uploadingImage ? 'Uploading...' : 'Upload Image File'}</span>
+                        <span>{uploadingImage ? 'Uploading Image(s)...' : 'Upload Image(s)'}</span>
                         <input
                           type="file"
                           accept="image/*"
-                          onChange={handleImageFileChange}
+                          multiple
+                          onChange={handleImageFilesChange}
                           disabled={uploadingImage}
                           className="hidden"
                         />
                       </label>
-                      <span className="text-xs text-[#B89B8D]">or direct URL:</span>
-                      <input
-                        type="url"
-                        value={formImageUrl}
-                        onChange={(e) => setFormImageUrl(e.target.value)}
-                        placeholder="https://... or /media/..."
-                        className="flex-1 w-full px-3 py-2 rounded-xl bg-[#1D0608] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none"
-                      />
+                      <span className="text-xs text-[#B89B8D] shrink-0 text-center sm:text-left">or direct URL / path:</span>
+                      <div className="flex-1 flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={formDirectUrl}
+                          onChange={(e) => setFormDirectUrl(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleAddDirectUrl();
+                            }
+                          }}
+                          placeholder="https://... or /uploads/... or /media/..."
+                          className="flex-1 w-full px-3 py-2 rounded-xl bg-[#1D0608] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none focus:border-[#FED7B8]/40"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleAddDirectUrl}
+                          className="px-3.5 py-2 rounded-xl bg-[#2A080C] hover:bg-[#3D0D13] border border-[#52141A] text-xs font-mono uppercase text-[#FED7B8] shrink-0 transition-colors cursor-pointer"
+                        >
+                          Add URL
+                        </button>
+                      </div>
                     </div>
 
-                    {formImageUrl && (
-                      <div className="mt-3 relative h-40 w-full rounded-xl overflow-hidden border border-[#3D0D13] bg-[#110203]">
-                        <img
-                          src={formImageUrl}
-                          alt="Preview"
-                          className="w-full h-full object-contain"
-                        />
+                    {/* Multiple Uploaded Images Asset Grid */}
+                    {formImages.length > 0 ? (
+                      <div className="space-y-2 pt-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                            Uploaded Deliverables ({formImages.length})
+                          </span>
+                          <span className="text-[10px] text-[#B89B8D]">
+                            Select star to choose primary display cover
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-60 overflow-y-auto p-2.5 rounded-xl bg-[#110203] border border-[#3D0D13]">
+                          {formImages.map((img, idx) => {
+                            const isPrimary = (formImageUrl === img) || (!formImageUrl && idx === 0);
+                            return (
+                              <div
+                                key={img + idx}
+                                className={`relative rounded-xl overflow-hidden border transition-all group aspect-video bg-[#1D0608] ${
+                                  isPrimary ? 'border-[#FED7B8] ring-1 ring-[#FED7B8]/60 shadow-glow-burgundy' : 'border-[#3D0D13] hover:border-[#52141A]'
+                                }`}
+                              >
+                                <img
+                                  src={img}
+                                  alt={`Asset ${idx + 1}`}
+                                  className="w-full h-full object-cover"
+                                />
+
+                                {/* Badge */}
+                                <div className="absolute top-1 left-1">
+                                  {isPrimary ? (
+                                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/40 flex items-center gap-1 shadow">
+                                      <Star className="w-2.5 h-2.5 fill-[#FED7B8]" /> Cover
+                                    </span>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      onClick={() => handleSetPrimaryImage(img)}
+                                      className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-black/80 hover:bg-[#59171B] text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer border border-white/20"
+                                      title="Set as Primary Cover"
+                                    >
+                                      <Star className="w-2.5 h-2.5" /> Set Cover
+                                    </button>
+                                  )}
+                                </div>
+
+                                {/* Delete button */}
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveImage(img)}
+                                  className="absolute top-1 right-1 p-1 rounded-lg bg-black/80 hover:bg-red-900 text-red-300 hover:text-white transition-colors cursor-pointer border border-red-500/30"
+                                  title="Remove this asset"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="py-6 px-4 text-center rounded-xl bg-[#110203] border border-dashed border-[#3D0D13]">
+                        <ImageIcon className="w-7 h-7 text-[#59171B] mx-auto mb-2" />
+                        <p className="text-xs text-[#B89B8D]">
+                          No images added yet. Click &quot;Upload Image(s)&quot; to choose one or more files, or paste a URL / path above.
+                        </p>
                       </div>
                     )}
                   </div>

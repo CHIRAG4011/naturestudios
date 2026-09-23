@@ -113,12 +113,20 @@ export default function StudioPortfolioDetailPage() {
   const pastWorks = allStudioItems.filter((i) => i.id !== item.id);
 
   // Generate complete gallery of graphic images for this project
-  const galleryImages = [
-    item.imageUrl,
-    '/media/work-valorant-championship.jpg',
-    '/media/work-nexus-arena.jpg',
-    '/media/hero-lightfield.jpg',
-  ].filter((img, idx, arr) => img && arr.indexOf(img) === idx);
+  const userUploadedImages = Array.isArray(item.images) && item.images.length > 0
+    ? item.images
+    : Array.isArray(item.gallery) && item.gallery.length > 0
+    ? item.gallery
+    : [];
+
+  const galleryImages = userUploadedImages.length > 0
+    ? [item.imageUrl, ...userUploadedImages].filter((img, idx, arr) => Boolean(img) && arr.indexOf(img) === idx)
+    : [
+        item.imageUrl,
+        '/media/work-valorant-championship.jpg',
+        '/media/work-nexus-arena.jpg',
+        '/media/hero-lightfield.jpg',
+      ].filter((img, idx, arr) => Boolean(img) && arr.indexOf(img) === idx);
 
   const subsectionSlug = item.gfxCategory ? item.gfxCategory.toLowerCase().replace(/[^a-z0-9]+/g, '-') : '';
 
