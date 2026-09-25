@@ -93,7 +93,13 @@ export const metadata: Metadata = {
     ],
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
+    other: {
+      ...(process.env.NEXT_PUBLIC_BING_VERIFICATION
+        ? { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_VERIFICATION }
+        : {}),
+    },
   },
 };
 

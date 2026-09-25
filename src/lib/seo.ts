@@ -32,6 +32,20 @@ export const PRIMARY_KEYWORDS = [
   'live broadcast overlays HUD',
   'esports production company',
   'creative technology studio',
+  'esports jersey design',
+  'gaming jersey gfx',
+  'custom esports jerseys',
+  'esports clipping suite',
+  'esports video editing studio',
+  'gaming highlight clipping',
+  'Elvish Yadav video editor studio',
+  'Scout esports clipping',
+  'Kashvi video highlights',
+  'stream overlay packages',
+  'stream HUD overlays',
+  'esports team branding',
+  'tournament gfx package',
+  'tournament vfx studio',
 ];
 
 interface PageSeoInput {
