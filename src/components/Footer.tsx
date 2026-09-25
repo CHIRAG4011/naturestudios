@@ -12,7 +12,9 @@ const EXPLORE_LINKS = [
   { label: 'Services', href: '/services' },
   { label: 'Studio', href: '/studio' },
   { label: 'About', href: '/about' },
-  { label: 'Portfolio Builder', href: '/portfolio' },
+  { label: 'GFX & Jersey Suite', href: '/portfolio/gfx' },
+  { label: 'Clipping & VFX Hub', href: '/portfolio/vfx' },
+  { label: 'Creator Directory', href: '/global-portfolio' },
   { label: 'Contact', href: '/contact' },
 ];
 

@@ -43,6 +43,24 @@ const FAQ_ITEMS: FAQItem[] = [
       'Nature Studios is based in India and operates globally. We have delivered physical stage designs, broadcast graphics, and interactive systems for premier esports events, championship tours, and publishers across North America, Europe, Asia, and the Middle East.',
   },
   {
+    category: 'JERSEY & APPAREL',
+    question: 'Does Nature Studios design custom esports jerseys and apparel?',
+    answer:
+      'Yes! Nature Studios engineers bespoke esports jersey designs, pro team kits, sublimation vectors, and merchandise branding with realistic 3D apparel mockups ready for international apparel manufacturing.',
+  },
+  {
+    category: 'CLIPPING & VFX',
+    question: 'What is the Nature Studios creator clipping and VFX suite?',
+    answer:
+      'Our clipping and VFX powerhouse produces high-velocity gaming highlights, viral YouTube shorts, and cinematic tournament montages for elite creators including Elvish Yadav, Scout, and Kashvi.',
+  },
+  {
+    category: 'DIRECT CONTACT',
+    question: 'How can I directly contact or chat with Nature Studios?',
+    answer:
+      'You can connect directly via WhatsApp at +91 7480 066 539, join our official Discord community (discord.gg/PTVReHZp4n), DM us on Instagram @naturestudio.in, or email naturestudio05@gmail.com.',
+  },
+  {
     category: 'CREATOR HUB',
     question: 'Can esports creators and designers build portfolios on Nature Studios?',
     answer:

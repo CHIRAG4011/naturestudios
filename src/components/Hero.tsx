@@ -155,6 +155,7 @@ export function Hero() {
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-[-0.04em] leading-[0.88] mb-8 text-[#FFF5ED]">
+            <span className="sr-only">Nature Studios — Esports Broadcast, Stage Architecture & Creative Technology. </span>
             THE DIGITAL <br />
             <span className="text-gradient-warm">WILD.</span>
           </h1>

@@ -336,6 +336,77 @@ export default function AdminSeoPage() {
         </div>
       </div>
 
+      {/* Official Google SEO Starter Guide Breakdown */}
+      <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-6">
+        <div>
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-amber-400" />
+            <h2 className="font-syne text-lg font-bold text-[#FFF5ED]">
+              Google SEO Starter Guide: Official Principles Applied to Nature Studios
+            </h2>
+          </div>
+          <p className="text-xs text-[#B89B8D] mt-1">
+            How Google ranks websites in 2026 based on the official Search Central guidelines and how your codebase is structured to win.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl bg-[#140405] border border-[#2D090C] space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <h3 className="font-syne text-sm font-bold text-[#FFF5ED]">
+                1. What Google Actually Looks For (Core Ranking Factors)
+              </h3>
+            </div>
+            <ul className="space-y-2 text-xs text-[#B89B8D] leading-relaxed">
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>People-First Content:</strong> Authentic proof of work, client credentials (Elvish Yadav, Scout, Kashvi), and clear portfolio showcases.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Descriptive Title Links:</strong> Every page has a unique, intent-driven title link (&lt;title&gt;) that matches what people search.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Accurate Snippets:</strong> Meta descriptions written under 160 characters to encourage searchers to click your link (High CTR).</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0">✓</span>
+                <span><strong>Clear Site Navigation:</strong> Logical URL hierarchy (/portfolio/gfx/jersey, /portfolio/vfx) and footer crawl paths.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-[#140405] border border-[#2D090C] space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-rose-400" />
+              <h3 className="font-syne text-sm font-bold text-[#FFF5ED]">
+                2. Myths Busted (What Google Says You Shouldn't Focus On)
+              </h3>
+            </div>
+            <ul className="space-y-2 text-xs text-[#B89B8D] leading-relaxed">
+              <li className="flex items-start gap-2">
+                <span className="text-rose-400 font-bold shrink-0">✕</span>
+                <span><strong>Meta Keywords Tag:</strong> Google has officially stated they ignore the &lt;meta name="keywords"&gt; tag completely.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-rose-400 font-bold shrink-0">✕</span>
+                <span><strong>Keyword Stuffing:</strong> Repeating terms unnatural times triggers Google SpamBrain algorithmic penalties. Write naturally.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-rose-400 font-bold shrink-0">✕</span>
+                <span><strong>Buying Fake Backlinks:</strong> Artificially purchased links get penalized. Natural links from your Instagram, YouTube, and Discord rank 10x better.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-rose-400 font-bold shrink-0">✕</span>
+                <span><strong>Secret Tricks:</strong> There are no hidden shortcuts—Google rewards usefulness, fast page speeds, and verified brand identity.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {/* Direct Quick Tools */}
       <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-4">
         <h3 className="font-syne text-sm font-bold text-[#FFF5ED]">
