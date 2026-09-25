@@ -64,6 +64,8 @@ export interface SiteSettingsDoc {
   supportEmail: string;
   inquiriesEmail: string;
   instagramUrl?: string;
+  discordUrl?: string;
+  whatsappNumber?: string;
   maintenanceMode: boolean;
   maintenanceMessage?: string;
   registrationEnabled: boolean;
@@ -326,6 +328,8 @@ export async function ensureAdminInitialized(): Promise<void> {
     supportEmail: 'naturestudio05@gmail.com',
     inquiriesEmail: 'naturestudio05@gmail.com',
     instagramUrl: 'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
+    discordUrl: 'https://discord.gg/PTVReHZp4n',
+    whatsappNumber: '+91 7480 066 539',
     maintenanceMode: false,
     maintenanceMessage: 'NatureStudios is undergoing brief scheduled maintenance. We will be back shortly.',
     registrationEnabled: true,
@@ -837,6 +841,8 @@ export async function getSiteSettings(): Promise<SiteSettingsDoc> {
       supportEmail: 'naturestudio05@gmail.com',
       inquiriesEmail: 'naturestudio05@gmail.com',
       instagramUrl: 'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
+      discordUrl: 'https://discord.gg/PTVReHZp4n',
+      whatsappNumber: '+91 7480 066 539',
       maintenanceMode: false,
       registrationEnabled: true,
       googleLoginEnabled: true,

@@ -156,12 +156,15 @@ export function getOrganizationJsonLd() {
     description:
       'Elite creative studio and production house engineering championship tournament broadcasts, organic stage architecture, dynamic motion packages, and live digital experiences.',
     email: 'naturestudio05@gmail.com',
+    telephone: '+91 7480 066 539',
     priceRange: '$$$$',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IN',
     },
     sameAs: [
+      'https://discord.gg/PTVReHZp4n',
+      'https://wa.me/917480066539',
       'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
       'https://twitter.com/naturestudios',
       'https://youtube.com/@naturestudios',

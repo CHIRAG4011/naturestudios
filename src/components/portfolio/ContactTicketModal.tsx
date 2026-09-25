@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, Loader2, Sparkles, User, Mail, MessageSquare, ShieldCheck, Instagram } from 'lucide-react';
+import { DiscordIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
 import { useAuth } from '@/context/AuthContext';
 
 interface ContactTicketModalProps {
@@ -181,7 +182,29 @@ export function ContactTicketModal({
                         title="naturestudio05@gmail.com"
                       >
                         <Mail className="w-3.5 h-3.5 text-[#FED7B8]" />
-                        <span>naturestudio05@gmail.com</span>
+                        <span>Email</span>
+                      </a>
+                      <span className="text-[#52141A]">•</span>
+                      <a
+                        href="https://wa.me/917480066539"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                        title="WhatsApp: +91 7480 066 539"
+                      >
+                        <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>WhatsApp</span>
+                      </a>
+                      <span className="text-[#52141A]">•</span>
+                      <a
+                        href="https://discord.gg/PTVReHZp4n"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                        title="Discord Server"
+                      >
+                        <DiscordIcon className="w-3.5 h-3.5 text-indigo-400" />
+                        <span>Discord</span>
                       </a>
                       <span className="text-[#52141A]">•</span>
                       <a
@@ -192,7 +215,7 @@ export function ContactTicketModal({
                         title="Instagram @naturestudio.in"
                       >
                         <Instagram className="w-3.5 h-3.5 text-pink-400" />
-                        <span>@naturestudio.in</span>
+                        <span>Instagram</span>
                       </a>
                     </div>
                   </div>

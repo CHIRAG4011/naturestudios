@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { ArrowUpRight, Sparkles, Mail, Instagram } from 'lucide-react';
+import { DiscordIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
 
 const EXPLORE_LINKS = [
   { label: 'Selected Work', href: '/work' },
@@ -52,16 +53,40 @@ export function Footer() {
             {/* Direct Contact & Socials */}
             <div className="pt-2 space-y-2.5">
               <span className="text-[10px] font-mono tracking-widest uppercase text-[#FED7B8] block">
-                Direct Contact & Social Media
+                Direct Contact &amp; Community
               </span>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <a
                   href="mailto:naturestudio05@gmail.com"
                   className="inline-flex items-center gap-2 rounded-xl bg-[#240709] border border-[#52141A] hover:border-[#FED7B8]/50 px-3 py-2 text-xs font-mono text-[#FED7B8] hover:text-[#FFF5ED] transition-all group"
                   title="Send email to naturestudio05@gmail.com"
                 >
-                  <Mail className="h-3.5 w-3.5 text-[#FED7B8] group-hover:scale-110 transition-transform" />
-                  <span>naturestudio05@gmail.com</span>
+                  <Mail className="h-3.5 w-3.5 text-[#FED7B8] group-hover:scale-110 transition-transform shrink-0" />
+                  <span className="truncate">naturestudio05@gmail.com</span>
+                </a>
+
+                <a
+                  href="https://wa.me/917480066539"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#240709] border border-[#52141A] hover:border-emerald-500/50 px-3 py-2 text-xs font-mono text-emerald-300 hover:text-white transition-all group"
+                  title="WhatsApp: +91 7480 066 539"
+                >
+                  <WhatsAppIcon className="h-3.5 w-3.5 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
+                  <span>+91 7480 066 539</span>
+                  <ArrowUpRight className="h-3 w-3 text-emerald-400/70 ml-auto shrink-0" />
+                </a>
+
+                <a
+                  href="https://discord.gg/PTVReHZp4n"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#240709] border border-[#52141A] hover:border-indigo-500/50 px-3 py-2 text-xs font-mono text-indigo-300 hover:text-white transition-all group"
+                  title="Join NatureStudios Discord Community"
+                >
+                  <DiscordIcon className="h-3.5 w-3.5 text-indigo-400 group-hover:scale-110 transition-transform shrink-0" />
+                  <span>Discord Community</span>
+                  <ArrowUpRight className="h-3 w-3 text-indigo-400/70 ml-auto shrink-0" />
                 </a>
 
                 <a
@@ -71,9 +96,9 @@ export function Footer() {
                   className="inline-flex items-center gap-2 rounded-xl bg-[#240709] border border-[#52141A] hover:border-pink-500/50 px-3 py-2 text-xs font-mono text-pink-300 hover:text-white transition-all group"
                   title="Follow NatureStudios on Instagram"
                 >
-                  <Instagram className="h-3.5 w-3.5 text-pink-400 group-hover:scale-110 transition-transform" />
+                  <Instagram className="h-3.5 w-3.5 text-pink-400 group-hover:scale-110 transition-transform shrink-0" />
                   <span>@naturestudio.in</span>
-                  <ArrowUpRight className="h-3 w-3 text-pink-400/70" />
+                  <ArrowUpRight className="h-3 w-3 text-pink-400/70 ml-auto shrink-0" />
                 </a>
               </div>
             </div>
@@ -186,6 +211,28 @@ export function Footer() {
             >
               <Mail className="h-3 w-3 text-[#FED7B8]" />
               <span>naturestudio05@gmail.com</span>
+            </a>
+            <span className="text-[#3D0D13] hidden sm:inline">•</span>
+            <a
+              href="https://wa.me/917480066539"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-400 transition-colors inline-flex items-center gap-1 text-[#B89B8D]"
+              title="WhatsApp: +91 7480 066 539"
+            >
+              <WhatsAppIcon className="h-3 w-3 text-emerald-400" />
+              <span>+91 7480 066 539</span>
+            </a>
+            <span className="text-[#3D0D13] hidden sm:inline">•</span>
+            <a
+              href="https://discord.gg/PTVReHZp4n"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-400 transition-colors inline-flex items-center gap-1 text-[#B89B8D]"
+              title="Join NatureStudios Discord"
+            >
+              <DiscordIcon className="h-3 w-3 text-indigo-400" />
+              <span>Discord</span>
             </a>
             <span className="text-[#3D0D13] hidden sm:inline">•</span>
             <a

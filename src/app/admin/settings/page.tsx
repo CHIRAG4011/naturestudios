@@ -169,6 +169,29 @@ export default function AdminSettingsPage() {
               className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
             />
           </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[#B89B8D] block mb-1">Discord Invite URL</label>
+              <input
+                type="url"
+                value={settings.discordUrl || ''}
+                onChange={(e) => setSettings({ ...settings, discordUrl: e.target.value })}
+                placeholder="https://discord.gg/..."
+                className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+              />
+            </div>
+            <div>
+              <label className="text-[#B89B8D] block mb-1">WhatsApp Number</label>
+              <input
+                type="text"
+                value={settings.whatsappNumber || ''}
+                onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
+                placeholder="+91 ..."
+                className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Global Operational Toggles */}

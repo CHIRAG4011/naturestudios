@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Globe, Menu, Search, Shield, Sparkles, User as UserIcon, X, Instagram, Mail } from 'lucide-react';
+import { DiscordIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
 import { useAuth } from '@/context/AuthContext';
 import { useCommandPalette } from '@/context/CommandPaletteContext';
 
@@ -245,16 +246,40 @@ export function Navbar() {
 
           {/* Desktop Right Actions */}
           <div className="hidden shrink-0 items-center gap-3 lg:flex">
-            <a
-              href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="NatureStudios Instagram"
-              title="Follow @naturestudio.in on Instagram"
-              className="group inline-flex items-center justify-center rounded-lg border border-[#52141A] bg-[#240709] p-2 text-[#B89B8D] transition-all duration-200 hover:border-pink-500/50 hover:text-pink-400 cursor-pointer"
-            >
-              <Instagram className="h-3.5 w-3.5" aria-hidden="true" />
-            </a>
+            <div className="flex items-center gap-1.5">
+              <a
+                href="https://discord.gg/PTVReHZp4n"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="NatureStudios Discord Community"
+                title="Join NatureStudios Discord Community"
+                className="group inline-flex items-center justify-center rounded-lg border border-[#52141A] bg-[#240709] p-2 text-[#B89B8D] transition-all duration-200 hover:border-indigo-500/50 hover:text-indigo-400 cursor-pointer"
+              >
+                <DiscordIcon className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+
+              <a
+                href="https://wa.me/917480066539"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="NatureStudios WhatsApp"
+                title="Chat on WhatsApp: +91 7480 066 539"
+                className="group inline-flex items-center justify-center rounded-lg border border-[#52141A] bg-[#240709] p-2 text-[#B89B8D] transition-all duration-200 hover:border-emerald-500/50 hover:text-emerald-400 cursor-pointer"
+              >
+                <WhatsAppIcon className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+
+              <a
+                href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="NatureStudios Instagram"
+                title="Follow @naturestudio.in on Instagram"
+                className="group inline-flex items-center justify-center rounded-lg border border-[#52141A] bg-[#240709] p-2 text-[#B89B8D] transition-all duration-200 hover:border-pink-500/50 hover:text-pink-400 cursor-pointer"
+              >
+                <Instagram className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            </div>
 
             <button
               type="button"
@@ -524,15 +549,35 @@ export function Navbar() {
                 {/* Mobile Direct Contact Channels */}
                 <div className="pt-4 mt-2 border-t border-[#3D0D13] flex flex-col gap-2 font-mono text-xs">
                   <span className="text-[10px] uppercase tracking-widest text-[#B89B8D]">
-                    Direct Support &amp; Socials
+                    Direct Support &amp; Community
                   </span>
                   <a
                     href="mailto:naturestudio05@gmail.com"
                     className="flex items-center gap-2 text-[#FED7B8] hover:text-[#FFF5ED] transition-colors py-1"
                     title="Send email to naturestudio05@gmail.com"
                   >
-                    <Mail className="h-3.5 w-3.5 text-[#FED7B8]" />
+                    <Mail className="h-3.5 w-3.5 text-[#FED7B8] shrink-0" />
                     <span>naturestudio05@gmail.com</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917480066539"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-emerald-300 hover:text-white transition-colors py-1"
+                    title="WhatsApp: +91 7480 066 539"
+                  >
+                    <WhatsAppIcon className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                    <span>+91 7480 066 539 (WhatsApp)</span>
+                  </a>
+                  <a
+                    href="https://discord.gg/PTVReHZp4n"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-indigo-300 hover:text-white transition-colors py-1"
+                    title="Discord Community"
+                  >
+                    <DiscordIcon className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
+                    <span>Join Discord Community</span>
                   </a>
                   <a
                     href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
@@ -541,7 +586,7 @@ export function Navbar() {
                     className="flex items-center gap-2 text-pink-300 hover:text-white transition-colors py-1"
                     title="Instagram @naturestudio.in"
                   >
-                    <Instagram className="h-3.5 w-3.5 text-pink-400" />
+                    <Instagram className="h-3.5 w-3.5 text-pink-400 shrink-0" />
                     <span>@naturestudio.in (Instagram)</span>
                   </a>
                 </div>

@@ -35,6 +35,9 @@ export const DEFAULT_PAGE_CONTENT: Record<string, any> = {
     title: 'START A COLLABORATION',
     subtitle: 'DIRECT LINE TO OUR CREATIVE DIRECTORS',
     publicEmail: 'naturestudio05@gmail.com',
+    whatsapp: '+91 7480 066 539',
+    whatsappUrl: 'https://wa.me/917480066539',
+    discordUrl: 'https://discord.gg/PTVReHZp4n',
     instagram: 'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
   },
 };

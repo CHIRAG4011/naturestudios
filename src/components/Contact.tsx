@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Loader2, CheckCircle2, AlertCircle, Mail, MapPin, Globe, Instagram, ArrowUpRight } from 'lucide-react';
+import { DiscordIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
 import confetti from 'canvas-confetti';
 
 export function Contact() {
@@ -97,6 +98,52 @@ export function Contact() {
                 </div>
               </div>
               <ArrowUpRight className="h-4 w-4 text-[#B89B8D] group-hover:text-[#FED7B8] transition-colors" />
+            </a>
+
+            <a
+              href="https://wa.me/917480066539"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3.5 rounded-xl border border-rim bg-surface-card hover:border-emerald-500/40 transition-all group cursor-pointer"
+              title="Chat on WhatsApp: +91 7480 066 539"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-emerald-400 group-hover:scale-105 transition-transform">
+                  <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase text-emerald-400/80">Direct WhatsApp</span>
+                  <span className="text-xs text-cream font-mono font-bold group-hover:text-emerald-300 transition-colors">
+                    +91 7480 066 539
+                  </span>
+                </div>
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                WhatsApp ↗
+              </span>
+            </a>
+
+            <a
+              href="https://discord.gg/PTVReHZp4n"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3.5 rounded-xl border border-rim bg-surface-card hover:border-indigo-500/40 transition-all group cursor-pointer"
+              title="Join NatureStudios Discord Server"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-indigo-400 group-hover:scale-105 transition-transform">
+                  <DiscordIcon className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase text-indigo-300/80">Discord Community</span>
+                  <span className="text-xs text-cream font-mono font-bold group-hover:text-indigo-300 transition-colors">
+                    Join Our Server
+                  </span>
+                </div>
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                Discord ↗
+              </span>
             </a>
 
             <a

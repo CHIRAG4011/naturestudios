@@ -31,6 +31,7 @@ import {
   Mail,
   Instagram,
 } from 'lucide-react';
+import { DiscordIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
 
 export default function StudioPortfolioDetailPage() {
   const params = useParams();
@@ -413,7 +414,7 @@ export default function StudioPortfolioDetailPage() {
                   Need tournament graphics, lineup cards, or cinematic broadcast openers for your esports brand?
                 </p>
 
-                <div className="pt-1 space-y-2 text-[11px] font-mono border-t border-[#3D0D13]">
+                <div className="pt-2 space-y-2 text-[11px] font-mono border-t border-[#3D0D13]">
                   <a
                     href="mailto:naturestudio05@gmail.com"
                     className="flex items-center gap-2 text-[#FED7B8] hover:text-[#FFF5ED] transition-colors"
@@ -421,6 +422,26 @@ export default function StudioPortfolioDetailPage() {
                   >
                     <Mail className="w-3.5 h-3.5 text-[#FED7B8]" />
                     <span>naturestudio05@gmail.com</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917480066539"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-emerald-300 hover:text-white transition-colors"
+                    title="WhatsApp: +91 7480 066 539"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>+91 7480 066 539 (WhatsApp)</span>
+                  </a>
+                  <a
+                    href="https://discord.gg/PTVReHZp4n"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-indigo-300 hover:text-white transition-colors"
+                    title="Join Discord Community"
+                  >
+                    <DiscordIcon className="w-3.5 h-3.5 text-indigo-400" />
+                    <span>Discord Community</span>
                   </a>
                   <a
                     href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
