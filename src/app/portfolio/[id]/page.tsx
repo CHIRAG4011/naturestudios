@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer';
 import { VfxVideoPlayer } from '@/components/portfolio/VfxVideoPlayer';
 import { ContactTicketModal } from '@/components/portfolio/ContactTicketModal';
 import type { StudioPortfolioItem } from '@/lib/portfolio-shared';
-import { DEFAULT_STUDIO_PORTFOLIO_ITEMS, toGfxCategorySlug } from '@/lib/portfolio-shared';
+import { DEFAULT_STUDIO_PORTFOLIO_ITEMS, toGfxCategorySlug, toVfxCategorySlug } from '@/lib/portfolio-shared';
 import {
   ArrowLeft,
   ArrowRight,
@@ -159,6 +159,17 @@ export default function StudioPortfolioDetailPage() {
                 </Link>
               </>
             )}
+            {item.vfxCategory && (
+              <>
+                <span>/</span>
+                <Link
+                  href={`/portfolio/vfx?category=${toVfxCategorySlug(item.vfxCategory)}`}
+                  className="hover:text-[#FED7B8] transition-colors uppercase"
+                >
+                  {item.vfxCategory}
+                </Link>
+              </>
+            )}
             <span>/</span>
             <span className="text-[#FFF5ED] truncate max-w-xs">{item.title}</span>
           </div>
@@ -172,7 +183,7 @@ export default function StudioPortfolioDetailPage() {
             <div className="relative z-10 max-w-3xl space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="px-3 py-1 rounded-full bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/30 font-mono text-xs uppercase tracking-wider font-bold">
-                  {item.type} {item.gfxCategory ? `• ${item.gfxCategory}` : '• Motion Graphics'}
+                  {item.type} {item.gfxCategory ? `• ${item.gfxCategory}` : item.vfxCategory ? `• ${item.vfxCategory}` : '• Motion Graphics'}
                 </span>
                 <span className="px-3 py-1 rounded-full bg-[#2D0A0E] text-[#B89B8D] border border-[#3D0D13] font-mono text-xs uppercase">
                   Client: {item.client}
@@ -207,12 +218,14 @@ export default function StudioPortfolioDetailPage() {
                       ? `/portfolio/gfx/${toGfxCategorySlug(item.gfxCategory)}`
                       : item.type === 'GFX'
                       ? '/portfolio/gfx'
+                      : item.vfxCategory
+                      ? `/portfolio/vfx?category=${toVfxCategorySlug(item.vfxCategory)}`
                       : '/portfolio/vfx'
                   }
                   className="btn-secondary text-xs py-3 px-5 flex items-center gap-2"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>View All in {item.gfxCategory || item.type}</span>
+                  <span>View All in {item.gfxCategory || item.vfxCategory || item.type}</span>
                 </Link>
               </div>
             </div>
@@ -367,6 +380,12 @@ export default function StudioPortfolioDetailPage() {
                     <div className="flex justify-between border-b border-[#3D0D13] pb-2">
                       <span className="text-[#B89B8D]">SUBSECTION:</span>
                       <span className="text-[#FED7B8] uppercase font-bold">{item.gfxCategory}</span>
+                    </div>
+                  )}
+                  {item.vfxCategory && (
+                    <div className="flex justify-between border-b border-[#3D0D13] pb-2">
+                      <span className="text-[#B89B8D]">SUBSECTION:</span>
+                      <span className="text-[#FED7B8] uppercase font-bold">{item.vfxCategory}</span>
                     </div>
                   )}
                   <div className="flex justify-between border-b border-[#3D0D13] pb-2">

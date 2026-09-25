@@ -289,13 +289,15 @@ export const DEFAULT_DESIGN_CONFIG: PortfolioDesignConfig = {
  * Studio Portfolio Types & Subsections
  */
 export type StudioWorkType = 'GFX' | 'VFX';
-export type GfxSubsection = 'Tournament' | 'Roster' | 'Thumbnail' | 'Logo/Banner' | 'Logo/Banners';
+export type GfxSubsection = 'Tournament' | 'Roster' | 'Thumbnail' | 'Logo/Banner' | 'Logo/Banners' | 'Jersey';
+export type VfxSubsection = 'Clipping' | 'Cinematics' | 'Showreel' | 'Broadcast';
 
 export interface StudioPortfolioItem {
   id: string;
   portfolioSource?: 'studio';
   type: StudioWorkType;
   gfxCategory?: GfxSubsection;
+  vfxCategory?: VfxSubsection;
   title: string;
   client?: string;
   description: string;
@@ -318,6 +320,14 @@ export const GFX_SUBSECTIONS: GfxSubsection[] = [
   'Roster',
   'Thumbnail',
   'Logo/Banner',
+  'Jersey',
+];
+
+export const VFX_SUBSECTIONS: VfxSubsection[] = [
+  'Clipping',
+  'Cinematics',
+  'Showreel',
+  'Broadcast',
 ];
 
 export function toGfxCategorySlug(category: string): string {
@@ -326,6 +336,7 @@ export function toGfxCategorySlug(category: string): string {
   if (norm.includes('roster')) return 'roster';
   if (norm.includes('thumb')) return 'thumbnail';
   if (norm.includes('logo') || norm.includes('banner')) return 'logo-banner';
+  if (norm.includes('jersey')) return 'jersey';
   return norm.replace(/[^a-z0-9]+/g, '-');
 }
 
@@ -336,6 +347,26 @@ export function fromGfxCategorySlug(slug?: string): GfxSubsection | undefined {
   if (s === 'roster') return 'Roster';
   if (s === 'thumbnail') return 'Thumbnail';
   if (s === 'logo-banner' || s === 'logo' || s === 'banners' || s === 'banner') return 'Logo/Banner';
+  if (s === 'jersey' || s === 'jerseys') return 'Jersey';
+  return undefined;
+}
+
+export function toVfxCategorySlug(category: string): string {
+  const norm = category.toLowerCase().trim();
+  if (norm.includes('clip')) return 'clipping';
+  if (norm.includes('cinema')) return 'cinematics';
+  if (norm.includes('showreel')) return 'showreel';
+  if (norm.includes('broad')) return 'broadcast';
+  return norm.replace(/[^a-z0-9]+/g, '-');
+}
+
+export function fromVfxCategorySlug(slug?: string): VfxSubsection | undefined {
+  if (!slug) return undefined;
+  const s = slug.toLowerCase().trim();
+  if (s === 'clipping' || s === 'clips' || s === 'clip') return 'Clipping';
+  if (s === 'cinematics' || s === 'cinematic') return 'Cinematics';
+  if (s === 'showreel' || s === 'reels' || s === 'reel') return 'Showreel';
+  if (s === 'broadcast') return 'Broadcast';
   return undefined;
 }
 
@@ -468,10 +499,50 @@ export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
     updatedAt: '2026-09-08T00:00:00Z',
   },
 
+  // GFX - Jersey
+  {
+    id: 'studio-gfx-09',
+    type: 'GFX',
+    gfxCategory: 'Jersey',
+    title: 'Championship Pro Kit — Custom Esports Jersey & Apparel Suite',
+    client: 'NatureStudios Esports Apparel // Pro Series',
+    description: 'Sublimation-printed pro gaming jersey design, custom geometric gold and dark burgundy vector detailing, moisture-wicking fabric technical mockups, and premium sponsor emblem mapping.',
+    imageUrl: '/media/work-jersey-championship.jpg',
+    images: ['/media/work-jersey-championship.jpg', '/media/work-valorant-championship.jpg'],
+    tags: ['Jersey', 'Apparel', 'Esports Kit', 'Sublimation', 'Merch'],
+    featured: true,
+    order: 9,
+    status: 'PUBLISHED',
+    createdAt: '2026-09-08T12:00:00Z',
+    updatedAt: '2026-09-08T12:00:00Z',
+  },
+
+  // VFX - Clipping & Creator Highlights
+  {
+    id: 'studio-vfx-clipping-creators',
+    type: 'VFX',
+    vfxCategory: 'Clipping',
+    title: 'Elite Creator Clipping Suite — Elvish Yadav, Scout & Kashvi',
+    client: 'Elvish Yadav // Scout (Tanmay Singh) // Kashvi Hiranandani',
+    description: 'NatureStudios is recently collaborating with premier creators Elvish Yadav, Scout (Tanmay Singh), and Kashvi (Kashvi Hiranandani) to produce viral stream clipping suites, high-retention YouTube Shorts, esports tournament clutches, and kinetic subtitle motion design engineered for multi-million reach across YouTube and Instagram Reels.',
+    imageUrl: '/media/work-creator-clipping.jpg',
+    thumbnailUrl: '/media/work-creator-clipping.jpg',
+    images: ['/media/work-creator-clipping.jpg', '/media/hero-lightfield.jpg'],
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    duration: '01:15',
+    tags: ['Clipping', 'Elvish Yadav', 'Scout', 'Kashvi', 'Shorts', 'Highlights', 'Viral Reels', 'Motion Subtitles'],
+    featured: true,
+    order: 1,
+    status: 'PUBLISHED',
+    createdAt: '2026-09-24T00:00:00Z',
+    updatedAt: '2026-09-24T00:00:00Z',
+  },
+
   // VFX - Videos & Motion
   {
     id: 'studio-vfx-01',
     type: 'VFX',
+    vfxCategory: 'Showreel',
     title: 'VALORANT Champions 2026 — Cinematic Stage Intro Reel',
     client: 'Riot Games Broadcast',
     description: 'Full 3D arena opening sequence with volumetric lighting, custom stadium holograms, and camera sweep transitions.',
@@ -481,7 +552,7 @@ export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
     duration: '01:45',
     tags: ['3D Motion', 'Unreal Engine', 'Hologram', 'Intro Reel'],
     featured: true,
-    order: 9,
+    order: 10,
     status: 'PUBLISHED',
     createdAt: '2026-09-09T00:00:00Z',
     updatedAt: '2026-09-09T00:00:00Z',
@@ -489,6 +560,7 @@ export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
   {
     id: 'studio-vfx-02',
     type: 'VFX',
+    vfxCategory: 'Cinematics',
     title: 'Nexus Arena LED Ribbons & Stage Holo-Wall Motion Loop',
     client: 'Nexus Esports Arena',
     description: 'Seamless 60fps synchronized motion graphics driving 400 meters of perimeter LED and central cube screens.',
@@ -498,7 +570,7 @@ export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
     duration: '00:30',
     tags: ['LED Loop', 'Motion Graphics', 'Stage Architecture'],
     featured: true,
-    order: 10,
+    order: 11,
     status: 'PUBLISHED',
     createdAt: '2026-09-10T00:00:00Z',
     updatedAt: '2026-09-10T00:00:00Z',
@@ -506,6 +578,7 @@ export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
   {
     id: 'studio-vfx-03',
     type: 'VFX',
+    vfxCategory: 'Broadcast',
     title: 'Level Up Championship — 3D Match Trophy Reveal Animation',
     client: 'Level Up Gaming Network',
     description: 'Physically based rendering of the championship cup with chrome reflections and molten gold liquid simulations.',
@@ -515,7 +588,7 @@ export const DEFAULT_STUDIO_PORTFOLIO_ITEMS: StudioPortfolioItem[] = [
     duration: '01:12',
     tags: ['Cinema 4D', 'Octane Render', 'Trophy Reveal', 'Simulation'],
     featured: false,
-    order: 11,
+    order: 12,
     status: 'PUBLISHED',
     createdAt: '2026-09-11T00:00:00Z',
     updatedAt: '2026-09-11T00:00:00Z',

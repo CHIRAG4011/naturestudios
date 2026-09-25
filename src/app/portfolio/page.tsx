@@ -37,6 +37,7 @@ import {
   SlidersHorizontal,
   Send,
   Eye,
+  Shirt,
 } from 'lucide-react';
 
 function StudioPortfolioContent() {
@@ -173,6 +174,11 @@ function StudioPortfolioContent() {
       title: 'Logos & Server Banners',
       desc: 'Vector insignia, esports organization badges, Discord server branding, and Twitter/X headers.',
       icon: Zap,
+    },
+    Jersey: {
+      title: 'Jersey & Apparel Kits',
+      desc: 'Custom esports championship jerseys, team kits, fabric sublimation mockups, and apparel sponsor placements.',
+      icon: Shirt,
     },
   };
 

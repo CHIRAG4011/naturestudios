@@ -24,6 +24,7 @@ import {
   Globe,
   Eye,
   Image as ImageIcon,
+  Shirt,
 } from 'lucide-react';
 import type { StudioPortfolioItem, GfxSubsection } from '@/lib/portfolio-shared';
 import {
@@ -111,6 +112,11 @@ export default function StudioGfxCategoryWorkPage() {
       title: 'Logos & Server Banners',
       desc: 'Vector insignia, esports organization badges, Discord server branding, and Twitter/X headers.',
       icon: Zap,
+    },
+    Jersey: {
+      title: 'Jersey & Apparel Kits',
+      desc: 'Custom esports championship jerseys, sublimation print templates, team kit reveals, and official creator merchandise design.',
+      icon: Shirt,
     },
   };
 

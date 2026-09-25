@@ -17,6 +17,7 @@ import {
   Globe,
   SlidersHorizontal,
   ChevronRight,
+  Shirt,
 } from 'lucide-react';
 import type { StudioPortfolioItem } from '@/lib/portfolio-shared';
 import { DEFAULT_STUDIO_PORTFOLIO_ITEMS } from '@/lib/portfolio-shared';
@@ -95,6 +96,21 @@ export default function StudioGfxSubsectionsPage() {
         '/media/hero-lightfield-portrait.jpg',
       ],
       filterCategory: 'Logo/Banner',
+    },
+    {
+      id: 'jersey',
+      title: 'Jersey & Apparel Design',
+      slug: 'jersey',
+      badge: 'Pro Kits & Sublimation Mockups',
+      icon: Shirt,
+      color: 'from-amber-600/20 to-orange-700/20 border-amber-500/30 text-amber-300',
+      description:
+        'Custom esports championship jerseys, team kits, creator apparel merchandise, fabric sublimation layouts, and sponsor logo integration.',
+      previewImages: [
+        '/media/work-jersey-championship.jpg',
+        '/media/work-valorant-championship.jpg',
+      ],
+      filterCategory: 'Jersey',
     },
   ];
 

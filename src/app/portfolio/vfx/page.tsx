@@ -20,6 +20,10 @@ import {
   ChevronRight,
   Globe,
   ImageIcon,
+  Scissors,
+  Flame,
+  Users,
+  CheckCircle2,
 } from 'lucide-react';
 import type { StudioPortfolioItem } from '@/lib/portfolio-shared';
 import { DEFAULT_STUDIO_PORTFOLIO_ITEMS } from '@/lib/portfolio-shared';
@@ -28,8 +32,22 @@ export default function StudioVfxShowcasePage() {
   const [studioItems, setStudioItems] = useState<StudioPortfolioItem[]>(DEFAULT_STUDIO_PORTFOLIO_ITEMS);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+  const [activeCategory, setActiveCategory] = useState<'ALL' | 'Clipping' | 'Cinematics' | 'Showreel' | 'Broadcast'>('ALL');
   const [activeVideoModalItem, setActiveVideoModalItem] = useState<StudioPortfolioItem | null>(null);
   const [contactTargetItem, setContactTargetItem] = useState<StudioPortfolioItem | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cat = urlParams.get('category');
+      if (cat) {
+        if (cat.toLowerCase().includes('clip')) setActiveCategory('Clipping');
+        else if (cat.toLowerCase().includes('cinema')) setActiveCategory('Cinematics');
+        else if (cat.toLowerCase().includes('showreel')) setActiveCategory('Showreel');
+        else if (cat.toLowerCase().includes('broad')) setActiveCategory('Broadcast');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -49,6 +67,17 @@ export default function StudioVfxShowcasePage() {
   }, []);
 
   const vfxItems = studioItems.filter((i) => i.type === 'VFX');
+  const filteredVfx = vfxItems.filter((item) => {
+    if (activeCategory === 'ALL') return true;
+    if (activeCategory === 'Clipping') {
+      return (
+        item.vfxCategory === 'Clipping' ||
+        item.tags?.some((t) => t.toLowerCase().includes('clip') || t.toLowerCase().includes('elvish') || t.toLowerCase().includes('scout')) ||
+        item.title.toLowerCase().includes('clipping')
+      );
+    }
+    return item.vfxCategory === activeCategory || item.tags?.includes(activeCategory);
+  });
 
   return (
     <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
@@ -137,22 +166,138 @@ export default function StudioVfxShowcasePage() {
           </div>
         </section>
 
+        {/* SUBSECTIONS & CATEGORY FILTER TABS */}
+        <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-8">
+          <div className="flex flex-wrap items-center gap-2.5 p-2 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
+            <button
+              type="button"
+              onClick={() => setActiveCategory('ALL')}
+              className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                activeCategory === 'ALL'
+                  ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
+                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+              }`}
+            >
+              All VFX Works ({vfxItems.length})
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveCategory('Clipping')}
+              className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+                activeCategory === 'Clipping'
+                  ? 'bg-gradient-to-r from-purple-800 to-pink-700 text-white font-bold border border-pink-400/50 shadow-lg'
+                  : 'text-[#FED7B8] hover:text-white bg-[#2A080C] border border-[#52141A]'
+              }`}
+            >
+              <Scissors className="w-3.5 h-3.5 text-pink-400" />
+              <span>Clipping & Creator Shorts</span>
+              <span className="px-1.5 py-0.5 rounded-full text-[9px] bg-pink-500/20 text-pink-300 font-bold">
+                HOT
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveCategory('Cinematics')}
+              className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                activeCategory === 'Cinematics'
+                  ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
+                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+              }`}
+            >
+              3D Cinematics
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveCategory('Showreel')}
+              className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                activeCategory === 'Showreel'
+                  ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
+                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+              }`}
+            >
+              Stage Showreels
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveCategory('Broadcast')}
+              className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                activeCategory === 'Broadcast'
+                  ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
+                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+              }`}
+            >
+              Broadcast Packs
+            </button>
+          </div>
+        </section>
+
+        {/* FEATURED CREATOR CLIPPING PARTNERSHIP CALLOUT */}
+        {(activeCategory === 'ALL' || activeCategory === 'Clipping') && (
+          <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-8">
+            <div className="relative overflow-hidden rounded-3xl border border-pink-500/30 bg-gradient-to-r from-purple-950/80 via-[#2A0815]/90 to-[#150308]/90 p-6 sm:p-8 shadow-2xl">
+              <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div className="space-y-2 max-w-2xl">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 font-mono text-[10px] uppercase tracking-wider font-bold flex items-center gap-1.5">
+                      <Scissors className="w-3 h-3 text-pink-400" />
+                      Official Creator Partnership
+                    </span>
+                    <span className="font-mono text-[11px] text-[#FED7B8] uppercase font-semibold">
+                      Stream Highlights & Viral Reels
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-syne uppercase text-white tracking-tight">
+                    Recently Working With Elvish Yadav, Scout & Kashvi
+                  </h2>
+                  <p className="text-xs sm:text-sm text-[#D4B5A5] leading-relaxed">
+                    NatureStudios produces broadcast-grade stream clipping, viral short-form montages, and kinetic subtitle motion packages engineered for maximum audience retention and multi-million reach across YouTube Shorts and Instagram Reels.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <Link
+                    href="/portfolio/studio-vfx-clipping-creators"
+                    className="btn-primary text-xs py-2.5 px-5 flex items-center gap-2 shadow-lg"
+                  >
+                    <span>View Project Showcase</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* VFX SHOWCASE LIST / GRID */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12">
           {loading ? (
             <div className="py-24 text-center text-xs font-mono text-[#B89B8D]">
               Loading Studio VFX Productions...
             </div>
-          ) : vfxItems.length === 0 ? (
+          ) : filteredVfx.length === 0 ? (
             <div className="py-20 text-center rounded-3xl bg-[#1D0608] border border-[#3D0D13] p-8">
               <Film className="w-12 h-12 text-purple-400 mx-auto mb-3" />
               <h3 className="font-syne text-lg font-bold text-[#FFF5ED] mb-1">
-                No studio VFX productions available yet.
+                No productions found in {activeCategory}.
               </h3>
+              <p className="text-xs text-[#B89B8D] mb-4">
+                Explore all studio VFX productions or check our GFX subsections.
+              </p>
+              <button
+                type="button"
+                onClick={() => setActiveCategory('ALL')}
+                className="btn-primary text-xs py-2 px-4"
+              >
+                View All VFX
+              </button>
             </div>
           ) : viewMode === 'list' ? (
             <div className="space-y-6">
-              {vfxItems.map((item, idx) => (
+              {filteredVfx.map((item, idx) => (
                 <article
                   key={item.id || idx}
                   className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-purple-400 transition-all duration-300 hover:shadow-2xl flex flex-col md:flex-row"
@@ -166,7 +311,7 @@ export default function StudioVfxShowcasePage() {
                     />
                     <div className="absolute top-3 left-3">
                       <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-purple-950/90 text-purple-200 border border-purple-400/40">
-                        VFX Production
+                        {item.vfxCategory || 'VFX Production'}
                       </span>
                     </div>
 
@@ -255,7 +400,7 @@ export default function StudioVfxShowcasePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {vfxItems.map((item, idx) => (
+              {filteredVfx.map((item, idx) => (
                 <article
                   key={item.id || idx}
                   className="group relative rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-purple-400 transition-all duration-500 hover:shadow-2xl flex flex-col justify-between"

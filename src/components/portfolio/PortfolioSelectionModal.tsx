@@ -109,7 +109,7 @@ export function PortfolioSelectionModal({
                   Select Subsection Directly:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {['Tournament', 'Roster', 'Thumbnail', 'Logo/Banner'].map((sub) => (
+                  {['Tournament', 'Roster', 'Thumbnail', 'Logo/Banner', 'Jersey'].map((sub) => (
                     <span
                       key={sub}
                       onClick={(e) => {
@@ -152,19 +152,28 @@ export function PortfolioSelectionModal({
               </h3>
 
               <p className="text-xs text-[#B89B8D] leading-relaxed mb-4">
-                Cinematic showreels, motion design, 3D broadcast openers, video effects, and broadcast packages.
+                Cinematic showreels, motion design, stream clipping suites, 3D broadcast openers, and video effects.
               </p>
 
-              {/* Subcategories tags preview */}
-              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#3D0D13]">
-                {['Motion Graphics', 'Cinematics', 'Transitions', '3D VFX'].map((sub) => (
-                  <span
-                    key={sub}
-                    className="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-[#120204] border border-[#3D0D13] text-purple-300/80"
-                  >
-                    {sub}
-                  </span>
-                ))}
+              {/* Subcategories tags selection */}
+              <div className="pt-2 border-t border-[#3D0D13] space-y-1.5">
+                <span className="text-[10px] font-mono uppercase text-[#B89B8D] block">
+                  Select Subsection Directly:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {['Clipping', 'Cinematics', 'Showreel', 'Broadcast'].map((sub) => (
+                    <span
+                      key={sub}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSelect('VFX', sub);
+                      }}
+                      className="text-[10px] font-mono uppercase px-2.5 py-1 rounded-md bg-[#25092B] border border-purple-500/30 text-purple-200 hover:bg-purple-900 hover:border-purple-400 cursor-pointer transition-all hover:scale-105"
+                    >
+                      {sub} →
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 

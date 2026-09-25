@@ -30,6 +30,7 @@ import {
   Users,
   Bookmark,
   Zap,
+  Shirt,
   LayoutGrid,
   LayoutList,
   SlidersHorizontal,
@@ -213,6 +214,11 @@ function GlobalPortfolioContent() {
       title: 'Community Logos & Banners',
       desc: 'Esports emblems, mascot logos, Twitch banners, and Twitter/X headers created by creators.',
       icon: Zap,
+    },
+    Jersey: {
+      title: 'Community Jersey & Apparel',
+      desc: 'Custom esports jerseys, team uniforms, apparel mockups, and merchandise concepts created by creators.',
+      icon: Shirt,
     },
   };
 

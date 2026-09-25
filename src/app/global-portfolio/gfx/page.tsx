@@ -9,6 +9,7 @@ import {
   Users,
   Bookmark,
   Zap,
+  Shirt,
   ArrowRight,
   ArrowLeft,
   Sparkles,
@@ -91,6 +92,20 @@ export default function GlobalGfxSubsectionsPage() {
       ],
       filterCategory: 'Logo/Banner',
     },
+    {
+      id: 'jersey',
+      title: 'Jersey & Apparel Design',
+      slug: 'jersey',
+      badge: 'Esports Apparel & Kits',
+      icon: Shirt,
+      description:
+        'Custom competitive esports jerseys, player uniforms, hoodie graphics, and pro team apparel mocks designed by community visual artists.',
+      previewImages: [
+        '/media/work-jersey-championship.jpg',
+        '/media/work-valorant-championship.jpg',
+      ],
+      filterCategory: 'Jersey',
+    },
   ];
 
   return (
@@ -136,7 +151,7 @@ export default function GlobalGfxSubsectionsPage() {
                 Community GFX
               </h1>
               <p className="text-sm sm:text-base text-[#B89B8D] max-w-2xl mt-4 leading-relaxed font-light">
-                Discover published community portfolios categorized by design specialty. Choose what you want to see below (Tournament, Roster, Thumbnail, Logo/Banner).
+                Discover published community portfolios categorized by design specialty. Choose what you want to see below (Tournament, Roster, Thumbnail, Logo/Banner, Jersey).
               </p>
             </div>
 

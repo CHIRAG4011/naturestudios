@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
     const {
       type,
       gfxCategory,
+      vfxCategory,
       title,
       client,
       description,
@@ -100,6 +101,7 @@ export async function POST(req: NextRequest) {
     const newItem = await createStudioPortfolioItem({
       type,
       gfxCategory: type === 'GFX' ? gfxCategory || 'Tournament' : undefined,
+      vfxCategory: type === 'VFX' ? vfxCategory || 'Clipping' : undefined,
       title: title.trim(),
       client: client?.trim() || 'NatureStudios Commission',
       description: description?.trim() || '',
@@ -120,7 +122,7 @@ export async function POST(req: NextRequest) {
       'STUDIO_PORTFOLIO_CREATED',
       'studio_portfolio',
       newItem.id,
-      { title: newItem.title, type: newItem.type, gfxCategory: newItem.gfxCategory }
+      { title: newItem.title, type: newItem.type, gfxCategory: newItem.gfxCategory, vfxCategory: newItem.vfxCategory }
     );
 
     return NextResponse.json({ success: true, item: newItem }, { status: 201 });

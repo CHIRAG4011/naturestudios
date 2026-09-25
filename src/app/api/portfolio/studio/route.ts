@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getStudioPortfolioItems, fromGfxCategorySlug } from '@/lib/portfolio-service';
-import type { StudioWorkType, GfxSubsection } from '@/lib/portfolio-shared';
+import { getStudioPortfolioItems, fromGfxCategorySlug, fromVfxCategorySlug } from '@/lib/portfolio-service';
+import type { StudioWorkType } from '@/lib/portfolio-shared';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,13 +14,13 @@ export async function GET(req: NextRequest) {
     const typeParam = searchParams.get('type')?.toUpperCase() as StudioWorkType | null;
     const catParam = searchParams.get('category') || searchParams.get('subcategory');
 
-    const gfxCategory: GfxSubsection | undefined = catParam
-      ? fromGfxCategorySlug(catParam) || (catParam as GfxSubsection)
+    const resolvedCategory = catParam
+      ? fromGfxCategorySlug(catParam) || fromVfxCategorySlug(catParam) || catParam
       : undefined;
 
     const items = await getStudioPortfolioItems({
       type: typeParam && ['GFX', 'VFX'].includes(typeParam) ? typeParam : undefined,
-      category: gfxCategory,
+      category: resolvedCategory,
       status: 'PUBLISHED',
     });
 

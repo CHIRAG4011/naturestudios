@@ -8,6 +8,7 @@ import type {
   StudioPortfolioItem,
   StudioWorkType,
   GfxSubsection,
+  VfxSubsection,
 } from './portfolio-shared';
 import {
   sanitizeSlug,
@@ -497,7 +498,7 @@ const devStudioItemsStore = new Map<string, StudioPortfolioItem>(
  */
 export async function getStudioPortfolioItems(filter?: {
   type?: StudioWorkType;
-  category?: GfxSubsection;
+  category?: GfxSubsection | VfxSubsection | string;
   status?: string;
 }): Promise<StudioPortfolioItem[]> {
   if (isMongoConfigured()) {
@@ -528,8 +529,10 @@ export async function getStudioPortfolioItems(filter?: {
         const cat = filter.category;
         query.$or = [
           { gfxCategory: cat },
+          { vfxCategory: cat },
           ...(cat === 'Logo/Banner' ? [{ gfxCategory: 'Logo/Banners' }] : []),
           ...(cat === 'Logo/Banners' ? [{ gfxCategory: 'Logo/Banner' }] : []),
+          { tags: { $in: [cat] } },
         ];
       }
 
@@ -554,7 +557,14 @@ export async function getStudioPortfolioItems(filter?: {
   }
   if (filter?.category) {
     const cat = filter.category;
-    items = items.filter((i) => i.gfxCategory === cat || (cat.startsWith('Logo') && i.gfxCategory?.startsWith('Logo')));
+    items = items.filter(
+      (i) =>
+        i.gfxCategory === cat ||
+        i.vfxCategory === cat ||
+        (cat.startsWith('Logo') && i.gfxCategory?.startsWith('Logo')) ||
+        (cat.toLowerCase() === 'clipping' && (i.vfxCategory === 'Clipping' || i.tags?.includes('Clipping'))) ||
+        i.tags?.includes(cat)
+    );
   }
 
   return items.sort((a, b) => (a.order || 0) - (b.order || 0));

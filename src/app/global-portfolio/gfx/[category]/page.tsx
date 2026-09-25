@@ -27,6 +27,7 @@ import {
   Globe,
   Film,
   Eye,
+  Shirt,
 } from 'lucide-react';
 import type { GfxSubsection } from '@/lib/portfolio-shared';
 import {
@@ -191,6 +192,11 @@ export default function GlobalGfxCategoryPortfoliosPage() {
       title: 'Logos & Server Banners',
       desc: 'Esports emblems, mascot vector logos, Twitch banners, and Twitter/X headers created by community branding artists.',
       icon: Zap,
+    },
+    Jersey: {
+      title: 'Jersey & Apparel Design',
+      desc: 'Custom competitive esports jerseys, player uniforms, hoodie graphics, and pro team apparel mocks designed by community visual artists.',
+      icon: Shirt,
     },
   };
 

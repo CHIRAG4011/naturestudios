@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAdmin } from '../AdminContext';
-import type { StudioWorkType, GfxSubsection } from '@/lib/portfolio-shared';
+import type { StudioWorkType, GfxSubsection, VfxSubsection } from '@/lib/portfolio-shared';
+import { GFX_SUBSECTIONS, VFX_SUBSECTIONS } from '@/lib/portfolio-shared';
 import {
   Sparkles,
   Plus,
@@ -30,6 +31,7 @@ interface StudioItem {
   id: string;
   type: StudioWorkType;
   gfxCategory?: GfxSubsection;
+  vfxCategory?: VfxSubsection;
   title: string;
   client: string;
   description: string;
@@ -47,13 +49,6 @@ interface StudioItem {
   updatedAt?: string;
 }
 
-const GFX_SUBSECTIONS: GfxSubsection[] = [
-  'Tournament',
-  'Roster',
-  'Thumbnail',
-  'Logo/Banners',
-];
-
 export default function AdminStudioPortfolioPage() {
   const { hasPermission, isSuperAdmin } = useAdmin();
   const [items, setItems] = useState<StudioItem[]>([]);
@@ -62,6 +57,7 @@ export default function AdminStudioPortfolioPage() {
   // Filter & Search state
   const [activeTab, setActiveTab] = useState<'ALL' | 'GFX' | 'VFX'>('ALL');
   const [activeGfxSub, setActiveGfxSub] = useState<string>('ALL');
+  const [activeVfxSub, setActiveVfxSub] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Modals state
@@ -72,6 +68,7 @@ export default function AdminStudioPortfolioPage() {
   // Form state
   const [formType, setFormType] = useState<StudioWorkType>('GFX');
   const [formGfxCategory, setFormGfxCategory] = useState<GfxSubsection>('Tournament');
+  const [formVfxCategory, setFormVfxCategory] = useState<VfxSubsection>('Clipping');
   const [formTitle, setFormTitle] = useState('');
   const [formClient, setFormClient] = useState('');
   const [formDescription, setFormDescription] = useState('');
@@ -211,6 +208,7 @@ export default function AdminStudioPortfolioPage() {
     setEditingId(null);
     setFormType(initialType);
     setFormGfxCategory('Tournament');
+    setFormVfxCategory('Clipping');
     setFormTitle('');
     setFormClient('');
     setFormDescription('');
@@ -233,6 +231,7 @@ export default function AdminStudioPortfolioPage() {
     setEditingId(item.id);
     setFormType(item.type);
     setFormGfxCategory(item.gfxCategory || 'Tournament');
+    setFormVfxCategory(item.vfxCategory || 'Clipping');
     setFormTitle(item.title);
     setFormClient(item.client || '');
     setFormDescription(item.description || '');
@@ -283,6 +282,7 @@ export default function AdminStudioPortfolioPage() {
       const payload = {
         type: formType,
         gfxCategory: formType === 'GFX' ? formGfxCategory : undefined,
+        vfxCategory: formType === 'VFX' ? formVfxCategory : undefined,
         title: formTitle.trim(),
         client: formClient.trim() || 'NatureStudios Commission',
         description: formDescription.trim(),
@@ -354,6 +354,7 @@ export default function AdminStudioPortfolioPage() {
     if (activeTab === 'GFX' && item.type !== 'GFX') return false;
     if (activeTab === 'VFX' && item.type !== 'VFX') return false;
     if (activeTab === 'GFX' && activeGfxSub !== 'ALL' && item.gfxCategory !== activeGfxSub) return false;
+    if (activeTab === 'VFX' && activeVfxSub !== 'ALL' && item.vfxCategory !== activeVfxSub && !(activeVfxSub === 'Clipping' && item.tags?.includes('Clipping'))) return false;
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -536,6 +537,46 @@ export default function AdminStudioPortfolioPage() {
                   }`}
                 >
                   <span>{sub}</span>
+                  <span className="text-[9px] opacity-60">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* VFX Subsections bar when viewing VFX */}
+        {activeTab === 'VFX' && (
+          <div className="flex flex-wrap items-center gap-2 px-1">
+            <span className="text-[11px] font-mono uppercase text-purple-300 flex items-center gap-1">
+              <Film className="w-3 h-3 text-purple-400" />
+              VFX Categories:
+            </span>
+            <button
+              onClick={() => setActiveVfxSub('ALL')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-colors ${
+                activeVfxSub === 'ALL'
+                  ? 'bg-purple-900/60 text-purple-200 border border-purple-400/50'
+                  : 'text-[#B89B8D] hover:text-white bg-[#1D0608] border border-[#3D0D13]'
+              }`}
+            >
+              All VFX
+            </button>
+            {VFX_SUBSECTIONS.map((sub) => {
+              const count = items.filter((i) => i.type === 'VFX' && (i.vfxCategory === sub || (sub === 'Clipping' && i.tags?.includes('Clipping')))).length;
+              return (
+                <button
+                  key={sub}
+                  onClick={() => {
+                    setActiveTab('VFX');
+                    setActiveVfxSub(sub);
+                  }}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-colors flex items-center gap-1.5 ${
+                    activeTab === 'VFX' && activeVfxSub === sub
+                      ? 'bg-purple-900/60 text-purple-200 border border-purple-400/50 font-bold'
+                      : 'text-[#B89B8D] hover:text-white bg-[#1D0608] border border-[#3D0D13]'
+                  }`}
+                >
+                  <span>{sub === 'Clipping' ? '✂️ Clipping' : sub}</span>
                   <span className="text-[9px] opacity-60">({count})</span>
                 </button>
               );
@@ -752,7 +793,7 @@ export default function AdminStudioPortfolioPage() {
                   <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block">
                     GFX Subsection Category *
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                     {GFX_SUBSECTIONS.map((sub) => (
                       <button
                         key={sub}
@@ -765,6 +806,31 @@ export default function AdminStudioPortfolioPage() {
                         }`}
                       >
                         {sub}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* If VFX: Subsection Selector */}
+              {formType === 'VFX' && (
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-mono uppercase text-purple-300 tracking-wider block">
+                    VFX Subsection Track *
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {VFX_SUBSECTIONS.map((sub) => (
+                      <button
+                        key={sub}
+                        type="button"
+                        onClick={() => setFormVfxCategory(sub)}
+                        className={`py-2 px-3 rounded-xl text-xs font-mono uppercase tracking-wider border transition-all ${
+                          formVfxCategory === sub
+                            ? 'bg-purple-900/80 border-purple-400 text-purple-100 font-bold shadow-sm'
+                            : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-white'
+                        }`}
+                      >
+                        {sub === 'Clipping' ? '✂️ Clipping' : sub}
                       </button>
                     ))}
                   </div>
