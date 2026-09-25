@@ -382,13 +382,13 @@ export default function AdminSeoPage() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-rose-400" />
               <h3 className="font-syne text-sm font-bold text-[#FFF5ED]">
-                2. Myths Busted (What Google Says You Shouldn't Focus On)
+                2. Myths Busted (What Google Says You Shouldn&apos;t Focus On)
               </h3>
             </div>
             <ul className="space-y-2 text-xs text-[#B89B8D] leading-relaxed">
               <li className="flex items-start gap-2">
                 <span className="text-rose-400 font-bold shrink-0">✕</span>
-                <span><strong>Meta Keywords Tag:</strong> Google has officially stated they ignore the &lt;meta name="keywords"&gt; tag completely.</span>
+                <span><strong>Meta Keywords Tag:</strong> Google has officially stated they ignore the &lt;meta name=&quot;keywords&quot;&gt; tag completely.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-rose-400 font-bold shrink-0">✕</span>
