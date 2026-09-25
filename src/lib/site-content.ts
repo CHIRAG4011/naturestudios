@@ -34,7 +34,8 @@ export const DEFAULT_PAGE_CONTENT: Record<string, any> = {
   contact: {
     title: 'START A COLLABORATION',
     subtitle: 'DIRECT LINE TO OUR CREATIVE DIRECTORS',
-    publicEmail: 'hello@naturestudio.in',
+    publicEmail: 'naturestudio05@gmail.com',
+    instagram: 'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
   },
 };
 

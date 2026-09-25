@@ -158,6 +158,17 @@ export default function AdminSettingsPage() {
               />
             </div>
           </div>
+
+          <div>
+            <label className="text-[#B89B8D] block mb-1">Official Instagram URL</label>
+            <input
+              type="url"
+              value={settings.instagramUrl || ''}
+              onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
+              placeholder="https://www.instagram.com/naturestudio.in..."
+              className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+            />
+          </div>
         </div>
 
         {/* Global Operational Toggles */}

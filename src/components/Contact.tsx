@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Loader2, CheckCircle2, AlertCircle, Mail, MapPin, Globe } from 'lucide-react';
+import { Send, Loader2, CheckCircle2, AlertCircle, Mail, MapPin, Globe, Instagram, ArrowUpRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export function Contact() {
@@ -80,19 +80,57 @@ export function Contact() {
           </p>
 
           <div className="space-y-3 pt-2">
-            {[
-              { icon: Mail,   color: 'text-[#FED7B8]', text: 'inquiries@naturestudio.in' },
-              { icon: MapPin, color: 'text-ember-light',  text: 'London · Los Angeles · Tokyo' },
-              { icon: Globe,  color: 'text-forest-light', text: 'Worldwide Broadcast Production' },
-            ].map(({ icon: Icon, color, text }) => (
-              <div
-                key={text}
-                className="flex items-center gap-3 p-3 rounded-xl border border-rim bg-surface-card"
-              >
-                <Icon className={`h-4 w-4 shrink-0 ${color}`} aria-hidden="true" />
-                <span className="text-xs text-cream-dim font-mono">{text}</span>
+            <a
+              href="mailto:naturestudio05@gmail.com"
+              className="flex items-center justify-between p-3.5 rounded-xl border border-rim bg-surface-card hover:border-[#FED7B8]/40 transition-all group cursor-pointer"
+              title="Send email to naturestudio05@gmail.com"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-[#FED7B8] group-hover:scale-105 transition-transform">
+                  <Mail className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase text-[#B89B8D]">Direct Email Contact</span>
+                  <span className="text-xs text-cream font-mono font-bold group-hover:text-[#FED7B8] transition-colors">
+                    naturestudio05@gmail.com
+                  </span>
+                </div>
               </div>
-            ))}
+              <ArrowUpRight className="h-4 w-4 text-[#B89B8D] group-hover:text-[#FED7B8] transition-colors" />
+            </a>
+
+            <a
+              href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3.5 rounded-xl border border-rim bg-surface-card hover:border-pink-500/40 transition-all group cursor-pointer"
+              title="Instagram @naturestudio.in"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-pink-400 group-hover:scale-105 transition-transform">
+                  <Instagram className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase text-pink-300/80">Official Social Media</span>
+                  <span className="text-xs text-cream font-mono font-bold group-hover:text-pink-300 transition-colors">
+                    @naturestudio.in
+                  </span>
+                </div>
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-pink-500/20 text-pink-300 border border-pink-500/30">
+                Instagram ↗
+              </span>
+            </a>
+
+            <div className="flex items-center gap-3 p-3.5 rounded-xl border border-rim bg-surface-card">
+              <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-forest-light">
+                <Globe className="h-4 w-4" aria-hidden="true" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-mono uppercase text-[#B89B8D]">Operations</span>
+                <span className="text-xs text-cream-dim font-mono">Worldwide Broadcast Production</span>
+              </div>
+            </div>
           </div>
         </div>
 

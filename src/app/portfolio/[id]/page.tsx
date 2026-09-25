@@ -28,6 +28,8 @@ import {
   Users,
   Bookmark,
   Zap,
+  Mail,
+  Instagram,
 } from 'lucide-react';
 
 export default function StudioPortfolioDetailPage() {
@@ -410,10 +412,32 @@ export default function StudioPortfolioDetailPage() {
                 <p className="text-[11px] text-[#B89B8D] leading-tight">
                   Need tournament graphics, lineup cards, or cinematic broadcast openers for your esports brand?
                 </p>
+
+                <div className="pt-1 space-y-2 text-[11px] font-mono border-t border-[#3D0D13]">
+                  <a
+                    href="mailto:naturestudio05@gmail.com"
+                    className="flex items-center gap-2 text-[#FED7B8] hover:text-[#FFF5ED] transition-colors"
+                    title="Send email to naturestudio05@gmail.com"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#FED7B8]" />
+                    <span>naturestudio05@gmail.com</span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-pink-300 hover:text-white transition-colors"
+                    title="Instagram @naturestudio.in"
+                  >
+                    <Instagram className="w-3.5 h-3.5 text-pink-400" />
+                    <span>@naturestudio.in (Instagram DM)</span>
+                  </a>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => setContactModalOpen(true)}
-                  className="w-full btn-primary text-xs py-2.5 justify-center shadow-glow-burgundy cursor-pointer"
+                  className="w-full btn-primary text-xs py-2.5 justify-center shadow-glow-burgundy cursor-pointer mt-1"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Contact Studio Admin</span>

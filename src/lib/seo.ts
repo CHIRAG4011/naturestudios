@@ -155,15 +155,15 @@ export function getOrganizationJsonLd() {
     image: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
     description:
       'Elite creative studio and production house engineering championship tournament broadcasts, organic stage architecture, dynamic motion packages, and live digital experiences.',
-    email: 'contact@naturestudio.in',
+    email: 'naturestudio05@gmail.com',
     priceRange: '$$$$',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IN',
     },
     sameAs: [
+      'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
       'https://twitter.com/naturestudios',
-      'https://instagram.com/naturestudios',
       'https://youtube.com/@naturestudios',
       'https://linkedin.com/company/naturestudios',
       'https://github.com/naturestudios',

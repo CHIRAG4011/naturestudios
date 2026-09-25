@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Mail, Instagram } from 'lucide-react';
 
 const EXPLORE_LINKS = [
   { label: 'Selected Work', href: '/work' },
@@ -49,7 +49,36 @@ export function Footer() {
               Engineering the intersection of organic worldbuilding, stadium architecture, and high-velocity esports production worldwide.
             </p>
 
-            <div className="pt-2">
+            {/* Direct Contact & Socials */}
+            <div className="pt-2 space-y-2.5">
+              <span className="text-[10px] font-mono tracking-widest uppercase text-[#FED7B8] block">
+                Direct Contact & Social Media
+              </span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <a
+                  href="mailto:naturestudio05@gmail.com"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#240709] border border-[#52141A] hover:border-[#FED7B8]/50 px-3 py-2 text-xs font-mono text-[#FED7B8] hover:text-[#FFF5ED] transition-all group"
+                  title="Send email to naturestudio05@gmail.com"
+                >
+                  <Mail className="h-3.5 w-3.5 text-[#FED7B8] group-hover:scale-110 transition-transform" />
+                  <span>naturestudio05@gmail.com</span>
+                </a>
+
+                <a
+                  href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#240709] border border-[#52141A] hover:border-pink-500/50 px-3 py-2 text-xs font-mono text-pink-300 hover:text-white transition-all group"
+                  title="Follow NatureStudios on Instagram"
+                >
+                  <Instagram className="h-3.5 w-3.5 text-pink-400 group-hover:scale-110 transition-transform" />
+                  <span>@naturestudio.in</span>
+                  <ArrowUpRight className="h-3 w-3 text-pink-400/70" />
+                </a>
+              </div>
+            </div>
+
+            <div className="pt-1">
               <Link
                 href="/contact"
                 className="btn-primary text-xs py-2.5 px-4 shadow-glow-burgundy inline-flex items-center gap-2"
@@ -147,7 +176,30 @@ export function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-[#3D0D13] bg-[#0E0203]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#7A6158]">
-          <p>© {year} NatureStudios. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p>© {year} NatureStudios. All rights reserved.</p>
+            <span className="text-[#3D0D13] hidden sm:inline">•</span>
+            <a
+              href="mailto:naturestudio05@gmail.com"
+              className="hover:text-[#FED7B8] transition-colors inline-flex items-center gap-1 text-[#B89B8D]"
+              title="naturestudio05@gmail.com"
+            >
+              <Mail className="h-3 w-3 text-[#FED7B8]" />
+              <span>naturestudio05@gmail.com</span>
+            </a>
+            <span className="text-[#3D0D13] hidden sm:inline">•</span>
+            <a
+              href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-pink-400 transition-colors inline-flex items-center gap-1 text-[#B89B8D]"
+              title="Instagram @naturestudio.in"
+            >
+              <Instagram className="h-3 w-3 text-pink-400" />
+              <span>@naturestudio.in</span>
+            </a>
+          </div>
+
           <nav className="flex items-center gap-6" aria-label="Legal links">
             {LEGAL_LINKS.map((item) => (
               <Link

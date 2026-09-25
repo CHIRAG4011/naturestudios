@@ -63,6 +63,7 @@ export interface SiteSettingsDoc {
   contactEmail: string;
   supportEmail: string;
   inquiriesEmail: string;
+  instagramUrl?: string;
   maintenanceMode: boolean;
   maintenanceMessage?: string;
   registrationEnabled: boolean;
@@ -321,9 +322,10 @@ export async function ensureAdminInitialized(): Promise<void> {
     brandName: 'NATURESTUDIOS',
     tagline: 'ESPORTS • CREATIVE • DIGITAL',
     companyName: 'NatureStudios Creative Agency',
-    contactEmail: 'hello@naturestudio.in',
-    supportEmail: 'support@naturestudio.in',
-    inquiriesEmail: 'inquiries@naturestudio.in',
+    contactEmail: 'naturestudio05@gmail.com',
+    supportEmail: 'naturestudio05@gmail.com',
+    inquiriesEmail: 'naturestudio05@gmail.com',
+    instagramUrl: 'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
     maintenanceMode: false,
     maintenanceMessage: 'NatureStudios is undergoing brief scheduled maintenance. We will be back shortly.',
     registrationEnabled: true,
@@ -831,9 +833,10 @@ export async function getSiteSettings(): Promise<SiteSettingsDoc> {
       brandName: 'NATURESTUDIOS',
       tagline: 'ESPORTS • CREATIVE • DIGITAL',
       companyName: 'NatureStudios Creative Agency',
-      contactEmail: 'hello@naturestudio.in',
-      supportEmail: 'support@naturestudio.in',
-      inquiriesEmail: 'inquiries@naturestudio.in',
+      contactEmail: 'naturestudio05@gmail.com',
+      supportEmail: 'naturestudio05@gmail.com',
+      inquiriesEmail: 'naturestudio05@gmail.com',
+      instagramUrl: 'https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==',
       maintenanceMode: false,
       registrationEnabled: true,
       googleLoginEnabled: true,

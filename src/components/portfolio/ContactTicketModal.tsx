@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, CheckCircle2, Loader2, Sparkles, User, Mail, MessageSquare, ShieldCheck } from 'lucide-react';
+import { X, Send, CheckCircle2, Loader2, Sparkles, User, Mail, MessageSquare, ShieldCheck, Instagram } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 interface ContactTicketModalProps {
@@ -170,6 +170,33 @@ export function ContactTicketModal({
                     ? 'Start a commission or inquiry with the NatureStudios core production team.'
                     : `Send a direct project inquiry or collaborate with verified creator ${targetName}.`}
                 </p>
+
+                {targetType === 'STUDIO' && (
+                  <div className="mt-3 p-3 rounded-2xl bg-[#240709] border border-[#52141A] flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono">
+                    <span className="text-[11px] text-[#B89B8D]">Direct Channels:</span>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="mailto:naturestudio05@gmail.com"
+                        className="text-[#FED7B8] hover:text-[#FFF5ED] flex items-center gap-1.5 transition-colors"
+                        title="naturestudio05@gmail.com"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-[#FED7B8]" />
+                        <span>naturestudio05@gmail.com</span>
+                      </a>
+                      <span className="text-[#52141A]">•</span>
+                      <a
+                        href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-pink-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                        title="Instagram @naturestudio.in"
+                      >
+                        <Instagram className="w-3.5 h-3.5 text-pink-400" />
+                        <span>@naturestudio.in</span>
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {errorMsg && (

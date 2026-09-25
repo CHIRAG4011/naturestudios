@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, ChevronDown, Globe, Menu, Search, Shield, Sparkles, User as UserIcon, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Globe, Menu, Search, Shield, Sparkles, User as UserIcon, X, Instagram, Mail } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useCommandPalette } from '@/context/CommandPaletteContext';
 
@@ -245,6 +245,17 @@ export function Navbar() {
 
           {/* Desktop Right Actions */}
           <div className="hidden shrink-0 items-center gap-3 lg:flex">
+            <a
+              href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NatureStudios Instagram"
+              title="Follow @naturestudio.in on Instagram"
+              className="group inline-flex items-center justify-center rounded-lg border border-[#52141A] bg-[#240709] p-2 text-[#B89B8D] transition-all duration-200 hover:border-pink-500/50 hover:text-pink-400 cursor-pointer"
+            >
+              <Instagram className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+
             <button
               type="button"
               onClick={openPalette}
@@ -509,6 +520,31 @@ export function Navbar() {
                     </button>
                   </div>
                 )}
+
+                {/* Mobile Direct Contact Channels */}
+                <div className="pt-4 mt-2 border-t border-[#3D0D13] flex flex-col gap-2 font-mono text-xs">
+                  <span className="text-[10px] uppercase tracking-widest text-[#B89B8D]">
+                    Direct Support &amp; Socials
+                  </span>
+                  <a
+                    href="mailto:naturestudio05@gmail.com"
+                    className="flex items-center gap-2 text-[#FED7B8] hover:text-[#FFF5ED] transition-colors py-1"
+                    title="Send email to naturestudio05@gmail.com"
+                  >
+                    <Mail className="h-3.5 w-3.5 text-[#FED7B8]" />
+                    <span>naturestudio05@gmail.com</span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-pink-300 hover:text-white transition-colors py-1"
+                    title="Instagram @naturestudio.in"
+                  >
+                    <Instagram className="h-3.5 w-3.5 text-pink-400" />
+                    <span>@naturestudio.in (Instagram)</span>
+                  </a>
+                </div>
               </motion.div>
             </nav>
           </motion.div>
