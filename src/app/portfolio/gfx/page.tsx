@@ -47,9 +47,9 @@ export default function StudioGfxSubsectionsPage() {
       description:
         'Esports arena stage visuals, broadcast match schedules, playoff brackets, dynamic HUD stream overlays, and event championship packaging.',
       previewImages: [
+        '/media/infinix/gfx/posters/coming-soon.jpg',
+        '/media/infinix/gfx/broadcast/points-table.png',
         '/media/tournaments/clash-squad-cup/event-roadmap.png',
-        '/media/tournaments/troopers-challengers/tropper-prizepool.png',
-        '/media/tournaments/crowned-glory/crowned-glory-all-you-need-to-know.jpg',
       ],
       filterCategory: 'Tournament',
     },
@@ -78,8 +78,8 @@ export default function StudioGfxSubsectionsPage() {
       description:
         'High-CTR YouTube thumbnails, tournament match highlights artwork, live stream broadcast key art, and social discovery graphics.',
       previewImages: [
+        '/media/infinix/gfx/thumbnails/group-stage-group-a.png',
         '/media/hero-lightfield.jpg',
-        '/media/studio-plate.jpg',
       ],
       filterCategory: 'Thumbnail',
     },
@@ -93,8 +93,8 @@ export default function StudioGfxSubsectionsPage() {
       description:
         'Vector organization insignias, tournament championship crests, stadium perimeter LED ribbons, Discord server branding, and Twitter/X headers.',
       previewImages: [
-        '/media/cta-field.jpg',
-        '/media/hero-lightfield-portrait.jpg',
+        '/media/infinix/gfx/broadcast/hot-70-pro-logo.png',
+        '/media/infinix/gfx/broadcast/144hz-badge.png',
       ],
       filterCategory: 'Logo/Banner',
     },
