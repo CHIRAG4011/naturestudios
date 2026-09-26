@@ -2,85 +2,90 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useLoading } from '@/context/LoadingContext';
 
-const STORAGE_KEY = 'ns_intro_played';
-const HOLD_MS = 900;
+const HOLD_MS = 950;
 
 /**
- * First-visit intro plate. Client-only, so crawlers and no-JS visitors never see
- * it, and it plays once per browser session — returning to the site mid-session
- * goes straight to content.
- *
- * It sits above the page rather than replacing it: the real markup is already
- * mounted and painted underneath while the plate lifts.
+ * High-tech cinematic intro loading sequence.
+ * Lifts to reveal the studio landing page and coordinates with
+ * LoadingContext so all hero & navbar elements perform their staggered
+ * entrance cascade animations directly after it clears.
  */
 export function LoadingSequence() {
   const reduced = useReducedMotion();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const { setIsLoaded } = useLoading();
 
   useEffect(() => {
-    if (reduced) return;
-
-    let alreadyPlayed = false;
-    try {
-      alreadyPlayed = window.sessionStorage.getItem(STORAGE_KEY) === '1';
-    } catch {
-      // Private-mode or blocked storage — treat it as "already played" so we
-      // never trap a user behind an intro that cannot record itself.
-      alreadyPlayed = true;
-    }
-    if (alreadyPlayed) return;
-
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, '1');
-    } catch {
-      /* non-fatal */
+    if (reduced) {
+      setVisible(false);
+      setIsLoaded(true);
+      return;
     }
 
-    setVisible(true);
-    const timer = setTimeout(() => setVisible(false), HOLD_MS);
-    return () => clearTimeout(timer);
-  }, [reduced]);
+    // Trigger element entrance slightly before curtain fully clears for buttery fluidity
+    const triggerEntrance = setTimeout(() => {
+      setIsLoaded(true);
+    }, HOLD_MS - 150);
+
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, HOLD_MS);
+
+    return () => {
+      clearTimeout(triggerEntrance);
+      clearTimeout(timer);
+    };
+  }, [reduced, setIsLoaded]);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[9800] flex items-center justify-center bg-void"
+          className="fixed inset-0 z-[9800] flex items-center justify-center bg-[#030712]"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, clipPath: 'inset(0% 0% 100% 0%)' }}
-          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
           aria-hidden="true"
         >
-          <div className="grain absolute inset-0" />
-          <div className="orb-burgundy absolute left-1/2 top-1/2 h-[40vmax] w-[40vmax] -translate-x-1/2 -translate-y-1/2 opacity-60" />
+          {/* Subtle Ambient Glow */}
+          <div className="absolute inset-0 bg-radial from-[#2563EB]/25 via-[#0B132B]/50 to-transparent blur-3xl pointer-events-none" />
 
-          <div className="relative flex flex-col items-center gap-5">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
+          <div className="relative z-10 flex flex-col items-center gap-5">
+            {/* Brand Logo & Name */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="font-mono text-xs uppercase tracking-[0.4em] text-[#F8FAFC] font-black"
+              className="flex items-center gap-2.5"
             >
-              NatureStudios
-            </motion.p>
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#2563EB] to-[#38BDF8] flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.7)]">
+                <span className="text-[11px] font-black text-[#030712]">N</span>
+              </div>
+              <p className="font-mono text-sm uppercase tracking-[0.35em] text-[#F8FAFC] font-black">
+                NatureStudios
+              </p>
+            </motion.div>
 
-            <div className="h-[2px] w-48 overflow-hidden rounded-full bg-[#172554]">
+            {/* Glowing High-Tech Progress Bar */}
+            <div className="h-[2px] w-56 overflow-hidden rounded-full bg-[#172554] border border-[#1E3A8A]/50">
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: HOLD_MS / 1000, ease: 'linear' }}
-                className="h-full w-full origin-left bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#1D4ED8] shadow-[0_0_12px_rgba(56,189,248,0.7)]"
+                transition={{ duration: HOLD_MS / 1000, ease: 'easeInOut' }}
+                className="h-full w-full origin-left bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#60A5FA] shadow-[0_0_16px_rgba(56,189,248,0.9)]"
               />
             </div>
 
+            {/* Telemetry Tag */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#38BDF8]/80 font-bold"
+              className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#38BDF8]/90 font-bold"
             >
-              Creative Technology & Broadcast
+              [ INITIALIZING PIPELINE // V2.6 ]
             </motion.p>
           </div>
         </motion.div>

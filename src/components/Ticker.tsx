@@ -22,7 +22,7 @@ export function Ticker() {
             <span className="text-xs font-mono tracking-[0.25em] text-[#38BDF8] hover:text-[#F8FAFC] transition-colors uppercase font-bold">
               {item}
             </span>
-            <span className="h-1.5 w-1.5 rounded-full bg-[#E63946]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#38BDF8] shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
           </div>
         ))}
       </motion.div>

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Shield, ChevronDown, Trophy, Activity, Zap } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { useLoading } from '@/context/LoadingContext';
 import { AmbientField } from '@/components/motion/AmbientField';
 import { Magnetic } from '@/components/motion/Magnetic';
 import { KaultChromeVisual } from '@/components/motion/KaultChromeVisual';
@@ -13,11 +14,14 @@ import { StudioWorkflowCard } from '@/components/motion/StudioWorkflowCard';
 
 /**
  * KaultAI-Grade Autonomous Motion Hero for NatureStudios
- * Featuring 3D Chrome Sculpture, Interactive Studio Terminal,
- * HUD Brackets, and Lenis Inertial Scroll reactivity.
+ * Staggered entrance cascade coordinated with post-loader state:
+ * - Elements drop down from upside
+ * - Elements fade & glide in with cinematic depth
+ * - 3D chrome sculpture blooms from void
  */
 export function Hero() {
   const { user, openSqueeze } = useAuth();
+  const { isLoaded } = useLoading();
   const containerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
@@ -75,8 +79,13 @@ export function Hero() {
         <div className="absolute inset-0 hud-grid opacity-25 pointer-events-none z-[2]" />
       </motion.div>
 
-      {/* Top HUD Status Bar */}
-      <div className="relative z-10 pt-28 px-6 lg:px-12 max-w-7xl mx-auto w-full flex items-center justify-between text-xs font-mono text-[#94A3B8] pointer-events-none">
+      {/* Top HUD Status Bar - DROPS DOWN FROM UPSIDE */}
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={isLoaded ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 pt-28 px-6 lg:px-12 max-w-7xl mx-auto w-full flex items-center justify-between text-xs font-mono text-[#94A3B8] pointer-events-none"
+      >
         <div className="flex items-center gap-3">
           <span className="badge-live">LIVE TRANSMISSION</span>
           <span className="text-[#38BDF8] tracking-widest hidden sm:inline">[ PROTOCOL // V2.6 ]</span>
@@ -87,7 +96,7 @@ export function Hero() {
           </span>
           <span className="hidden md:inline text-[#94A3B8]">DOM: NATURESTUDIO.IN</span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Main Hero Stage - KaultAI Split Presentation */}
       <motion.div
@@ -97,11 +106,11 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           {/* Left Column: Bold Typography & CTAs */}
           <div className="lg:col-span-6 flex flex-col items-start text-left z-20">
-            {/* KaultAI HUD Brackets Eyebrow */}
+            {/* KaultAI HUD Brackets Eyebrow - DROPS DOWN FROM UPSIDE */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ y: -40, opacity: 0 }}
+              animate={isLoaded ? { y: 0, opacity: 1 } : { y: -40, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center gap-3 mb-6"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38]/90 border border-[#1E3A8A] shadow-[0_0_15px_rgba(37,99,235,0.3)] backdrop-blur-md">
@@ -116,11 +125,11 @@ export function Hero() {
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline - FADING AND RISING UP */}
             <motion.h1
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 55, opacity: 0, scale: 0.97 }}
+              animate={isLoaded ? { y: 0, opacity: 1, scale: 1 } : { y: 55, opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.9, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-[-0.04em] leading-[0.92] mb-6 text-[#F8FAFC]"
             >
               <span className="sr-only">Nature Studios — Esports Broadcast, Stage Architecture & Creative Technology.</span>
@@ -130,21 +139,21 @@ export function Hero() {
               </span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Subtitle - FADING IN */}
             <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 30, opacity: 0 }}
+              animate={isLoaded ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-xl text-base sm:text-lg text-[#94A3B8] leading-relaxed font-light mb-8"
             >
               Nature moves. We create. An elite creative studio engineering stadium visual systems, cinematic tournament broadcasts, and bespoke digital portfolio realms.
             </motion.p>
 
-            {/* Action CTAs */}
+            {/* Action CTAs - SPRING POP IN */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 25, opacity: 0, scale: 0.92 }}
+              animate={isLoaded ? { y: 0, opacity: 1, scale: 1 } : { y: 25, opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.75, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-wrap items-center gap-4 mb-10"
             >
               <Magnetic>
@@ -190,11 +199,11 @@ export function Hero() {
               )}
             </motion.div>
 
-            {/* Telemetry Metric Strip */}
+            {/* Telemetry Metric Strip - RISING FROM BOTTOM */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 40, opacity: 0 }}
+              animate={isLoaded ? { y: 0, opacity: 1 } : { y: 40, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.68, ease: [0.16, 1, 0.3, 1] }}
               className="grid grid-cols-3 gap-6 pt-6 border-t border-[#172554] w-full max-w-lg font-mono"
             >
               <div className="group cursor-default">
@@ -226,19 +235,32 @@ export function Hero() {
 
           {/* Right Column: 3D Chrome Sculpture & Interactive Studio Terminal */}
           <div className="lg:col-span-6 relative flex items-center justify-center">
-            {/* 3D Chrome Metallic Sculpture Layer - KaultAI central sweep */}
-            <div className="absolute -left-12 sm:-left-28 -top-16 w-[480px] sm:w-[560px] lg:w-[620px] aspect-square pointer-events-none z-0">
+            {/* 3D Chrome Metallic Sculpture Layer - BLOOMS AND FADES IN */}
+            <motion.div
+              initial={{ scale: 0.75, opacity: 0, filter: 'blur(20px)' }}
+              animate={isLoaded ? { scale: 1, opacity: 1, filter: 'blur(0px)' } : { scale: 0.75, opacity: 0, filter: 'blur(20px)' }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -left-12 sm:-left-28 -top-16 w-[480px] sm:w-[560px] lg:w-[620px] aspect-square pointer-events-none z-0"
+            >
               <KaultChromeVisual />
-            </div>
+            </motion.div>
 
-            {/* Foreground Floating Interactive Studio Card */}
-            <div className="relative z-10 w-full max-w-md pt-6 sm:pt-0">
+            {/* Foreground Floating Interactive Studio Card - DROPS DOWN FROM UPSIDE WITH 3D TILT */}
+            <motion.div
+              initial={{ y: -120, opacity: 0, rotateX: 25 }}
+              animate={isLoaded ? { y: 0, opacity: 1, rotateX: 0 } : { y: -120, opacity: 0, rotateX: 25 }}
+              transition={{ duration: 1.0, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 w-full max-w-md pt-6 sm:pt-0"
+            >
               <StudioWorkflowCard />
-            </div>
+            </motion.div>
 
-            {/* Floating Kinetic Badges (Around the card) */}
+            {/* Floating Kinetic Badges (Around the card) - DROP DOWN FROM UPSIDE */}
             <motion.div
               style={{ y: badgeY1 }}
+              initial={{ y: -60, opacity: 0, scale: 0.8 }}
+              animate={isLoaded ? { y: 0, opacity: 1, scale: 1 } : { y: -60, opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
               className="hidden xl:flex absolute -left-10 bottom-8 z-20 items-center gap-2 px-3 py-1.5 rounded-xl bg-[#070D1E]/95 border border-[#1E3A8A] shadow-[0_0_20px_rgba(0,0,0,0.8)] backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
             >
               <Trophy className="w-3.5 h-3.5 text-[#38BDF8]" />
@@ -247,6 +269,9 @@ export function Hero() {
 
             <motion.div
               style={{ y: badgeY2 }}
+              initial={{ y: -60, opacity: 0, scale: 0.8 }}
+              animate={isLoaded ? { y: 0, opacity: 1, scale: 1 } : { y: -60, opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
               className="hidden xl:flex absolute -right-6 top-16 z-20 items-center gap-2 px-3 py-1.5 rounded-xl bg-[#070D1E]/95 border border-[#1E3A8A] shadow-[0_0_20px_rgba(0,0,0,0.8)] backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
             >
               <Zap className="w-3.5 h-3.5 text-[#38BDF8]" />
@@ -256,8 +281,13 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* Bottom Scroll Cue */}
-      <div className="relative z-10 pb-6 flex flex-col items-center gap-1.5 pointer-events-none">
+      {/* Bottom Scroll Cue - FADES IN */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+        transition={{ duration: 0.8, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 pb-6 flex flex-col items-center gap-1.5 pointer-events-none"
+      >
         <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#94A3B8]">
           [ SCROLL INTO THE STORY ]
         </span>
@@ -267,7 +297,7 @@ export function Hero() {
         >
           <ChevronDown className="w-4 h-4 text-[#38BDF8]" />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

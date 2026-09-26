@@ -9,6 +9,7 @@ import { ArrowRight, ChevronDown, Globe, Menu, Search, Shield, Sparkles, User as
 import { DiscordIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
 import { useAuth } from '@/context/AuthContext';
 import { useCommandPalette } from '@/context/CommandPaletteContext';
+import { useLoading } from '@/context/LoadingContext';
 
 const NAV_ITEMS = [
   { label: 'Services', href: '/services' },
@@ -23,6 +24,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function Navbar() {
   const { user, openSqueeze } = useAuth();
   const { open: openPalette } = useCommandPalette();
+  const { isLoaded } = useLoading();
   const pathname = usePathname();
   const reduced = useReducedMotion();
 
@@ -72,7 +74,10 @@ export function Navbar() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={isLoaded ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
           scrolled
             ? 'border-b border-[#1E3A8A] bg-[#0B132B]/85 py-3 shadow-xl backdrop-blur-xl'
@@ -361,7 +366,7 @@ export function Navbar() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Full-Screen Mobile Menu Drawer */}
       <AnimatePresence>

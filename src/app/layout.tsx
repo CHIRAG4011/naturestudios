@@ -111,6 +111,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+import { LoadingProvider } from '@/context/LoadingContext';
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const themeCss = await getGlobalThemeCss();
 
@@ -149,13 +151,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <AuthProvider>
           <ToastProvider>
             <CommandPaletteProvider>
-              <SmoothScroll>
-                {children}
-              </SmoothScroll>
-              {/* Global cinematic authentication squeeze modal */}
-              <AuthSqueezeModal />
-              {/* Cursor, scroll progress, route curtain, ⌘K palette, intro plate */}
-              <SiteChrome />
+              <LoadingProvider>
+                <SmoothScroll>
+                  {children}
+                </SmoothScroll>
+                {/* Global cinematic authentication squeeze modal */}
+                <AuthSqueezeModal />
+                {/* Cursor, scroll progress, route curtain, ⌘K palette, intro plate */}
+                <SiteChrome />
+              </LoadingProvider>
             </CommandPaletteProvider>
           </ToastProvider>
         </AuthProvider>
