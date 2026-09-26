@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Cpu, Leaf, Trophy, Zap } from 'lucide-react';
+import { Tilt3DCard } from '@/components/motion/Tilt3DCard';
 
 const PILLARS = [
   {
@@ -95,23 +96,22 @@ export function Studio() {
           </div>
 
           <p className="text-sm sm:text-base leading-relaxed text-[#94A3B8] font-light">
-            We started from a conviction that esports spectacle does not have to feel cold and industrial. NatureStudios merges deep burgundy spatial architecture, warm beige ambient illumination, and hyper-kinetic motion systems. We design worlds that breathe.
+            We started from a conviction that esports spectacle does not have to feel cold and industrial. NatureStudios merges deep onyx spatial architecture, electric blue ambient illumination, and hyper-kinetic motion systems. We design worlds that breathe.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             {PILLARS.map((pillar, i) => {
               const Icon = pillar.icon;
               return (
-                <div
-                  key={pillar.title}
-                  className="p-5 rounded-xl border border-[#172554] bg-[#0B132B] hover:border-[#38BDF8] transition-all space-y-2.5"
-                >
-                  <div className="p-2 w-fit rounded-lg bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8]">
-                    <Icon className="w-4 h-4" />
+                <Tilt3DCard key={pillar.title} maxTilt={4} glareOpacity={0.12} className="rounded-xl">
+                  <div className="p-5 rounded-xl border border-[#172554] bg-[#0B132B] hover:border-[#38BDF8] transition-all space-y-2.5 h-full">
+                    <div className="p-2 w-fit rounded-lg bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8]">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-sm font-bold uppercase text-[#F8FAFC]">{pillar.title}</h3>
+                    <p className="text-xs text-[#94A3B8] leading-relaxed">{pillar.copy}</p>
                   </div>
-                  <h3 className="text-sm font-bold uppercase text-[#F8FAFC]">{pillar.title}</h3>
-                  <p className="text-xs text-[#94A3B8] leading-relaxed">{pillar.copy}</p>
-                </div>
+                </Tilt3DCard>
               );
             })}
           </div>

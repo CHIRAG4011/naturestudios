@@ -138,7 +138,7 @@ export function Process() {
           className="pointer-events-none absolute top-1/2 h-[46vmax] w-[46vmax] -translate-x-1/2 -translate-y-1/2"
           aria-hidden="true"
         >
-          <div className="orb-forest absolute inset-0" />
+          <div className="orb-burgundy absolute inset-0" />
         </motion.div>
         <div className="hud-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="grain pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -151,10 +151,10 @@ export function Process() {
             <div className="lg:col-span-4">
               <div className="relative flex gap-5">
                 {/* Track + fill */}
-                <div className="relative w-px shrink-0 bg-rim" aria-hidden="true">
+                <div className="relative w-px shrink-0 bg-[#172554]" aria-hidden="true">
                   <motion.div
                     style={{ scaleY: railScale }}
-                    className="absolute inset-0 origin-top bg-gradient-to-b from-forest via-forest-light to-ember"
+                    className="absolute inset-0 origin-top bg-gradient-to-b from-[#2563EB] via-[#38BDF8] to-[#1D4ED8] shadow-[0_0_8px_rgba(56,189,248,0.7)]"
                   />
                 </div>
 
@@ -165,16 +165,17 @@ export function Process() {
                     return (
                       <li key={stage.key}>
                         <div
-                          className="flex items-baseline gap-3 py-2"
+                          className="flex items-baseline gap-3 py-2 cursor-pointer transition-transform hover:translate-x-1"
+                          onClick={() => setActive(i)}
                           aria-current={isActive ? 'step' : undefined}
                         >
                           <span
                             className={`font-mono text-label-sm tracking-[0.2em] transition-colors duration-500 ${
                               isActive
-                                ? 'text-forest-bright'
+                                ? 'text-[#38BDF8] font-bold'
                                 : isPast
-                                  ? 'text-cream-muted'
-                                  : 'text-cream-muted/45'
+                                  ? 'text-[#F8FAFC]'
+                                  : 'text-[#94A3B8]/45'
                             }`}
                           >
                             {stage.index}
@@ -182,10 +183,10 @@ export function Process() {
                           <span
                             className={`text-sm font-black uppercase tracking-[0.08em] transition-colors duration-500 ${
                               isActive
-                                ? 'text-cream'
+                                ? 'text-[#F8FAFC]'
                                 : isPast
-                                  ? 'text-cream-dim'
-                                  : 'text-cream-muted/50'
+                                  ? 'text-[#BAE6FD]'
+                                  : 'text-[#94A3B8]/50'
                             }`}
                           >
                             {stage.title}
@@ -211,8 +212,6 @@ export function Process() {
                       : { opacity: 0, y: 28, filter: 'blur(6px)' }
                   }
                   transition={{ duration: 0.55, ease: EASE }}
-                  // Inactive panes stay mounted for the cross-fade, so they have
-                  // to be taken out of the hit-testing and tab order manually.
                   className={`absolute inset-0 ${i === active ? '' : 'pointer-events-none'}`}
                 >
                   <StageBody stage={stage} />
@@ -232,10 +231,10 @@ function ProcessHeading() {
   return (
     <div className="space-y-3">
       <span className="section-label">How We Work</span>
-      <h2 className="max-w-2xl text-display-sm font-black uppercase leading-[0.95] tracking-tight text-cream sm:text-display-md">
+      <h2 className="max-w-2xl text-display-sm font-black uppercase leading-[0.95] tracking-tight text-[#F8FAFC] sm:text-display-md">
         Five stages from
-        <span className="text-gradient-forest"> question</span> to
-        <span className="text-gradient-ember"> broadcast</span>
+        <span className="text-gradient-warm"> question</span> to
+        <span className="text-gradient-burgundy"> broadcast</span>
       </h2>
     </div>
   );
@@ -243,45 +242,38 @@ function ProcessHeading() {
 
 function StageBody({ stage }: { stage: Stage }) {
   const Icon = stage.icon;
-  const isForest = stage.accent === 'forest';
 
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
         <span
-          className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
-            isForest
-              ? 'border-forest/30 bg-forest/12 text-forest-light'
-              : 'border-ember/30 bg-ember/12 text-ember-light'
-          }`}
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#1E3A8A] bg-[#0F1D38] text-[#38BDF8]"
         >
           <Icon className="h-4 w-4" aria-hidden="true" />
         </span>
         <div>
-          <span className="font-mono text-label-sm uppercase tracking-[0.22em] text-cream-muted">
+          <span className="font-mono text-label-sm uppercase tracking-[0.22em] text-[#94A3B8]">
             Stage {stage.index}
           </span>
-          <h3 className="text-lg font-black uppercase leading-none tracking-tight text-cream">
+          <h3 className="text-lg font-black uppercase leading-none tracking-tight text-[#F8FAFC]">
             {stage.title}
           </h3>
         </div>
       </div>
 
       <p
-        className={`max-w-xl text-base font-semibold leading-snug sm:text-lg ${
-          isForest ? 'text-forest-light' : 'text-ember-light'
-        }`}
+        className="max-w-xl text-base font-semibold leading-snug sm:text-lg text-[#38BDF8]"
       >
         {stage.lead}
       </p>
 
-      <p className="max-w-2xl text-sm leading-relaxed text-cream-dim">{stage.body}</p>
+      <p className="max-w-2xl text-sm leading-relaxed text-[#BAE6FD] font-light">{stage.body}</p>
 
       <ul className="flex flex-wrap gap-2 pt-1">
         {stage.outputs.map((output) => (
           <li
             key={output}
-            className="rounded-full border border-rim bg-surface-card/70 px-3 py-1.5 font-mono text-label-sm uppercase tracking-[0.16em] text-cream-muted"
+            className="rounded-full border border-[#1E3A8A] bg-[#0B132B] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#38BDF8]"
           >
             {output}
           </li>

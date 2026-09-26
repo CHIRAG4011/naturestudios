@@ -1,11 +1,12 @@
 'use client';
-
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Shield, ChevronDown, Trophy, Activity, Zap, Flame, Globe } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { AmbientField } from '@/components/motion/AmbientField';
+import { Magnetic } from '@/components/motion/Magnetic';
 
 /**
  * Crency-Grade Cinematic Hero for NatureStudios
@@ -15,6 +16,26 @@ import { useAuth } from '@/context/AuthContext';
 export function Hero() {
   const { user, openSqueeze } = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+
+  // Mouse Parallax Springs
+  const mouseX = useSpring(0, { stiffness: 50, damping: 20 });
+  const mouseY = useSpring(0, { stiffness: 50, damping: 20 });
+  const tiltX = useSpring(0, { stiffness: 60, damping: 20 });
+  const tiltY = useSpring(0, { stiffness: 60, damping: 20 });
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduced) return;
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const normX = (clientX / innerWidth - 0.5) * 2;
+    const normY = (clientY / innerHeight - 0.5) * 2;
+
+    mouseX.set(normX * 18);
+    mouseY.set(normY * 18);
+    tiltX.set(-normY * 4);
+    tiltY.set(normX * 4);
+  };
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -50,6 +71,7 @@ export function Hero() {
     <section
       ref={containerRef}
       id="home"
+      onMouseMove={handleHeroMouseMove}
       className="relative min-h-screen overflow-hidden bg-[#030712] text-[#F8FAFC] flex flex-col justify-between"
       aria-label="Cinematic Hero"
     >
@@ -71,8 +93,11 @@ export function Hero() {
         <div className="absolute bottom-16 left-12 w-[450px] h-[450px] rounded-full bg-radial from-[#18A957]/10 to-transparent blur-[100px] pointer-events-none" />
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-radial from-[#FF6B1A]/10 to-transparent blur-[100px] pointer-events-none" />
 
+        {/* Dynamic Canvas Cyber Light Field */}
+        <AmbientField particleCount={38} className="opacity-70 z-[1]" />
+
         {/* HUD Grid Overlay */}
-        <div className="absolute inset-0 hud-grid opacity-35 pointer-events-none" />
+        <div className="absolute inset-0 hud-grid opacity-35 pointer-events-none z-[2]" />
       </motion.div>
 
       {/* Top HUD Status Bar */}
@@ -154,60 +179,83 @@ export function Hero() {
           style={{ scale: headlineScale, y: headlineY }}
           className="w-full flex flex-col items-center"
         >
-          <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-[-0.04em] leading-[0.88] mb-8 text-[#F8FAFC]">
+          <motion.h1
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-[-0.04em] leading-[0.88] mb-8 text-[#F8FAFC]"
+          >
             <span className="sr-only">Nature Studios — Esports Broadcast, Stage Architecture & Creative Technology. </span>
             THE DIGITAL <br />
-            <span className="text-gradient-warm">WILD.</span>
-          </h1>
+            <span className="text-gradient-warm inline-block hover:scale-[1.01] transition-transform duration-300">WILD.</span>
+          </motion.h1>
 
           {/* Subtitle */}
-          <p className="max-w-2xl text-base sm:text-xl text-[#7DD3FC] leading-relaxed font-light mb-10">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-2xl text-base sm:text-xl text-[#7DD3FC] leading-relaxed font-light mb-10"
+          >
             Nature moves. We create. An elite studio engineering arena stages, cinematic tournament broadcasts, and bespoke digital portfolio realms.
-          </p>
+          </motion.p>
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/portfolio" className="btn-primary text-xs py-3 px-6 shadow-glow-burgundy">
-              <span>Explore Studio Portfolio</span>
-              <ArrowRight className="w-4 h-4 text-[#38BDF8]" />
-            </Link>
+            <Magnetic>
+              <Link href="/portfolio" className="btn-primary text-xs py-3.5 px-6 shadow-glow-burgundy group flex items-center gap-2">
+                <span>Explore Studio Portfolio</span>
+                <ArrowRight className="w-4 h-4 text-[#38BDF8] group-hover:translate-x-1.5 transition-transform duration-200" />
+              </Link>
+            </Magnetic>
 
-            <Link href="/portfolio/edit" className="btn-beige text-xs py-3 px-6 shadow-glow-beige">
-              <span>Create Your Portfolio</span>
-              <Sparkles className="w-4 h-4 text-[#1E40AF]" />
-            </Link>
+            <Magnetic>
+              <Link href="/portfolio/edit" className="btn-beige text-xs py-3.5 px-6 shadow-glow-beige group flex items-center gap-2">
+                <span>Create Your Portfolio</span>
+                <Sparkles className="w-4 h-4 text-[#1E40AF] group-hover:rotate-12 transition-transform duration-200" />
+              </Link>
+            </Magnetic>
 
             {user ? (
-              <Link href="/dashboard" className="btn-secondary text-xs py-3 px-6">
-                <Shield className="w-4 h-4 text-[#38BDF8]" />
-                <span>Command Center</span>
-              </Link>
+              <Magnetic>
+                <Link href="/dashboard" className="btn-secondary text-xs py-3.5 px-6 group flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-[#38BDF8] group-hover:scale-110 transition-transform duration-200" />
+                  <span>Command Center</span>
+                </Link>
+              </Magnetic>
             ) : (
-              <button
-                type="button"
-                onClick={() => openSqueeze('register')}
-                className="btn-secondary text-xs py-3 px-6"
-              >
-                <span>Client Access</span>
-              </button>
+              <Magnetic>
+                <button
+                  type="button"
+                  onClick={() => openSqueeze('register')}
+                  className="btn-secondary text-xs py-3.5 px-6 group cursor-pointer"
+                >
+                  <span>Client Access</span>
+                </button>
+              </Magnetic>
             )}
           </div>
 
           {/* Key Metrics Strip */}
-          <div className="grid grid-cols-3 gap-8 pt-8 mt-10 border-t border-[#172554] w-full max-w-xl font-mono">
-            <div>
-              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums">200+</div>
-              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1">Live Broadcasts</div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-3 gap-8 pt-8 mt-10 border-t border-[#172554] w-full max-w-xl font-mono"
+          >
+            <div className="group cursor-default transition-transform hover:-translate-y-1">
+              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums group-hover:text-[#F8FAFC] transition-colors">200+</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1 group-hover:text-[#38BDF8] transition-colors">Live Broadcasts</div>
             </div>
-            <div>
-              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums">40+</div>
-              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1">Global Arenas</div>
+            <div className="group cursor-default transition-transform hover:-translate-y-1">
+              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums group-hover:text-[#F8FAFC] transition-colors">40+</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1 group-hover:text-[#38BDF8] transition-colors">Global Arenas</div>
             </div>
-            <div>
-              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums">8yr</div>
-              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1">Studio Craft</div>
+            <div className="group cursor-default transition-transform hover:-translate-y-1">
+              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums group-hover:text-[#F8FAFC] transition-colors">8yr</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1 group-hover:text-[#38BDF8] transition-colors">Studio Craft</div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 

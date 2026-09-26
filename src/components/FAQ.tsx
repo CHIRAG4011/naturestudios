@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { Magnetic } from '@/components/motion/Magnetic';
 
 interface FAQItem {
   question: string;
@@ -163,7 +164,7 @@ export function FAQ() {
         </div>
 
         {/* Bottom helper card */}
-        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#0B132B] via-[#320C10] to-[#0B132B] border border-[#1E3A8A] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#0B132B] via-[#0F1D38] to-[#0B132B] border border-[#1E3A8A] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
             <h4 className="text-base font-bold uppercase text-[#F8FAFC] flex items-center justify-center sm:justify-start gap-2">
               <Sparkles className="w-4 h-4 text-[#38BDF8]" /> Have a custom mandate or inquiry?
@@ -172,12 +173,15 @@ export function FAQ() {
               Our executive production team responds within 24 hours with project scoping and availability.
             </p>
           </div>
-          <Link
-            href="/contact"
-            className="btn-primary text-xs py-3 px-6 shrink-0 shadow-glow-burgundy"
-          >
-            <span>Get In Touch →</span>
-          </Link>
+          <Magnetic>
+            <Link
+              href="/contact"
+              className="btn-primary text-xs py-3 px-6 shrink-0 shadow-glow-burgundy group flex items-center gap-1.5"
+            >
+              <span>Get In Touch</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </Magnetic>
         </div>
       </div>
     </section>

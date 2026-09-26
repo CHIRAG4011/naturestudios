@@ -53,24 +53,24 @@ export function LoadingSequence() {
           aria-hidden="true"
         >
           <div className="grain absolute inset-0" />
-          <div className="orb-forest absolute left-1/2 top-1/2 h-[40vmax] w-[40vmax] -translate-x-1/2 -translate-y-1/2" />
+          <div className="orb-burgundy absolute left-1/2 top-1/2 h-[40vmax] w-[40vmax] -translate-x-1/2 -translate-y-1/2 opacity-60" />
 
           <div className="relative flex flex-col items-center gap-5">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="font-mono text-label uppercase tracking-[0.4em] text-cream"
+              className="font-mono text-xs uppercase tracking-[0.4em] text-[#F8FAFC] font-black"
             >
               NatureStudios
             </motion.p>
 
-            <div className="h-px w-40 overflow-hidden bg-rim">
+            <div className="h-[2px] w-48 overflow-hidden rounded-full bg-[#172554]">
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: HOLD_MS / 1000, ease: 'linear' }}
-                className="h-full w-full origin-left bg-gradient-to-r from-forest to-ember"
+                className="h-full w-full origin-left bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#1D4ED8] shadow-[0_0_12px_rgba(56,189,248,0.7)]"
               />
             </div>
 
@@ -78,9 +78,9 @@ export function LoadingSequence() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="font-mono text-label-sm uppercase tracking-[0.3em] text-cream-muted"
+              className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#38BDF8]/80 font-bold"
             >
-              The Digital Wild
+              Creative Technology & Broadcast
             </motion.p>
           </div>
         </motion.div>

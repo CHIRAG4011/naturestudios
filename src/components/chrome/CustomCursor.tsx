@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], [role="tab"], summary, label[for], [data-cursor="hover"]';
 
-const PROJECT_SELECTOR = '[data-cursor="project"], .project-card, [data-project-reel]';
+const PROJECT_SELECTOR = '[data-cursor="project"], [data-cursor="view"], .project-card, [data-project-reel]';
+const DRAG_SELECTOR = '[data-cursor="drag"], [role="slider"], .drag-target, .carousel-drag';
 const TEXT_SELECTOR = 'input, textarea, select, [contenteditable="true"]';
 
 /**
@@ -103,7 +104,19 @@ export function CustomCursor() {
         ring.style.borderColor = '#38BDF8';
         ring.style.backgroundColor = 'rgba(37, 99, 235, 0.45)';
         dot.style.opacity = '0';
-        setCursorText('VIEW PROJECT');
+        setCursorText('VIEW');
+        if (label) label.style.opacity = '1';
+        return;
+      }
+
+      const dragEl = target.closest(DRAG_SELECTOR);
+      if (dragEl) {
+        ring.style.width = '64px';
+        ring.style.height = '64px';
+        ring.style.borderColor = '#38BDF8';
+        ring.style.backgroundColor = 'rgba(56, 189, 248, 0.25)';
+        dot.style.opacity = '0';
+        setCursorText('DRAG');
         if (label) label.style.opacity = '1';
         return;
       }

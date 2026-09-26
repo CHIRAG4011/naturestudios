@@ -47,7 +47,7 @@ export function PageTransition() {
           aria-hidden="true"
         >
           <div className="grain absolute inset-0" />
-          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-forest to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-[#38BDF8] to-transparent shadow-[0_0_12px_rgba(56,189,248,0.8)]" />
         </motion.div>
       )}
     </AnimatePresence>

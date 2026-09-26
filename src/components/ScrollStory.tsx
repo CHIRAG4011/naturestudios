@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,6 +17,8 @@ import {
   Layers,
   ChevronRight,
 } from 'lucide-react';
+import { Tilt3DCard } from '@/components/motion/Tilt3DCard';
+import { Magnetic } from '@/components/motion/Magnetic';
 
 const CHAPTERS = [
   {
@@ -163,8 +164,8 @@ export function ScrollStory() {
     >
       {/* Sticky Fullscreen Stage */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-12 select-none">
-        {/* Deep Burgundy & Wine Gradient Base */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-[#1F0609] to-[#030712] pointer-events-none" />
+        {/* Deep Onyx & Electric Blue Atmosphere */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-[#0B132B] to-[#030712] pointer-events-none" />
 
         {/* Ambient Pulsing Back-Glow */}
         <div
@@ -175,10 +176,10 @@ export function ScrollStory() {
         {/* HUD Grid */}
         <div className="absolute inset-0 hud-grid opacity-25 pointer-events-none" />
 
-        {/* Giant Kinetic Background Typography (Crency-style huge display letters) */}
+        {/* Giant Kinetic Background Typography */}
         <motion.div
           style={{ x: bgTextX }}
-          className="absolute top-1/2 -translate-y-1/2 left-0 whitespace-nowrap text-[18vw] font-black uppercase text-[#2B080C]/40 pointer-events-none tracking-tighter leading-none z-0"
+          className="absolute top-1/2 -translate-y-1/2 left-0 whitespace-nowrap text-[18vw] font-black uppercase text-[#0E1A33]/40 pointer-events-none tracking-tighter leading-none z-0"
         >
           NATURE • INSTINCT • ENERGY • COMPETITION • CREATION • CULTURE • IMPACT • ARENA
         </motion.div>
@@ -186,7 +187,7 @@ export function ScrollStory() {
         {/* Top Header Information */}
         <div className="absolute top-24 left-6 right-6 lg:left-12 lg:right-12 z-20 flex items-center justify-between text-xs font-mono text-[#94A3B8]">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#E63946] animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-[#38BDF8] animate-pulse" />
             <span className="text-[#38BDF8] font-bold tracking-widest uppercase">
               CHAPTER {currentChapter.num} {'//'} {currentChapter.label}
             </span>
@@ -213,15 +214,15 @@ export function ScrollStory() {
                     window.scrollTo({ top: targetScroll, behavior: 'smooth' });
                   }
                 }}
-                className={`flex items-center gap-3 text-left transition-all duration-300 font-mono text-xs ${
+                className={`flex items-center gap-3 text-left transition-all duration-300 font-mono text-xs cursor-pointer ${
                   isActive
                     ? 'text-[#38BDF8] translate-x-2'
-                    : 'text-[#6E4249] hover:text-[#94A3B8]'
+                    : 'text-[#64748B] hover:text-[#94A3B8]'
                 }`}
               >
                 <span
                   className={`w-6 text-center font-bold ${
-                    isActive ? 'text-[#E63946]' : 'text-[#8A4A52]'
+                    isActive ? 'text-[#38BDF8]' : 'text-[#475569]'
                   }`}
                 >
                   {ch.num}
@@ -249,82 +250,90 @@ export function ScrollStory() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -30, scale: 0.96 }}
               transition={{ duration: 0.45, ease: 'easeOut' }}
-              className="relative w-full rounded-3xl border border-[#1E3A8A] bg-[#1E0608]/90 backdrop-blur-xl shadow-2xl p-6 sm:p-8 lg:p-10 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              className="w-full"
             >
-              {/* Card Ambient Glow Line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#38BDF8]/40 to-transparent" />
+              <Tilt3DCard maxTilt={3.5} glareOpacity={0.12} className="w-full rounded-3xl">
+                <div className="relative w-full rounded-3xl border border-[#1E3A8A] bg-[#070D1E]/95 backdrop-blur-xl shadow-2xl p-6 sm:p-8 lg:p-10 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  {/* Card Ambient Glow Line */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#38BDF8]/40 to-transparent" />
 
-              {/* Floating Kinetic Badges (Crency Style on Card) */}
-              <motion.div
-                animate={{ y: [-3, 3, -3], rotate: [-1, 1, -1] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="hidden sm:inline-flex absolute top-4 right-6 z-20 items-center gap-2 px-3 py-1 rounded-full bg-[#2E090D] border border-[#2563EB] text-[11px] font-mono text-[#38BDF8] shadow-card"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#18A957]" />
-                <span>{currentChapter.badgeA}</span>
-              </motion.div>
+                  {/* Floating Kinetic Badges (Crency Style on Card) */}
+                  <motion.div
+                    animate={{ y: [-3, 3, -3], rotate: [-1, 1, -1] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                    className="hidden sm:inline-flex absolute top-4 right-6 z-20 items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#2563EB] text-[11px] font-mono text-[#38BDF8] shadow-card"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#18A957]" />
+                    <span>{currentChapter.badgeA}</span>
+                  </motion.div>
 
-              <motion.div
-                animate={{ y: [3, -3, 3], rotate: [1, -1, 1] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="hidden sm:inline-flex absolute bottom-4 left-6 z-20 items-center gap-2 px-3 py-1 rounded-full bg-[#2E090D] border border-[#2563EB] text-[11px] font-mono text-[#F8FAFC] shadow-card"
-              >
-                <Sparkles className="w-3 h-3 text-[#FF6B1A]" />
-                <span>{currentChapter.badgeB}</span>
-              </motion.div>
+                  <motion.div
+                    animate={{ y: [3, -3, 3], rotate: [1, -1, 1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="hidden sm:inline-flex absolute bottom-4 left-6 z-20 items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#2563EB] text-[11px] font-mono text-[#F8FAFC] shadow-card"
+                  >
+                    <Sparkles className="w-3 h-3 text-[#FF6B1A]" />
+                    <span>{currentChapter.badgeB}</span>
+                  </motion.div>
 
-              {/* Left Column: Rich Typography & Storytelling */}
-              <div className="lg:col-span-7 flex flex-col justify-center text-left space-y-4 relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2C080C] border border-[#1E3A8A] text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] w-fit">
-                  {React.createElement(currentChapter.icon, { className: 'w-3.5 h-3.5 text-[#38BDF8]' })}
-                  <span>{currentChapter.tag}</span>
-                </div>
+                  {/* Left Column: Rich Typography & Storytelling */}
+                  <div className="lg:col-span-7 flex flex-col justify-center text-left space-y-4 relative z-10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#1E3A8A] text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] w-fit">
+                      {React.createElement(currentChapter.icon, { className: 'w-3.5 h-3.5 text-[#38BDF8]' })}
+                      <span>{currentChapter.tag}</span>
+                    </div>
 
-                <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#F8FAFC] leading-[1.05]">
-                  {currentChapter.headline}
-                </h3>
+                    <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#F8FAFC] leading-[1.05]">
+                      {currentChapter.headline}
+                    </h3>
 
-                <p className="text-sm sm:text-base text-[#BAE6FD] leading-relaxed font-light max-w-lg">
-                  {currentChapter.desc}
-                </p>
+                    <p className="text-sm sm:text-base text-[#BAE6FD] leading-relaxed font-light max-w-lg">
+                      {currentChapter.desc}
+                    </p>
 
-                {currentChapter.isCta ? (
-                  <div className="pt-3 flex flex-wrap items-center gap-3">
-                    <Link href="/work" className="btn-primary text-xs py-2.5 px-5">
-                      <span>Explore Works</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                    <Link href="/portfolio" className="btn-beige text-xs py-2.5 px-5">
-                      <Trophy className="w-3.5 h-3.5 text-[#1E40AF]" />
-                      <span>Build Portfolio</span>
-                    </Link>
+                    {currentChapter.isCta ? (
+                      <div className="pt-3 flex flex-wrap items-center gap-3">
+                        <Magnetic>
+                          <Link href="/work" className="btn-primary text-xs py-2.5 px-5 group flex items-center gap-1.5">
+                            <span>Explore Works</span>
+                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                          </Link>
+                        </Magnetic>
+                        <Magnetic>
+                          <Link href="/portfolio" className="btn-beige text-xs py-2.5 px-5 group flex items-center gap-1.5">
+                            <Trophy className="w-3.5 h-3.5 text-[#1E40AF] group-hover:rotate-12 transition-transform" />
+                            <span>Build Portfolio</span>
+                          </Link>
+                        </Magnetic>
+                      </div>
+                    ) : (
+                      <div className="pt-2 flex items-center gap-4 text-xs font-mono text-[#38BDF8]">
+                        <span className="flex items-center gap-1.5">
+                          <ChevronRight className="w-4 h-4 text-[#38BDF8]" /> SCROLL FOR NEXT CHAPTER
+                        </span>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div className="pt-2 flex items-center gap-4 text-xs font-mono text-[#38BDF8]">
-                    <span className="flex items-center gap-1.5">
-                      <ChevronRight className="w-4 h-4 text-[#E63946]" /> SCROLL FOR NEXT CHAPTER
-                    </span>
+
+                  {/* Right Column: High-Resolution Visual Artwork Frame */}
+                  <div className="lg:col-span-5 relative h-56 sm:h-72 lg:h-80 w-full rounded-2xl overflow-hidden border border-[#2563EB] shadow-2xl group">
+                    <Image
+                      src={currentChapter.image}
+                      alt={currentChapter.headline}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 400px"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      priority={activeIndex < 2}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/80 via-transparent to-transparent pointer-events-none" />
+
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-[#38BDF8] px-3 py-1.5 rounded-lg bg-[#0B132B]/90 backdrop-blur-md border border-[#1E3A8A]">
+                      <span className="uppercase">ASSET: NS-{currentChapter.num}</span>
+                      <span className="text-[#F8FAFC]">ENGINE: 4K 60P</span>
+                    </div>
                   </div>
-                )}
-              </div>
-
-              {/* Right Column: High-Resolution Visual Artwork Frame */}
-              <div className="lg:col-span-5 relative h-56 sm:h-72 lg:h-80 w-full rounded-2xl overflow-hidden border border-[#2563EB] shadow-2xl group">
-                <Image
-                  src={currentChapter.image}
-                  alt={currentChapter.headline}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 400px"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  priority={activeIndex < 2}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/80 via-transparent to-transparent pointer-events-none" />
-
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-[#38BDF8] px-3 py-1.5 rounded-lg bg-[#1F0609]/85 backdrop-blur-md border border-[#1E3A8A]">
-                  <span className="uppercase">ASSET: NS-{currentChapter.num}</span>
-                  <span className="text-[#F8FAFC]">ENGINE: 4K 60P</span>
                 </div>
-              </div>
+              </Tilt3DCard>
             </motion.div>
           </AnimatePresence>
         </div>

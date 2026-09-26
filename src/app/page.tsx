@@ -21,7 +21,7 @@ import { Footer } from '@/components/Footer';
 import { Film, Sparkles, Layers, Tv } from 'lucide-react';
 
 export default function HomePage() {
-  const [activeExperience, setActiveExperience] = useState<'CINEMA' | 'STUDIO'>('CINEMA');
+  const [activeExperience, setActiveExperience] = useState<'CINEMA' | 'STUDIO'>('STUDIO');
 
   return (
     <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC]">

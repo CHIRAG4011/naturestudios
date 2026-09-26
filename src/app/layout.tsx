@@ -6,6 +6,7 @@ import { ToastProvider } from '@/context/ToastContext';
 import { CommandPaletteProvider } from '@/context/CommandPaletteContext';
 import { AuthSqueezeModal } from '@/components/auth/AuthSqueezeModal';
 import { SiteChrome } from '@/components/chrome/SiteChrome';
+import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { SITE_URL, SITE_NAME, PRIMARY_KEYWORDS, getWebSiteJsonLd, getOrganizationJsonLd, getFaqJsonLd } from '@/lib/seo';
 import { getGlobalThemeCss } from '@/lib/site-theme';
 
@@ -148,7 +149,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <AuthProvider>
           <ToastProvider>
             <CommandPaletteProvider>
-              {children}
+              <SmoothScroll>
+                {children}
+              </SmoothScroll>
               {/* Global cinematic authentication squeeze modal */}
               <AuthSqueezeModal />
               {/* Cursor, scroll progress, route curtain, ⌘K palette, intro plate */}

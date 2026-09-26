@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Compass, ShieldCheck, Zap } from 'lucide-react';
+import { TextReveal } from '@/components/motion/TextReveal';
 
 export function IntroStatement() {
   return (
@@ -42,9 +43,11 @@ export function IntroStatement() {
             <span>MANIFESTO // THE NEW CREATIVE ORDER</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F8FAFC] leading-[1.05]">
-            We bridge the raw power of biological instinct with the ruthless precision of world-class esports broadcasts.
-          </h2>
+          <TextReveal
+            text="We bridge the raw power of biological instinct with the ruthless precision of world-class esports broadcasts."
+            className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F8FAFC] leading-[1.05] justify-center"
+            as="h2"
+          />
 
           <p className="text-sm sm:text-lg text-[#7DD3FC] max-w-2xl mx-auto mt-6 font-light leading-relaxed">
             NatureStudios is an interdisciplinary creative laboratory engineering stadium visual systems, cinematic tournament broadcasts, and bespoke digital platforms for competitive champions.

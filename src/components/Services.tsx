@@ -1,10 +1,11 @@
 'use client';
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SERVICES } from '@/data/site';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Magnetic } from '@/components/motion/Magnetic';
+import { Tilt3DCard } from '@/components/motion/Tilt3DCard';
 
 export function Services() {
   return (
@@ -28,9 +29,12 @@ export function Services() {
             <p className="text-xs sm:text-sm text-[#94A3B8] max-w-sm leading-relaxed">
               Tier-1 tournament broadcasts, arena stage architectures, and interactive digital portfolio ecosystems.
             </p>
-            <Link href="/services" className="btn-secondary text-xs py-2 px-4 shrink-0">
-              View All 8 Services →
-            </Link>
+            <Magnetic>
+              <Link href="/services" className="btn-secondary text-xs py-2 px-4 shrink-0 group flex items-center gap-1.5">
+                <span>View All 8 Services</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </Magnetic>
           </div>
         </div>
 
@@ -41,29 +45,33 @@ export function Services() {
             return (
               <motion.div
                 key={s.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: idx * 0.07 }}
-                className="group rounded-2xl border border-[#1E3A8A] bg-[#0B132B] p-7 flex flex-col justify-between hover:border-[#38BDF8] hover:-translate-y-1 transition-all duration-300 shadow-xl"
+                transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="h-full"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-xs font-mono tracking-widest text-[#38BDF8] font-bold">
-                      {s.index}
-                    </span>
-                    <div className="p-2.5 rounded-xl bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8] group-hover:border-[#38BDF8] transition-colors">
-                      <Icon className="w-5 h-5" />
+                <Tilt3DCard maxTilt={5} glareOpacity={0.14} className="h-full rounded-2xl">
+                  <div className="group rounded-2xl border border-[#1E3A8A] bg-[#0B132B] p-7 flex flex-col justify-between hover:border-[#38BDF8] hover:-translate-y-1 transition-all duration-300 shadow-xl h-full">
+                    <div>
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="text-xs font-mono tracking-widest text-[#38BDF8] font-bold">
+                          {s.index}
+                        </span>
+                        <div className="p-2.5 rounded-xl bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8] group-hover:border-[#38BDF8] group-hover:scale-105 transition-all">
+                          <Icon className="w-5 h-5" />
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-bold uppercase text-[#F8FAFC] mb-3 group-hover:text-[#38BDF8] transition-colors">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">
+                        {s.description}
+                      </p>
                     </div>
                   </div>
-
-                  <h3 className="text-lg font-bold uppercase text-[#F8FAFC] mb-3 group-hover:text-[#38BDF8] transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">
-                    {s.description}
-                  </p>
-                </div>
+                </Tilt3DCard>
               </motion.div>
             );
           })}
