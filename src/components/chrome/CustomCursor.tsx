@@ -100,8 +100,8 @@ export function CustomCursor() {
       if (projectEl) {
         ring.style.width = '68px';
         ring.style.height = '68px';
-        ring.style.borderColor = '#FED7B8';
-        ring.style.backgroundColor = 'rgba(89, 23, 27, 0.45)';
+        ring.style.borderColor = '#38BDF8';
+        ring.style.backgroundColor = 'rgba(37, 99, 235, 0.45)';
         dot.style.opacity = '0';
         setCursorText('VIEW PROJECT');
         if (label) label.style.opacity = '1';
@@ -112,8 +112,8 @@ export function CustomCursor() {
       if (hot) {
         ring.style.width = '52px';
         ring.style.height = '52px';
-        ring.style.borderColor = '#FED7B8';
-        ring.style.backgroundColor = 'rgba(254, 215, 184, 0.12)';
+        ring.style.borderColor = '#38BDF8';
+        ring.style.backgroundColor = 'rgba(56, 189, 248, 0.12)';
         dot.style.width = '4px';
         dot.style.height = '4px';
         setCursorText('');
@@ -121,7 +121,7 @@ export function CustomCursor() {
       } else {
         ring.style.width = '36px';
         ring.style.height = '36px';
-        ring.style.borderColor = 'rgba(254, 215, 184, 0.45)';
+        ring.style.borderColor = 'rgba(56, 189, 248, 0.45)';
         ring.style.backgroundColor = 'transparent';
         dot.style.width = '8px';
         dot.style.height = '8px';

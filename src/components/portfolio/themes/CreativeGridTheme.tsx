@@ -19,31 +19,31 @@ export function CreativeGridTheme({ portfolio }: ThemeProps) {
   const { personalInfo, professionalIdentity, skills, projects, services, socialLinks } = portfolio;
 
   return (
-    <div className="min-h-screen bg-[#180406] text-[#FFF5ED] font-sans selection:bg-[#FF6B1A] selection:text-black">
+    <div className="min-h-screen bg-[#030712] text-[#F8FAFC] font-sans selection:bg-[#FF6B1A] selection:text-black">
       {/* Top Header */}
-      <header className="border-b border-[#3D0D13] p-6 lg:px-12 flex items-center justify-between">
+      <header className="border-b border-[#172554] p-6 lg:px-12 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="h-3 w-3 rounded-full bg-[#FF6B1A] animate-pulse" />
-          <h1 className="text-lg font-black uppercase tracking-tight text-[#FFF5ED]">
+          <h1 className="text-lg font-black uppercase tracking-tight text-[#F8FAFC]">
             {personalInfo.fullName || 'Creator'} {'//'} STUDIO GRID
           </h1>
         </div>
-        <div className="text-xs font-mono uppercase tracking-widest text-[#FED7B8]">
+        <div className="text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
           {professionalIdentity.primaryRole || 'Visual Director'}
         </div>
       </header>
 
       {/* Hero Banner */}
-      <section className="p-6 lg:p-12 border-b border-[#3D0D13] bg-gradient-to-r from-[#2A070B] to-[#180406]">
+      <section className="p-6 lg:p-12 border-b border-[#172554] bg-gradient-to-r from-[#2A070B] to-[#030712]">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3D0D13] text-xs font-mono text-[#FF6B1A] mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#172554] text-xs font-mono text-[#FF6B1A] mb-4">
             <Sparkles className="w-3.5 h-3.5" /> <span>SELECTED PORTFOLIO</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#FFF5ED] mb-4">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F8FAFC] mb-4">
             {personalInfo.tagline || 'Visual Systems & Immersive Worlds.'}
           </h2>
           {personalInfo.aboutMe && (
-            <p className="text-sm sm:text-base text-[#D4B39B] max-w-2xl font-light">
+            <p className="text-sm sm:text-base text-[#BAE6FD] max-w-2xl font-light">
               {personalInfo.aboutMe}
             </p>
           )}
@@ -59,7 +59,7 @@ export function CreativeGridTheme({ portfolio }: ThemeProps) {
               return (
                 <div
                   key={proj.id || idx}
-                  className={`group relative rounded-2xl overflow-hidden border border-[#52141A] bg-[#240709] shadow-xl transition-all duration-300 hover:border-[#FF6B1A] ${
+                  className={`group relative rounded-2xl overflow-hidden border border-[#1E3A8A] bg-[#0B132B] shadow-xl transition-all duration-300 hover:border-[#FF6B1A] ${
                     isWide ? 'lg:col-span-2' : ''
                   }`}
                 >
@@ -72,11 +72,11 @@ export function CreativeGridTheme({ portfolio }: ThemeProps) {
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-[#3A0E11] to-[#150304] flex items-center justify-center text-[#FED7B8] font-mono text-xs">
+                      <div className="w-full h-full bg-gradient-to-br from-[#1E40AF] to-[#030712] flex items-center justify-center text-[#38BDF8] font-mono text-xs">
                         [NO IMAGE]
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#180406] via-transparent to-transparent opacity-90" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
                   </div>
 
                   <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2">
@@ -85,15 +85,15 @@ export function CreativeGridTheme({ portfolio }: ThemeProps) {
                         {proj.category}
                       </span>
                       {proj.client && (
-                        <span className="text-[10px] font-mono text-[#FED7B8] uppercase">
+                        <span className="text-[10px] font-mono text-[#38BDF8] uppercase">
                           {proj.client}
                         </span>
                       )}
                     </div>
-                    <h3 className="text-xl font-bold uppercase text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors">
+                    <h3 className="text-xl font-bold uppercase text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors">
                       {proj.title}
                     </h3>
-                    <p className="text-xs text-[#B89B8D] line-clamp-2 font-light">
+                    <p className="text-xs text-[#94A3B8] line-clamp-2 font-light">
                       {proj.description}
                     </p>
                   </div>
@@ -106,13 +106,13 @@ export function CreativeGridTheme({ portfolio }: ThemeProps) {
 
       {/* Skills Grid */}
       {skills && skills.length > 0 && (
-        <section className="p-6 lg:p-12 border-t border-[#3D0D13]">
-          <h3 className="text-xs font-mono uppercase tracking-widest text-[#B89B8D] mb-6">
+        <section className="p-6 lg:p-12 border-t border-[#172554]">
+          <h3 className="text-xs font-mono uppercase tracking-widest text-[#94A3B8] mb-6">
             STACK & DISCIPLINES
           </h3>
           <div className="flex flex-wrap gap-2">
             {skills.map((s, idx) => (
-              <span key={idx} className="px-3 py-1.5 rounded-xl bg-[#2D0A0E] border border-[#52141A] text-xs font-mono text-[#FFF5ED]">
+              <span key={idx} className="px-3 py-1.5 rounded-xl bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono text-[#F8FAFC]">
                 {s.name}
               </span>
             ))}
@@ -121,9 +121,9 @@ export function CreativeGridTheme({ portfolio }: ThemeProps) {
       )}
 
       {/* Footer */}
-      <footer className="p-6 lg:p-12 border-t border-[#3D0D13] flex items-center justify-between text-xs font-mono text-[#B89B8D]">
+      <footer className="p-6 lg:p-12 border-t border-[#172554] flex items-center justify-between text-xs font-mono text-[#94A3B8]">
         <span>{personalInfo.fullName} • CREATIVE GRID</span>
-        <span className="text-[#FED7B8]">NATURESTUDIOS PLATFORM</span>
+        <span className="text-[#38BDF8]">NATURESTUDIOS PLATFORM</span>
       </footer>
     </div>
   );

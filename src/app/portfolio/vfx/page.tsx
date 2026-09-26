@@ -80,25 +80,25 @@ export default function StudioVfxShowcasePage() {
   });
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-32 pb-24">
         {/* BREADCRUMB NAVIGATION */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#3D0D13]">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#B89B8D]">
-              <Link href="/portfolio" className="hover:text-[#FED7B8] transition-colors">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#172554]">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#94A3B8]">
+              <Link href="/portfolio" className="hover:text-[#38BDF8] transition-colors">
                 Studio Portfolio
               </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#52141A]" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#1E3A8A]" />
               <span className="text-purple-300 font-bold">VFX Track (Videos)</span>
             </div>
 
             <div className="flex items-center gap-3">
               <Link
                 href="/portfolio/gfx"
-                className="px-3.5 py-1.5 rounded-xl bg-[#1D0608] hover:bg-[#2A080C] border border-[#3D0D13] hover:border-[#FED7B8]/40 text-xs font-mono uppercase text-[#FED7B8] inline-flex items-center gap-2 transition-all"
+                className="px-3.5 py-1.5 rounded-xl bg-[#070D1E] hover:bg-[#0E1A33] border border-[#172554] hover:border-[#38BDF8]/40 text-xs font-mono uppercase text-[#38BDF8] inline-flex items-center gap-2 transition-all"
               >
                 <ImageIcon className="w-3.5 h-3.5" />
                 <span>GFX Subsections</span>
@@ -123,7 +123,7 @@ export default function StudioVfxShowcasePage() {
             </Link>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#3D0D13]">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#172554]">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/40 text-xs font-mono uppercase text-purple-200 mb-3">
                 <Film className="w-3.5 h-3.5" />
@@ -132,19 +132,19 @@ export default function StudioVfxShowcasePage() {
               <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-[0.95]">
                 Motion & VFX
               </h1>
-              <p className="text-sm sm:text-base text-[#B89B8D] max-w-2xl mt-4 leading-relaxed font-light">
+              <p className="text-sm sm:text-base text-[#94A3B8] max-w-2xl mt-4 leading-relaxed font-light">
                 Official agency showreels, 3D stadium tournament openers, synchronized arena LED cube animations, and match reveal cinematics.
               </p>
             </div>
 
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#1D0608] border border-[#3D0D13] shrink-0">
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#070D1E] border border-[#172554] shrink-0">
               <button
                 type="button"
                 onClick={() => setViewMode('list')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
                   viewMode === 'list'
                     ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                 }`}
               >
                 <LayoutList className="w-3.5 h-3.5" />
@@ -156,7 +156,7 @@ export default function StudioVfxShowcasePage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
                   viewMode === 'grid'
                     ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                 }`}
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
@@ -168,14 +168,14 @@ export default function StudioVfxShowcasePage() {
 
         {/* SUBSECTIONS & CATEGORY FILTER TABS */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-8">
-          <div className="flex flex-wrap items-center gap-2.5 p-2 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
+          <div className="flex flex-wrap items-center gap-2.5 p-2 rounded-2xl bg-[#070D1E] border border-[#172554]">
             <button
               type="button"
               onClick={() => setActiveCategory('ALL')}
               className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === 'ALL'
                   ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               All VFX Works ({vfxItems.length})
@@ -187,7 +187,7 @@ export default function StudioVfxShowcasePage() {
               className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
                 activeCategory === 'Clipping'
                   ? 'bg-gradient-to-r from-purple-800 to-pink-700 text-white font-bold border border-pink-400/50 shadow-lg'
-                  : 'text-[#FED7B8] hover:text-white bg-[#2A080C] border border-[#52141A]'
+                  : 'text-[#38BDF8] hover:text-white bg-[#0E1A33] border border-[#1E3A8A]'
               }`}
             >
               <Scissors className="w-3.5 h-3.5 text-pink-400" />
@@ -203,7 +203,7 @@ export default function StudioVfxShowcasePage() {
               className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === 'Cinematics'
                   ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               3D Cinematics
@@ -215,7 +215,7 @@ export default function StudioVfxShowcasePage() {
               className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === 'Showreel'
                   ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               Stage Showreels
@@ -227,7 +227,7 @@ export default function StudioVfxShowcasePage() {
               className={`px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === 'Broadcast'
                   ? 'bg-purple-900 text-purple-200 font-bold border border-purple-400/40 shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               Broadcast Packs
@@ -246,7 +246,7 @@ export default function StudioVfxShowcasePage() {
                       <Scissors className="w-3 h-3 text-pink-400" />
                       Official Creator Partnership
                     </span>
-                    <span className="font-mono text-[11px] text-[#FED7B8] uppercase font-semibold">
+                    <span className="font-mono text-[11px] text-[#38BDF8] uppercase font-semibold">
                       Stream Highlights & Viral Reels
                     </span>
                   </div>
@@ -275,16 +275,16 @@ export default function StudioVfxShowcasePage() {
         {/* VFX SHOWCASE LIST / GRID */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12">
           {loading ? (
-            <div className="py-24 text-center text-xs font-mono text-[#B89B8D]">
+            <div className="py-24 text-center text-xs font-mono text-[#94A3B8]">
               Loading Studio VFX Productions...
             </div>
           ) : filteredVfx.length === 0 ? (
-            <div className="py-20 text-center rounded-3xl bg-[#1D0608] border border-[#3D0D13] p-8">
+            <div className="py-20 text-center rounded-3xl bg-[#070D1E] border border-[#172554] p-8">
               <Film className="w-12 h-12 text-purple-400 mx-auto mb-3" />
-              <h3 className="font-syne text-lg font-bold text-[#FFF5ED] mb-1">
+              <h3 className="font-syne text-lg font-bold text-[#F8FAFC] mb-1">
                 No productions found in {activeCategory}.
               </h3>
-              <p className="text-xs text-[#B89B8D] mb-4">
+              <p className="text-xs text-[#94A3B8] mb-4">
                 Explore all studio VFX productions or check our GFX subsections.
               </p>
               <button
@@ -300,10 +300,10 @@ export default function StudioVfxShowcasePage() {
               {filteredVfx.map((item, idx) => (
                 <article
                   key={item.id || idx}
-                  className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-purple-400 transition-all duration-300 hover:shadow-2xl flex flex-col md:flex-row"
+                  className="group rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-purple-400 transition-all duration-300 hover:shadow-2xl flex flex-col md:flex-row"
                 >
                   {/* Video Thumbnail with Play Button */}
-                  <div className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#150304]">
+                  <div className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#030712]">
                     <img
                       src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
                       alt={item.title}
@@ -339,18 +339,18 @@ export default function StudioVfxShowcasePage() {
                         <span className="text-[11px] font-mono uppercase text-purple-300 font-bold">
                           Client: {item.client}
                         </span>
-                        <span className="text-[10px] font-mono text-[#B89B8D] uppercase">
+                        <span className="text-[10px] font-mono text-[#94A3B8] uppercase">
                           Official Studio Asset
                         </span>
                       </div>
 
                       <Link href={`/portfolio/${item.id}`} className="block group-hover:text-purple-300 transition-colors">
-                        <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+                        <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#F8FAFC]">
                           {item.title}
                         </h3>
                       </Link>
 
-                      <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed line-clamp-3">
                         {item.description}
                       </p>
 
@@ -358,7 +358,7 @@ export default function StudioVfxShowcasePage() {
                         {item.tags?.map((tag, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
+                            className="px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase bg-[#030712] border border-[#172554] text-[#94A3B8]"
                           >
                             #{tag}
                           </span>
@@ -366,7 +366,7 @@ export default function StudioVfxShowcasePage() {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[#3D0D13]/60 flex flex-wrap items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-[#172554]/60 flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-2">
                         <button
                           type="button"
@@ -390,7 +390,7 @@ export default function StudioVfxShowcasePage() {
                         onClick={() => setContactTargetItem(item)}
                         className="btn-secondary text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer"
                       >
-                        <Send className="w-3 h-3 text-[#FED7B8]" />
+                        <Send className="w-3 h-3 text-[#38BDF8]" />
                         <span>Contact Studio</span>
                       </button>
                     </div>
@@ -403,11 +403,11 @@ export default function StudioVfxShowcasePage() {
               {filteredVfx.map((item, idx) => (
                 <article
                   key={item.id || idx}
-                  className="group relative rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-purple-400 transition-all duration-500 hover:shadow-2xl flex flex-col justify-between"
+                  className="group relative rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-purple-400 transition-all duration-500 hover:shadow-2xl flex flex-col justify-between"
                 >
                   <div
                     onClick={() => setActiveVideoModalItem(item)}
-                    className="relative aspect-video w-full overflow-hidden bg-[#150304] cursor-pointer"
+                    className="relative aspect-video w-full overflow-hidden bg-[#030712] cursor-pointer"
                   >
                     <img
                       src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
@@ -432,16 +432,16 @@ export default function StudioVfxShowcasePage() {
                         Client: {item.client}
                       </div>
                       <Link href={`/portfolio/${item.id}`}>
-                        <h3 className="font-syne text-lg font-bold uppercase text-[#FFF5ED] mb-2 line-clamp-2 hover:text-purple-300 transition-colors">
+                        <h3 className="font-syne text-lg font-bold uppercase text-[#F8FAFC] mb-2 line-clamp-2 hover:text-purple-300 transition-colors">
                           {item.title}
                         </h3>
                       </Link>
-                      <p className="text-xs text-[#B89B8D] leading-relaxed line-clamp-2 mb-4">
+                      <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-2 mb-4">
                         {item.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-[#3D0D13]/60 flex items-center justify-between gap-2">
+                    <div className="pt-4 border-t border-[#172554]/60 flex items-center justify-between gap-2">
                       <Link
                         href={`/portfolio/${item.id}`}
                         className="flex-1 py-2 px-3 rounded-xl bg-purple-900/60 hover:bg-purple-900 border border-purple-400/40 text-xs font-mono uppercase text-purple-200 font-bold text-center flex items-center justify-center gap-1.5 transition-colors"
@@ -452,9 +452,9 @@ export default function StudioVfxShowcasePage() {
                       <button
                         type="button"
                         onClick={() => setContactTargetItem(item)}
-                        className="py-2 px-3 rounded-xl bg-[#240709] hover:bg-[#3D0D13] border border-[#52141A] text-xs font-mono uppercase text-[#FFF5ED] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                        className="py-2 px-3 rounded-xl bg-[#0B132B] hover:bg-[#172554] border border-[#1E3A8A] text-xs font-mono uppercase text-[#F8FAFC] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                       >
-                        <Send className="w-3 h-3 text-[#FED7B8]" />
+                        <Send className="w-3 h-3 text-[#38BDF8]" />
                         <span>Contact</span>
                       </button>
                     </div>
@@ -469,21 +469,21 @@ export default function StudioVfxShowcasePage() {
       {/* VIDEO PLAYER MODAL */}
       {activeVideoModalItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl animate-in fade-in duration-200">
-          <div className="relative w-full max-w-4xl rounded-3xl bg-[#1C0507] border border-purple-500/40 p-4 sm:p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#3D0D13]">
+          <div className="relative w-full max-w-4xl rounded-3xl bg-[#050B17] border border-purple-500/40 p-4 sm:p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#172554]">
               <div>
                 <span className="text-[10px] font-mono uppercase text-purple-300 tracking-widest flex items-center gap-1.5">
                   <Film className="w-3.5 h-3.5" />
                   Studio VFX Production Showreel
                 </span>
-                <h4 className="font-syne text-lg font-bold text-[#FFF5ED]">
+                <h4 className="font-syne text-lg font-bold text-[#F8FAFC]">
                   {activeVideoModalItem.title}
                 </h4>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveVideoModalItem(null)}
-                className="p-2 rounded-full bg-[#150304] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors cursor-pointer"
+                className="p-2 rounded-full bg-[#030712] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -496,7 +496,7 @@ export default function StudioVfxShowcasePage() {
               autoPlay={true}
             />
 
-            <div className="pt-2 text-xs text-[#B89B8D] flex items-center justify-between">
+            <div className="pt-2 text-xs text-[#94A3B8] flex items-center justify-between">
               <span>{activeVideoModalItem.description}</span>
               <span className="text-purple-300 font-mono font-bold">
                 {activeVideoModalItem.client}

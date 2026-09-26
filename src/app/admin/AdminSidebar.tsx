@@ -143,14 +143,14 @@ export default function AdminSidebar({
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 w-64 bg-[#150304] border-r border-[#3D0D13] flex flex-col transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-40 w-64 bg-[#030712] border-r border-[#172554] flex flex-col transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Sidebar Header */}
-        <div className="h-16 flex items-center justify-between px-5 border-b border-[#3D0D13] bg-[#180406]">
+        <div className="h-16 flex items-center justify-between px-5 border-b border-[#172554] bg-[#030712]">
           <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="relative w-8 h-8 rounded-lg bg-[#2D0A0E] border border-[#52141A] p-1 flex items-center justify-center shadow-md">
+            <div className="relative w-8 h-8 rounded-lg bg-[#0F1D38] border border-[#1E3A8A] p-1 flex items-center justify-center shadow-md">
               <NextImage
                 src="/logo.png"
                 alt="NatureStudios Logo"
@@ -160,24 +160,24 @@ export default function AdminSidebar({
               />
             </div>
             <div>
-              <div className="font-syne font-bold text-sm tracking-wider text-[#FFF5ED]">
+              <div className="font-syne font-bold text-sm tracking-wider text-[#F8FAFC]">
                 NATURESTUDIOS
               </div>
-              <div className="text-[9px] font-mono uppercase tracking-widest text-[#FED7B8]/70">
+              <div className="text-[9px] font-mono uppercase tracking-widest text-[#38BDF8]/70">
                 ADMIN ENCLAVE
               </div>
             </div>
           </Link>
           <button
             onClick={onClose}
-            className="lg:hidden p-1.5 text-[#B89B8D] hover:text-[#FFF5ED] rounded-lg hover:bg-[#240709]"
+            className="lg:hidden p-1.5 text-[#94A3B8] hover:text-[#F8FAFC] rounded-lg hover:bg-[#0B132B]"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Scrollable Navigation Groups */}
-        <nav className="flex-1 overflow-y-auto p-3 space-y-6 scrollbar-thin scrollbar-thumb-[#3D0D13]">
+        <nav className="flex-1 overflow-y-auto p-3 space-y-6 scrollbar-thin scrollbar-thumb-[#172554]">
           {NAV_GROUPS.map((group) => {
             // Filter items by permission
             const visibleItems = group.items.filter(
@@ -188,7 +188,7 @@ export default function AdminSidebar({
 
             return (
               <div key={group.group}>
-                <div className="px-3 pb-1.5 text-[10px] font-mono font-semibold uppercase tracking-widest text-[#FED7B8]/50">
+                <div className="px-3 pb-1.5 text-[10px] font-mono font-semibold uppercase tracking-widest text-[#38BDF8]/50">
                   {group.group}
                 </div>
                 <div className="space-y-0.5">
@@ -206,20 +206,20 @@ export default function AdminSidebar({
                         onClick={onClose}
                         className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all group ${
                           isActive
-                            ? 'bg-[#59171B] text-[#FFF5ED] shadow-sm font-semibold border border-[#FED7B8]/20'
-                            : 'text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709] border border-transparent'
+                            ? 'bg-[#2563EB] text-[#F8FAFC] shadow-sm font-semibold border border-[#38BDF8]/20'
+                            : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B132B] border border-transparent'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
                           <Icon
                             className={`w-4 h-4 transition-colors ${
-                              isActive ? 'text-[#FED7B8]' : 'text-[#B89B8D]/70 group-hover:text-[#FED7B8]'
+                              isActive ? 'text-[#38BDF8]' : 'text-[#94A3B8]/70 group-hover:text-[#38BDF8]'
                             }`}
                           />
                           <span>{item.label}</span>
                         </div>
                         {item.badge && (
-                          <span className="px-1.5 py-0.2 rounded text-[9px] font-mono uppercase bg-[#240709] text-[#FED7B8] border border-[#FED7B8]/20">
+                          <span className="px-1.5 py-0.2 rounded text-[9px] font-mono uppercase bg-[#0B132B] text-[#38BDF8] border border-[#38BDF8]/20">
                             {item.badge}
                           </span>
                         )}
@@ -233,9 +233,9 @@ export default function AdminSidebar({
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-3 border-t border-[#3D0D13] bg-[#180406]/70 text-[11px] text-[#B89B8D] flex items-center justify-between">
+        <div className="p-3 border-t border-[#172554] bg-[#030712]/70 text-[11px] text-[#94A3B8] flex items-center justify-between">
           <span className="font-mono text-[10px]">v2.4 Production</span>
-          <span className="text-[#FED7B8] text-[10px] uppercase font-mono">RBAC Active</span>
+          <span className="text-[#38BDF8] text-[10px] uppercase font-mono">RBAC Active</span>
         </div>
       </aside>
     </>

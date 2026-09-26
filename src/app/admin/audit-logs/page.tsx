@@ -95,17 +95,17 @@ export default function AdminAuditLogsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Immutable Audit Trail
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               Cryptographically Sanitized
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Tamper-resistant historical ledger of all administrative decisions, RBAC alterations, and security operations.
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function AdminAuditLogsPage() {
           {(isSuperAdmin || hasPermission('audit.export')) && (
             <button
               onClick={handleExportCsv}
-              className="px-3.5 py-1.5 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-medium text-[#FED7B8] flex items-center gap-1.5 transition-colors"
+              className="px-3.5 py-1.5 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-xs font-medium text-[#38BDF8] flex items-center gap-1.5 transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export CSV</span>
@@ -123,7 +123,7 @@ export default function AdminAuditLogsPage() {
 
           <button
             onClick={fetchLogs}
-            className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+            className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
             title="Refresh Ledger"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -138,7 +138,7 @@ export default function AdminAuditLogsPage() {
           value={adminFilter}
           onChange={(e) => setAdminFilter(e.target.value)}
           placeholder="Filter admin email..."
-          className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] placeholder-[#B89B8D]/50 focus:outline-none focus:border-[#59171B]"
+          className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:outline-none focus:border-[#2563EB]"
         />
 
         <input
@@ -146,7 +146,7 @@ export default function AdminAuditLogsPage() {
           value={actionFilter}
           onChange={(e) => setActionFilter(e.target.value)}
           placeholder="Filter action (e.g. ROLE_CHANGED)..."
-          className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] placeholder-[#B89B8D]/50 focus:outline-none focus:border-[#59171B]"
+          className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:outline-none focus:border-[#2563EB]"
         />
 
         <select
@@ -155,7 +155,7 @@ export default function AdminAuditLogsPage() {
             setStatusFilter(e.target.value);
             setPage(1);
           }}
-          className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+          className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
         >
           <option value="">All Statuses</option>
           <option value="SUCCESS">SUCCESS</option>
@@ -164,17 +164,17 @@ export default function AdminAuditLogsPage() {
 
         <button
           type="submit"
-          className="px-3 py-1.5 rounded-xl bg-[#59171B] hover:bg-[#6D1C22] text-xs font-semibold text-[#FFF5ED] transition-colors"
+          className="px-3 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#6D1C22] text-xs font-semibold text-[#F8FAFC] transition-colors"
         >
           Filter
         </button>
       </form>
 
       {/* Audit Table */}
-      <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-[#070D1E] border border-[#172554] overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#150304] border-b border-[#3D0D13] text-[#FED7B8]/70 uppercase font-mono tracking-wider text-[10px]">
+            <thead className="bg-[#030712] border-b border-[#172554] text-[#38BDF8]/70 uppercase font-mono tracking-wider text-[10px]">
               <tr>
                 <th className="px-5 py-3.5">Action & Resource</th>
                 <th className="px-4 py-3.5">Admin Staff</th>
@@ -183,34 +183,34 @@ export default function AdminAuditLogsPage() {
                 <th className="px-5 py-3.5 text-right">Timestamp</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#3D0D13]/60 text-[#FFF5ED]">
+            <tbody className="divide-y divide-[#172554]/60 text-[#F8FAFC]">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                     Loading audit events...
                   </td>
                 </tr>
               ) : logs.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                     No audit records match your filters.
                   </td>
                 </tr>
               ) : (
                 logs.map((log) => (
-                  <tr key={log.id} className="hover:bg-[#240709]/50 transition-colors">
+                  <tr key={log.id} className="hover:bg-[#0B132B]/50 transition-colors">
                     <td className="px-5 py-3.5">
-                      <div className="font-semibold text-[#FED7B8] font-mono text-[11px]">
+                      <div className="font-semibold text-[#38BDF8] font-mono text-[11px]">
                         {log.action}
                       </div>
-                      <div className="text-[10px] text-[#B89B8D] font-mono">
+                      <div className="text-[10px] text-[#94A3B8] font-mono">
                         Resource: {log.resource} {log.resourceId ? `(${log.resourceId})` : ''}
                       </div>
                     </td>
-                    <td className="px-4 py-3.5 font-mono text-[11px] text-[#FFF5ED]">
+                    <td className="px-4 py-3.5 font-mono text-[11px] text-[#F8FAFC]">
                       {log.adminEmail}
                     </td>
-                    <td className="px-4 py-3.5 text-[#B89B8D] max-w-xs truncate">
+                    <td className="px-4 py-3.5 text-[#94A3B8] max-w-xs truncate">
                       {log.details ? JSON.stringify(log.details) : '—'}
                     </td>
                     <td className="px-4 py-3.5">
@@ -224,7 +224,7 @@ export default function AdminAuditLogsPage() {
                         {log.status}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-right text-[11px] text-[#B89B8D] font-mono whitespace-nowrap">
+                    <td className="px-5 py-3.5 text-right text-[11px] text-[#94A3B8] font-mono whitespace-nowrap">
                       {new Date(log.createdAt).toLocaleString()}
                     </td>
                   </tr>
@@ -235,23 +235,23 @@ export default function AdminAuditLogsPage() {
         </div>
 
         {/* Pagination Footer */}
-        <div className="px-5 py-3.5 bg-[#150304] border-t border-[#3D0D13] flex items-center justify-between text-xs text-[#B89B8D]">
+        <div className="px-5 py-3.5 bg-[#030712] border-t border-[#172554] flex items-center justify-between text-xs text-[#94A3B8]">
           <div>
-            Showing Page <span className="font-semibold text-[#FFF5ED]">{page}</span> of{' '}
-            <span className="font-semibold text-[#FFF5ED]">{totalPages}</span> ({total} records)
+            Showing Page <span className="font-semibold text-[#F8FAFC]">{page}</span> of{' '}
+            <span className="font-semibold text-[#F8FAFC]">{totalPages}</span> ({total} records)
           </div>
           <div className="flex items-center gap-2">
             <button
               disabled={page <= 1}
               onClick={() => setPage((p) => p - 1)}
-              className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] disabled:opacity-40 disabled:cursor-not-allowed text-[#FFF5ED]"
+              className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] disabled:opacity-40 disabled:cursor-not-allowed text-[#F8FAFC]"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
-              className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] disabled:opacity-40 disabled:cursor-not-allowed text-[#FFF5ED]"
+              className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] disabled:opacity-40 disabled:cursor-not-allowed text-[#F8FAFC]"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

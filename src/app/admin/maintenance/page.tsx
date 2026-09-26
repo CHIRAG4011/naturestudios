@@ -65,7 +65,7 @@ export default function AdminMaintenancePage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -74,10 +74,10 @@ export default function AdminMaintenancePage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Emergency Maintenance Control
             </h1>
             <span
@@ -90,30 +90,30 @@ export default function AdminMaintenancePage() {
               {maintenanceMode ? 'MAINTENANCE ACTIVE' : 'PUBLIC LIVE'}
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Enclave safeguard: Enabling maintenance mode redirects unauthenticated public traffic while keeping the administrative control center fully operational.
           </p>
         </div>
 
         <button
           onClick={fetchStatus}
-          className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+          className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
         </button>
       </div>
 
       {/* Control Card */}
-      <div className="p-8 rounded-3xl bg-[#1D0608] border border-[#3D0D13] max-w-2xl mx-auto space-y-6 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-[#59171B]/40 border border-[#FED7B8]/20 flex items-center justify-center mx-auto text-[#FED7B8] shadow-inner">
+      <div className="p-8 rounded-3xl bg-[#070D1E] border border-[#172554] max-w-2xl mx-auto space-y-6 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-[#2563EB]/40 border border-[#38BDF8]/20 flex items-center justify-center mx-auto text-[#38BDF8] shadow-inner">
           <Wrench className="w-8 h-8" />
         </div>
 
         <div className="space-y-2">
-          <h2 className="font-syne text-xl font-bold text-[#FFF5ED]">
+          <h2 className="font-syne text-xl font-bold text-[#F8FAFC]">
             {maintenanceMode ? 'Maintenance Mode is ACTIVE' : 'Public Access is Normal'}
           </h2>
-          <p className="text-xs text-[#B89B8D] max-w-md mx-auto leading-relaxed">
+          <p className="text-xs text-[#94A3B8] max-w-md mx-auto leading-relaxed">
             {maintenanceMode
               ? 'Public visitors currently receive the branded NatureStudios maintenance screen. Verified administrators continue to have full access.'
               : 'The public website, creator portfolios, and client inquiry forms are accessible globally.'}

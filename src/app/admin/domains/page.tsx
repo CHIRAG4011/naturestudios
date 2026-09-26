@@ -30,24 +30,24 @@ export default function AdminDomainsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Domain & Wildcard Architecture
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               Vercel DNS Synchronized
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Production apex domain, canonical redirects, and multi-tenant creator wildcard configurations.
           </p>
         </div>
 
         <button
           onClick={fetchDomains}
-          className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+          className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
         </button>
@@ -80,10 +80,10 @@ export default function AdminDomainsPage() {
         ].map((d) => (
           <div
             key={d.hostname}
-            className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] transition-all space-y-3"
+            className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] hover:border-[#2563EB] transition-all space-y-3"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono font-semibold text-xs text-[#FED7B8]">
+              <span className="font-mono font-semibold text-xs text-[#38BDF8]">
                 {d.hostname}
               </span>
               <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -91,10 +91,10 @@ export default function AdminDomainsPage() {
               </span>
             </div>
 
-            <div className="text-xs text-[#FFF5ED] font-medium">{d.type}</div>
-            <div className="text-[11px] text-[#B89B8D]">{d.traffic}</div>
+            <div className="text-xs text-[#F8FAFC] font-medium">{d.type}</div>
+            <div className="text-[11px] text-[#94A3B8]">{d.traffic}</div>
 
-            <div className="pt-2 border-t border-[#3D0D13] flex items-center justify-between text-[10px] font-mono text-[#B89B8D]">
+            <div className="pt-2 border-t border-[#172554] flex items-center justify-between text-[10px] font-mono text-[#94A3B8]">
               <span>TLS / SSL</span>
               <span className="text-emerald-400">{d.ssl}</span>
             </div>

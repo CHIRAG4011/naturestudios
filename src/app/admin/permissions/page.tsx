@@ -143,7 +143,7 @@ export default function AdminPermissionsPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -152,28 +152,28 @@ export default function AdminPermissionsPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               50+ Granular Permissions Matrix
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               Precedence Model: DENY &gt; ALLOW
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Deterministic evaluation engine. Explicit User DENY strictly overrides inherited role ALLOWs.
           </p>
         </div>
 
         {/* Role Selector */}
         <div className="flex items-center gap-3">
-          <span className="text-xs text-[#B89B8D] font-mono uppercase">Target Role:</span>
+          <span className="text-xs text-[#94A3B8] font-mono uppercase">Target Role:</span>
           <select
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}
-            className="px-3.5 py-2 rounded-xl bg-[#150304] border border-[#59171B] text-xs font-mono font-semibold text-[#FED7B8] focus:outline-none"
+            className="px-3.5 py-2 rounded-xl bg-[#030712] border border-[#2563EB] text-xs font-mono font-semibold text-[#38BDF8] focus:outline-none"
           >
             {roles.map((r) => (
               <option key={r.slug} value={r.slug}>
@@ -191,8 +191,8 @@ export default function AdminPermissionsPage() {
             onClick={() => setSelectedCategory('ALL')}
             className={`px-3 py-1 rounded-xl text-xs font-medium uppercase transition-all ${
               selectedCategory === 'ALL'
-                ? 'bg-[#59171B] text-[#FFF5ED] font-semibold'
-                : 'bg-[#1D0608] text-[#B89B8D] hover:text-[#FFF5ED]'
+                ? 'bg-[#2563EB] text-[#F8FAFC] font-semibold'
+                : 'bg-[#070D1E] text-[#94A3B8] hover:text-[#F8FAFC]'
             }`}
           >
             All Categories ({permissions.length})
@@ -203,8 +203,8 @@ export default function AdminPermissionsPage() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1 rounded-xl text-xs font-medium uppercase whitespace-nowrap transition-all ${
                 selectedCategory === cat
-                  ? 'bg-[#59171B] text-[#FFF5ED] font-semibold'
-                  : 'bg-[#1D0608] text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'bg-[#2563EB] text-[#F8FAFC] font-semibold'
+                  : 'bg-[#070D1E] text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               {cat}
@@ -213,22 +213,22 @@ export default function AdminPermissionsPage() {
         </div>
 
         <div className="relative">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#B89B8D]" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search permission key or desc..."
-            className="pl-8 pr-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] placeholder-[#B89B8D]/50 focus:outline-none focus:border-[#59171B] w-64"
+            className="pl-8 pr-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:outline-none focus:border-[#2563EB] w-64"
           />
         </div>
       </div>
 
       {/* Permissions Matrix Table */}
-      <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-[#070D1E] border border-[#172554] overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#150304] border-b border-[#3D0D13] text-[#FED7B8]/70 uppercase font-mono tracking-wider text-[10px]">
+            <thead className="bg-[#030712] border-b border-[#172554] text-[#38BDF8]/70 uppercase font-mono tracking-wider text-[10px]">
               <tr>
                 <th className="px-5 py-3.5">Permission Key</th>
                 <th className="px-4 py-3.5">Category</th>
@@ -237,16 +237,16 @@ export default function AdminPermissionsPage() {
                 <th className="px-5 py-3.5 text-right">{selectedRole} Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#3D0D13]/60 text-[#FFF5ED]">
+            <tbody className="divide-y divide-[#172554]/60 text-[#F8FAFC]">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                     Loading permission definitions...
                   </td>
                 </tr>
               ) : filteredPermissions.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                     No permissions match your filter.
                   </td>
                 </tr>
@@ -256,16 +256,16 @@ export default function AdminPermissionsPage() {
                     selectedRole === 'SUPER_ADMIN' || currentRolePerms.includes(p.key);
 
                   return (
-                    <tr key={p.key} className="hover:bg-[#240709]/50 transition-colors">
-                      <td className="px-5 py-3.5 font-mono text-[11px] text-[#FED7B8] font-semibold">
+                    <tr key={p.key} className="hover:bg-[#0B132B]/50 transition-colors">
+                      <td className="px-5 py-3.5 font-mono text-[11px] text-[#38BDF8] font-semibold">
                         {p.key}
                       </td>
                       <td className="px-4 py-3.5">
-                        <span className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#150304] text-[#B89B8D] border border-[#3D0D13]">
+                        <span className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#030712] text-[#94A3B8] border border-[#172554]">
                           {p.category}
                         </span>
                       </td>
-                      <td className="px-5 py-3.5 text-[#B89B8D] max-w-md">{p.description}</td>
+                      <td className="px-5 py-3.5 text-[#94A3B8] max-w-md">{p.description}</td>
                       <td className="px-4 py-3.5">
                         {p.dangerous ? (
                           <span className="inline-flex items-center gap-1 text-[#E63946] text-[10px] font-mono font-semibold">
@@ -273,7 +273,7 @@ export default function AdminPermissionsPage() {
                             CRITICAL
                           </span>
                         ) : (
-                          <span className="text-[10px] font-mono text-[#B89B8D]">STANDARD</span>
+                          <span className="text-[10px] font-mono text-[#94A3B8]">STANDARD</span>
                         )}
                       </td>
                       <td className="px-5 py-3.5 text-right">
@@ -289,7 +289,7 @@ export default function AdminPermissionsPage() {
                             className={`px-3 py-1 rounded-lg text-[10px] font-mono font-semibold transition-all inline-flex items-center gap-1.5 ${
                               isGranted
                                 ? 'bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/30'
-                                : 'bg-[#150304] text-[#B89B8D] hover:bg-[#240709] border border-[#3D0D13]'
+                                : 'bg-[#030712] text-[#94A3B8] hover:bg-[#0B132B] border border-[#172554]'
                             }`}
                           >
                             {isGranted ? (

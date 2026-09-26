@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer';
 
 export default function NotFoundPage() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main id="main" className="flex-1 flex items-center justify-center px-6 py-36">
@@ -20,18 +20,18 @@ export default function NotFoundPage() {
           className="text-center space-y-6 max-w-xl"
         >
           {/* Status Indicator */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2D0A0E] border border-[#52141A] text-xs font-mono uppercase tracking-widest text-[#FED7B8]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
             <ShieldAlert className="w-3.5 h-3.5 text-[#E63946]" /> 404 // MAP BOUNDARY EXCEEDED
           </div>
 
           <div className="relative select-none my-2">
             <span
-              className="text-[9rem] sm:text-[13rem] font-black font-mono leading-none text-[#240709]"
+              className="text-[9rem] sm:text-[13rem] font-black font-mono leading-none text-[#0B132B]"
               aria-hidden="true"
             >
               404
             </span>
-            <span className="absolute inset-0 flex items-center justify-center text-[9rem] sm:text-[13rem] font-black font-mono leading-none text-[#FED7B8]/25 translate-x-1 translate-y-1">
+            <span className="absolute inset-0 flex items-center justify-center text-[9rem] sm:text-[13rem] font-black font-mono leading-none text-[#38BDF8]/25 translate-x-1 translate-y-1">
               404
             </span>
           </div>
@@ -40,7 +40,7 @@ export default function NotFoundPage() {
             <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-gradient-warm">
               LOST IN THE ARENA
             </h1>
-            <p className="text-sm sm:text-base text-[#E8C5A5] leading-relaxed max-w-md mx-auto font-light">
+            <p className="text-sm sm:text-base text-[#7DD3FC] leading-relaxed max-w-md mx-auto font-light">
               Looks like you&apos;ve wandered outside the map. The broadcast coordinates you requested do not exist in the NatureStudios realm.
             </p>
           </div>

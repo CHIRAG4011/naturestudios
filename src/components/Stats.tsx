@@ -6,7 +6,7 @@ import { STATS } from '@/data/site';
 
 export function Stats() {
   return (
-    <section id="stats" className="py-20 border-y border-[#3D0D13] bg-[#150304] text-[#FFF5ED]">
+    <section id="stats" className="py-20 border-y border-[#172554] bg-[#030712] text-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {STATS.map((stat, idx) => (
@@ -18,10 +18,10 @@ export function Stats() {
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               className="text-center md:text-left space-y-1.5"
             >
-              <div className="text-4xl sm:text-6xl font-black font-mono tracking-tight text-[#FED7B8] tabular-nums">
+              <div className="text-4xl sm:text-6xl font-black font-mono tracking-tight text-[#38BDF8] tabular-nums">
                 {stat.value}{stat.suffix}
               </div>
-              <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#B89B8D]">
+              <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#94A3B8]">
                 {stat.label}
               </p>
             </motion.div>

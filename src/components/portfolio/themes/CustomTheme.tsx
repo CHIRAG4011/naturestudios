@@ -37,7 +37,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
   } = portfolio;
 
   // Custom tokens with intelligent defaults
-  const accent = designConfig?.accentColor || '#FED7B8';
+  const accent = designConfig?.accentColor || '#38BDF8';
   const bgStyle = designConfig?.backgroundStyle || 'dark-burgundy';
   const fontPair = designConfig?.fontPair || 'modern-sans';
   const heroLayout = designConfig?.heroLayout || 'split';
@@ -51,7 +51,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
       case 'void':
         return 'bg-[#050505] text-[#EDEDED]';
       case 'wine':
-        return 'bg-[#2B080C] text-[#FFF5ED]';
+        return 'bg-[#2B080C] text-[#F8FAFC]';
       case 'midnight':
         return 'bg-[#070C18] text-[#E2E8F0]';
       case 'forest':
@@ -60,7 +60,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
         return 'bg-[#FAF4EE] text-[#1E0F0A]';
       case 'dark-burgundy':
       default:
-        return 'bg-[#150304] text-[#FFF5ED]';
+        return 'bg-[#030712] text-[#F8FAFC]';
     }
   };
 
@@ -86,26 +86,26 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
       case 'bordered':
         return isLight
           ? 'bg-white border-2 border-[#D9C3B0] shadow-sm'
-          : 'bg-[#1C0507] border-2 border-[#52141A] hover:border-[#FED7B8] transition-colors';
+          : 'bg-[#050B17] border-2 border-[#1E3A8A] hover:border-[#38BDF8] transition-colors';
       case 'elevated':
         return isLight
           ? 'bg-white shadow-xl border border-[#EADBCE]'
-          : 'bg-[#1E0508] shadow-2xl border border-[#3D0D13] hover:shadow-glow-burgundy transition-all';
+          : 'bg-[#1E0508] shadow-2xl border border-[#172554] hover:shadow-glow-burgundy transition-all';
       case 'minimal':
         return isLight
           ? 'bg-transparent border-b border-[#E0CEBF]'
-          : 'bg-transparent border-b border-[#3D0D13]';
+          : 'bg-transparent border-b border-[#172554]';
       case 'glass':
       default:
         return isLight
           ? 'bg-white/80 backdrop-blur-md border border-[#EADBCE] shadow-lg'
-          : 'bg-[#240709]/70 backdrop-blur-md border border-[#52141A]/70 hover:border-[#FED7B8]/40 shadow-xl transition-all';
+          : 'bg-[#0B132B]/70 backdrop-blur-md border border-[#1E3A8A]/70 hover:border-[#38BDF8]/40 shadow-xl transition-all';
     }
   };
 
   const isLight = bgStyle === 'warm-beige';
-  const subtextColor = isLight ? 'text-[#6E5549]' : 'text-[#B89B8D]';
-  const mutedBorder = isLight ? 'border-[#E5D5C6]' : 'border-[#3D0D13]';
+  const subtextColor = isLight ? 'text-[#6E5549]' : 'text-[#94A3B8]';
+  const mutedBorder = isLight ? 'border-[#E5D5C6]' : 'border-[#172554]';
 
   return (
     <div className={`min-h-screen ${getBgClass()} ${getFontFamilyClass()} relative overflow-hidden selection:bg-[${accent}] selection:text-black`}>
@@ -124,7 +124,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
         className={`fixed top-4 left-4 right-4 z-50 flex items-center justify-between px-6 py-3.5 rounded-2xl ${
           isLight
             ? 'bg-white/90 border border-[#E0CEBF] shadow-sm'
-            : 'bg-[#1C0507]/80 backdrop-blur-xl border border-[#52141A]'
+            : 'bg-[#050B17]/80 backdrop-blur-xl border border-[#1E3A8A]'
         }`}
       >
         <div className="flex items-center gap-3">
@@ -160,7 +160,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
               className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-transform active:scale-95"
               style={{
                 backgroundColor: accent,
-                color: isLight ? '#FFF' : '#150304',
+                color: isLight ? '#FFF' : '#030712',
               }}
             >
               Contact
@@ -198,7 +198,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
                   <a
                     href={`mailto:${personalInfo.publicEmail}`}
                     className="btn-primary text-xs py-3 px-6 rounded-xl uppercase font-mono tracking-wider flex items-center gap-2 shadow-lg"
-                    style={{ backgroundColor: accent, color: isLight ? '#FFF' : '#150304' }}
+                    style={{ backgroundColor: accent, color: isLight ? '#FFF' : '#030712' }}
                   >
                     <Mail className="w-4 h-4" /> Start Collaboration
                   </a>
@@ -279,7 +279,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
                 <a
                   href={`mailto:${personalInfo.publicEmail}`}
                   className="btn-primary text-xs py-3 px-6 rounded-xl uppercase font-mono tracking-wider flex items-center gap-2"
-                  style={{ backgroundColor: accent, color: isLight ? '#FFF' : '#150304' }}
+                  style={{ backgroundColor: accent, color: isLight ? '#FFF' : '#030712' }}
                 >
                   <Mail className="w-4 h-4" /> Get In Touch
                 </a>
@@ -310,7 +310,7 @@ export function CustomTheme({ portfolio, isEmbed }: CustomThemeProps) {
                 <a
                   href={`mailto:${personalInfo.publicEmail}`}
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase font-bold py-3 px-6 rounded-xl"
-                  style={{ backgroundColor: accent, color: isLight ? '#FFF' : '#150304' }}
+                  style={{ backgroundColor: accent, color: isLight ? '#FFF' : '#030712' }}
                 >
                   <Mail className="w-4 h-4" /> Start Project With {personalInfo.fullName.split(' ')[0]}
                 </a>

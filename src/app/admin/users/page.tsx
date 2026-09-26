@@ -161,7 +161,7 @@ export default function AdminUsersPage() {
     <div className="space-y-6">
       {/* Toast */}
       {toastMessage && (
-        <div className="p-4 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-4 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline ml-4">
             ✕
@@ -170,17 +170,17 @@ export default function AdminUsersPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               User Directory
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               {total} Accounts
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Manage user accounts, RBAC assignments, security statuses, and active sessions.
           </p>
         </div>
@@ -188,13 +188,13 @@ export default function AdminUsersPage() {
         {/* Search & Filters */}
         <form onSubmit={handleSearchSubmit} className="flex flex-wrap items-center gap-2">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#B89B8D]" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search name or email..."
-              className="pl-8 pr-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] placeholder-[#B89B8D]/50 focus:outline-none focus:border-[#59171B] w-48 sm:w-60"
+              className="pl-8 pr-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:outline-none focus:border-[#2563EB] w-48 sm:w-60"
             />
           </div>
 
@@ -204,7 +204,7 @@ export default function AdminUsersPage() {
               setRoleFilter(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
           >
             <option value="">All Roles</option>
             <option value="SUPER_ADMIN">SUPER_ADMIN</option>
@@ -221,7 +221,7 @@ export default function AdminUsersPage() {
               setStatusFilter(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
           >
             <option value="">All Statuses</option>
             <option value="ACTIVE">ACTIVE</option>
@@ -231,7 +231,7 @@ export default function AdminUsersPage() {
 
           <button
             type="submit"
-            className="px-3 py-1.5 rounded-xl bg-[#59171B] hover:bg-[#6D1C22] text-xs font-semibold text-[#FFF5ED] transition-colors"
+            className="px-3 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#6D1C22] text-xs font-semibold text-[#F8FAFC] transition-colors"
           >
             Filter
           </button>
@@ -239,10 +239,10 @@ export default function AdminUsersPage() {
       </div>
 
       {/* User Table */}
-      <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-[#070D1E] border border-[#172554] overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#150304] border-b border-[#3D0D13] text-[#FED7B8]/70 uppercase font-mono tracking-wider text-[10px]">
+            <thead className="bg-[#030712] border-b border-[#172554] text-[#38BDF8]/70 uppercase font-mono tracking-wider text-[10px]">
               <tr>
                 <th className="px-5 py-3.5">User</th>
                 <th className="px-4 py-3.5">Role</th>
@@ -253,30 +253,30 @@ export default function AdminUsersPage() {
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#3D0D13]/60 text-[#FFF5ED]">
+            <tbody className="divide-y divide-[#172554]/60 text-[#F8FAFC]">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={7} className="px-5 py-12 text-center text-[#94A3B8]">
                     Loading user records from MongoDB Atlas...
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={7} className="px-5 py-12 text-center text-[#94A3B8]">
                     No accounts found matching your query.
                   </td>
                 </tr>
               ) : (
                 users.map((u) => (
-                  <tr key={u.id} className="hover:bg-[#240709]/50 transition-colors">
+                  <tr key={u.id} className="hover:bg-[#0B132B]/50 transition-colors">
                     <td className="px-5 py-3.5">
                       <Link href={`/admin/users/${u.id}`} className="flex items-center gap-3 group">
-                        <div className="w-8 h-8 rounded-full bg-[#59171B] border border-[#FED7B8]/20 flex items-center justify-center font-bold text-xs text-[#FED7B8] group-hover:scale-105 transition-transform">
+                        <div className="w-8 h-8 rounded-full bg-[#2563EB] border border-[#38BDF8]/20 flex items-center justify-center font-bold text-xs text-[#38BDF8] group-hover:scale-105 transition-transform">
                           {u.name ? u.name[0].toUpperCase() : 'U'}
                         </div>
                         <div>
-                          <div className="font-semibold text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors">{u.name || 'Unnamed Creator'}</div>
-                          <div className="text-[11px] text-[#B89B8D] font-mono">{u.email}</div>
+                          <div className="font-semibold text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors">{u.name || 'Unnamed Creator'}</div>
+                          <div className="text-[11px] text-[#94A3B8] font-mono">{u.email}</div>
                         </div>
                       </Link>
                     </td>
@@ -284,10 +284,10 @@ export default function AdminUsersPage() {
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold ${
                           u.role === 'SUPER_ADMIN'
-                            ? 'bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/30'
+                            ? 'bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/30'
                             : u.role === 'ADMIN'
                             ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20'
-                            : 'bg-[#150304] text-[#B89B8D] border border-[#3D0D13]'
+                            : 'bg-[#030712] text-[#94A3B8] border border-[#172554]'
                         }`}
                       >
                         {u.role || 'USER'}
@@ -308,20 +308,20 @@ export default function AdminUsersPage() {
                       {u.emailVerified ? (
                         <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                       ) : (
-                        <XCircle className="w-4 h-4 text-[#B89B8D]" />
+                        <XCircle className="w-4 h-4 text-[#94A3B8]" />
                       )}
                     </td>
-                    <td className="px-4 py-3.5 font-mono text-[11px] text-[#FED7B8]/80">
+                    <td className="px-4 py-3.5 font-mono text-[11px] text-[#38BDF8]/80">
                       {u.portfolioSlug ? `@${u.portfolioSlug}` : '—'}
                     </td>
-                    <td className="px-4 py-3.5 text-[#B89B8D] text-[11px]">
+                    <td className="px-4 py-3.5 text-[#94A3B8] text-[11px]">
                       {new Date(u.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-5 py-3.5 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         <Link
                           href={`/admin/users/${u.id}`}
-                          className="px-2.5 py-1 rounded-lg bg-[#59171B]/50 hover:bg-[#59171B] border border-[#FED7B8]/20 hover:border-[#FED7B8]/40 text-[11px] text-[#FED7B8] font-semibold transition-colors inline-flex items-center gap-1.5"
+                          className="px-2.5 py-1 rounded-lg bg-[#2563EB]/50 hover:bg-[#2563EB] border border-[#38BDF8]/20 hover:border-[#38BDF8]/40 text-[11px] text-[#38BDF8] font-semibold transition-colors inline-flex items-center gap-1.5"
                         >
                           <Eye className="w-3 h-3" />
                           <span>View & Edit</span>
@@ -334,7 +334,7 @@ export default function AdminUsersPage() {
                               setTargetRole(u.role || 'ADMIN');
                               setActionType('CHANGE_ROLE');
                             }}
-                            className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] text-[#FED7B8] transition-colors"
+                            className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] text-[#38BDF8] transition-colors"
                             title="Assign Role"
                           >
                             <Shield className="w-3.5 h-3.5" />
@@ -368,7 +368,7 @@ export default function AdminUsersPage() {
                               setSelectedUser(u);
                               setActionType('FORCE_LOGOUT');
                             }}
-                            className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] text-amber-400 transition-colors"
+                            className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] text-amber-400 transition-colors"
                             title="Force Logout"
                           >
                             <LogOut className="w-3.5 h-3.5" />
@@ -397,23 +397,23 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Pagination Footer */}
-        <div className="px-5 py-3.5 bg-[#150304] border-t border-[#3D0D13] flex items-center justify-between text-xs text-[#B89B8D]">
+        <div className="px-5 py-3.5 bg-[#030712] border-t border-[#172554] flex items-center justify-between text-xs text-[#94A3B8]">
           <div>
-            Showing Page <span className="font-semibold text-[#FFF5ED]">{page}</span> of{' '}
-            <span className="font-semibold text-[#FFF5ED]">{totalPages}</span>
+            Showing Page <span className="font-semibold text-[#F8FAFC]">{page}</span> of{' '}
+            <span className="font-semibold text-[#F8FAFC]">{totalPages}</span>
           </div>
           <div className="flex items-center gap-2">
             <button
               disabled={page <= 1}
               onClick={() => setPage((p) => p - 1)}
-              className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] disabled:opacity-40 disabled:cursor-not-allowed text-[#FFF5ED]"
+              className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] disabled:opacity-40 disabled:cursor-not-allowed text-[#F8FAFC]"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
-              className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] disabled:opacity-40 disabled:cursor-not-allowed text-[#FFF5ED]"
+              className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] disabled:opacity-40 disabled:cursor-not-allowed text-[#F8FAFC]"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -424,47 +424,47 @@ export default function AdminUsersPage() {
       {/* Dangerous Action Modal */}
       {actionType && selectedUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-100">
-          <div className="w-full max-w-md bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 shadow-2xl space-y-5">
-            <div className="flex items-center gap-3 text-[#FED7B8]">
-              <div className="w-10 h-10 rounded-xl bg-[#59171B]/50 flex items-center justify-center">
+          <div className="w-full max-w-md bg-[#070D1E] border border-[#2563EB] rounded-3xl p-6 shadow-2xl space-y-5">
+            <div className="flex items-center gap-3 text-[#38BDF8]">
+              <div className="w-10 h-10 rounded-xl bg-[#2563EB]/50 flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5 text-[#E63946]" />
               </div>
               <div>
-                <h3 className="font-syne text-base font-bold text-[#FFF5ED]">
+                <h3 className="font-syne text-base font-bold text-[#F8FAFC]">
                   Confirm {actionType.replace('_', ' ')}
                 </h3>
-                <p className="text-xs text-[#B89B8D]">
-                  Target: <span className="text-[#FED7B8]">{selectedUser.email}</span>
+                <p className="text-xs text-[#94A3B8]">
+                  Target: <span className="text-[#38BDF8]">{selectedUser.email}</span>
                 </p>
               </div>
             </div>
 
             {actionType === 'DELETE' && (
-              <div className="space-y-3 p-3.5 rounded-xl bg-[#150304] border border-[#E63946]/30 text-xs">
+              <div className="space-y-3 p-3.5 rounded-xl bg-[#030712] border border-[#E63946]/30 text-xs">
                 <p className="text-[#E63946] font-semibold">
                   WARNING: This action is permanent and irreversible.
                 </p>
-                <p className="text-[#B89B8D]">
+                <p className="text-[#94A3B8]">
                   To prevent accidental deletions, please type the confirmation phrase below:
                 </p>
-                <div className="font-mono text-[#FED7B8] font-bold">DELETE USER</div>
+                <div className="font-mono text-[#38BDF8] font-bold">DELETE USER</div>
                 <input
                   type="text"
                   value={typedConfirmation}
                   onChange={(e) => setTypedConfirmation(e.target.value)}
                   placeholder="Type DELETE USER"
-                  className="w-full px-3 py-1.5 rounded-lg bg-[#240709] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none focus:border-[#E63946]"
+                  className="w-full px-3 py-1.5 rounded-lg bg-[#0B132B] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none focus:border-[#E63946]"
                 />
               </div>
             )}
 
             {actionType === 'CHANGE_ROLE' && (
               <div className="space-y-2">
-                <label className="text-xs text-[#B89B8D]">Select New Role</label>
+                <label className="text-xs text-[#94A3B8]">Select New Role</label>
                 <select
                   value={targetRole}
                   onChange={(e) => setTargetRole(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC]"
                 >
                   <option value="USER">USER</option>
                   <option value="MODERATOR">MODERATOR</option>
@@ -479,12 +479,12 @@ export default function AdminUsersPage() {
 
             {actionType === 'SUSPEND' && (
               <div className="space-y-3">
-                <p className="text-xs text-[#B89B8D]">
+                <p className="text-xs text-[#94A3B8]">
                   Suspended accounts will lose creative access and public portfolio publishing. An official notification email with the suspension reason and appeal ticket instructions will be dispatched to this creator.
                 </p>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-mono uppercase tracking-wider text-[#FED7B8]">
+                  <label className="text-[11px] font-mono uppercase tracking-wider text-[#38BDF8]">
                     Select Suspension Reason
                   </label>
                   <select
@@ -493,7 +493,7 @@ export default function AdminUsersPage() {
                         setSuspendReason(e.target.value);
                       }
                     }}
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none focus:border-[#E63946]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none focus:border-[#E63946]"
                   >
                     <option value="Violation of Terms of Service">Violation of Terms of Service</option>
                     <option value="Inappropriate or copyright-infringing content">Inappropriate or copyright-infringing content</option>
@@ -505,7 +505,7 @@ export default function AdminUsersPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-mono uppercase tracking-wider text-[#FED7B8]">
+                  <label className="text-[11px] font-mono uppercase tracking-wider text-[#38BDF8]">
                     Reason Details / Note for Creator
                   </label>
                   <textarea
@@ -513,14 +513,14 @@ export default function AdminUsersPage() {
                     value={suspendReason}
                     onChange={(e) => setSuspendReason(e.target.value)}
                     placeholder="Describe the reason for suspension (sent in user notification email)..."
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none focus:border-[#E63946] leading-relaxed"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none focus:border-[#E63946] leading-relaxed"
                   />
                 </div>
               </div>
             )}
 
             {actionType === 'FORCE_LOGOUT' && (
-              <p className="text-xs text-[#B89B8D]">
+              <p className="text-xs text-[#94A3B8]">
                 This will invalidate all active sessions for this user across all browsers and devices.
               </p>
             )}
@@ -532,7 +532,7 @@ export default function AdminUsersPage() {
                   setActionType(null);
                   setSelectedUser(null);
                 }}
-                className="px-4 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] text-xs text-[#FFF5ED] transition-colors"
+                className="px-4 py-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] text-xs text-[#F8FAFC] transition-colors"
               >
                 Cancel
               </button>

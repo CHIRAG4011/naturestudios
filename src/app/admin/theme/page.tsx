@@ -136,7 +136,7 @@ export default function AdminThemePage() {
 
   if (loading || !theme) {
     return (
-      <div className="p-12 text-center text-xs text-[#B89B8D]">
+      <div className="p-12 text-center text-xs text-[#94A3B8]">
         Loading active theme tokens and CSS variables from MongoDB Atlas...
       </div>
     );
@@ -150,7 +150,7 @@ export default function AdminThemePage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -159,17 +159,17 @@ export default function AdminThemePage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Global Theme Studio
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               Active v{theme.version} • {theme.status}
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Dynamic CSS variable pipeline. Modify studio color palettes, typography, and animation scales without code changes.
           </p>
         </div>
@@ -180,7 +180,7 @@ export default function AdminThemePage() {
             <button
               onClick={handleRollback}
               disabled={saving}
-              className="px-3 py-1.5 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs text-[#B89B8D] hover:text-[#FFF5ED] flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-xs text-[#94A3B8] hover:text-[#F8FAFC] flex items-center gap-1.5 transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Rollback</span>
@@ -191,7 +191,7 @@ export default function AdminThemePage() {
             <button
               onClick={handleSaveDraft}
               disabled={saving}
-              className="px-3.5 py-1.5 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-medium text-[#FFF5ED] transition-colors"
+              className="px-3.5 py-1.5 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-xs font-medium text-[#F8FAFC] transition-colors"
             >
               Save Draft
             </button>
@@ -201,9 +201,9 @@ export default function AdminThemePage() {
             <button
               onClick={handlePublishTheme}
               disabled={saving}
-              className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-1.5 shadow-lg transition-all"
+              className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-1.5 shadow-lg transition-all"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#FED7B8]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" />
               <span>Publish Theme</span>
             </button>
           )}
@@ -215,13 +215,13 @@ export default function AdminThemePage() {
         {/* Controls Column */}
         <div className="lg:col-span-7 space-y-4">
           {/* Tabs */}
-          <div className="flex border-b border-[#3D0D13] text-xs">
+          <div className="flex border-b border-[#172554] text-xs">
             <button
               onClick={() => setActiveTab('colors')}
               className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
                 activeTab === 'colors'
-                  ? 'border-[#FED7B8] text-[#FED7B8]'
-                  : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'border-[#38BDF8] text-[#38BDF8]'
+                  : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               <Palette className="w-3.5 h-3.5" />
@@ -231,8 +231,8 @@ export default function AdminThemePage() {
               onClick={() => setActiveTab('gradients')}
               className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
                 activeTab === 'gradients'
-                  ? 'border-[#FED7B8] text-[#FED7B8]'
-                  : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'border-[#38BDF8] text-[#38BDF8]'
+                  : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -242,8 +242,8 @@ export default function AdminThemePage() {
               onClick={() => setActiveTab('typography')}
               className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
                 activeTab === 'typography'
-                  ? 'border-[#FED7B8] text-[#FED7B8]'
-                  : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'border-[#38BDF8] text-[#38BDF8]'
+                  : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               <Type className="w-3.5 h-3.5" />
@@ -253,8 +253,8 @@ export default function AdminThemePage() {
               onClick={() => setActiveTab('design')}
               className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
                 activeTab === 'design'
-                  ? 'border-[#FED7B8] text-[#FED7B8]'
-                  : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'border-[#38BDF8] text-[#38BDF8]'
+                  : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
@@ -264,7 +264,7 @@ export default function AdminThemePage() {
 
           {/* Tab 1: Colors */}
           {activeTab === 'colors' && (
-            <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-4">
+            <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {[
                   { label: 'Primary Brand (Burgundy)', key: 'primary' },
@@ -281,17 +281,17 @@ export default function AdminThemePage() {
                 ].map((item) => (
                   <div
                     key={item.key}
-                    className="p-3 rounded-xl bg-[#150304] border border-[#3D0D13] flex items-center justify-between"
+                    className="p-3 rounded-xl bg-[#030712] border border-[#172554] flex items-center justify-between"
                   >
                     <div>
-                      <div className="font-medium text-[#FFF5ED]">{item.label}</div>
-                      <div className="font-mono text-[11px] text-[#FED7B8]">
+                      <div className="font-medium text-[#F8FAFC]">{item.label}</div>
+                      <div className="font-mono text-[11px] text-[#38BDF8]">
                         {colors[item.key] || '#000000'}
                       </div>
                     </div>
                     <input
                       type="color"
-                      value={colors[item.key] || '#59171B'}
+                      value={colors[item.key] || '#2563EB'}
                       onChange={(e) => handleColorChange(item.key, e.target.value)}
                       className="w-8 h-8 rounded-lg border-0 bg-transparent cursor-pointer"
                     />
@@ -303,34 +303,34 @@ export default function AdminThemePage() {
 
           {/* Tab 2: Gradients */}
           {activeTab === 'gradients' && (
-            <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-4 text-xs">
+            <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-4 text-xs">
               <div>
-                <label className="text-[#B89B8D] block mb-1">Primary Hero Gradient</label>
+                <label className="text-[#94A3B8] block mb-1">Primary Hero Gradient</label>
                 <input
                   type="text"
                   value={gradients.primary || ''}
                   onChange={(e) => handleGradientChange('primary', e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FED7B8] font-mono focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#38BDF8] font-mono focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-[#B89B8D] block mb-1">Secondary Gradient</label>
+                <label className="text-[#94A3B8] block mb-1">Secondary Gradient</label>
                 <input
                   type="text"
                   value={gradients.secondary || ''}
                   onChange={(e) => handleGradientChange('secondary', e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FED7B8] font-mono focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#38BDF8] font-mono focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-[#B89B8D] block mb-1">Ambient Mesh Glow</label>
+                <label className="text-[#94A3B8] block mb-1">Ambient Mesh Glow</label>
                 <input
                   type="text"
                   value={gradients.ambientMesh || ''}
                   onChange={(e) => handleGradientChange('ambientMesh', e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FED7B8] font-mono focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#38BDF8] font-mono focus:outline-none"
                 />
               </div>
             </div>
@@ -338,10 +338,10 @@ export default function AdminThemePage() {
 
           {/* Tab 3: Typography */}
           {activeTab === 'typography' && (
-            <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-4 text-xs">
+            <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Display Font</label>
+                  <label className="text-[#94A3B8] block mb-1">Display Font</label>
                   <input
                     type="text"
                     value={typography.displayFont || 'Syne, sans-serif'}
@@ -351,11 +351,11 @@ export default function AdminThemePage() {
                         typography: { ...prev.typography, displayFont: e.target.value },
                       }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   />
                 </div>
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Heading Font</label>
+                  <label className="text-[#94A3B8] block mb-1">Heading Font</label>
                   <input
                     type="text"
                     value={typography.headingFont || 'Outfit, sans-serif'}
@@ -365,14 +365,14 @@ export default function AdminThemePage() {
                         typography: { ...prev.typography, headingFont: e.target.value },
                       }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Body Font</label>
+                  <label className="text-[#94A3B8] block mb-1">Body Font</label>
                   <input
                     type="text"
                     value={typography.bodyFont || 'Inter, sans-serif'}
@@ -382,11 +382,11 @@ export default function AdminThemePage() {
                         typography: { ...prev.typography, bodyFont: e.target.value },
                       }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   />
                 </div>
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Monospace Font</label>
+                  <label className="text-[#94A3B8] block mb-1">Monospace Font</label>
                   <input
                     type="text"
                     value={typography.monoFont || 'JetBrains Mono, monospace'}
@@ -396,7 +396,7 @@ export default function AdminThemePage() {
                         typography: { ...prev.typography, monoFont: e.target.value },
                       }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   />
                 </div>
               </div>
@@ -405,10 +405,10 @@ export default function AdminThemePage() {
 
           {/* Tab 4: Design & Animations */}
           {activeTab === 'design' && (
-            <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-4 text-xs">
+            <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Border Radius</label>
+                  <label className="text-[#94A3B8] block mb-1">Border Radius</label>
                   <select
                     value={design.borderRadius || '16px'}
                     onChange={(e) =>
@@ -417,7 +417,7 @@ export default function AdminThemePage() {
                         design: { ...prev.design, borderRadius: e.target.value },
                       }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   >
                     <option value="8px">Subtle (8px)</option>
                     <option value="16px">Standard (16px)</option>
@@ -427,7 +427,7 @@ export default function AdminThemePage() {
                 </div>
 
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Animation Intensity</label>
+                  <label className="text-[#94A3B8] block mb-1">Animation Intensity</label>
                   <select
                     value={design.animationIntensity || 'CINEMATIC'}
                     onChange={(e) =>
@@ -436,7 +436,7 @@ export default function AdminThemePage() {
                         design: { ...prev.design, animationIntensity: e.target.value },
                       }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   >
                     <option value="OFF">OFF (Respect Reduced Motion)</option>
                     <option value="SUBTLE">SUBTLE</option>
@@ -452,23 +452,23 @@ export default function AdminThemePage() {
 
         {/* Live Preview Column */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-[#3D0D13]">
+          <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-[#172554]">
               <div className="flex items-center gap-2">
-                <Eye className="w-4 h-4 text-[#FED7B8]" />
-                <span className="font-semibold text-xs uppercase tracking-wider text-[#FFF5ED]">
+                <Eye className="w-4 h-4 text-[#38BDF8]" />
+                <span className="font-semibold text-xs uppercase tracking-wider text-[#F8FAFC]">
                   Live Component Preview
                 </span>
               </div>
-              <span className="text-[10px] font-mono text-[#FED7B8]">Reactive</span>
+              <span className="text-[10px] font-mono text-[#38BDF8]">Reactive</span>
             </div>
 
             {/* Mock website hero card rendered using currently picked values */}
             <div
               style={{
-                backgroundColor: colors.background || '#150304',
-                borderColor: colors.border || '#3D0D13',
-                color: colors.text || '#FFF5ED',
+                backgroundColor: colors.background || '#030712',
+                borderColor: colors.border || '#172554',
+                color: colors.text || '#F8FAFC',
                 borderRadius: design.borderRadius || '16px',
               }}
               className="p-6 border shadow-2xl space-y-4"
@@ -476,16 +476,16 @@ export default function AdminThemePage() {
               <div className="flex items-center justify-between">
                 <span
                   style={{
-                    backgroundColor: colors.primary || '#59171B',
-                    color: colors.secondary || '#FED7B8',
-                    borderColor: colors.border || '#3D0D13',
+                    backgroundColor: colors.primary || '#2563EB',
+                    color: colors.secondary || '#38BDF8',
+                    borderColor: colors.border || '#172554',
                   }}
                   className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase font-bold border"
                 >
                   LIVE BROADCAST
                 </span>
                 <span
-                  style={{ color: colors.mutedText || '#B89B8D' }}
+                  style={{ color: colors.mutedText || '#94A3B8' }}
                   className="text-[11px] font-mono"
                 >
                   NATURESTUDIOS
@@ -494,13 +494,13 @@ export default function AdminThemePage() {
 
               <div>
                 <h3
-                  style={{ color: colors.secondary || '#FED7B8' }}
+                  style={{ color: colors.secondary || '#38BDF8' }}
                   className="font-syne text-xl font-bold"
                 >
                   WE CREATE THE NEXT LEVEL OF ESPORTS.
                 </h3>
                 <p
-                  style={{ color: colors.mutedText || '#B89B8D' }}
+                  style={{ color: colors.mutedText || '#94A3B8' }}
                   className="text-xs mt-1 leading-relaxed"
                 >
                   Cinematic broadcasts, tournament packaging, and multi-tenant creator portfolios.
@@ -510,8 +510,8 @@ export default function AdminThemePage() {
               <div className="flex items-center gap-2 pt-2">
                 <button
                   style={{
-                    backgroundColor: colors.primary || '#59171B',
-                    color: colors.text || '#FFF5ED',
+                    backgroundColor: colors.primary || '#2563EB',
+                    color: colors.text || '#F8FAFC',
                     borderRadius: design.borderRadius || '12px',
                   }}
                   className="px-4 py-2 text-xs font-semibold shadow-md"
@@ -520,9 +520,9 @@ export default function AdminThemePage() {
                 </button>
                 <button
                   style={{
-                    backgroundColor: colors.surface || '#240709',
-                    color: colors.secondary || '#FED7B8',
-                    borderColor: colors.border || '#3D0D13',
+                    backgroundColor: colors.surface || '#0B132B',
+                    color: colors.secondary || '#38BDF8',
+                    borderColor: colors.border || '#172554',
                     borderRadius: design.borderRadius || '12px',
                   }}
                   className="px-4 py-2 text-xs font-medium border"

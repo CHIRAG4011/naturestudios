@@ -146,8 +146,8 @@ export default function AdminProjectDetailPage() {
   if (loading) {
     return (
       <div className="p-16 flex flex-col items-center justify-center text-center space-y-3">
-        <RefreshCw className="w-6 h-6 animate-spin text-[#FED7B8]" />
-        <div className="text-xs font-mono text-[#B89B8D]">Loading project specifications and client data...</div>
+        <RefreshCw className="w-6 h-6 animate-spin text-[#38BDF8]" />
+        <div className="text-xs font-mono text-[#94A3B8]">Loading project specifications and client data...</div>
       </div>
     );
   }
@@ -158,7 +158,7 @@ export default function AdminProjectDetailPage() {
         <div className="text-sm font-semibold text-[#E63946]">{error || 'Project not found.'}</div>
         <Link
           href="/admin/projects"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#240709] text-xs text-[#FED7B8] border border-[#3D0D13]"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0B132B] text-xs text-[#38BDF8] border border-[#172554]"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Projects</span>
@@ -173,8 +173,8 @@ export default function AdminProjectDetailPage() {
         <div
           className={`p-3.5 rounded-xl text-xs flex items-center justify-between shadow-xl ${
             toast.type === 'success'
-              ? 'bg-[#150304] border border-emerald-500/50 text-emerald-400'
-              : 'bg-[#150304] border border-[#E63946]/50 text-[#E63946]'
+              ? 'bg-[#030712] border border-emerald-500/50 text-emerald-400'
+              : 'bg-[#030712] border border-[#E63946]/50 text-[#E63946]'
           }`}
         >
           <span>{toast.message}</span>
@@ -187,13 +187,13 @@ export default function AdminProjectDetailPage() {
         <div className="flex items-center gap-2 text-xs">
           <Link
             href="/admin/projects"
-            className="flex items-center gap-1.5 text-[#B89B8D] hover:text-[#FFF5ED]"
+            className="flex items-center gap-1.5 text-[#94A3B8] hover:text-[#F8FAFC]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Studio Projects</span>
           </Link>
-          <span className="text-[#3D0D13]">/</span>
-          <span className="text-[#FED7B8] font-semibold truncate max-w-xs">{title}</span>
+          <span className="text-[#172554]">/</span>
+          <span className="text-[#38BDF8] font-semibold truncate max-w-xs">{title}</span>
         </div>
 
         <div className="flex items-center gap-2.5">
@@ -201,7 +201,7 @@ export default function AdminProjectDetailPage() {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/40 text-xs font-semibold text-[#FED7B8] shadow-glow-burgundy transition-all hover:scale-105"
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/40 text-xs font-semibold text-[#38BDF8] shadow-glow-burgundy transition-all hover:scale-105"
           >
             {saving ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>{saving ? 'Saving...' : 'Save Changes'}</span>
@@ -212,40 +212,40 @@ export default function AdminProjectDetailPage() {
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Project Edit Form */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-5 shadow-xl">
-          <div className="flex items-center justify-between pb-3 border-b border-[#3D0D13]">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-5 shadow-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-[#172554]">
             <div className="flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-[#FED7B8]" />
-              <h1 className="font-syne font-bold text-sm uppercase tracking-wider text-[#FFF5ED]">
+              <Briefcase className="w-4 h-4 text-[#38BDF8]" />
+              <h1 className="font-syne font-bold text-sm uppercase tracking-wider text-[#F8FAFC]">
                 Project Specifications & Scope
               </h1>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-[#59171B] text-[#FED7B8]">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-[#2563EB] text-[#38BDF8]">
               {status}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div className="sm:col-span-2">
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Project Title
               </label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Creative Category
               </label>
               <select
                 value={projectType}
                 onChange={(e) => setProjectType(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] font-mono text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] font-mono text-xs focus:outline-none"
               >
                 {PROJECT_TYPES.map((t) => (
                   <option key={t} value={t}>
@@ -256,13 +256,13 @@ export default function AdminProjectDetailPage() {
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Lifecycle Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] font-mono text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] font-mono text-xs focus:outline-none"
               >
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
@@ -273,7 +273,7 @@ export default function AdminProjectDetailPage() {
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Contract Budget
               </label>
               <input
@@ -281,12 +281,12 @@ export default function AdminProjectDetailPage() {
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
                 placeholder="e.g. $15,000 USD"
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Production Timeline
               </label>
               <input
@@ -294,12 +294,12 @@ export default function AdminProjectDetailPage() {
                 value={timeline}
                 onChange={(e) => setTimeline(e.target.value)}
                 placeholder="e.g. 4-6 Weeks"
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Project Scope & Creative Brief
               </label>
               <textarea
@@ -307,12 +307,12 @@ export default function AdminProjectDetailPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter scope, deliverables, motion packaging details..."
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div className="sm:col-span-2 space-y-2">
-              <label className="block text-[#FED7B8] font-mono uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono uppercase text-[10px]">
                 Project Cover / Hero Image
               </label>
               <div className="flex items-center gap-2">
@@ -321,9 +321,9 @@ export default function AdminProjectDetailPage() {
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
                   placeholder="https://... or upload local image"
-                  className="flex-1 px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                  className="flex-1 px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
                 />
-                <label className="px-3.5 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-semibold text-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0 transition-colors">
+                <label className="px-3.5 py-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-xs font-semibold text-[#38BDF8] cursor-pointer flex items-center gap-1.5 shrink-0 transition-colors">
                   {uploadingImage ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
                   ) : (
@@ -358,7 +358,7 @@ export default function AdminProjectDetailPage() {
               </div>
 
               {imageUrl && (
-                <div className="h-32 w-full max-w-sm rounded-xl overflow-hidden border border-[#3D0D13] bg-[#150304]">
+                <div className="h-32 w-full max-w-sm rounded-xl overflow-hidden border border-[#172554] bg-[#030712]">
                   <img src={imageUrl} alt="Project Cover Preview" className="w-full h-full object-cover" />
                 </div>
               )}
@@ -369,10 +369,10 @@ export default function AdminProjectDetailPage() {
         {/* Sidebar Column: Client Info & Metadata */}
         <div className="space-y-6">
           {/* Client Account Card */}
-          <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-4 text-xs shadow-xl">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#3D0D13]">
-              <User className="w-4 h-4 text-[#FED7B8]" />
-              <h2 className="font-semibold uppercase tracking-wider text-[#FFF5ED]">
+          <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-4 text-xs shadow-xl">
+            <div className="flex items-center gap-2 pb-2 border-b border-[#172554]">
+              <User className="w-4 h-4 text-[#38BDF8]" />
+              <h2 className="font-semibold uppercase tracking-wider text-[#F8FAFC]">
                 Client Information
               </h2>
             </div>
@@ -380,58 +380,58 @@ export default function AdminProjectDetailPage() {
             {project.user ? (
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#59171B] border border-[#FED7B8]/30 flex items-center justify-center font-bold text-sm text-[#FED7B8]">
+                  <div className="w-10 h-10 rounded-xl bg-[#2563EB] border border-[#38BDF8]/30 flex items-center justify-center font-bold text-sm text-[#38BDF8]">
                     {project.user.name ? project.user.name[0].toUpperCase() : 'C'}
                   </div>
                   <div>
-                    <div className="font-semibold text-[#FFF5ED]">
+                    <div className="font-semibold text-[#F8FAFC]">
                       {project.user.name || 'Private Client'}
                     </div>
-                    <div className="text-[11px] text-[#B89B8D] font-mono">{project.user.email}</div>
+                    <div className="text-[11px] text-[#94A3B8] font-mono">{project.user.email}</div>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <Link
                     href={`/admin/users/${project.user.id}`}
-                    className="inline-flex items-center gap-1.5 text-xs text-[#FED7B8] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#38BDF8] hover:underline"
                   >
                     <span>View User Detailed Profile →</span>
                   </Link>
                 </div>
               </div>
             ) : (
-              <p className="text-[#B89B8D]">Internal NatureStudios production (no external client).</p>
+              <p className="text-[#94A3B8]">Internal NatureStudios production (no external client).</p>
             )}
           </div>
 
           {/* Project Timestamps */}
-          <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-3 text-xs shadow-xl font-mono text-[11px]">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#3D0D13] font-sans">
-              <Clock className="w-4 h-4 text-[#FED7B8]" />
-              <h2 className="font-semibold uppercase tracking-wider text-[#FFF5ED]">Metadata</h2>
+          <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-3 text-xs shadow-xl font-mono text-[11px]">
+            <div className="flex items-center gap-2 pb-2 border-b border-[#172554] font-sans">
+              <Clock className="w-4 h-4 text-[#38BDF8]" />
+              <h2 className="font-semibold uppercase tracking-wider text-[#F8FAFC]">Metadata</h2>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#3D0D13]/40">
-              <span className="text-[#B89B8D]">Created</span>
-              <span className="text-[#FFF5ED]">{new Date(project.createdAt).toLocaleString()}</span>
+            <div className="flex justify-between py-1 border-b border-[#172554]/40">
+              <span className="text-[#94A3B8]">Created</span>
+              <span className="text-[#F8FAFC]">{new Date(project.createdAt).toLocaleString()}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#3D0D13]/40">
-              <span className="text-[#B89B8D]">Updated</span>
-              <span className="text-[#FFF5ED]">{new Date(project.updatedAt).toLocaleString()}</span>
+            <div className="flex justify-between py-1 border-b border-[#172554]/40">
+              <span className="text-[#94A3B8]">Updated</span>
+              <span className="text-[#F8FAFC]">{new Date(project.updatedAt).toLocaleString()}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-[#B89B8D]">Messages</span>
-              <span className="text-[#FED7B8]">{project.messages?.length || 0}</span>
+              <span className="text-[#94A3B8]">Messages</span>
+              <span className="text-[#38BDF8]">{project.messages?.length || 0}</span>
             </div>
           </div>
 
           {/* Danger Zone */}
-          <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#E63946]/30 space-y-3 text-xs shadow-xl">
+          <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#E63946]/30 space-y-3 text-xs shadow-xl">
             <div className="text-[#E63946] font-semibold flex items-center gap-1.5">
               <AlertTriangle className="w-4 h-4" />
               <span>Danger Zone</span>
             </div>
-            <p className="text-[#B89B8D] text-[11px]">
+            <p className="text-[#94A3B8] text-[11px]">
               Permanently delete this project showcase and associated records.
             </p>
             <button

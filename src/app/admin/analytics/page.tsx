@@ -83,32 +83,32 @@ export default function AdminAnalyticsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Real-time Analytics Engine
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               MongoDB Telemetry
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Audited aggregate metrics for creator registration, portfolio views, and inquiries.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Period Filter Buttons */}
-          <div className="flex bg-[#150304] p-1 rounded-xl border border-[#3D0D13]">
+          <div className="flex bg-[#030712] p-1 rounded-xl border border-[#172554]">
             {(['today', '7d', '30d', '90d', '12m'] as const).map((p) => (
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
                 className={`px-3 py-1 text-xs font-medium rounded-lg uppercase tracking-wider transition-all ${
                   period === p
-                    ? 'bg-[#59171B] text-[#FFF5ED] shadow-sm font-semibold'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                    ? 'bg-[#2563EB] text-[#F8FAFC] shadow-sm font-semibold'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                 }`}
               >
                 {p}
@@ -119,7 +119,7 @@ export default function AdminAnalyticsPage() {
           {(isSuperAdmin || hasPermission('analytics.export')) && (
             <button
               onClick={exportAnalytics}
-              className="px-3 py-1.5 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-medium text-[#FED7B8] flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-xs font-medium text-[#38BDF8] flex items-center gap-1.5 transition-colors"
               title="Export CSV"
             >
               <Download className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ export default function AdminAnalyticsPage() {
 
           <button
             onClick={fetchAnalytics}
-            className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+            className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
             title="Refresh Metrics"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -139,25 +139,25 @@ export default function AdminAnalyticsPage() {
 
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="flex items-center justify-between text-[#B89B8D]">
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="flex items-center justify-between text-[#94A3B8]">
             <span className="text-xs uppercase font-medium">Unique Pageviews</span>
-            <Eye className="w-4 h-4 text-[#FED7B8]" />
+            <Eye className="w-4 h-4 text-[#38BDF8]" />
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED] mt-2">
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC] mt-2">
             {metrics.pageViews}
           </div>
-          <div className="text-[11px] text-[#B89B8D] mt-1 font-mono">
+          <div className="text-[11px] text-[#94A3B8] mt-1 font-mono">
             {metrics.portfolioViews} on Portfolios
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="flex items-center justify-between text-[#B89B8D]">
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="flex items-center justify-between text-[#94A3B8]">
             <span className="text-xs uppercase font-medium">New Registrations</span>
-            <Users className="w-4 h-4 text-[#FED7B8]" />
+            <Users className="w-4 h-4 text-[#38BDF8]" />
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED] mt-2">
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC] mt-2">
             {metrics.totalUsers}
           </div>
           <div className="text-[11px] text-emerald-400 mt-1 font-mono">
@@ -165,47 +165,47 @@ export default function AdminAnalyticsPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="flex items-center justify-between text-[#B89B8D]">
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="flex items-center justify-between text-[#94A3B8]">
             <span className="text-xs uppercase font-medium">Portfolios Published</span>
-            <Layers className="w-4 h-4 text-[#FED7B8]" />
+            <Layers className="w-4 h-4 text-[#38BDF8]" />
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FED7B8] mt-2">
+          <div className="text-2xl font-bold font-syne text-[#38BDF8] mt-2">
             {metrics.publishedPortfolios}
           </div>
-          <div className="text-[11px] text-[#B89B8D] mt-1 font-mono">
+          <div className="text-[11px] text-[#94A3B8] mt-1 font-mono">
             {metrics.draftPortfolios} Currently In Draft
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="flex items-center justify-between text-[#B89B8D]">
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="flex items-center justify-between text-[#94A3B8]">
             <span className="text-xs uppercase font-medium">Project Requests</span>
-            <Inbox className="w-4 h-4 text-[#FED7B8]" />
+            <Inbox className="w-4 h-4 text-[#38BDF8]" />
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED] mt-2">
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC] mt-2">
             {metrics.projectRequests}
           </div>
-          <div className="text-[11px] text-[#B89B8D] mt-1 font-mono">
+          <div className="text-[11px] text-[#94A3B8] mt-1 font-mono">
             {metrics.openProjects} In Active Production
           </div>
         </div>
       </div>
 
       {/* Chart & Empty State Section */}
-      <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-6">
+      <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-syne text-lg font-bold text-[#FFF5ED]">
+            <h2 className="font-syne text-lg font-bold text-[#F8FAFC]">
               Activity Trends Over Time
             </h2>
-            <p className="text-xs text-[#B89B8D] mt-0.5">
+            <p className="text-xs text-[#94A3B8] mt-0.5">
               Cumulative events across selected timeframe ({period.toUpperCase()})
             </p>
           </div>
           <div className="flex items-center gap-4 text-xs">
-            <span className="flex items-center gap-1.5 text-[#FED7B8]">
-              <span className="w-3 h-3 rounded-full bg-[#FED7B8]" />
+            <span className="flex items-center gap-1.5 text-[#38BDF8]">
+              <span className="w-3 h-3 rounded-full bg-[#38BDF8]" />
               Pageviews
             </span>
             <span className="flex items-center gap-1.5 text-emerald-400">
@@ -221,15 +221,15 @@ export default function AdminAnalyticsPage() {
 
         {/* Real Data Chart or Explicit "No data available yet" state */}
         {!hasData && chartSeries.length === 0 ? (
-          <div className="py-20 flex flex-col items-center justify-center text-center rounded-2xl bg-[#150304] border border-dashed border-[#3D0D13] p-8">
-            <AlertCircle className="w-10 h-10 text-[#B89B8D]/40 mb-3" />
-            <h3 className="text-sm font-semibold text-[#FFF5ED]">No data available yet.</h3>
-            <p className="text-xs text-[#B89B8D] max-w-sm mt-1">
+          <div className="py-20 flex flex-col items-center justify-center text-center rounded-2xl bg-[#030712] border border-dashed border-[#172554] p-8">
+            <AlertCircle className="w-10 h-10 text-[#94A3B8]/40 mb-3" />
+            <h3 className="text-sm font-semibold text-[#F8FAFC]">No data available yet.</h3>
+            <p className="text-xs text-[#94A3B8] max-w-sm mt-1">
               Real analytics events will automatically populate as visitors interact with the public studio website, create portfolios, and submit inquiries.
             </p>
           </div>
         ) : (
-          <div className="h-64 flex items-end gap-2 sm:gap-4 pt-8 pb-4 px-4 bg-[#150304] rounded-2xl border border-[#3D0D13]">
+          <div className="h-64 flex items-end gap-2 sm:gap-4 pt-8 pb-4 px-4 bg-[#030712] rounded-2xl border border-[#172554]">
             {chartSeries.map((item: any, i: number) => {
               const maxVal = Math.max(10, ...chartSeries.map((s: any) => s.value || 1));
               const heightPct = Math.min(100, Math.max(8, ((item.value || 0) / maxVal) * 100));
@@ -239,15 +239,15 @@ export default function AdminAnalyticsPage() {
                   <div className="w-full max-w-[40px] flex items-end justify-center h-full">
                     <div
                       style={{ height: `${heightPct}%` }}
-                      className="w-full rounded-t-lg bg-gradient-to-t from-[#59171B] to-[#FED7B8] transition-all duration-300 group-hover:brightness-125 relative"
+                      className="w-full rounded-t-lg bg-gradient-to-t from-[#2563EB] to-[#38BDF8] transition-all duration-300 group-hover:brightness-125 relative"
                     >
                       {/* Tooltip */}
-                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block px-2 py-1 bg-[#240709] border border-[#59171B] rounded text-[10px] text-[#FFF5ED] whitespace-nowrap z-10 shadow-lg">
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block px-2 py-1 bg-[#0B132B] border border-[#2563EB] rounded text-[10px] text-[#F8FAFC] whitespace-nowrap z-10 shadow-lg">
                         {item.value} events
                       </div>
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono text-[#B89B8D] truncate max-w-full">
+                  <span className="text-[10px] font-mono text-[#94A3B8] truncate max-w-full">
                     {item.label}
                   </span>
                 </div>
@@ -259,44 +259,44 @@ export default function AdminAnalyticsPage() {
 
       {/* Conversion Funnel Breakdown */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-3">
-          <div className="text-xs font-semibold uppercase tracking-wider text-[#FED7B8]">
+        <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-3">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
             Visitor → Inquirer
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED]">
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC]">
             {metrics.pageViews > 0
               ? `${((metrics.projectRequests / metrics.pageViews) * 100).toFixed(1)}%`
               : '0.0%'}
           </div>
-          <p className="text-[11px] text-[#B89B8D]">
+          <p className="text-[11px] text-[#94A3B8]">
             Proportion of visitors who submit an esports project inquiry.
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-3">
-          <div className="text-xs font-semibold uppercase tracking-wider text-[#FED7B8]">
+        <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-3">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
             User → Portfolio Creator
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED]">
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC]">
             {metrics.totalUsers > 0
               ? `${((metrics.totalPortfolios / metrics.totalUsers) * 100).toFixed(1)}%`
               : '0.0%'}
           </div>
-          <p className="text-[11px] text-[#B89B8D]">
+          <p className="text-[11px] text-[#94A3B8]">
             Registered creators who initialize a custom portfolio workspace.
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-3">
-          <div className="text-xs font-semibold uppercase tracking-wider text-[#FED7B8]">
+        <div className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-3">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
             Creator → Published Domain
           </div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED]">
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC]">
             {metrics.totalPortfolios > 0
               ? `${((metrics.publishedPortfolios / metrics.totalPortfolios) * 100).toFixed(1)}%`
               : '0.0%'}
           </div>
-          <p className="text-[11px] text-[#B89B8D]">
+          <p className="text-[11px] text-[#94A3B8]">
             Draft portfolios successfully published to *.naturestudio.in.
           </p>
         </div>

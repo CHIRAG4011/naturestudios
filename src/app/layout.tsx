@@ -104,7 +104,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#150304',
+  themeColor: '#030712',
   colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
@@ -140,7 +140,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-[#150304] font-sans text-cream antialiased">
+      <body className="min-h-screen bg-[#030712] font-sans text-cream antialiased">
         <a href="#main" className="skip-link">
           Skip to content
         </a>

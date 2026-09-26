@@ -95,7 +95,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 className="btn-beige hidden items-center gap-1.5 py-1.5 px-3 text-label-sm font-bold shadow-glow-beige sm:inline-flex"
                 title="Create / Edit Your Portfolio"
               >
-                <Sparkles className="h-3.5 w-3.5 text-[#3A0E11]" aria-hidden="true" />
+                <Sparkles className="h-3.5 w-3.5 text-[#1E40AF]" aria-hidden="true" />
                 <span>My Portfolio</span>
               </Link>
 
@@ -116,10 +116,10 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           {isAdminUser && !isSuspended && (
             <Link
               href="/admin"
-              className="hidden items-center gap-1.5 rounded-lg border border-[#FED7B8]/40 bg-gradient-to-r from-[#59171B] to-[#7B1F25] px-3 py-1.5 font-mono text-label-sm font-bold uppercase tracking-[0.16em] text-[#FED7B8] shadow-glow-burgundy transition-all hover:scale-105 hover:border-[#FED7B8] sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-lg border border-[#38BDF8]/40 bg-gradient-to-r from-[#2563EB] to-[#3B82F6] px-3 py-1.5 font-mono text-label-sm font-bold uppercase tracking-[0.16em] text-[#38BDF8] shadow-glow-burgundy transition-all hover:scale-105 hover:border-[#38BDF8] sm:inline-flex"
               title="Admin Control Center"
             >
-              <Shield className="h-3.5 w-3.5 text-[#FED7B8]" aria-hidden="true" />
+              <Shield className="h-3.5 w-3.5 text-[#38BDF8]" aria-hidden="true" />
               <span>Admin</span>
             </Link>
           )}
@@ -221,9 +221,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             {isAdminUser && !isSuspended && (
               <Link
                 href="/admin"
-                className="mt-2 flex items-center gap-2.5 rounded-lg border border-[#59171B]/60 bg-gradient-to-r from-[#3A0E11]/80 to-[#59171B]/50 px-3.5 py-2.5 font-mono text-label uppercase tracking-[0.16em] text-[#FED7B8] shadow-glow-burgundy transition-all duration-200 hover:border-[#FED7B8]/50 hover:bg-[#59171B]"
+                className="mt-2 flex items-center gap-2.5 rounded-lg border border-[#2563EB]/60 bg-gradient-to-r from-[#1E40AF]/80 to-[#2563EB]/50 px-3.5 py-2.5 font-mono text-label uppercase tracking-[0.16em] text-[#38BDF8] shadow-glow-burgundy transition-all duration-200 hover:border-[#38BDF8]/50 hover:bg-[#2563EB]"
               >
-                <Shield className="h-4 w-4 text-[#FED7B8]" aria-hidden="true" />
+                <Shield className="h-4 w-4 text-[#38BDF8]" aria-hidden="true" />
                 <span>Admin Center</span>
               </Link>
             )}
@@ -235,7 +235,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             pathname === '/dashboard/tickets' ? (
               <>
                 {/* Suspension Notification Banner inside Ticket desk */}
-                <div className="mb-6 rounded-2xl border border-red-500/40 bg-gradient-to-r from-[#2A080C] via-[#3A0A10] to-[#2A080C] p-4 sm:p-5 text-red-200 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                <div className="mb-6 rounded-2xl border border-red-500/40 bg-gradient-to-r from-[#0E1A33] via-[#3A0A10] to-[#0E1A33] p-4 sm:p-5 text-red-200 shadow-2xl backdrop-blur-md relative overflow-hidden">
                   <div className="flex items-start gap-3.5">
                     <div className="p-2.5 rounded-xl bg-red-500/20 text-red-400 shrink-0 border border-red-500/30">
                       <AlertTriangle className="h-5 w-5" aria-hidden="true" />
@@ -273,7 +273,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 <h1 className="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight mb-4">
                   WORKSPACE ACCESS RESTRICTED
                 </h1>
-                <p className="text-sm sm:text-base text-[#B89B8D] leading-relaxed mb-6">
+                <p className="text-sm sm:text-base text-[#94A3B8] leading-relaxed mb-6">
                   Your NatureStudios creator workspace and client area have been suspended by platform moderation.
                 </p>
                 <div className="p-5 rounded-2xl bg-red-950/40 border border-red-500/30 text-left mb-6">
@@ -289,7 +289,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                     </span>
                   )}
                 </div>
-                <div className="p-4 rounded-2xl bg-[#1C0508] border border-white/5 text-xs text-[#B89B8D] mb-8 leading-relaxed">
+                <div className="p-4 rounded-2xl bg-[#1C0508] border border-white/5 text-xs text-[#94A3B8] mb-8 leading-relaxed">
                   While your account is suspended, all project submissions, requests, messaging, and portfolio publishing are blocked. You are only permitted to open appeal tickets with our support team or return to the public homepage.
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -302,7 +302,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                   </Link>
                   <Link
                     href="/"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface-card border border-rim hover:border-[#FED7B8] text-cream font-mono text-xs font-bold uppercase tracking-wider transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface-card border border-rim hover:border-[#38BDF8] text-cream font-mono text-xs font-bold uppercase tracking-wider transition-all"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Return to Homepage</span>

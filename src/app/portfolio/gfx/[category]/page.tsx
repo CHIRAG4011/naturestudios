@@ -123,28 +123,28 @@ export default function StudioGfxCategoryWorkPage() {
   const currentMeta = categoryMeta[categoryName] || categoryMeta['Tournament'];
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-32 pb-24">
         {/* BREADCRUMB NAVIGATION */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#3D0D13]">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#B89B8D]">
-              <Link href="/portfolio" className="hover:text-[#FED7B8] transition-colors">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#172554]">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#94A3B8]">
+              <Link href="/portfolio" className="hover:text-[#38BDF8] transition-colors">
                 Studio Portfolio
               </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#52141A]" />
-              <Link href="/portfolio/gfx" className="hover:text-[#FED7B8] transition-colors">
+              <ChevronRight className="w-3.5 h-3.5 text-[#1E3A8A]" />
+              <Link href="/portfolio/gfx" className="hover:text-[#38BDF8] transition-colors">
                 GFX Subsections
               </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#52141A]" />
-              <span className="text-[#FFF5ED] font-bold">{categoryName}</span>
+              <ChevronRight className="w-3.5 h-3.5 text-[#1E3A8A]" />
+              <span className="text-[#F8FAFC] font-bold">{categoryName}</span>
             </div>
 
             <Link
               href="/portfolio/gfx"
-              className="px-3.5 py-1.5 rounded-xl bg-[#1D0608] hover:bg-[#2A080C] border border-[#3D0D13] hover:border-[#FED7B8]/40 text-xs font-mono uppercase text-[#FED7B8] inline-flex items-center gap-2 transition-all"
+              className="px-3.5 py-1.5 rounded-xl bg-[#070D1E] hover:bg-[#0E1A33] border border-[#172554] hover:border-[#38BDF8]/40 text-xs font-mono uppercase text-[#38BDF8] inline-flex items-center gap-2 transition-all"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>All GFX Subsections</span>
@@ -154,22 +154,22 @@ export default function StudioGfxCategoryWorkPage() {
 
         {/* HEADER & TOPIC METADATA */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#3D0D13]">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#172554]">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2A080C] border border-[#52141A] text-xs font-mono uppercase text-[#FED7B8] mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0E1A33] border border-[#1E3A8A] text-xs font-mono uppercase text-[#38BDF8] mb-3">
                 <currentMeta.icon className="w-3.5 h-3.5" />
                 <span>Official Studio Section</span>
               </div>
               <h1 className="font-syne text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-gradient-warm leading-[0.95]">
                 {currentMeta.title}
               </h1>
-              <p className="text-xs sm:text-sm text-[#B89B8D] max-w-2xl mt-3 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#94A3B8] max-w-2xl mt-3 leading-relaxed">
                 {currentMeta.desc}
               </p>
             </div>
 
             {/* Quick Switch Subsections Pills */}
-            <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#1D0608] rounded-2xl border border-[#3D0D13]">
+            <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#070D1E] rounded-2xl border border-[#172554]">
               {GFX_SUBSECTIONS.map((sub) => {
                 const isCurrent =
                   categoryName === sub ||
@@ -180,8 +180,8 @@ export default function StudioGfxCategoryWorkPage() {
                     href={`/portfolio/gfx/${toGfxCategorySlug(sub)}`}
                     className={`px-3 py-1.5 rounded-xl text-xs font-mono uppercase transition-colors ${
                       isCurrent
-                        ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
-                        : 'text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709]'
+                        ? 'bg-[#2563EB] text-[#38BDF8] font-bold border border-[#38BDF8]/30 shadow-sm'
+                        : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B132B]'
                     }`}
                   >
                     {sub}
@@ -195,28 +195,28 @@ export default function StudioGfxCategoryWorkPage() {
         {/* WORKS LIST / SAMPLES SECTION */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Toolbar: Production Count & View Mode Toggle */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#3D0D13]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#172554]">
             <div>
-              <h2 className="text-xl sm:text-2xl font-black uppercase text-[#FFF5ED] font-syne flex items-center gap-2">
+              <h2 className="text-xl sm:text-2xl font-black uppercase text-[#F8FAFC] font-syne flex items-center gap-2">
                 <span>Studio {categoryName} Productions</span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#240709] border border-[#52141A] text-[#FED7B8]">
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#0B132B] border border-[#1E3A8A] text-[#38BDF8]">
                   {displayedItems.length} {displayedItems.length === 1 ? 'Production' : 'Productions'}
                 </span>
               </h2>
-              <p className="text-xs text-[#B89B8D] mt-0.5">
+              <p className="text-xs text-[#94A3B8] mt-0.5">
                 Click any project to see all uploaded high-resolution images, creative brief, and technical specifications.
               </p>
             </div>
 
             {/* View Mode Toggle: List vs Grid */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#1D0608] border border-[#3D0D13] shrink-0">
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#070D1E] border border-[#172554] shrink-0">
               <button
                 type="button"
                 onClick={() => setViewMode('list')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
                   viewMode === 'list'
-                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                    ? 'bg-[#2563EB] text-[#38BDF8] font-bold border border-[#38BDF8]/30 shadow-sm'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                 }`}
               >
                 <LayoutList className="w-3.5 h-3.5" />
@@ -227,8 +227,8 @@ export default function StudioGfxCategoryWorkPage() {
                 onClick={() => setViewMode('grid')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase flex items-center gap-1.5 transition-colors cursor-pointer ${
                   viewMode === 'grid'
-                    ? 'bg-[#59171B] text-[#FED7B8] font-bold border border-[#FED7B8]/30 shadow-sm'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                    ? 'bg-[#2563EB] text-[#38BDF8] font-bold border border-[#38BDF8]/30 shadow-sm'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                 }`}
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
@@ -238,23 +238,23 @@ export default function StudioGfxCategoryWorkPage() {
           </div>
 
           {loading ? (
-            <div className="py-24 text-center text-xs font-mono text-[#B89B8D]">
+            <div className="py-24 text-center text-xs font-mono text-[#94A3B8]">
               Loading {categoryName} Productions...
             </div>
           ) : displayedItems.length === 0 ? (
-            <div className="py-20 text-center rounded-3xl bg-[#1D0608] border border-[#3D0D13] p-8">
-              <div className="w-12 h-12 rounded-2xl bg-[#2A080C] text-[#FED7B8] flex items-center justify-center mx-auto mb-3">
+            <div className="py-20 text-center rounded-3xl bg-[#070D1E] border border-[#172554] p-8">
+              <div className="w-12 h-12 rounded-2xl bg-[#0E1A33] text-[#38BDF8] flex items-center justify-center mx-auto mb-3">
                 <currentMeta.icon className="w-6 h-6" />
               </div>
-              <h3 className="font-syne text-lg font-bold text-[#FFF5ED] mb-1">
+              <h3 className="font-syne text-lg font-bold text-[#F8FAFC] mb-1">
                 No {categoryName} productions found.
               </h3>
-              <p className="text-xs text-[#B89B8D] max-w-sm mx-auto mb-4">
+              <p className="text-xs text-[#94A3B8] max-w-sm mx-auto mb-4">
                 Explore our other GFX subsections or check out the complete studio archive.
               </p>
               <Link
                 href="/portfolio/gfx"
-                className="px-4 py-2 rounded-xl bg-[#59171B] text-[#FED7B8] text-xs font-mono uppercase cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[#2563EB] text-[#38BDF8] text-xs font-mono uppercase cursor-pointer"
               >
                 View Other Subsections
               </Link>
@@ -265,12 +265,12 @@ export default function StudioGfxCategoryWorkPage() {
               {displayedItems.map((item, idx) => (
                 <article
                   key={item.id || idx}
-                  className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all duration-300 hover:shadow-glow-burgundy flex flex-col md:flex-row"
+                  className="group rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-[#38BDF8] transition-all duration-300 hover:shadow-glow-burgundy flex flex-col md:flex-row"
                 >
                   {/* Media Thumbnail */}
                   <Link
                     href={`/portfolio/${item.id}`}
-                    className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#150304] block cursor-pointer group/thumb"
+                    className="relative w-full md:w-80 lg:w-96 aspect-video shrink-0 overflow-hidden bg-[#030712] block cursor-pointer group/thumb"
                   >
                     <img
                       src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
@@ -278,20 +278,20 @@ export default function StudioGfxCategoryWorkPage() {
                       className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#150304]/90 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#030712]/90 backdrop-blur-md text-[#38BDF8] border border-[#38BDF8]/30">
                         {item.gfxCategory || categoryName}
                       </span>
                     </div>
                     {item.images && item.images.length > 1 && (
                       <div className="absolute top-3 right-3">
-                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-black/80 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30 flex items-center gap-1 shadow">
-                          <ImageIcon className="w-2.5 h-2.5 text-[#FED7B8]" />
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-black/80 backdrop-blur-md text-[#38BDF8] border border-[#38BDF8]/30 flex items-center gap-1 shadow">
+                          <ImageIcon className="w-2.5 h-2.5 text-[#38BDF8]" />
                           <span>{item.images.length} Assets</span>
                         </span>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40 shadow-lg">
+                      <span className="px-3 py-1.5 rounded-full bg-[#030712]/90 text-[#38BDF8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#38BDF8]/40 shadow-lg">
                         <Eye className="w-3.5 h-3.5" />
                         <span>View Project & All Details</span>
                       </span>
@@ -302,21 +302,21 @@ export default function StudioGfxCategoryWorkPage() {
                   <div className="p-6 flex-1 flex flex-col justify-between gap-4">
                     <div className="space-y-2">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-[11px] font-mono uppercase text-[#FED7B8]/80 font-bold">
+                        <span className="text-[11px] font-mono uppercase text-[#38BDF8]/80 font-bold">
                           Client: {item.client}
                         </span>
-                        <span className="text-[10px] font-mono text-[#B89B8D] uppercase">
+                        <span className="text-[10px] font-mono text-[#94A3B8] uppercase">
                           Official Agency Asset
                         </span>
                       </div>
 
-                      <Link href={`/portfolio/${item.id}`} className="block group-hover:text-[#FED7B8] transition-colors">
-                        <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+                      <Link href={`/portfolio/${item.id}`} className="block group-hover:text-[#38BDF8] transition-colors">
+                        <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#F8FAFC]">
                           {item.title}
                         </h3>
                       </Link>
 
-                      <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed line-clamp-3">
                         {item.description}
                       </p>
 
@@ -324,7 +324,7 @@ export default function StudioGfxCategoryWorkPage() {
                         {item.tags?.map((tag, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
+                            className="px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase bg-[#030712] border border-[#172554] text-[#94A3B8]"
                           >
                             #{tag}
                           </span>
@@ -333,7 +333,7 @@ export default function StudioGfxCategoryWorkPage() {
                     </div>
 
                     {/* Actions Bar */}
-                    <div className="pt-4 border-t border-[#3D0D13]/60 flex flex-wrap items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-[#172554]/60 flex flex-wrap items-center justify-between gap-3">
                       <Link
                         href={`/portfolio/${item.id}`}
                         className="btn-primary text-xs py-2 px-4 shadow-glow-burgundy inline-flex items-center gap-2"
@@ -347,7 +347,7 @@ export default function StudioGfxCategoryWorkPage() {
                         onClick={() => setContactTargetItem(item)}
                         className="btn-secondary text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer"
                       >
-                        <Send className="w-3 h-3 text-[#FED7B8]" />
+                        <Send className="w-3 h-3 text-[#38BDF8]" />
                         <span>Contact Now</span>
                       </button>
                     </div>
@@ -361,12 +361,12 @@ export default function StudioGfxCategoryWorkPage() {
               {displayedItems.map((item, idx) => (
                 <article
                   key={item.id || idx}
-                  className="group relative rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all duration-500 hover:shadow-glow-burgundy flex flex-col justify-between"
+                  className="group relative rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-[#38BDF8] transition-all duration-500 hover:shadow-glow-burgundy flex flex-col justify-between"
                 >
                   {/* Media Container */}
                   <Link
                     href={`/portfolio/${item.id}`}
-                    className="relative aspect-video w-full overflow-hidden bg-[#150304] block cursor-pointer group/thumb"
+                    className="relative aspect-video w-full overflow-hidden bg-[#030712] block cursor-pointer group/thumb"
                   >
                     <img
                       src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
@@ -374,20 +374,20 @@ export default function StudioGfxCategoryWorkPage() {
                       className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#150304]/90 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-[#030712]/90 backdrop-blur-md text-[#38BDF8] border border-[#38BDF8]/30">
                         {item.gfxCategory || categoryName}
                       </span>
                     </div>
                     {item.images && item.images.length > 1 && (
                       <div className="absolute top-3 right-3">
-                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-black/80 backdrop-blur-md text-[#FED7B8] border border-[#FED7B8]/30 flex items-center gap-1 shadow">
-                          <ImageIcon className="w-2.5 h-2.5 text-[#FED7B8]" />
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-black/80 backdrop-blur-md text-[#38BDF8] border border-[#38BDF8]/30 flex items-center gap-1 shadow">
+                          <ImageIcon className="w-2.5 h-2.5 text-[#38BDF8]" />
                           <span>{item.images.length}</span>
                         </span>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="px-3 py-1.5 rounded-full bg-[#150304]/90 text-[#FED7B8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#FED7B8]/40 shadow-lg">
+                      <span className="px-3 py-1.5 rounded-full bg-[#030712]/90 text-[#38BDF8] text-xs font-mono uppercase flex items-center gap-1.5 border border-[#38BDF8]/40 shadow-lg">
                         <Eye className="w-3.5 h-3.5" />
                         <span>View Details</span>
                       </span>
@@ -397,23 +397,23 @@ export default function StudioGfxCategoryWorkPage() {
                   {/* Content */}
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>
-                      <div className="text-[11px] font-mono uppercase text-[#FED7B8]/80 font-bold mb-1.5">
+                      <div className="text-[11px] font-mono uppercase text-[#38BDF8]/80 font-bold mb-1.5">
                         Client: {item.client}
                       </div>
                       <Link href={`/portfolio/${item.id}`}>
-                        <h3 className="font-syne text-lg font-bold uppercase text-[#FFF5ED] mb-2 line-clamp-2 hover:text-[#FED7B8] transition-colors">
+                        <h3 className="font-syne text-lg font-bold uppercase text-[#F8FAFC] mb-2 line-clamp-2 hover:text-[#38BDF8] transition-colors">
                           {item.title}
                         </h3>
                       </Link>
-                      <p className="text-xs text-[#B89B8D] leading-relaxed line-clamp-2 mb-4">
+                      <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-2 mb-4">
                         {item.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-[#3D0D13]/60 flex items-center justify-between gap-2">
+                    <div className="pt-4 border-t border-[#172554]/60 flex items-center justify-between gap-2">
                       <Link
                         href={`/portfolio/${item.id}`}
-                        className="flex-1 py-2 px-3 rounded-xl bg-[#59171B]/60 hover:bg-[#59171B] border border-[#FED7B8]/30 text-xs font-mono uppercase text-[#FED7B8] font-bold text-center flex items-center justify-center gap-1.5 transition-colors"
+                        className="flex-1 py-2 px-3 rounded-xl bg-[#2563EB]/60 hover:bg-[#2563EB] border border-[#38BDF8]/30 text-xs font-mono uppercase text-[#38BDF8] font-bold text-center flex items-center justify-center gap-1.5 transition-colors"
                       >
                         <span>Full Details</span>
                         <ArrowRight className="w-3 h-3" />
@@ -421,9 +421,9 @@ export default function StudioGfxCategoryWorkPage() {
                       <button
                         type="button"
                         onClick={() => setContactTargetItem(item)}
-                        className="py-2 px-3 rounded-xl bg-[#240709] hover:bg-[#3D0D13] border border-[#52141A] text-xs font-mono uppercase text-[#FFF5ED] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                        className="py-2 px-3 rounded-xl bg-[#0B132B] hover:bg-[#172554] border border-[#1E3A8A] text-xs font-mono uppercase text-[#F8FAFC] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                       >
-                        <Send className="w-3 h-3 text-[#FED7B8]" />
+                        <Send className="w-3 h-3 text-[#38BDF8]" />
                         <span>Contact</span>
                       </button>
                     </div>
@@ -438,26 +438,26 @@ export default function StudioGfxCategoryWorkPage() {
       {/* QUICK LIGHTBOX MODAL */}
       {activeLightboxItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl animate-in fade-in duration-200">
-          <div className="relative w-full max-w-5xl max-h-[95vh] flex flex-col rounded-3xl bg-[#1C0507] border border-[#59171B] overflow-hidden shadow-2xl">
-            <div className="p-4 sm:p-5 border-b border-[#3D0D13] flex items-center justify-between">
+          <div className="relative w-full max-w-5xl max-h-[95vh] flex flex-col rounded-3xl bg-[#050B17] border border-[#2563EB] overflow-hidden shadow-2xl">
+            <div className="p-4 sm:p-5 border-b border-[#172554] flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase text-[#FED7B8] tracking-widest block">
+                <span className="text-[10px] font-mono uppercase text-[#38BDF8] tracking-widest block">
                   Studio GFX • {activeLightboxItem.gfxCategory || categoryName}
                 </span>
-                <h4 className="font-syne text-lg font-bold text-[#FFF5ED]">
+                <h4 className="font-syne text-lg font-bold text-[#F8FAFC]">
                   {activeLightboxItem.title}
                 </h4>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveLightboxItem(null)}
-                className="p-2 rounded-full bg-[#150304] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors cursor-pointer"
+                className="p-2 rounded-full bg-[#030712] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-[#110203]">
+            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-[#030712]">
               <img
                 src={activeLightboxItem.imageUrl || '/media/work-valorant-championship.jpg'}
                 alt={activeLightboxItem.title}
@@ -465,14 +465,14 @@ export default function StudioGfxCategoryWorkPage() {
               />
             </div>
 
-            <div className="p-4 sm:p-5 border-t border-[#3D0D13] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[#B89B8D]">
+            <div className="p-4 sm:p-5 border-t border-[#172554] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[#94A3B8]">
               <div>
-                <span className="text-[#FED7B8] font-mono mr-2">Client:</span>
+                <span className="text-[#38BDF8] font-mono mr-2">Client:</span>
                 <span>{activeLightboxItem.client || 'NatureStudios Production'}</span>
               </div>
               <Link
                 href={`/portfolio/${activeLightboxItem.id}`}
-                className="text-[#FED7B8] underline hover:text-white font-mono"
+                className="text-[#38BDF8] underline hover:text-white font-mono"
               >
                 View Full Production Details →
               </Link>

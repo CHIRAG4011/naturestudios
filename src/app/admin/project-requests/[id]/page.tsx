@@ -127,8 +127,8 @@ export default function AdminProjectRequestDetailPage() {
   if (loading) {
     return (
       <div className="p-16 flex flex-col items-center justify-center text-center space-y-3">
-        <RefreshCw className="w-6 h-6 animate-spin text-[#FED7B8]" />
-        <div className="text-xs font-mono text-[#B89B8D]">Loading client brief details...</div>
+        <RefreshCw className="w-6 h-6 animate-spin text-[#38BDF8]" />
+        <div className="text-xs font-mono text-[#94A3B8]">Loading client brief details...</div>
       </div>
     );
   }
@@ -139,7 +139,7 @@ export default function AdminProjectRequestDetailPage() {
         <div className="text-sm font-semibold text-[#E63946]">{error || 'Request not found.'}</div>
         <Link
           href="/admin/project-requests"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#240709] text-xs text-[#FED7B8] border border-[#3D0D13]"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0B132B] text-xs text-[#38BDF8] border border-[#172554]"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Requests</span>
@@ -154,8 +154,8 @@ export default function AdminProjectRequestDetailPage() {
         <div
           className={`p-3.5 rounded-xl text-xs flex items-center justify-between shadow-xl ${
             toast.type === 'success'
-              ? 'bg-[#150304] border border-emerald-500/50 text-emerald-400'
-              : 'bg-[#150304] border border-[#E63946]/50 text-[#E63946]'
+              ? 'bg-[#030712] border border-emerald-500/50 text-emerald-400'
+              : 'bg-[#030712] border border-[#E63946]/50 text-[#E63946]'
           }`}
         >
           <span>{toast.message}</span>
@@ -168,13 +168,13 @@ export default function AdminProjectRequestDetailPage() {
         <div className="flex items-center gap-2 text-xs">
           <Link
             href="/admin/project-requests"
-            className="flex items-center gap-1.5 text-[#B89B8D] hover:text-[#FFF5ED]"
+            className="flex items-center gap-1.5 text-[#94A3B8] hover:text-[#F8FAFC]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Project Requests</span>
           </Link>
-          <span className="text-[#3D0D13]">/</span>
-          <span className="text-[#FED7B8] font-semibold truncate max-w-xs">{projectType || 'Client Inquiry'}</span>
+          <span className="text-[#172554]">/</span>
+          <span className="text-[#38BDF8] font-semibold truncate max-w-xs">{projectType || 'Client Inquiry'}</span>
         </div>
 
         <div className="flex items-center gap-2.5">
@@ -182,7 +182,7 @@ export default function AdminProjectRequestDetailPage() {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/40 text-xs font-semibold text-[#FED7B8] shadow-glow-burgundy transition-all hover:scale-105"
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/40 text-xs font-semibold text-[#38BDF8] shadow-glow-burgundy transition-all hover:scale-105"
           >
             {saving ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>{saving ? 'Saving...' : 'Save Request'}</span>
@@ -193,28 +193,28 @@ export default function AdminProjectRequestDetailPage() {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Request Specifications Form */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-5 shadow-xl">
-          <div className="flex items-center justify-between pb-3 border-b border-[#3D0D13]">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-5 shadow-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-[#172554]">
             <div className="flex items-center gap-2">
-              <Inbox className="w-4 h-4 text-[#FED7B8]" />
-              <h1 className="font-syne font-bold text-sm uppercase tracking-wider text-[#FFF5ED]">
+              <Inbox className="w-4 h-4 text-[#38BDF8]" />
+              <h1 className="font-syne font-bold text-sm uppercase tracking-wider text-[#F8FAFC]">
                 Client Inquiry Details & Scope
               </h1>
             </div>
-            <span className="px-2.5 py-0.5 rounded text-[10px] font-mono uppercase bg-[#59171B] text-[#FED7B8]">
+            <span className="px-2.5 py-0.5 rounded text-[10px] font-mono uppercase bg-[#2563EB] text-[#38BDF8]">
               {status}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Inquiry Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] font-mono text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] font-mono text-xs focus:outline-none"
               >
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
@@ -225,31 +225,31 @@ export default function AdminProjectRequestDetailPage() {
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Project Type / Service
               </label>
               <input
                 type="text"
                 value={projectType}
                 onChange={(e) => setProjectType(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Proposed Budget
               </label>
               <input
                 type="text"
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Estimated Timeline
               </label>
               <input
@@ -257,19 +257,19 @@ export default function AdminProjectRequestDetailPage() {
                 value={timeline}
                 onChange={(e) => setTimeline(e.target.value)}
                 placeholder="e.g. 2-4 Weeks"
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-[#FED7B8] font-mono mb-1.5 uppercase text-[10px]">
+              <label className="block text-[#38BDF8] font-mono mb-1.5 uppercase text-[10px]">
                 Client Message & Creative Request
               </label>
               <textarea
                 rows={6}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] focus:border-[#59171B] text-[#FFF5ED] focus:outline-none leading-relaxed"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#030712] border border-[#172554] focus:border-[#2563EB] text-[#F8FAFC] focus:outline-none leading-relaxed"
               />
             </div>
           </div>
@@ -277,24 +277,24 @@ export default function AdminProjectRequestDetailPage() {
 
         {/* Client Card & Actions */}
         <div className="space-y-6">
-          <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-4 text-xs shadow-xl">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#3D0D13]">
-              <User className="w-4 h-4 text-[#FED7B8]" />
-              <h2 className="font-semibold uppercase tracking-wider text-[#FFF5ED]">
+          <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-4 text-xs shadow-xl">
+            <div className="flex items-center gap-2 pb-2 border-b border-[#172554]">
+              <User className="w-4 h-4 text-[#38BDF8]" />
+              <h2 className="font-semibold uppercase tracking-wider text-[#F8FAFC]">
                 Client Details
               </h2>
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#59171B] border border-[#FED7B8]/30 flex items-center justify-center font-bold text-sm text-[#FED7B8]">
+                <div className="w-10 h-10 rounded-xl bg-[#2563EB] border border-[#38BDF8]/30 flex items-center justify-center font-bold text-sm text-[#38BDF8]">
                   {request.clientName ? request.clientName[0].toUpperCase() : (request.user?.name ? request.user.name[0].toUpperCase() : 'C')}
                 </div>
                 <div>
-                  <div className="font-semibold text-[#FFF5ED]">
+                  <div className="font-semibold text-[#F8FAFC]">
                     {request.clientName || request.user?.name || 'Inquiry Contact'}
                   </div>
-                  <div className="text-[11px] text-[#B89B8D] font-mono">
+                  <div className="text-[11px] text-[#94A3B8] font-mono">
                     {request.clientEmail || request.user?.email || 'N/A'}
                   </div>
                 </div>
@@ -304,7 +304,7 @@ export default function AdminProjectRequestDetailPage() {
                 <div className="pt-2">
                   <Link
                     href={`/admin/users/${request.user.id}`}
-                    className="inline-flex items-center gap-1.5 text-xs text-[#FED7B8] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#38BDF8] hover:underline"
                   >
                     <span>View Client Account Profile →</span>
                   </Link>
@@ -313,27 +313,27 @@ export default function AdminProjectRequestDetailPage() {
             </div>
           </div>
 
-          <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-3 text-xs shadow-xl font-mono text-[11px]">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#3D0D13] font-sans">
-              <Clock className="w-4 h-4 text-[#FED7B8]" />
-              <h2 className="font-semibold uppercase tracking-wider text-[#FFF5ED]">Metadata</h2>
+          <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-3 text-xs shadow-xl font-mono text-[11px]">
+            <div className="flex items-center gap-2 pb-2 border-b border-[#172554] font-sans">
+              <Clock className="w-4 h-4 text-[#38BDF8]" />
+              <h2 className="font-semibold uppercase tracking-wider text-[#F8FAFC]">Metadata</h2>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#3D0D13]/40">
-              <span className="text-[#B89B8D]">Submitted</span>
-              <span className="text-[#FFF5ED]">{new Date(request.createdAt).toLocaleString()}</span>
+            <div className="flex justify-between py-1 border-b border-[#172554]/40">
+              <span className="text-[#94A3B8]">Submitted</span>
+              <span className="text-[#F8FAFC]">{new Date(request.createdAt).toLocaleString()}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-[#B89B8D]">Request ID</span>
-              <span className="text-[#FED7B8]">{requestId.slice(0, 10)}...</span>
+              <span className="text-[#94A3B8]">Request ID</span>
+              <span className="text-[#38BDF8]">{requestId.slice(0, 10)}...</span>
             </div>
           </div>
 
-          <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#E63946]/30 space-y-3 text-xs shadow-xl">
+          <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#E63946]/30 space-y-3 text-xs shadow-xl">
             <div className="text-[#E63946] font-semibold flex items-center gap-1.5">
               <AlertTriangle className="w-4 h-4" />
               <span>Danger Zone</span>
             </div>
-            <p className="text-[#B89B8D] text-[11px]">Permanently remove this project inquiry.</p>
+            <p className="text-[#94A3B8] text-[11px]">Permanently remove this project inquiry.</p>
             <button
               type="button"
               onClick={handleDelete}

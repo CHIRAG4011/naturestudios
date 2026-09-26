@@ -116,11 +116,11 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex flex-col">
+      <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-40">
-          <div className="flex flex-col items-center gap-3 font-mono text-xs text-[#FED7B8]">
-            <div className="w-8 h-8 rounded-full border-2 border-[#59171B] border-t-[#FED7B8] animate-spin" />
+          <div className="flex flex-col items-center gap-3 font-mono text-xs text-[#38BDF8]">
+            <div className="w-8 h-8 rounded-full border-2 border-[#2563EB] border-t-[#38BDF8] animate-spin" />
             <span>Loading creator portfolio details...</span>
           </div>
         </main>
@@ -131,12 +131,12 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
   if (!portfolio) {
     return (
-      <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex flex-col">
+      <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-40 px-6 text-center">
           <div className="max-w-md space-y-4">
-            <h1 className="text-2xl font-black uppercase text-[#FFF5ED]">Creator Not Found</h1>
-            <p className="text-xs text-[#B89B8D]">
+            <h1 className="text-2xl font-black uppercase text-[#F8FAFC]">Creator Not Found</h1>
+            <p className="text-xs text-[#94A3B8]">
               The community creator portfolio you requested could not be found or may have been updated.
             </p>
             <Link
@@ -221,18 +221,18 @@ export default function GlobalCreatorPortfolioDetailPage() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-32 pb-24">
         {/* TOP BREADCRUMB & BACK NAVIGATION */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#3D0D13]">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#B89B8D]">
-              <Link href="/global-portfolio" className="hover:text-[#FED7B8] transition-colors">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#172554]">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#94A3B8]">
+              <Link href="/global-portfolio" className="hover:text-[#38BDF8] transition-colors">
                 Global Portfolio
               </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#52141A]" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#1E3A8A]" />
               <Link
                 href={
                   portfolio.category === 'GFX' && portfolio.gfxSubcategory
@@ -241,12 +241,12 @@ export default function GlobalCreatorPortfolioDetailPage() {
                     ? '/global-portfolio/gfx'
                     : '/global-portfolio/vfx'
                 }
-                className="text-[#FED7B8] hover:underline"
+                className="text-[#38BDF8] hover:underline"
               >
                 {categoryLabel}
               </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#52141A]" />
-              <span className="text-[#FFF5ED] font-bold truncate max-w-[200px]">{creatorName}</span>
+              <ChevronRight className="w-3.5 h-3.5 text-[#1E3A8A]" />
+              <span className="text-[#F8FAFC] font-bold truncate max-w-[200px]">{creatorName}</span>
             </div>
 
             <Link
@@ -257,7 +257,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                   ? '/global-portfolio/gfx'
                   : '/global-portfolio/vfx'
               }
-              className="px-3.5 py-1.5 rounded-xl bg-[#1D0608] hover:bg-[#2A080C] border border-[#3D0D13] hover:border-[#FED7B8]/40 text-xs font-mono uppercase text-[#FED7B8] inline-flex items-center gap-2 transition-all"
+              className="px-3.5 py-1.5 rounded-xl bg-[#070D1E] hover:bg-[#0E1A33] border border-[#172554] hover:border-[#38BDF8]/40 text-xs font-mono uppercase text-[#38BDF8] inline-flex items-center gap-2 transition-all"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to {portfolio.gfxSubcategory ? `${portfolio.gfxSubcategory} Portfolios` : 'Directory'}</span>
@@ -267,16 +267,16 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
         {/* CREATOR MASTHEAD HERO SECTION */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#240709] via-[#1D0608] to-[#150304] border border-[#59171B] p-6 sm:p-10 shadow-2xl">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#0B132B] via-[#070D1E] to-[#030712] border border-[#2563EB] p-6 sm:p-10 shadow-2xl">
             {/* Ambient Background Glow */}
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#59171B]/30 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#2563EB]/30 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               {/* Creator Identity */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 {/* Avatar with Glow Ring */}
                 <div className="relative">
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-[#2A080C] border-2 border-[#FED7B8]/50 overflow-hidden shadow-glow-burgundy flex-shrink-0 flex items-center justify-center font-syne font-black text-2xl text-[#FED7B8]">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-[#0E1A33] border-2 border-[#38BDF8]/50 overflow-hidden shadow-glow-burgundy flex-shrink-0 flex items-center justify-center font-syne font-black text-2xl text-[#38BDF8]">
                     {portfolio.personalInfo?.profileImage ? (
                       <img
                         src={portfolio.personalInfo.profileImage}
@@ -294,7 +294,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="px-3 py-1 rounded-full bg-[#59171B]/70 border border-[#FED7B8]/30 text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                    <span className="px-3 py-1 rounded-full bg-[#2563EB]/70 border border-[#38BDF8]/30 text-xs font-mono uppercase text-[#38BDF8] font-bold">
                       {categoryLabel}
                     </span>
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-mono text-[10px] uppercase font-semibold">
@@ -303,27 +303,27 @@ export default function GlobalCreatorPortfolioDetailPage() {
                     </span>
                   </div>
 
-                  <h1 className="font-syne text-3xl sm:text-4xl lg:text-5xl font-black uppercase text-[#FFF5ED] tracking-tight">
+                  <h1 className="font-syne text-3xl sm:text-4xl lg:text-5xl font-black uppercase text-[#F8FAFC] tracking-tight">
                     {creatorName}
                   </h1>
 
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#B89B8D]">
-                    <span className="text-[#FED7B8] font-semibold">{creatorRole}</span>
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#94A3B8]">
+                    <span className="text-[#38BDF8] font-semibold">{creatorRole}</span>
                     {portfolio.personalInfo?.location && (
                       <span className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-[#FED7B8]/70" />
+                        <MapPin className="w-3 h-3 text-[#38BDF8]/70" />
                         <span>{portfolio.personalInfo.location}</span>
                       </span>
                     )}
                     {portfolio.personalInfo?.availability && (
-                      <span className="px-2 py-0.5 rounded-md bg-[#2A080C] border border-[#52141A] text-emerald-300">
+                      <span className="px-2 py-0.5 rounded-md bg-[#0E1A33] border border-[#1E3A8A] text-emerald-300">
                         {portfolio.personalInfo.availability}
                       </span>
                     )}
                   </div>
 
                   {portfolio.personalInfo?.tagline && (
-                    <p className="text-xs sm:text-sm text-[#FED7B8]/90 italic font-light max-w-xl">
+                    <p className="text-xs sm:text-sm text-[#38BDF8]/90 italic font-light max-w-xl">
                       &quot;{portfolio.personalInfo.tagline}&quot;
                     </p>
                   )}
@@ -337,21 +337,21 @@ export default function GlobalCreatorPortfolioDetailPage() {
                   onClick={() => setContactModalOpen(true)}
                   className="btn-primary text-xs py-3 px-6 shadow-glow-burgundy inline-flex items-center justify-center gap-2.5 cursor-pointer font-bold"
                 >
-                  <Send className="w-4 h-4 text-[#FED7B8]" />
+                  <Send className="w-4 h-4 text-[#38BDF8]" />
                   <span>Contact Now / Create Ticket</span>
                 </button>
 
                 {/* Subdomain pill */}
-                <div className="p-2.5 rounded-2xl bg-[#150304]/80 border border-[#3D0D13] flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-xs font-mono text-[#FED7B8] truncate">
-                    <Globe className="w-3.5 h-3.5 text-[#FED7B8]/70 shrink-0" />
+                <div className="p-2.5 rounded-2xl bg-[#030712]/80 border border-[#172554] flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] truncate">
+                    <Globe className="w-3.5 h-3.5 text-[#38BDF8]/70 shrink-0" />
                     <span className="truncate">{portfolio.slug}.naturestudio.in</span>
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0">
                     <button
                       type="button"
                       onClick={handleCopySubdomain}
-                      className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#3D0D13] border border-[#52141A] text-[#FED7B8] transition-colors"
+                      className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#172554] border border-[#1E3A8A] text-[#38BDF8] transition-colors"
                       title="Copy subdomain URL"
                     >
                       {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -360,7 +360,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                       href={`https://${portfolio.slug}.naturestudio.in`}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-1.5 rounded-lg bg-[#59171B]/60 hover:bg-[#59171B] border border-[#FED7B8]/30 text-[#FED7B8] transition-colors"
+                      className="p-1.5 rounded-lg bg-[#2563EB]/60 hover:bg-[#2563EB] border border-[#38BDF8]/30 text-[#38BDF8] transition-colors"
                       title="Open live subdomain site"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -374,24 +374,24 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
         {/* STATS & QUICK SPECIFICATIONS BAR */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-4 rounded-3xl bg-[#1D0608] border border-[#3D0D13]">
-            <div className="p-3 rounded-2xl bg-[#150304] border border-[#3D0D13]/60">
-              <span className="text-[10px] font-mono uppercase text-[#B89B8D] block">Category & Focus</span>
-              <span className="font-syne font-bold text-sm text-[#FED7B8]">{categoryLabel}</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-4 rounded-3xl bg-[#070D1E] border border-[#172554]">
+            <div className="p-3 rounded-2xl bg-[#030712] border border-[#172554]/60">
+              <span className="text-[10px] font-mono uppercase text-[#94A3B8] block">Category & Focus</span>
+              <span className="font-syne font-bold text-sm text-[#38BDF8]">{categoryLabel}</span>
             </div>
-            <div className="p-3 rounded-2xl bg-[#150304] border border-[#3D0D13]/60">
-              <span className="text-[10px] font-mono uppercase text-[#B89B8D] block">Past Productions</span>
-              <span className="font-syne font-bold text-sm text-[#FED7B8]">
+            <div className="p-3 rounded-2xl bg-[#030712] border border-[#172554]/60">
+              <span className="text-[10px] font-mono uppercase text-[#94A3B8] block">Past Productions</span>
+              <span className="font-syne font-bold text-sm text-[#38BDF8]">
                 {portfolio.projects?.length || 0} Listed Projects
               </span>
             </div>
-            <div className="p-3 rounded-2xl bg-[#150304] border border-[#3D0D13]/60">
-              <span className="text-[10px] font-mono uppercase text-[#B89B8D] block">Direct Subdomain</span>
+            <div className="p-3 rounded-2xl bg-[#030712] border border-[#172554]/60">
+              <span className="text-[10px] font-mono uppercase text-[#94A3B8] block">Direct Subdomain</span>
               <span className="font-syne font-bold text-sm text-emerald-400">Live & Verified</span>
             </div>
-            <div className="p-3 rounded-2xl bg-[#150304] border border-[#3D0D13]/60">
-              <span className="text-[10px] font-mono uppercase text-[#B89B8D] block">Design Theme</span>
-              <span className="font-syne font-bold text-sm text-[#FED7B8] uppercase">
+            <div className="p-3 rounded-2xl bg-[#030712] border border-[#172554]/60">
+              <span className="text-[10px] font-mono uppercase text-[#94A3B8] block">Design Theme</span>
+              <span className="font-syne font-bold text-sm text-[#38BDF8] uppercase">
                 {portfolio.themeId || 'Editorial'}
               </span>
             </div>
@@ -400,28 +400,28 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
         {/* FULL PORTFOLIO DETAILS & BIO */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
-          <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] p-6 sm:p-10 space-y-6">
+          <div className="rounded-3xl bg-[#070D1E] border border-[#172554] p-6 sm:p-10 space-y-6">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#FED7B8] block mb-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8] block mb-2">
                 Portfolio Overview & Creative Brief
               </span>
-              <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED]">
+              <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC]">
                 {portfolio.title}
               </h2>
             </div>
 
             {portfolio.description && (
-              <p className="text-sm sm:text-base text-[#B89B8D] leading-relaxed max-w-4xl">
+              <p className="text-sm sm:text-base text-[#94A3B8] leading-relaxed max-w-4xl">
                 {portfolio.description}
               </p>
             )}
 
             {portfolio.personalInfo?.aboutMe && portfolio.personalInfo.aboutMe !== portfolio.description && (
-              <div className="p-5 rounded-2xl bg-[#150304] border border-[#3D0D13] space-y-2">
-                <span className="text-[11px] font-mono uppercase text-[#FED7B8] font-bold block">
+              <div className="p-5 rounded-2xl bg-[#030712] border border-[#172554] space-y-2">
+                <span className="text-[11px] font-mono uppercase text-[#38BDF8] font-bold block">
                   About {creatorName}:
                 </span>
-                <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
                   {portfolio.personalInfo.aboutMe}
                 </p>
               </div>
@@ -429,20 +429,20 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
             {/* Skills & Tooling */}
             {portfolio.skills && portfolio.skills.length > 0 && (
-              <div className="pt-4 border-t border-[#3D0D13]/60">
-                <span className="text-xs font-mono uppercase text-[#B89B8D] block mb-3">
+              <div className="pt-4 border-t border-[#172554]/60">
+                <span className="text-xs font-mono uppercase text-[#94A3B8] block mb-3">
                   Production Tooling & Mastered Software:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {portfolio.skills.map((skill) => (
                     <span
                       key={skill.id || skill.name}
-                      className="px-3 py-1.5 rounded-xl text-xs font-mono uppercase bg-[#150304] border border-[#52141A] text-[#FED7B8] flex items-center gap-2"
+                      className="px-3 py-1.5 rounded-xl text-xs font-mono uppercase bg-[#030712] border border-[#1E3A8A] text-[#38BDF8] flex items-center gap-2"
                     >
-                      <Sparkles className="w-3 h-3 text-[#FED7B8]" />
+                      <Sparkles className="w-3 h-3 text-[#38BDF8]" />
                       <span>{skill.name}</span>
                       {skill.proficiency && (
-                        <span className="text-[10px] text-[#B89B8D]">({skill.proficiency}%)</span>
+                        <span className="text-[10px] text-[#94A3B8]">({skill.proficiency}%)</span>
                       )}
                     </span>
                   ))}
@@ -455,12 +455,12 @@ export default function GlobalCreatorPortfolioDetailPage() {
         {/* VFX VIDEO SHOWCASE (IF VIDEO EXISTS) */}
         {(portfolio.category === 'VFX' || portfolio.mediaType === 'video' || portfolio.projects?.some((p) => p.videoUrl)) && (
           <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
-            <div className="rounded-3xl bg-[#1D0608] border border-purple-500/30 p-6 sm:p-10 space-y-4">
+            <div className="rounded-3xl bg-[#070D1E] border border-purple-500/30 p-6 sm:p-10 space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-purple-300">
                 <Film className="w-4 h-4 text-purple-400" />
                 <span>Motion VFX Showreel</span>
               </div>
-              <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+              <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#F8FAFC]">
                 Featured Video Reel & Motion Deliverables
               </h3>
               <div className="max-w-4xl mx-auto pt-2">
@@ -480,16 +480,16 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
         {/* ALL UPLOADED DELIVERABLES & HIGH-RES ARTWORK GALLERY */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 pb-4 border-b border-[#3D0D13]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 pb-4 border-b border-[#172554]">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#FED7B8] block mb-1">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8] block mb-1">
                 Visual Deliverables
               </span>
-              <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED]">
+              <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC]">
                 All Uploaded Deliverables & Images ({allUploadedImages.length})
               </h2>
             </div>
-            <span className="text-xs font-mono text-[#B89B8D]">
+            <span className="text-xs font-mono text-[#94A3B8]">
               Click any deliverable to zoom in high resolution
             </span>
           </div>
@@ -499,7 +499,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
               <div
                 key={idx}
                 onClick={() => setActiveLightboxImg(img)}
-                className="group relative aspect-video rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] cursor-pointer transition-all duration-300 hover:shadow-glow-burgundy"
+                className="group relative aspect-video rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-[#38BDF8] cursor-pointer transition-all duration-300 hover:shadow-glow-burgundy"
               >
                 <img
                   src={img.url}
@@ -507,12 +507,12 @@ export default function GlobalCreatorPortfolioDetailPage() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4">
-                  <div className="self-end px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-mono uppercase text-[#FED7B8] border border-white/20">
+                  <div className="self-end px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-mono uppercase text-[#38BDF8] border border-white/20">
                     Deliverable #{idx + 1}
                   </div>
                   <div>
                     <h4 className="font-syne font-bold text-sm text-white">{img.title}</h4>
-                    {img.caption && <p className="text-[11px] text-[#FED7B8]/80 line-clamp-1">{img.caption}</p>}
+                    {img.caption && <p className="text-[11px] text-[#38BDF8]/80 line-clamp-1">{img.caption}</p>}
                   </div>
                 </div>
               </div>
@@ -522,20 +522,20 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
         {/* ALL PAST WORK LISTED */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-16">
-          <div className="mb-6 pb-4 border-b border-[#3D0D13]">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#FED7B8] block mb-1">
+          <div className="mb-6 pb-4 border-b border-[#172554]">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8] block mb-1">
               Production History
             </span>
-            <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED]">
+            <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC]">
               All Past Work & Client Projects
             </h2>
-            <p className="text-xs text-[#B89B8D] mt-1">
+            <p className="text-xs text-[#94A3B8] mt-1">
               Complete catalog of tournament productions, client work, and community commissions executed by {creatorName}.
             </p>
           </div>
 
           {!portfolio.projects || portfolio.projects.length === 0 ? (
-            <div className="p-8 rounded-3xl bg-[#1D0608] border border-[#3D0D13] text-center text-xs font-mono text-[#B89B8D]">
+            <div className="p-8 rounded-3xl bg-[#070D1E] border border-[#172554] text-center text-xs font-mono text-[#94A3B8]">
               No past client projects explicitly cataloged yet.
             </div>
           ) : (
@@ -543,25 +543,25 @@ export default function GlobalCreatorPortfolioDetailPage() {
               {portfolio.projects.map((proj, pIdx) => (
                 <article
                   key={proj.id || pIdx}
-                  className="rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all p-6 sm:p-8 flex flex-col lg:flex-row gap-6 lg:items-center justify-between"
+                  className="rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-[#38BDF8] transition-all p-6 sm:p-8 flex flex-col lg:flex-row gap-6 lg:items-center justify-between"
                 >
                   <div className="flex-1 space-y-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#2A080C] text-[#FED7B8] border border-[#52141A]">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#0E1A33] text-[#38BDF8] border border-[#1E3A8A]">
                         {proj.workType || proj.category || 'GFX'}
                       </span>
                       {proj.client && (
-                        <span className="text-xs font-mono text-[#FED7B8] font-bold">
+                        <span className="text-xs font-mono text-[#38BDF8] font-bold">
                           Client: {proj.client}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+                    <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#F8FAFC]">
                       {proj.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed max-w-3xl">
+                    <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed max-w-3xl">
                       {proj.description}
                     </p>
 
@@ -569,19 +569,19 @@ export default function GlobalCreatorPortfolioDetailPage() {
                     {(proj.challenge || proj.solution) && (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
                         {proj.challenge && (
-                          <div className="p-3 rounded-xl bg-[#150304] border border-[#3D0D13]">
-                            <span className="font-mono text-[10px] uppercase text-[#FED7B8] block mb-1">
+                          <div className="p-3 rounded-xl bg-[#030712] border border-[#172554]">
+                            <span className="font-mono text-[10px] uppercase text-[#38BDF8] block mb-1">
                               Challenge:
                             </span>
-                            <span className="text-[#B89B8D]">{proj.challenge}</span>
+                            <span className="text-[#94A3B8]">{proj.challenge}</span>
                           </div>
                         )}
                         {proj.solution && (
-                          <div className="p-3 rounded-xl bg-[#150304] border border-[#3D0D13]">
+                          <div className="p-3 rounded-xl bg-[#030712] border border-[#172554]">
                             <span className="font-mono text-[10px] uppercase text-emerald-400 block mb-1">
                               Solution:
                             </span>
-                            <span className="text-[#B89B8D]">{proj.solution}</span>
+                            <span className="text-[#94A3B8]">{proj.solution}</span>
                           </div>
                         )}
                       </div>
@@ -593,7 +593,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                         {proj.tools.map((tool, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
+                            className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-[#030712] border border-[#172554] text-[#94A3B8]"
                           >
                             {tool}
                           </span>
@@ -612,7 +612,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                           caption: proj.client,
                         })
                       }
-                      className="w-full lg:w-72 aspect-video rounded-2xl overflow-hidden bg-[#150304] border border-[#3D0D13] shrink-0 cursor-pointer group/thumb relative"
+                      className="w-full lg:w-72 aspect-video rounded-2xl overflow-hidden bg-[#030712] border border-[#172554] shrink-0 cursor-pointer group/thumb relative"
                     >
                       <img
                         src={proj.thumbnail}
@@ -620,7 +620,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                         className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
-                        <span className="px-3 py-1 rounded-full bg-[#150304]/90 text-xs font-mono uppercase text-[#FED7B8] flex items-center gap-1">
+                        <span className="px-3 py-1 rounded-full bg-[#030712]/90 text-xs font-mono uppercase text-[#38BDF8] flex items-center gap-1">
                           <Maximize2 className="w-3 h-3" /> Zoom
                         </span>
                       </div>
@@ -634,18 +634,18 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
         {/* BOTTOM CALL TO ACTION: CONTACT CREATOR NOW */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-16">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#240709] via-[#1D0608] to-[#150304] border border-[#59171B] p-8 sm:p-12 text-center shadow-2xl">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#0B132B] via-[#070D1E] to-[#030712] border border-[#2563EB] p-8 sm:p-12 text-center shadow-2xl">
             <div className="max-w-2xl mx-auto space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#59171B]/50 border border-[#FED7B8]/20 text-xs font-mono uppercase text-[#FED7B8]">
-                <Send className="w-3.5 h-3.5 text-[#FED7B8]" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2563EB]/50 border border-[#38BDF8]/20 text-xs font-mono uppercase text-[#38BDF8]">
+                <Send className="w-3.5 h-3.5 text-[#38BDF8]" />
                 <span>Commission & Collaboration</span>
               </div>
 
-              <h2 className="font-syne text-3xl sm:text-4xl font-black uppercase text-[#FFF5ED]">
+              <h2 className="font-syne text-3xl sm:text-4xl font-black uppercase text-[#F8FAFC]">
                 Work Directly With {creatorName}
               </h2>
 
-              <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
                 Clicking Contact Now opens an official ticket inquiry routed directly to {creatorName}&apos;s dashboard.
                 NatureStudios oversees verified delivery and communications.
               </p>
@@ -656,7 +656,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                   onClick={() => setContactModalOpen(true)}
                   className="btn-primary text-xs py-3 px-8 shadow-glow-burgundy inline-flex items-center gap-2 cursor-pointer font-bold"
                 >
-                  <Send className="w-4 h-4 text-[#FED7B8]" />
+                  <Send className="w-4 h-4 text-[#38BDF8]" />
                   <span>Contact Now / Start Ticket</span>
                 </button>
 
@@ -666,7 +666,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                   rel="noreferrer"
                   className="btn-secondary text-xs py-3 px-6 inline-flex items-center gap-2"
                 >
-                  <ExternalLink className="w-4 h-4 text-[#FED7B8]" />
+                  <ExternalLink className="w-4 h-4 text-[#38BDF8]" />
                   <span>Visit Custom Subdomain</span>
                 </a>
               </div>
@@ -677,11 +677,11 @@ export default function GlobalCreatorPortfolioDetailPage() {
         {/* RELATED CREATORS IN THE SAME CATEGORY */}
         {relatedPortfolios.length > 0 && (
           <section className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="mb-6 pb-4 border-b border-[#3D0D13]">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#FED7B8] block mb-1">
+            <div className="mb-6 pb-4 border-b border-[#172554]">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8] block mb-1">
                 More Community Talent
               </span>
-              <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#FFF5ED]">
+              <h3 className="font-syne text-xl sm:text-2xl font-black uppercase text-[#F8FAFC]">
                 Related Creators in {categoryLabel}
               </h3>
             </div>
@@ -691,10 +691,10 @@ export default function GlobalCreatorPortfolioDetailPage() {
                 <Link
                   key={rel.slug}
                   href={`/global-portfolio/${rel.slug}`}
-                  className="group rounded-3xl overflow-hidden bg-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] transition-all p-5 flex flex-col justify-between"
+                  className="group rounded-3xl overflow-hidden bg-[#070D1E] border border-[#172554] hover:border-[#38BDF8] transition-all p-5 flex flex-col justify-between"
                 >
                   <div className="space-y-3">
-                    <div className="aspect-video w-full rounded-2xl overflow-hidden bg-[#150304]">
+                    <div className="aspect-video w-full rounded-2xl overflow-hidden bg-[#030712]">
                       <img
                         src={rel.mediaUrl}
                         alt={rel.title}
@@ -702,14 +702,14 @@ export default function GlobalCreatorPortfolioDetailPage() {
                       />
                     </div>
                     <div>
-                      <h4 className="font-syne font-bold text-base text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors">
+                      <h4 className="font-syne font-bold text-base text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors">
                         {rel.name}
                       </h4>
-                      <span className="text-xs font-mono text-[#B89B8D]">{rel.role}</span>
+                      <span className="text-xs font-mono text-[#94A3B8]">{rel.role}</span>
                     </div>
                   </div>
 
-                  <div className="pt-3 mt-3 border-t border-[#3D0D13]/60 flex items-center justify-between text-xs font-mono text-[#FED7B8]">
+                  <div className="pt-3 mt-3 border-t border-[#172554]/60 flex items-center justify-between text-xs font-mono text-[#38BDF8]">
                     <span>View Portfolio</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -723,27 +723,27 @@ export default function GlobalCreatorPortfolioDetailPage() {
       {/* FULL RESOLUTION IMAGE LIGHTBOX */}
       {activeLightboxImg && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl animate-in fade-in duration-200">
-          <div className="relative w-full max-w-5xl max-h-[95vh] flex flex-col rounded-3xl bg-[#1C0507] border border-[#59171B] overflow-hidden shadow-2xl">
+          <div className="relative w-full max-w-5xl max-h-[95vh] flex flex-col rounded-3xl bg-[#050B17] border border-[#2563EB] overflow-hidden shadow-2xl">
             {/* Modal Top Bar */}
-            <div className="p-4 sm:p-5 border-b border-[#3D0D13] flex items-center justify-between">
+            <div className="p-4 sm:p-5 border-b border-[#172554] flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase text-[#FED7B8] tracking-widest block">
+                <span className="text-[10px] font-mono uppercase text-[#38BDF8] tracking-widest block">
                   {creatorName} • Deliverable Zoom
                 </span>
-                <h4 className="font-syne text-lg font-bold text-[#FFF5ED]">
+                <h4 className="font-syne text-lg font-bold text-[#F8FAFC]">
                   {activeLightboxImg.title || 'High-Resolution Deliverable'}
                 </h4>
               </div>
               <button
                 onClick={() => setActiveLightboxImg(null)}
-                className="p-2 rounded-full bg-[#150304] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors cursor-pointer"
+                className="p-2 rounded-full bg-[#030712] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Image Preview Box */}
-            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-[#110203]">
+            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-[#030712]">
               <img
                 src={activeLightboxImg.url}
                 alt={activeLightboxImg.title || 'Artwork'}
@@ -753,7 +753,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
 
             {/* Modal Info Footer */}
             {activeLightboxImg.caption && (
-              <div className="p-4 sm:p-5 border-t border-[#3D0D13] text-xs text-[#B89B8D]">
+              <div className="p-4 sm:p-5 border-t border-[#172554] text-xs text-[#94A3B8]">
                 <span>{activeLightboxImg.caption}</span>
               </div>
             )}

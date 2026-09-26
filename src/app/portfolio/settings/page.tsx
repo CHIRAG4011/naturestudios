@@ -140,8 +140,8 @@ export default function PortfolioSettingsPage() {
 
   if (authLoading || loading || !portfolio) {
     return (
-      <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#FED7B8] animate-spin" />
+      <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#38BDF8] animate-spin" />
       </div>
     );
   }
@@ -150,24 +150,24 @@ export default function PortfolioSettingsPage() {
   const directUrl = `https://naturestudio.in/p/${portfolio.slug}`;
 
   return (
-    <div className="min-h-screen bg-[#150304] text-[#FFF5ED] font-sans selection:bg-[#59171B] selection:text-[#FED7B8]">
-      <header className="border-b border-[#3D0D13] bg-[#1C0507] px-6 lg:px-12 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-[#030712] text-[#F8FAFC] font-sans selection:bg-[#2563EB] selection:text-[#38BDF8]">
+      <header className="border-b border-[#172554] bg-[#050B17] px-6 lg:px-12 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/portfolio" className="text-xs font-mono uppercase text-[#FED7B8] hover:underline flex items-center gap-1.5">
+          <Link href="/portfolio" className="text-xs font-mono uppercase text-[#38BDF8] hover:underline flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Portfolio
           </Link>
-          <span className="text-[#52141A]">/</span>
-          <span className="text-xs font-mono uppercase text-[#B89B8D]">Subdomain & Security</span>
+          <span className="text-[#1E3A8A]">/</span>
+          <span className="text-xs font-mono uppercase text-[#94A3B8]">Subdomain & Security</span>
         </div>
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-12 space-y-8">
         <div>
-          <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+          <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
             Configuration
           </span>
-          <h1 className="text-3xl font-black uppercase text-[#FFF5ED]">Portfolio Settings</h1>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <h1 className="text-3xl font-black uppercase text-[#F8FAFC]">Portfolio Settings</h1>
+          <p className="text-xs text-[#94A3B8] mt-1">
             Manage your unique subdomain, publishing URLs, and security options.
           </p>
         </div>
@@ -176,8 +176,8 @@ export default function PortfolioSettingsPage() {
           <div
             className={`p-4 rounded-xl text-xs font-mono flex items-center gap-2 ${
               message.type === 'success'
-                ? 'bg-[#150304] border border-[#18A957] text-[#18A957]'
-                : 'bg-[#3A0E11] border border-[#E63946] text-[#E63946]'
+                ? 'bg-[#030712] border border-[#18A957] text-[#18A957]'
+                : 'bg-[#1E40AF] border border-[#E63946] text-[#E63946]'
             }`}
           >
             {message.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
@@ -186,14 +186,14 @@ export default function PortfolioSettingsPage() {
         )}
 
         {/* Subdomain Management Card */}
-        <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6">
+        <div className="p-8 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-6">
           <div className="flex items-center gap-3">
-            <Globe className="w-5 h-5 text-[#FED7B8]" />
-            <h3 className="text-lg font-bold uppercase text-[#FFF5ED]">Custom Subdomain Slug</h3>
+            <Globe className="w-5 h-5 text-[#38BDF8]" />
+            <h3 className="text-lg font-bold uppercase text-[#F8FAFC]">Custom Subdomain Slug</h3>
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">
+            <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">
               Creator Subdomain
             </label>
             <div className="flex items-center gap-3">
@@ -208,11 +208,11 @@ export default function PortfolioSettingsPage() {
                 className="field font-mono text-sm max-w-xs"
                 placeholder="creator"
               />
-              <span className="font-mono text-xs text-[#FED7B8]">.naturestudio.in</span>
+              <span className="font-mono text-xs text-[#38BDF8]">.naturestudio.in</span>
             </div>
 
             <div className="mt-2 text-xs font-mono">
-              {slugStatus === 'checking' && <span className="text-[#FED7B8]">Checking availability...</span>}
+              {slugStatus === 'checking' && <span className="text-[#38BDF8]">Checking availability...</span>}
               {slugStatus === 'available' && <span className="text-[#18A957]">✓ Subdomain available</span>}
               {slugStatus === 'taken' && <span className="text-[#E63946]">✗ Subdomain already taken or reserved</span>}
             </div>
@@ -228,22 +228,22 @@ export default function PortfolioSettingsPage() {
           </button>
 
           {/* Live Links Section */}
-          <div className="pt-6 border-t border-[#3D0D13] space-y-4">
-            <span className="text-xs font-mono uppercase text-[#FED7B8] font-bold block">
+          <div className="pt-6 border-t border-[#172554] space-y-4">
+            <span className="text-xs font-mono uppercase text-[#38BDF8] font-bold block">
               Active Portfolio Links
             </span>
 
             {/* Direct Instant URL (Guaranteed to work without wildcard DNS) */}
-            <div className="p-4 rounded-xl bg-[#1C0507] border border-[#52141A] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="p-4 rounded-xl bg-[#050B17] border border-[#1E3A8A] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#18A957]/20 border border-[#18A957]/40 text-[#18A957] font-bold">
                     RECOMMENDED / DIRECT
                   </span>
-                  <span className="text-xs font-bold text-[#FFF5ED]">Instant Direct Link</span>
+                  <span className="text-xs font-bold text-[#F8FAFC]">Instant Direct Link</span>
                 </div>
-                <p className="text-[11px] font-mono text-[#FED7B8] mt-1 break-all">{directUrl}</p>
-                <p className="text-[10px] text-[#B89B8D] mt-0.5">Works instantly anywhere without waiting for DNS propagation.</p>
+                <p className="text-[11px] font-mono text-[#38BDF8] mt-1 break-all">{directUrl}</p>
+                <p className="text-[10px] text-[#94A3B8] mt-0.5">Works instantly anywhere without waiting for DNS propagation.</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <button
@@ -266,15 +266,15 @@ export default function PortfolioSettingsPage() {
             </div>
 
             {/* Custom Subdomain URL */}
-            <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#52141A] text-[#FED7B8] font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1E3A8A] text-[#38BDF8] font-bold">
                     WILDCARD SUBDOMAIN
                   </span>
-                  <span className="text-xs font-bold text-[#FFF5ED]">Custom Subdomain</span>
+                  <span className="text-xs font-bold text-[#F8FAFC]">Custom Subdomain</span>
                 </div>
-                <p className="text-[11px] font-mono text-[#B89B8D] mt-1 break-all">{subdomainUrl}</p>
+                <p className="text-[11px] font-mono text-[#94A3B8] mt-1 break-all">{subdomainUrl}</p>
                 <p className="text-[10px] text-[#7D6B62] mt-0.5">Requires wildcard DNS (*.naturestudio.in) configured in your DNS provider.</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
@@ -301,7 +301,7 @@ export default function PortfolioSettingsPage() {
             <div className="pt-2">
               <button
                 onClick={() => setShowDnsHelp(!showDnsHelp)}
-                className="text-xs font-mono text-[#FED7B8] hover:underline flex items-center gap-1.5"
+                className="text-xs font-mono text-[#38BDF8] hover:underline flex items-center gap-1.5"
               >
                 <Info className="w-3.5 h-3.5" />
                 <span>How to enable custom subdomains on Cloudflare & Vercel</span>
@@ -309,15 +309,15 @@ export default function PortfolioSettingsPage() {
               </button>
 
               {showDnsHelp && (
-                <div className="mt-3 p-4 rounded-xl bg-[#150304] border border-[#52141A] text-xs space-y-3 text-[#B89B8D]">
-                  <p className="text-[#FFF5ED] font-bold">To make any subdomain (like {portfolio.slug}.naturestudio.in) open worldwide:</p>
+                <div className="mt-3 p-4 rounded-xl bg-[#030712] border border-[#1E3A8A] text-xs space-y-3 text-[#94A3B8]">
+                  <p className="text-[#F8FAFC] font-bold">To make any subdomain (like {portfolio.slug}.naturestudio.in) open worldwide:</p>
                   <ol className="list-decimal list-inside space-y-1.5 font-mono text-[11px]">
-                    <li>Open your Cloudflare Dashboard for <span className="text-[#FED7B8]">naturestudio.in</span>.</li>
-                    <li>Go to <span className="text-[#FED7B8]">DNS Records</span> &gt; Click <span className="text-[#FED7B8]">Add Record</span>.</li>
+                    <li>Open your Cloudflare Dashboard for <span className="text-[#38BDF8]">naturestudio.in</span>.</li>
+                    <li>Go to <span className="text-[#38BDF8]">DNS Records</span> &gt; Click <span className="text-[#38BDF8]">Add Record</span>.</li>
                     <li>Type: <span className="text-[#18A957]">CNAME</span>, Name: <span className="text-[#18A957]">*</span>, Target: <span className="text-[#18A957]">cname.vercel-dns.com</span> (or your Vercel domain alias).</li>
-                    <li>In your Vercel Dashboard &gt; Project Settings &gt; <span className="text-[#FED7B8]">Domains</span> &gt; Add <span className="text-[#18A957]">*.naturestudio.in</span>.</li>
+                    <li>In your Vercel Dashboard &gt; Project Settings &gt; <span className="text-[#38BDF8]">Domains</span> &gt; Add <span className="text-[#18A957]">*.naturestudio.in</span>.</li>
                   </ol>
-                  <p className="text-[11px] text-[#FED7B8]">
+                  <p className="text-[11px] text-[#38BDF8]">
                     In the meantime, the <span className="text-[#18A957]">Direct Link</span> ({directUrl}) works 100% reliably right now with no DNS configuration needed!
                   </p>
                 </div>
@@ -327,12 +327,12 @@ export default function PortfolioSettingsPage() {
         </div>
 
         {/* Security & Multi-Tenant Protection */}
-        <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+        <div className="p-8 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
           <div className="flex items-center gap-3">
             <Shield className="w-5 h-5 text-[#18A957]" />
-            <h3 className="text-lg font-bold uppercase text-[#FFF5ED]">Security & Ownership</h3>
+            <h3 className="text-lg font-bold uppercase text-[#F8FAFC]">Security & Ownership</h3>
           </div>
-          <p className="text-xs text-[#B89B8D] leading-relaxed">
+          <p className="text-xs text-[#94A3B8] leading-relaxed">
             Your portfolio is strictly protected by server-side session authorization. No other user can modify your projects, clone your configuration, or claim your published username slug.
           </p>
         </div>

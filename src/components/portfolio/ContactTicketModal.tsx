@@ -116,12 +116,12 @@ export function ContactTicketModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25 }}
-          className="relative w-full max-w-xl rounded-3xl bg-[#1C0507] border border-[#52141A] p-6 sm:p-8 shadow-2xl z-10 space-y-6"
+          className="relative w-full max-w-xl rounded-3xl bg-[#050B17] border border-[#1E3A8A] p-6 sm:p-8 shadow-2xl z-10 space-y-6"
         >
           {/* Close button */}
           <button
             onClick={handleResetAndClose}
-            className="absolute top-5 right-5 p-2 rounded-xl bg-[#2D0A0E] text-[#B89B8D] hover:text-[#FFF5ED] border border-[#52141A] transition-colors cursor-pointer"
+            className="absolute top-5 right-5 p-2 rounded-xl bg-[#0F1D38] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#1E3A8A] transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-4 h-4" />
@@ -133,14 +133,14 @@ export function ContactTicketModal({
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="text-2xl font-black uppercase text-[#FFF5ED]">
+                <h3 className="text-2xl font-black uppercase text-[#F8FAFC]">
                   Ticket Dispatched!
                 </h3>
-                <p className="text-xs font-mono text-[#FED7B8] mt-1">
+                <p className="text-xs font-mono text-[#38BDF8] mt-1">
                   Ticket Reference: <span className="font-bold underline">{ticketResult.ticketNumber}</span>
                 </p>
               </div>
-              <p className="text-xs text-[#B89B8D] max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-[#94A3B8] max-w-md mx-auto leading-relaxed">
                 {targetType === 'STUDIO'
                   ? 'Your inquiry has been directly logged into the Studio Production Ticket Queue. Our lead art directors will review your brief and reply promptly.'
                   : `Your inquiry has been sent directly to ${targetName}. They will receive your ticket in their Creator Dashboard and reply via email.`}
@@ -159,32 +159,32 @@ export function ContactTicketModal({
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20 uppercase tracking-widest font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20 uppercase tracking-widest font-bold">
                     {targetType === 'STUDIO' ? 'STUDIO DIRECT TICKET' : 'CREATOR DIRECT TICKET'}
                   </span>
                 </div>
-                <h3 className="text-2xl font-black uppercase text-[#FFF5ED] mt-2">
+                <h3 className="text-2xl font-black uppercase text-[#F8FAFC] mt-2">
                   Contact {targetName}
                 </h3>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <p className="text-xs text-[#94A3B8] mt-1">
                   {targetType === 'STUDIO'
                     ? 'Start a commission or inquiry with the NatureStudios core production team.'
                     : `Send a direct project inquiry or collaborate with verified creator ${targetName}.`}
                 </p>
 
                 {targetType === 'STUDIO' && (
-                  <div className="mt-3 p-3 rounded-2xl bg-[#240709] border border-[#52141A] flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono">
-                    <span className="text-[11px] text-[#B89B8D]">Direct Channels:</span>
+                  <div className="mt-3 p-3 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono">
+                    <span className="text-[11px] text-[#94A3B8]">Direct Channels:</span>
                     <div className="flex flex-wrap items-center gap-3">
                       <a
                         href="mailto:naturestudio05@gmail.com"
-                        className="text-[#FED7B8] hover:text-[#FFF5ED] flex items-center gap-1.5 transition-colors"
+                        className="text-[#38BDF8] hover:text-[#F8FAFC] flex items-center gap-1.5 transition-colors"
                         title="naturestudio05@gmail.com"
                       >
-                        <Mail className="w-3.5 h-3.5 text-[#FED7B8]" />
+                        <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
                         <span>Email</span>
                       </a>
-                      <span className="text-[#52141A]">•</span>
+                      <span className="text-[#1E3A8A]">•</span>
                       <a
                         href="https://wa.me/917480066539"
                         target="_blank"
@@ -195,7 +195,7 @@ export function ContactTicketModal({
                         <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-400" />
                         <span>WhatsApp</span>
                       </a>
-                      <span className="text-[#52141A]">•</span>
+                      <span className="text-[#1E3A8A]">•</span>
                       <a
                         href="https://discord.gg/PTVReHZp4n"
                         target="_blank"
@@ -206,7 +206,7 @@ export function ContactTicketModal({
                         <DiscordIcon className="w-3.5 h-3.5 text-indigo-400" />
                         <span>Discord</span>
                       </a>
-                      <span className="text-[#52141A]">•</span>
+                      <span className="text-[#1E3A8A]">•</span>
                       <a
                         href="https://www.instagram.com/naturestudio.in?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw=="
                         target="_blank"
@@ -230,9 +230,9 @@ export function ContactTicketModal({
 
               {/* Guest coordinates if not logged in */}
               {!user && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#240709] border border-[#3D0D13]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#0B132B] border border-[#172554]">
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-[#B89B8D] mb-1">
+                    <label className="block text-[11px] font-mono uppercase text-[#94A3B8] mb-1">
                       Your Name *
                     </label>
                     <input
@@ -245,7 +245,7 @@ export function ContactTicketModal({
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-[#B89B8D] mb-1">
+                    <label className="block text-[11px] font-mono uppercase text-[#94A3B8] mb-1">
                       Your Email *
                     </label>
                     <input
@@ -261,17 +261,17 @@ export function ContactTicketModal({
               )}
 
               {user && (
-                <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#240709] border border-[#3D0D13] text-xs text-[#B89B8D]">
+                <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#0B132B] border border-[#172554] text-xs text-[#94A3B8]">
                   <ShieldCheck className="w-4 h-4 text-[#18A957]" />
                   <span>
-                    Sending as <strong className="text-[#FFF5ED]">{user.name || user.email}</strong> ({user.email})
+                    Sending as <strong className="text-[#F8FAFC]">{user.name || user.email}</strong> ({user.email})
                   </span>
                 </div>
               )}
 
               {/* Subject */}
               <div>
-                <label className="block text-[11px] font-mono uppercase text-[#FED7B8] mb-1">
+                <label className="block text-[11px] font-mono uppercase text-[#38BDF8] mb-1">
                   Subject *
                 </label>
                 <input
@@ -285,7 +285,7 @@ export function ContactTicketModal({
 
               {/* Message */}
               <div>
-                <label className="block text-[11px] font-mono uppercase text-[#FED7B8] mb-1">
+                <label className="block text-[11px] font-mono uppercase text-[#38BDF8] mb-1">
                   Detailed Message / Project Brief *
                 </label>
                 <textarea
@@ -299,7 +299,7 @@ export function ContactTicketModal({
               </div>
 
               <div className="pt-2 flex items-center justify-between gap-3">
-                <span className="text-[10px] font-mono text-[#B89B8D]">
+                <span className="text-[10px] font-mono text-[#94A3B8]">
                   Tickets are protected & tracked in dashboard
                 </span>
                 <button

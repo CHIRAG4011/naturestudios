@@ -8,60 +8,60 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // ─── NATURESTUDIOS BURGUNDY + WARM BEIGE VISUAL IDENTITY ────────────────
+      // ─── NATURESTUDIOS CYBER ONYX + ELECTRIC BLUE VISUAL IDENTITY ───────────
       colors: {
-        // Primary Identity: Deep Burgundy, Wine & Maroon
+        // Primary Identity: Electric Blue, Royal Blue & Deep Navy
         burgundy: {
-          DEFAULT: '#59171B',
-          deep:    '#3A0E11',
-          dark:    '#220608',
-          darker:  '#150304',
-          light:   '#7A2228',
-          bright:  '#9B2831',
-          glow:    'rgba(89, 23, 27, 0.45)',
+          DEFAULT: '#2563EB',
+          deep:    '#1D4ED8',
+          dark:    '#1E3A8A',
+          darker:  '#0B132B',
+          light:   '#3B82F6',
+          bright:  '#60A5FA',
+          glow:    'rgba(37, 99, 235, 0.45)',
         },
         wine: {
-          DEFAULT: '#3A0E11',
-          deep:    '#240709',
-          dark:    '#1A0507',
-          light:   '#4D1418',
-          glow:    'rgba(58, 14, 17, 0.50)',
+          DEFAULT: '#1D4ED8',
+          deep:    '#0B132B',
+          dark:    '#070D1E',
+          light:   '#2563EB',
+          glow:    'rgba(29, 78, 216, 0.50)',
         },
         maroon: {
-          DEFAULT: '#450E13',
-          dark:    '#2C080B',
-          light:   '#5C141B',
+          DEFAULT: '#1E40AF',
+          dark:    '#0B132B',
+          light:   '#3B82F6',
         },
 
-        // Primary Accent / Highlights: Warm Beige & Cream
+        // Primary Accent / Highlights: Cyber Cyan & Ice White
         beige: {
-          DEFAULT: '#FED7B8',
-          light:   '#FFF0E3',
-          warm:    '#F7C49E',
-          dark:    '#E6AD84',
-          muted:   '#C89E7E',
-          glow:    'rgba(254, 215, 184, 0.25)',
+          DEFAULT: '#38BDF8',
+          light:   '#E0F2FE',
+          warm:    '#7DD3FC',
+          dark:    '#0284C7',
+          muted:   '#0284C7',
+          glow:    'rgba(56, 189, 248, 0.35)',
         },
         cream: {
-          DEFAULT: '#FFF5ED',
-          soft:    '#F5E8DC',
-          dim:     '#E8D5C4',
-          muted:   '#A88874',
+          DEFAULT: '#F8FAFC',
+          soft:    '#F1F5F9',
+          dim:     '#CBD5E1',
+          muted:   '#94A3B8',
         },
         peach: {
-          DEFAULT: '#F7C49E',
-          soft:    '#FADEC9',
-          deep:    '#E59E6B',
+          DEFAULT: '#60A5FA',
+          soft:    '#93C5FD',
+          deep:    '#3B82F6',
         },
         'dusty-rose': {
-          DEFAULT: '#B86B77',
-          light:   '#D48B96',
-          dark:    '#8E4C56',
+          DEFAULT: '#3B82F6',
+          light:   '#60A5FA',
+          dark:    '#1D4ED8',
         },
         brown: {
-          DEFAULT: '#4A2518',
-          deep:    '#31170E',
-          light:   '#633321',
+          DEFAULT: '#0F1D38',
+          deep:    '#0B132B',
+          light:   '#1E3A8A',
         },
 
         // Secondary DNA: Subtle Green & Orange (Nature & Creative Energy)
@@ -107,51 +107,51 @@ const config: Config = {
           glow:    'rgba(230, 57, 70, 0.35)',
         },
 
-        // Backgrounds: Deep Burgundy Void to Wine Surfaces
-        void:     '#150304',
-        midnight: '#1C0507',
-        deep:     '#240709',
-        navy:     '#2D0A0E',
-        indigo:   { DEFAULT: '#3A0E11', deep: '#240709', soft: '#4A1216', glow: 'rgba(89, 23, 27, 0.20)' },
+        // Backgrounds: Pitch Black Void to Obsidian Blue Surfaces
+        void:     '#030712',
+        midnight: '#050B17',
+        deep:     '#0B132B',
+        navy:     '#0F1D38',
+        indigo:   { DEFAULT: '#2563EB', deep: '#0B132B', soft: '#1E3A8A', glow: 'rgba(37, 99, 235, 0.20)' },
         surface: {
-          DEFAULT:   '#2D0A0E',
-          raised:    '#3A0E11',
-          secondary: '#350B10',
-          elevated:  '#4A1216',
-          hover:     '#5A161D',
-          card:      '#240709',
+          DEFAULT:   '#0B132B',
+          raised:    '#111C35',
+          secondary: '#0D182E',
+          elevated:  '#16274B',
+          hover:     '#1E3A6C',
+          card:      '#070D1E',
         },
 
         // Status
         success: '#18A957',
         warning: '#D9540C',
         error:   '#E63946',
-        info:    '#8A2E3B',
+        info:    '#2563EB',
 
         // Typography / Content
-        smoke: '#543D36',
-        fog:   '#B89B8D',
-        sand:  '#FED7B8',
-        ash:   '#7A6158',
+        smoke: '#334155',
+        fog:   '#94A3B8',
+        sand:  '#38BDF8',
+        ash:   '#64748B',
 
         // Borders
-        rim:   '#3D0D13',
-        edge:  '#52141A',
-        frame: '#6E1D24',
+        rim:   '#172554',
+        edge:  '#1E3A8A',
+        frame: '#2563EB',
 
         // Legacy aliases
         teal: {
-          DEFAULT: '#2D0A0E',
-          deep:    '#240709',
-          shadow:  '#1C0507',
-          card:    '#240709',
-          border:  '#52141A',
-          light:   '#3A0E11',
+          DEFAULT: '#0F1D38',
+          deep:    '#0B132B',
+          shadow:  '#050B17',
+          card:    '#070D1E',
+          border:  '#1E3A8A',
+          light:   '#1E40AF',
         },
         paper: {
-          DEFAULT: '#FFF5ED',
-          dim:     '#FED7B8',
-          muted:   '#B89B8D',
+          DEFAULT: '#F8FAFC',
+          dim:     '#38BDF8',
+          muted:   '#94A3B8',
         },
       },
 
@@ -174,29 +174,29 @@ const config: Config = {
 
       // ─── SHADOWS / GLOWS ────────────────────────────────────────────────────
       boxShadow: {
-        'glow-burgundy': '0 0 40px -5px rgba(89, 23, 27, 0.65)',
-        'glow-beige':    '0 0 35px -5px rgba(254, 215, 184, 0.35)',
-        'glow-wine':     '0 0 50px 0px rgba(58, 14, 17, 0.80)',
+        'glow-burgundy': '0 0 40px -5px rgba(37, 99, 235, 0.65)',
+        'glow-beige':    '0 0 35px -5px rgba(56, 189, 248, 0.45)',
+        'glow-wine':     '0 0 50px 0px rgba(29, 78, 216, 0.80)',
         'glow-forest':   '0 0 35px -5px rgba(24, 169, 87, 0.40)',
         'glow-ember':    '0 0 35px -5px rgba(255, 107, 26, 0.40)',
         'glow-red':      '0 0 35px -5px rgba(230, 57, 70, 0.50)',
-        'card':          '0 20px 40px -15px rgba(21, 3, 4, 0.90)',
-        'card-lg':       '0 30px 60px -20px rgba(21, 3, 4, 0.95)',
-        'float':         '0 8px 32px -8px rgba(21, 3, 4, 0.80)',
+        'card':          '0 20px 40px -15px rgba(3, 7, 18, 0.95)',
+        'card-lg':       '0 30px 60px -20px rgba(2, 6, 23, 0.98)',
+        'float':         '0 8px 32px -8px rgba(3, 7, 18, 0.85)',
         // Legacy
         'glow-green':    '0 0 35px -5px rgba(24, 169, 87, 0.40)',
         'glow-orange':   '0 0 35px -5px rgba(255, 107, 26, 0.40)',
-        'card-elevated': '0 20px 40px -15px rgba(21, 3, 4, 0.90)',
+        'card-elevated': '0 20px 40px -15px rgba(3, 7, 18, 0.95)',
       },
 
       // ─── BACKGROUNDS ────────────────────────────────────────────────────────
       backgroundImage: {
         'gradient-radial':    'radial-gradient(var(--tw-gradient-stops))',
         'noise-grain':        "url('/media/grain.png')",
-        'gradient-void':      'linear-gradient(180deg, #150304 0%, #220608 100%)',
-        'gradient-cinematic': 'linear-gradient(135deg, #1A0507 0%, #3A0E11 50%, #240709 100%)',
-        'gradient-burgundy':  'linear-gradient(180deg, #240709 0%, #3A0E11 50%, #59171B 100%)',
-        'gradient-warm':      'linear-gradient(135deg, #59171B 0%, #8E2B33 50%, #FED7B8 100%)',
+        'gradient-void':      'linear-gradient(180deg, #030712 0%, #070D1E 100%)',
+        'gradient-cinematic': 'linear-gradient(135deg, #050B17 0%, #0F224A 50%, #070D1E 100%)',
+        'gradient-burgundy':  'linear-gradient(180deg, #070D1E 0%, #172554 50%, #2563EB 100%)',
+        'gradient-warm':      'linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #38BDF8 100%)',
       },
 
       // ─── ANIMATION ──────────────────────────────────────────────────────────

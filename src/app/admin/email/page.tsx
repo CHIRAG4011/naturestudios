@@ -89,7 +89,7 @@ export default function AdminEmailPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -98,17 +98,17 @@ export default function AdminEmailPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Resend Email Infrastructure
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               naturestudio.in Verified
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             DKIM/SPF authenticated mailboxes, transactional templates, and real delivery audit logs.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function AdminEmailPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={fetchEmailData}
-            className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+            className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -124,13 +124,13 @@ export default function AdminEmailPage() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex border-b border-[#3D0D13] text-xs">
+      <div className="flex border-b border-[#172554] text-xs">
         <button
           onClick={() => setActiveTab('overview')}
           className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
             activeTab === 'overview'
-              ? 'border-[#FED7B8] text-[#FED7B8]'
-              : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+              ? 'border-[#38BDF8] text-[#38BDF8]'
+              : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
           }`}
         >
           <Mail className="w-3.5 h-3.5" />
@@ -140,8 +140,8 @@ export default function AdminEmailPage() {
           onClick={() => setActiveTab('templates')}
           className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
             activeTab === 'templates'
-              ? 'border-[#FED7B8] text-[#FED7B8]'
-              : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+              ? 'border-[#38BDF8] text-[#38BDF8]'
+              : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
           }`}
         >
           <FileText className="w-3.5 h-3.5" />
@@ -151,8 +151,8 @@ export default function AdminEmailPage() {
           onClick={() => setActiveTab('logs')}
           className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
             activeTab === 'logs'
-              ? 'border-[#FED7B8] text-[#FED7B8]'
-              : 'border-transparent text-[#B89B8D] hover:text-[#FFF5ED]'
+              ? 'border-[#38BDF8] text-[#38BDF8]'
+              : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -167,14 +167,14 @@ export default function AdminEmailPage() {
             {mailboxes.map((box) => (
               <div
                 key={box.email}
-                className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] transition-all space-y-2"
+                className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] hover:border-[#2563EB] transition-all space-y-2"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-xs text-[#FFF5ED]">{box.label}</span>
+                  <span className="font-semibold text-xs text-[#F8FAFC]">{box.label}</span>
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 </div>
-                <div className="font-mono text-xs text-[#FED7B8] font-semibold">{box.email}</div>
-                <p className="text-[11px] text-[#B89B8D]">{box.purpose}</p>
+                <div className="font-mono text-xs text-[#38BDF8] font-semibold">{box.email}</div>
+                <p className="text-[11px] text-[#94A3B8]">{box.purpose}</p>
               </div>
             ))}
           </div>
@@ -188,17 +188,17 @@ export default function AdminEmailPage() {
             {templates.map((tpl) => (
               <div
                 key={tpl.slug}
-                className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] space-y-3"
+                className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] space-y-3"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-semibold text-xs text-[#FFF5ED]">{tpl.name}</div>
-                    <div className="font-mono text-[10px] text-[#FED7B8]">{tpl.slug}</div>
+                    <div className="font-semibold text-xs text-[#F8FAFC]">{tpl.name}</div>
+                    <div className="font-mono text-[10px] text-[#38BDF8]">{tpl.slug}</div>
                   </div>
                   {(isSuperAdmin || hasPermission('email.templates.edit')) && (
                     <button
                       onClick={() => setEditingTemplate({ ...tpl })}
-                      className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] text-[#FED7B8] transition-colors"
+                      className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] text-[#38BDF8] transition-colors"
                       title="Edit Template"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
@@ -206,15 +206,15 @@ export default function AdminEmailPage() {
                   )}
                 </div>
 
-                <div className="text-xs text-[#B89B8D]">
-                  Subject: <span className="text-[#FFF5ED]">{tpl.subject}</span>
+                <div className="text-xs text-[#94A3B8]">
+                  Subject: <span className="text-[#F8FAFC]">{tpl.subject}</span>
                 </div>
 
                 <div className="flex flex-wrap gap-1 pt-1">
                   {(tpl.variables || []).map((v: string) => (
                     <span
                       key={v}
-                      className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-[#150304] text-[#FED7B8] border border-[#3D0D13]"
+                      className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-[#030712] text-[#38BDF8] border border-[#172554]"
                     >
                       {v}
                     </span>
@@ -227,53 +227,53 @@ export default function AdminEmailPage() {
           {/* Template Edit Modal */}
           {editingTemplate && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-              <div className="w-full max-w-lg bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 shadow-2xl space-y-4 text-xs">
-                <div className="flex items-center justify-between pb-2 border-b border-[#3D0D13]">
-                  <h3 className="font-syne text-base font-bold text-[#FFF5ED]">
+              <div className="w-full max-w-lg bg-[#070D1E] border border-[#2563EB] rounded-3xl p-6 shadow-2xl space-y-4 text-xs">
+                <div className="flex items-center justify-between pb-2 border-b border-[#172554]">
+                  <h3 className="font-syne text-base font-bold text-[#F8FAFC]">
                     Edit Template: {editingTemplate.name}
                   </h3>
                   <button
                     onClick={() => setEditingTemplate(null)}
-                    className="text-[#B89B8D] hover:text-[#FFF5ED]"
+                    className="text-[#94A3B8] hover:text-[#F8FAFC]"
                   >
                     ✕
                   </button>
                 </div>
 
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">Subject Line</label>
+                  <label className="text-[#94A3B8] block mb-1">Subject Line</label>
                   <input
                     type="text"
                     value={editingTemplate.subject}
                     onChange={(e) =>
                       setEditingTemplate((prev: any) => ({ ...prev, subject: e.target.value }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[#B89B8D] block mb-1">HTML Body</label>
+                  <label className="text-[#94A3B8] block mb-1">HTML Body</label>
                   <textarea
                     rows={6}
                     value={editingTemplate.bodyHtml}
                     onChange={(e) =>
                       setEditingTemplate((prev: any) => ({ ...prev, bodyHtml: e.target.value }))
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] font-mono text-[11px]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] font-mono text-[11px]"
                   />
                 </div>
 
                 <div className="flex items-center justify-end gap-3 pt-2">
                   <button
                     onClick={() => setEditingTemplate(null)}
-                    className="px-4 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] text-[#FFF5ED]"
+                    className="px-4 py-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] text-[#F8FAFC]"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSaveTemplate}
-                    className="px-4 py-2 rounded-xl bg-[#59171B] hover:bg-[#6E1C23] font-semibold text-[#FFF5ED]"
+                    className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#2563EB] font-semibold text-[#F8FAFC]"
                   >
                     Save Changes
                   </button>
@@ -286,10 +286,10 @@ export default function AdminEmailPage() {
 
       {/* Tab 3: Logs */}
       {activeTab === 'logs' && (
-        <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] overflow-hidden shadow-xl">
+        <div className="rounded-3xl bg-[#070D1E] border border-[#172554] overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#150304] border-b border-[#3D0D13] text-[#FED7B8]/70 uppercase font-mono tracking-wider text-[10px]">
+              <thead className="bg-[#030712] border-b border-[#172554] text-[#38BDF8]/70 uppercase font-mono tracking-wider text-[10px]">
                 <tr>
                   <th className="px-5 py-3.5">Recipient</th>
                   <th className="px-4 py-3.5">Template</th>
@@ -298,23 +298,23 @@ export default function AdminEmailPage() {
                   <th className="px-5 py-3.5 text-right">Timestamp</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#3D0D13]/60 text-[#FFF5ED]">
+              <tbody className="divide-y divide-[#172554]/60 text-[#F8FAFC]">
                 {logs.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                    <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                       No transactional emails dispatched yet.
                     </td>
                   </tr>
                 ) : (
                   logs.map((log: any, i: number) => (
-                    <tr key={i} className="hover:bg-[#240709]/50 transition-colors">
-                      <td className="px-5 py-3.5 font-mono text-[11px] text-[#FED7B8]">
+                    <tr key={i} className="hover:bg-[#0B132B]/50 transition-colors">
+                      <td className="px-5 py-3.5 font-mono text-[11px] text-[#38BDF8]">
                         {log.recipient}
                       </td>
-                      <td className="px-4 py-3.5 font-mono text-[10px] text-[#B89B8D]">
+                      <td className="px-4 py-3.5 font-mono text-[10px] text-[#94A3B8]">
                         {log.templateSlug}
                       </td>
-                      <td className="px-4 py-3.5 text-[#FFF5ED] max-w-xs truncate">{log.subject}</td>
+                      <td className="px-4 py-3.5 text-[#F8FAFC] max-w-xs truncate">{log.subject}</td>
                       <td className="px-4 py-3.5">
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded text-[9px] font-mono uppercase font-semibold ${
@@ -326,7 +326,7 @@ export default function AdminEmailPage() {
                           {log.status}
                         </span>
                       </td>
-                      <td className="px-5 py-3.5 text-right text-[11px] text-[#B89B8D] font-mono whitespace-nowrap">
+                      <td className="px-5 py-3.5 text-right text-[11px] text-[#94A3B8] font-mono whitespace-nowrap">
                         {new Date(log.createdAt).toLocaleString()}
                       </td>
                     </tr>

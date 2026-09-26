@@ -91,7 +91,7 @@ export default function AdminPortfoliosPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -100,17 +100,17 @@ export default function AdminPortfoliosPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Global User Portfolios Moderation
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               COMMUNITY
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Moderate community creator portfolios, tenant isolation, subdomain allocations, and GFX/VFX classification.
           </p>
         </div>
@@ -118,13 +118,13 @@ export default function AdminPortfoliosPage() {
         {/* Search & Filters */}
         <form onSubmit={handleSearchSubmit} className="flex flex-wrap items-center gap-2">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#B89B8D]" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search creator or slug..."
-              className="pl-8 pr-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] placeholder-[#B89B8D]/50 focus:outline-none focus:border-[#59171B] w-44 sm:w-52"
+              className="pl-8 pr-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:outline-none focus:border-[#2563EB] w-44 sm:w-52"
             />
           </div>
 
@@ -134,7 +134,7 @@ export default function AdminPortfoliosPage() {
               setCategoryFilter(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
           >
             <option value="">All Tracks</option>
             <option value="GFX">GFX</option>
@@ -149,7 +149,7 @@ export default function AdminPortfoliosPage() {
                 setSubcategoryFilter(e.target.value);
                 setPage(1);
               }}
-              className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+              className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
             >
               <option value="">All GFX Subcategories</option>
               <option value="Tournament">Tournament</option>
@@ -165,7 +165,7 @@ export default function AdminPortfoliosPage() {
               setStatusFilter(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
           >
             <option value="">All Statuses</option>
             <option value="PUBLISHED">Published</option>
@@ -174,7 +174,7 @@ export default function AdminPortfoliosPage() {
 
           <button
             type="submit"
-            className="px-3 py-1.5 rounded-xl bg-[#59171B] hover:bg-[#6D1C22] text-xs font-semibold text-[#FFF5ED] cursor-pointer"
+            className="px-3 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#6D1C22] text-xs font-semibold text-[#F8FAFC] cursor-pointer"
           >
             Filter
           </button>
@@ -182,10 +182,10 @@ export default function AdminPortfoliosPage() {
       </div>
 
       {/* Portfolios Table */}
-      <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-[#070D1E] border border-[#172554] overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#150304] border-b border-[#3D0D13] text-[#FED7B8]/70 uppercase font-mono tracking-wider text-[10px]">
+            <thead className="bg-[#030712] border-b border-[#172554] text-[#38BDF8]/70 uppercase font-mono tracking-wider text-[10px]">
               <tr>
                 <th className="px-5 py-3.5">Portfolio / Creator</th>
                 <th className="px-4 py-3.5">Subdomain</th>
@@ -197,16 +197,16 @@ export default function AdminPortfoliosPage() {
                 <th className="px-5 py-3.5 text-right">Moderation</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#3D0D13]/60 text-[#FFF5ED]">
+            <tbody className="divide-y divide-[#172554]/60 text-[#F8FAFC]">
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={8} className="px-5 py-12 text-center text-[#94A3B8]">
                     Loading portfolio records...
                   </td>
                 </tr>
               ) : portfolios.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={8} className="px-5 py-12 text-center text-[#94A3B8]">
                     No portfolios found matching filters.
                   </td>
                 </tr>
@@ -216,17 +216,17 @@ export default function AdminPortfoliosPage() {
                   const title = p.personalInfo?.fullName || p.personalInfo?.professionalName || p.title || `@${identifier}`;
                   const isPublished = p.published || p.status === 'PUBLISHED';
                   return (
-                    <tr key={p.id} className="hover:bg-[#240709]/50 transition-colors">
+                    <tr key={p.id} className="hover:bg-[#0B132B]/50 transition-colors">
                       <td className="px-5 py-3.5">
-                        <div className="font-semibold text-[#FFF5ED]">{title}</div>
-                        <div className="text-[11px] text-[#B89B8D] font-mono">{p.ownerEmail || p.personalInfo?.publicEmail || '—'}</div>
+                        <div className="font-semibold text-[#F8FAFC]">{title}</div>
+                        <div className="text-[11px] text-[#94A3B8] font-mono">{p.ownerEmail || p.personalInfo?.publicEmail || '—'}</div>
                       </td>
-                      <td className="px-4 py-3.5 font-mono text-[11px] text-[#FED7B8]">
+                      <td className="px-4 py-3.5 font-mono text-[11px] text-[#38BDF8]">
                         {identifier}.naturestudio.in
                       </td>
                       <td className="px-4 py-3.5">
                         {p.category === 'GFX' ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#59171B]/50 border border-[#FED7B8]/20 text-[#FED7B8] font-mono text-[10px] uppercase font-bold">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#2563EB]/50 border border-[#38BDF8]/20 text-[#38BDF8] font-mono text-[10px] uppercase font-bold">
                             GFX • {p.gfxSubcategory || 'Tournament'}
                           </span>
                         ) : p.category === 'VFX' ? (
@@ -234,12 +234,12 @@ export default function AdminPortfoliosPage() {
                             VFX Reel
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#240709] border border-[#3D0D13] text-[#B89B8D] font-mono text-[10px] uppercase">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#0B132B] border border-[#172554] text-[#94A3B8] font-mono text-[10px] uppercase">
                             {p.category || 'Creator'}
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3.5 text-[#B89B8D] capitalize">{p.themeId || p.theme || 'Editorial'}</td>
+                      <td className="px-4 py-3.5 text-[#94A3B8] capitalize">{p.themeId || p.theme || 'Editorial'}</td>
                       <td className="px-4 py-3.5">
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono uppercase font-semibold ${
@@ -251,8 +251,8 @@ export default function AdminPortfoliosPage() {
                           {isPublished ? 'PUBLISHED' : 'DRAFT'}
                         </span>
                       </td>
-                      <td className="px-4 py-3.5 font-mono text-[#B89B8D]">{p.views || 0}</td>
-                      <td className="px-4 py-3.5 text-[#B89B8D] text-[11px]">
+                      <td className="px-4 py-3.5 font-mono text-[#94A3B8]">{p.views || 0}</td>
+                      <td className="px-4 py-3.5 text-[#94A3B8] text-[11px]">
                         {new Date(p.updatedAt || p.createdAt || Date.now()).toLocaleDateString()}
                       </td>
                       <td className="px-5 py-3.5 text-right">
@@ -260,7 +260,7 @@ export default function AdminPortfoliosPage() {
                           <Link
                             href={`/portfolio/preview?slug=${identifier}`}
                             target="_blank"
-                            className="p-1.5 rounded-lg bg-[#240709] hover:bg-[#320B0F] text-[#FED7B8] transition-colors"
+                            className="p-1.5 rounded-lg bg-[#0B132B] hover:bg-[#111C35] text-[#38BDF8] transition-colors"
                             title="Preview Public Portfolio"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />

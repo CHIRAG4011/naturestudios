@@ -45,7 +45,7 @@ export default function StudioPage() {
   const { openSqueeze } = useAuth();
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main id="main" className="flex-1 pt-32 pb-24">
@@ -57,24 +57,24 @@ export default function StudioPage() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6 max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2D0A0E] border border-[#52141A] text-xs font-mono uppercase tracking-widest text-[#FED7B8]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
               <Sparkles className="w-3.5 h-3.5" /> Inside The Workshop
             </div>
             <h1 className="text-4xl sm:text-7xl font-black uppercase tracking-tight text-gradient-warm leading-[0.9]">
               THE CREATIVE STUDIO
             </h1>
-            <p className="text-base sm:text-lg text-[#E8C5A5] leading-relaxed max-w-2xl font-light">
+            <p className="text-base sm:text-lg text-[#7DD3FC] leading-relaxed max-w-2xl font-light">
               Enter the world of NatureStudios. We are an interdisciplinary laboratory uniting stage architects, broadcast directors, realtime 3D engineers, and brand strategists.
             </p>
           </motion.div>
 
           {/* Sequence: IDEA -> DESIGN -> MOTION -> PRODUCTION -> EXPERIENCE */}
           <div className="space-y-8">
-            <div className="flex items-center justify-between border-b border-[#3D0D13] pb-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#FED7B8]">
+            <div className="flex items-center justify-between border-b border-[#172554] pb-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
                 PRODUCTION SEQUENCE PIPELINE
               </span>
-              <span className="text-xs font-mono text-[#B89B8D]">STAGES 01 — 05</span>
+              <span className="text-xs font-mono text-[#94A3B8]">STAGES 01 — 05</span>
             </div>
 
             <div className="space-y-6">
@@ -87,23 +87,23 @@ export default function StudioPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.08 }}
-                    className="p-8 sm:p-10 rounded-2xl bg-[#1C0507] border border-[#52141A] hover:border-[#FED7B8] transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6"
+                    className="p-8 sm:p-10 rounded-2xl bg-[#050B17] border border-[#1E3A8A] hover:border-[#38BDF8] transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6"
                   >
                     <div className="flex items-start gap-6">
-                      <span className="text-2xl sm:text-4xl font-black font-mono text-[#FED7B8] shrink-0">
+                      <span className="text-2xl sm:text-4xl font-black font-mono text-[#38BDF8] shrink-0">
                         {item.step}
                       </span>
                       <div className="space-y-2">
-                        <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED] flex items-center gap-3">
+                        <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC] flex items-center gap-3">
                           {item.title}
                         </h2>
-                        <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed max-w-2xl">
+                        <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed max-w-2xl">
                           {item.desc}
                         </p>
                       </div>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#2D0A0E] border border-[#52141A] text-[#FED7B8] shrink-0">
+                    <div className="p-3.5 rounded-xl bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8] shrink-0">
                       <Icon className="w-6 h-6" />
                     </div>
                   </motion.div>
@@ -113,26 +113,26 @@ export default function StudioPage() {
           </div>
 
           {/* Studio Culture & Capabilities */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-10 rounded-3xl bg-[#240709] border border-[#52141A]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-10 rounded-3xl bg-[#0B132B] border border-[#1E3A8A]">
             <div className="space-y-4">
-              <span className="text-xs font-mono uppercase text-[#FED7B8] tracking-widest block">
+              <span className="text-xs font-mono uppercase text-[#38BDF8] tracking-widest block">
                 CULTURE
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED]">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC]">
                 Live-First Engineering
               </h3>
-              <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed font-light">
+              <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed font-light">
                 Our studio culture rejects complacency. Because our productions run in front of packed stadiums and millions of live streams, every team member shares an obsession with zero-latency execution, visual elegance, and uncompromising narrative clarity.
               </p>
             </div>
             <div className="space-y-4">
-              <span className="text-xs font-mono uppercase text-[#FED7B8] tracking-widest block">
+              <span className="text-xs font-mono uppercase text-[#38BDF8] tracking-widest block">
                 CAPABILITIES
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED]">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC]">
                 Global Deployment
               </h3>
-              <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed font-light">
+              <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed font-light">
                 Whether deploying Unreal Engine virtual stages in Tokyo, coordinating broadcast trucks in London, or designing digital tournament platforms in North America, NatureStudios provides end-to-end creative command.
               </p>
             </div>

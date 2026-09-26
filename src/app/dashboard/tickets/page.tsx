@@ -439,14 +439,14 @@ export default function DashboardTicketsPage() {
                       key={r.id}
                       className={`p-4 rounded-2xl border leading-relaxed space-y-1.5 ${
                         r.sender === 'ADMIN'
-                          ? 'bg-[#3D0D13]/40 border-[#59171B] text-[#FFF5ED]'
+                          ? 'bg-[#172554]/40 border-[#2563EB] text-[#F8FAFC]'
                           : 'bg-deep border-rim text-cream'
                       }`}
                     >
                       <div className="flex items-center justify-between text-[11px]">
                         <span
                           className={`font-mono font-bold ${
-                            r.sender === 'ADMIN' ? 'text-[#FED7B8]' : 'text-forest-light'
+                            r.sender === 'ADMIN' ? 'text-[#38BDF8]' : 'text-forest-light'
                           }`}
                         >
                           {r.sender === 'ADMIN' ? `Staff (${r.senderName})` : r.senderName}

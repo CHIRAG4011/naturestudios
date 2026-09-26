@@ -19,42 +19,42 @@ export function ExperimentalTheme({ portfolio }: ThemeProps) {
   const { personalInfo, professionalIdentity, skills, projects, experience } = portfolio;
 
   return (
-    <div className="min-h-screen bg-[#0D0102] text-[#FFF5ED] font-mono selection:bg-[#E63946] selection:text-white">
+    <div className="min-h-screen bg-[#0D0102] text-[#F8FAFC] font-mono selection:bg-[#E63946] selection:text-white">
       {/* Brutalist Masthead */}
-      <header className="border-b-2 border-[#59171B] p-6 lg:p-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <header className="border-b-2 border-[#2563EB] p-6 lg:p-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Terminal className="w-5 h-5 text-[#E63946]" />
-          <span className="text-sm font-bold tracking-widest uppercase text-[#FED7B8]">
+          <span className="text-sm font-bold tracking-widest uppercase text-[#38BDF8]">
             SYS.EXP {'//'} {personalInfo.fullName || 'CREATOR'}
           </span>
         </div>
-        <div className="text-xs text-[#B89B8D] uppercase">
+        <div className="text-xs text-[#94A3B8] uppercase">
           LOC: {personalInfo.location || 'LAT 51.5074 N'} {'//'} AVAIL: {personalInfo.availability || 'ACTIVE'}
         </div>
       </header>
 
       {/* Giant Typography Hero */}
-      <section className="p-6 lg:p-10 border-b-2 border-[#59171B] space-y-6">
+      <section className="p-6 lg:p-10 border-b-2 border-[#2563EB] space-y-6">
         <div className="text-[10px] text-[#E63946] tracking-[0.3em] uppercase">
           [INITIATING MANIFESTO ENGINE]
         </div>
 
-        <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85] text-[#FFF5ED] break-words">
+        <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85] text-[#F8FAFC] break-words">
           {personalInfo.fullName?.split(' ')[0] || 'DATA'}
           <br />
           <span className="text-[#E63946]">{personalInfo.fullName?.split(' ')[1] || 'STREAM'}</span>
         </h1>
 
-        <div className="max-w-2xl text-xs sm:text-sm text-[#D4B39B] leading-relaxed border-l-2 border-[#E63946] pl-4">
+        <div className="max-w-2xl text-xs sm:text-sm text-[#BAE6FD] leading-relaxed border-l-2 border-[#E63946] pl-4">
           {personalInfo.tagline || 'Deconstructing digital structures into raw kinetic impact.'}
-          {personalInfo.aboutMe && <p className="mt-2 text-[#B89B8D]">{personalInfo.aboutMe}</p>}
+          {personalInfo.aboutMe && <p className="mt-2 text-[#94A3B8]">{personalInfo.aboutMe}</p>}
         </div>
       </section>
 
       {/* Experimental Projects List with Monospaced Coordinates */}
       {projects && projects.length > 0 && (
-        <section className="p-6 lg:p-10 border-b-2 border-[#59171B] space-y-8">
-          <div className="text-xs text-[#FED7B8] tracking-widest uppercase flex items-center gap-2">
+        <section className="p-6 lg:p-10 border-b-2 border-[#2563EB] space-y-8">
+          <div className="text-xs text-[#38BDF8] tracking-widest uppercase flex items-center gap-2">
             <Zap className="w-4 h-4 text-[#E63946]" />
             <span>EXECUTION ARRAYS ({projects.length})</span>
           </div>
@@ -63,31 +63,31 @@ export function ExperimentalTheme({ portfolio }: ThemeProps) {
             {projects.map((proj, idx) => (
               <div
                 key={proj.id || idx}
-                className="border-2 border-[#52141A] p-6 space-y-4 hover:border-[#E63946] transition-colors bg-[#1A0305]"
+                className="border-2 border-[#1E3A8A] p-6 space-y-4 hover:border-[#E63946] transition-colors bg-[#1A0305]"
               >
-                <div className="flex items-center justify-between text-[10px] text-[#B89B8D]">
+                <div className="flex items-center justify-between text-[10px] text-[#94A3B8]">
                   <span>NODE-{idx + 1}</span>
-                  <span className="text-[#FED7B8]">{proj.category}</span>
+                  <span className="text-[#38BDF8]">{proj.category}</span>
                 </div>
 
-                <h3 className="text-2xl font-bold uppercase text-[#FFF5ED]">
+                <h3 className="text-2xl font-bold uppercase text-[#F8FAFC]">
                   {proj.title}
                 </h3>
 
                 {proj.thumbnail && (
-                  <div className="relative h-48 w-full border border-[#3D0D13]">
+                  <div className="relative h-48 w-full border border-[#172554]">
                     <Image src={proj.thumbnail} alt={proj.title} fill className="object-cover" />
                   </div>
                 )}
 
-                <p className="text-xs text-[#B89B8D] leading-relaxed">
+                <p className="text-xs text-[#94A3B8] leading-relaxed">
                   {proj.description}
                 </p>
 
                 {proj.technologies && (
-                  <div className="text-[10px] text-[#FED7B8] flex flex-wrap gap-2 pt-2">
+                  <div className="text-[10px] text-[#38BDF8] flex flex-wrap gap-2 pt-2">
                     {proj.technologies.map((tech, tidx) => (
-                      <span key={tidx} className="border border-[#52141A] px-2 py-0.5">
+                      <span key={tidx} className="border border-[#1E3A8A] px-2 py-0.5">
                         +{tech}
                       </span>
                     ))}
@@ -101,14 +101,14 @@ export function ExperimentalTheme({ portfolio }: ThemeProps) {
 
       {/* Skills Matrix */}
       {skills && skills.length > 0 && (
-        <section className="p-6 lg:p-10 border-b-2 border-[#59171B]">
-          <div className="text-xs text-[#FED7B8] tracking-widest uppercase mb-4">
+        <section className="p-6 lg:p-10 border-b-2 border-[#2563EB]">
+          <div className="text-xs text-[#38BDF8] tracking-widest uppercase mb-4">
             [SYS_SKILL_MATRIX]
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
             {skills.map((s, idx) => (
-              <div key={idx} className="border border-[#3D0D13] p-2.5 flex justify-between">
-                <span className="text-[#FFF5ED]">{s.name}</span>
+              <div key={idx} className="border border-[#172554] p-2.5 flex justify-between">
+                <span className="text-[#F8FAFC]">{s.name}</span>
                 <span className="text-[#E63946]">{s.proficiency || 95}%</span>
               </div>
             ))}

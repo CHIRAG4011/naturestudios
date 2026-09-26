@@ -171,7 +171,7 @@ export default function AdminSupportPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -180,24 +180,24 @@ export default function AdminSupportPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Support & Moderation Desk
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               {tickets.length} Active Tickets
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Resolve creator inquiries, review account suspension appeals, and dispatch direct staff replies.
           </p>
         </div>
 
         <button
           onClick={fetchTickets}
-          className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+          className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
         </button>
@@ -210,8 +210,8 @@ export default function AdminSupportPage() {
             onClick={() => setCategoryFilter('ALL')}
             className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
               categoryFilter === 'ALL'
-                ? 'bg-[#59171B] text-[#FFF5ED]'
-                : 'bg-[#1D0608] text-[#B89B8D] border border-[#3D0D13]'
+                ? 'bg-[#2563EB] text-[#F8FAFC]'
+                : 'bg-[#070D1E] text-[#94A3B8] border border-[#172554]'
             }`}
           >
             All Tickets ({tickets.length})
@@ -221,7 +221,7 @@ export default function AdminSupportPage() {
             className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
               categoryFilter === 'APPEAL'
                 ? 'bg-red-900 text-white font-bold border border-red-500/50'
-                : 'bg-[#1D0608] text-red-400 border border-red-900/40 hover:bg-red-950/40'
+                : 'bg-[#070D1E] text-red-400 border border-red-900/40 hover:bg-red-950/40'
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5" />
@@ -231,8 +231,8 @@ export default function AdminSupportPage() {
             onClick={() => setCategoryFilter('GENERAL')}
             className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
               categoryFilter === 'GENERAL'
-                ? 'bg-[#59171B] text-[#FFF5ED]'
-                : 'bg-[#1D0608] text-[#B89B8D] border border-[#3D0D13]'
+                ? 'bg-[#2563EB] text-[#F8FAFC]'
+                : 'bg-[#070D1E] text-[#94A3B8] border border-[#172554]'
             }`}
           >
             General Inquiries
@@ -243,7 +243,7 @@ export default function AdminSupportPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#030712] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none"
           >
             <option value="ALL">All Statuses</option>
             <option value="OPEN">OPEN</option>
@@ -257,27 +257,27 @@ export default function AdminSupportPage() {
       {/* Tickets List */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {loading ? (
-          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D]">
+          <div className="col-span-full py-16 text-center text-xs text-[#94A3B8]">
             Loading support tickets...
           </div>
         ) : tickets.length === 0 ? (
-          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D]">
+          <div className="col-span-full py-16 text-center text-xs text-[#94A3B8]">
             No outstanding tickets in this queue.
           </div>
         ) : (
           tickets.map((t) => (
             <div
               key={t.id}
-              className={`p-5 rounded-2xl bg-[#1D0608] border transition-all space-y-3 flex flex-col justify-between text-xs ${
+              className={`p-5 rounded-2xl bg-[#070D1E] border transition-all space-y-3 flex flex-col justify-between text-xs ${
                 t.category === 'APPEAL'
-                  ? 'border-red-900/60 hover:border-red-600/80 shadow-lg bg-gradient-to-b from-[#200508] to-[#1D0608]'
-                  : 'border-[#3D0D13] hover:border-[#59171B]'
+                  ? 'border-red-900/60 hover:border-red-600/80 shadow-lg bg-gradient-to-b from-[#200508] to-[#070D1E]'
+                  : 'border-[#172554] hover:border-[#2563EB]'
               }`}
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[11px] font-bold text-[#FED7B8]">
+                    <span className="font-mono text-[11px] font-bold text-[#38BDF8]">
                       {t.ticketNumber}
                     </span>
                     {t.category === 'APPEAL' && (
@@ -292,7 +292,7 @@ export default function AdminSupportPage() {
                         ? 'bg-emerald-950 text-emerald-300'
                         : t.status === 'WAITING_CLIENT'
                         ? 'bg-cyan-950 text-cyan-300'
-                        : 'bg-[#150304] text-[#FED7B8]'
+                        : 'bg-[#030712] text-[#38BDF8]'
                     }`}
                   >
                     {t.status}
@@ -300,12 +300,12 @@ export default function AdminSupportPage() {
                 </div>
 
                 <div>
-                  <span className="font-semibold text-[#FFF5ED]">{t.name}</span>
-                  <span className="text-[11px] text-[#B89B8D] font-mono ml-2">({t.email})</span>
+                  <span className="font-semibold text-[#F8FAFC]">{t.name}</span>
+                  <span className="text-[11px] text-[#94A3B8] font-mono ml-2">({t.email})</span>
                 </div>
 
-                <div className="font-semibold text-[#FED7B8] text-sm">{t.subject}</div>
-                <p className="text-[#B89B8D] leading-relaxed line-clamp-2">{t.message}</p>
+                <div className="font-semibold text-[#38BDF8] text-sm">{t.subject}</div>
+                <p className="text-[#94A3B8] leading-relaxed line-clamp-2">{t.message}</p>
 
                 {t.responses && t.responses.length > 0 && (
                   <div className="text-[10px] text-cyan-400 font-mono pt-1">
@@ -314,15 +314,15 @@ export default function AdminSupportPage() {
                 )}
               </div>
 
-              <div className="pt-3 border-t border-[#3D0D13] flex items-center justify-between text-[11px]">
-                <span className="text-[#B89B8D]">
+              <div className="pt-3 border-t border-[#172554] flex items-center justify-between text-[11px]">
+                <span className="text-[#94A3B8]">
                   {new Date(t.createdAt).toLocaleDateString()}
                 </span>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setSelectedTicket(t)}
-                    className="px-3 py-1 rounded-lg bg-[#59171B] hover:bg-[#721C22] text-[#FED7B8] font-semibold text-[11px] flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1 rounded-lg bg-[#2563EB] hover:bg-[#721C22] text-[#38BDF8] font-semibold text-[11px] flex items-center gap-1.5 transition-colors"
                   >
                     <Eye className="w-3 h-3" />
                     <span>View & Reply</span>
@@ -346,12 +346,12 @@ export default function AdminSupportPage() {
       {/* Ticket Details & Reply Modal */}
       {selectedTicket && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
-          <div className="w-full max-w-2xl max-h-[92vh] bg-[#1D0608] border border-[#59171B] rounded-3xl flex flex-col shadow-2xl overflow-hidden">
+          <div className="w-full max-w-2xl max-h-[92vh] bg-[#070D1E] border border-[#2563EB] rounded-3xl flex flex-col shadow-2xl overflow-hidden">
             {/* Modal Header */}
-            <div className="p-5 border-b border-[#3D0D13] bg-[#150304] flex items-start justify-between gap-3">
+            <div className="p-5 border-b border-[#172554] bg-[#030712] flex items-start justify-between gap-3">
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold text-[#FED7B8]">
+                  <span className="font-mono text-xs font-bold text-[#38BDF8]">
                     {selectedTicket.ticketNumber}
                   </span>
                   {selectedTicket.category === 'APPEAL' && (
@@ -359,21 +359,21 @@ export default function AdminSupportPage() {
                       Suspension Appeal
                     </span>
                   )}
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold bg-[#240709] text-[#FED7B8]">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold bg-[#0B132B] text-[#38BDF8]">
                     {selectedTicket.status}
                   </span>
                 </div>
-                <h2 className="font-syne font-bold text-base text-[#FFF5ED] truncate">
+                <h2 className="font-syne font-bold text-base text-[#F8FAFC] truncate">
                   {selectedTicket.subject}
                 </h2>
-                <div className="text-xs text-[#B89B8D] font-mono">
-                  From: <span className="text-[#FED7B8]">{selectedTicket.name}</span> ({selectedTicket.email})
+                <div className="text-xs text-[#94A3B8] font-mono">
+                  From: <span className="text-[#38BDF8]">{selectedTicket.name}</span> ({selectedTicket.email})
                 </div>
               </div>
 
               <button
                 onClick={() => setSelectedTicket(null)}
-                className="p-1.5 rounded-lg text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709] transition-colors"
+                className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B132B] transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -402,12 +402,12 @@ export default function AdminSupportPage() {
             {/* Conversation Stream */}
             <div className="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
               {/* Original User Message */}
-              <div className="p-4 rounded-2xl bg-[#150304] border border-[#3D0D13] space-y-2">
-                <div className="flex items-center justify-between text-[11px] text-[#B89B8D] font-mono">
-                  <span className="font-bold text-[#FED7B8]">Creator Description</span>
+              <div className="p-4 rounded-2xl bg-[#030712] border border-[#172554] space-y-2">
+                <div className="flex items-center justify-between text-[11px] text-[#94A3B8] font-mono">
+                  <span className="font-bold text-[#38BDF8]">Creator Description</span>
                   <span>{new Date(selectedTicket.createdAt).toLocaleString()}</span>
                 </div>
-                <p className="text-[#FFF5ED] leading-relaxed whitespace-pre-wrap">
+                <p className="text-[#F8FAFC] leading-relaxed whitespace-pre-wrap">
                   {selectedTicket.message}
                 </p>
               </div>
@@ -415,7 +415,7 @@ export default function AdminSupportPage() {
               {/* Thread Responses */}
               {selectedTicket.responses && selectedTicket.responses.length > 0 && (
                 <div className="space-y-3 pt-2">
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-[#B89B8D] px-1">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] px-1">
                     Conversation Thread
                   </div>
                   {selectedTicket.responses.map((r: any) => (
@@ -423,8 +423,8 @@ export default function AdminSupportPage() {
                       key={r.id}
                       className={`p-4 rounded-2xl border leading-relaxed space-y-1.5 ${
                         r.sender === 'ADMIN'
-                          ? 'bg-[#240709] border-[#59171B] text-[#FFF5ED]'
-                          : 'bg-[#150304] border-[#3D0D13] text-[#FED7B8]'
+                          ? 'bg-[#0B132B] border-[#2563EB] text-[#F8FAFC]'
+                          : 'bg-[#030712] border-[#172554] text-[#38BDF8]'
                       }`}
                     >
                       <div className="flex items-center justify-between text-[11px]">
@@ -435,7 +435,7 @@ export default function AdminSupportPage() {
                         >
                           {r.sender === 'ADMIN' ? `Staff (${r.senderName})` : r.senderName}
                         </span>
-                        <span className="text-[#B89B8D] font-mono text-[10px]">
+                        <span className="text-[#94A3B8] font-mono text-[10px]">
                           {new Date(r.createdAt).toLocaleString()}
                         </span>
                       </div>
@@ -447,7 +447,7 @@ export default function AdminSupportPage() {
             </div>
 
             {/* Staff Reply & Status Footer */}
-            <div className="p-4 border-t border-[#3D0D13] bg-[#150304] space-y-3">
+            <div className="p-4 border-t border-[#172554] bg-[#030712] space-y-3">
               <form onSubmit={handleSendStaffReply} className="flex items-center gap-2">
                 <input
                   type="text"
@@ -455,12 +455,12 @@ export default function AdminSupportPage() {
                   value={staffReply}
                   onChange={(e) => setStaffReply(e.target.value)}
                   disabled={actionLoading}
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-[#240709] border border-[#3D0D13] text-xs text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-[#0B132B] border border-[#172554] text-xs text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
                 />
                 <button
                   type="submit"
                   disabled={actionLoading || !staffReply.trim()}
-                  className="px-4 py-2.5 rounded-xl bg-[#59171B] hover:bg-[#721C22] text-[#FED7B8] font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 disabled:opacity-50 transition-all"
+                  className="px-4 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#721C22] text-[#38BDF8] font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 disabled:opacity-50 transition-all"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Send</span>
@@ -468,11 +468,11 @@ export default function AdminSupportPage() {
               </form>
 
               <div className="flex items-center justify-between text-[11px] pt-1">
-                <span className="text-[#B89B8D]">Status Controls:</span>
+                <span className="text-[#94A3B8]">Status Controls:</span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleStatusChange(selectedTicket.id, 'IN_PROGRESS')}
-                    className="px-2.5 py-1 rounded-lg bg-[#240709] hover:bg-[#320B0F] text-[#FED7B8] border border-[#3D0D13]"
+                    className="px-2.5 py-1 rounded-lg bg-[#0B132B] hover:bg-[#111C35] text-[#38BDF8] border border-[#172554]"
                   >
                     Mark In Progress
                   </button>
@@ -484,7 +484,7 @@ export default function AdminSupportPage() {
                   </button>
                   <button
                     onClick={() => handleStatusChange(selectedTicket.id, 'CLOSED')}
-                    className="px-2.5 py-1 rounded-lg bg-[#150304] text-[#B89B8D] border border-[#3D0D13]"
+                    className="px-2.5 py-1 rounded-lg bg-[#030712] text-[#94A3B8] border border-[#172554]"
                   >
                     Close Ticket
                   </button>

@@ -155,7 +155,7 @@ export default function DashboardOverviewPage() {
               id="dashboard-create-portfolio-btn"
               className="btn-beige flex items-center gap-2 px-5 py-3 text-xs font-bold font-syne uppercase tracking-wider shadow-glow-beige"
             >
-              <Sparkles className="h-4 w-4 text-[#3A0E11]" aria-hidden="true" />
+              <Sparkles className="h-4 w-4 text-[#1E40AF]" aria-hidden="true" />
               <span>Create Your Portfolio</span>
             </Link>
 
@@ -216,24 +216,24 @@ export default function DashboardOverviewPage() {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative overflow-hidden rounded-2xl border border-[#FED7B8]/30 bg-gradient-to-r from-[#2C0A0D]/90 via-[#3A0E11]/80 to-[#120406]/90 p-6 sm:p-7 shadow-glow-burgundy/20"
+        className="relative overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-gradient-to-r from-[#2C0A0D]/90 via-[#1E40AF]/80 to-[#120406]/90 p-6 sm:p-7 shadow-glow-burgundy/20"
       >
         <div className="pointer-events-none absolute right-0 top-0 h-full w-1/3 bg-radial-vignette opacity-30" aria-hidden="true" />
         <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FED7B8]/40 bg-[#FED7B8]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#FED7B8]">
-                <Sparkles className="h-3 w-3 text-[#FED7B8]" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#38BDF8]">
+                <Sparkles className="h-3 w-3 text-[#38BDF8]" />
                 Creator Suite
               </span>
-              <span className="font-mono text-label-sm text-[#E8C5A5]/60 uppercase tracking-widest text-[10px]">
+              <span className="font-mono text-label-sm text-[#7DD3FC]/60 uppercase tracking-widest text-[10px]">
                 Free Subdomain & Custom Theme
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black font-syne uppercase tracking-tight text-[#FFF5ED]">
+            <h2 className="text-xl sm:text-2xl font-black font-syne uppercase tracking-tight text-[#F8FAFC]">
               Your Personal Creative Portfolio
             </h2>
-            <p className="max-w-xl text-xs sm:text-sm text-[#E8C5A5] leading-relaxed">
+            <p className="max-w-xl text-xs sm:text-sm text-[#7DD3FC] leading-relaxed">
               Showcase your esports tournaments, GFX graphics, VFX motion, and branding with your own live portfolio link on NatureStudios.
             </p>
           </div>
@@ -243,14 +243,14 @@ export default function DashboardOverviewPage() {
               href="/portfolio/edit"
               className="btn-beige flex items-center gap-2 px-5 py-2.5 text-xs font-bold font-syne uppercase tracking-wider shadow-glow-beige"
             >
-              <Sparkles className="h-3.5 w-3.5 text-[#3A0E11]" />
+              <Sparkles className="h-3.5 w-3.5 text-[#1E40AF]" />
               <span>Open Portfolio Studio</span>
             </Link>
             <Link
               href="/global-portfolio"
-              className="btn-secondary flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase tracking-wider text-[#FED7B8] border-[#FED7B8]/20 hover:border-[#FED7B8]"
+              className="btn-secondary flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase tracking-wider text-[#38BDF8] border-[#38BDF8]/20 hover:border-[#38BDF8]"
             >
-              <Globe className="h-3.5 w-3.5 text-[#FED7B8]" />
+              <Globe className="h-3.5 w-3.5 text-[#38BDF8]" />
               <span>Explore Community</span>
             </Link>
           </div>

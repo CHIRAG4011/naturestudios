@@ -90,12 +90,12 @@ export default function CommandPalette() {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
       <div
-        className="w-full max-w-2xl bg-[#1D0608] border border-[#59171B]/60 rounded-2xl shadow-2xl overflow-hidden text-[#FFF5ED] flex flex-col"
+        className="w-full max-w-2xl bg-[#070D1E] border border-[#2563EB]/60 rounded-2xl shadow-2xl overflow-hidden text-[#F8FAFC] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Header */}
-        <div className="flex items-center px-4 py-3.5 border-b border-[#3D0D13] bg-[#240709]/80">
-          <Search className="w-5 h-5 text-[#FED7B8]/60 mr-3" />
+        <div className="flex items-center px-4 py-3.5 border-b border-[#172554] bg-[#0B132B]/80">
+          <Search className="w-5 h-5 text-[#38BDF8]/60 mr-3" />
           <input
             ref={inputRef}
             value={query}
@@ -104,19 +104,19 @@ export default function CommandPalette() {
               if (e.key === 'Escape') setShowCommandPalette(false);
             }}
             placeholder="Search users, portfolios, projects, audit logs, or jump to route..."
-            className="w-full bg-transparent text-sm text-[#FFF5ED] placeholder-[#B89B8D]/50 focus:outline-none"
+            className="w-full bg-transparent text-sm text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:outline-none"
           />
           {loading ? (
-            <div className="w-4 h-4 border-2 border-[#FED7B8] border-t-transparent rounded-full animate-spin mr-2" />
+            <div className="w-4 h-4 border-2 border-[#38BDF8] border-t-transparent rounded-full animate-spin mr-2" />
           ) : query ? (
             <button
               onClick={() => setQuery('')}
-              className="p-1 text-[#B89B8D] hover:text-[#FFF5ED] rounded transition-colors mr-2"
+              className="p-1 text-[#94A3B8] hover:text-[#F8FAFC] rounded transition-colors mr-2"
             >
               <X className="w-4 h-4" />
             </button>
           ) : null}
-          <kbd className="hidden sm:inline-block px-2 py-0.5 text-xs text-[#B89B8D] bg-[#150304] border border-[#3D0D13] rounded">
+          <kbd className="hidden sm:inline-block px-2 py-0.5 text-xs text-[#94A3B8] bg-[#030712] border border-[#172554] rounded">
             ESC
           </kbd>
         </div>
@@ -125,7 +125,7 @@ export default function CommandPalette() {
         <div className="max-h-96 overflow-y-auto p-3 space-y-4">
           {!query && (
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#FED7B8]/60 px-3 py-1.5">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#38BDF8]/60 px-3 py-1.5">
                 Quick Navigation
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-1">
@@ -135,13 +135,13 @@ export default function CommandPalette() {
                     <button
                       key={link.url}
                       onClick={() => navigateTo(link.url)}
-                      className="flex items-center justify-between p-2.5 rounded-xl text-left text-xs text-[#FFF5ED] hover:bg-[#59171B]/30 hover:border-[#FED7B8]/20 border border-transparent transition-all group"
+                      className="flex items-center justify-between p-2.5 rounded-xl text-left text-xs text-[#F8FAFC] hover:bg-[#2563EB]/30 hover:border-[#38BDF8]/20 border border-transparent transition-all group"
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className="w-4 h-4 text-[#FED7B8]/70 group-hover:text-[#FED7B8]" />
+                        <Icon className="w-4 h-4 text-[#38BDF8]/70 group-hover:text-[#38BDF8]" />
                         <span>{link.label}</span>
                       </div>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#B89B8D]/40 group-hover:text-[#FED7B8] group-hover:translate-x-0.5 transition-all" />
+                      <ArrowRight className="w-3.5 h-3.5 text-[#94A3B8]/40 group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
                     </button>
                   );
                 })}
@@ -150,15 +150,15 @@ export default function CommandPalette() {
           )}
 
           {query && totalResults === 0 && !loading && (
-            <div className="py-10 text-center text-xs text-[#B89B8D]">
-              No records found matching <span className="text-[#FED7B8]">&quot;{query}&quot;</span>.
+            <div className="py-10 text-center text-xs text-[#94A3B8]">
+              No records found matching <span className="text-[#38BDF8]">&quot;{query}&quot;</span>.
             </div>
           )}
 
           {/* Users */}
           {results.users.length > 0 && (
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#FED7B8]/60 px-3 py-1">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#38BDF8]/60 px-3 py-1">
                 Users ({results.users.length})
               </div>
               <div className="space-y-1 mt-1">
@@ -166,18 +166,18 @@ export default function CommandPalette() {
                   <button
                     key={u.id}
                     onClick={() => navigateTo(u.url)}
-                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#59171B]/30 transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#2563EB]/30 transition-colors group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#59171B]/60 flex items-center justify-center text-xs font-bold text-[#FED7B8]">
+                      <div className="w-7 h-7 rounded-full bg-[#2563EB]/60 flex items-center justify-center text-xs font-bold text-[#38BDF8]">
                         {u.title[0]}
                       </div>
                       <div>
-                        <div className="text-xs font-medium text-[#FFF5ED]">{u.title}</div>
-                        <div className="text-[11px] text-[#B89B8D]">{u.subtitle}</div>
+                        <div className="text-xs font-medium text-[#F8FAFC]">{u.title}</div>
+                        <div className="text-[11px] text-[#94A3B8]">{u.subtitle}</div>
                       </div>
                     </div>
-                    <CornerDownLeft className="w-3.5 h-3.5 text-[#B89B8D]/40 group-hover:text-[#FED7B8]" />
+                    <CornerDownLeft className="w-3.5 h-3.5 text-[#94A3B8]/40 group-hover:text-[#38BDF8]" />
                   </button>
                 ))}
               </div>
@@ -187,7 +187,7 @@ export default function CommandPalette() {
           {/* Portfolios */}
           {results.portfolios.length > 0 && (
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#FED7B8]/60 px-3 py-1">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#38BDF8]/60 px-3 py-1">
                 Portfolios ({results.portfolios.length})
               </div>
               <div className="space-y-1 mt-1">
@@ -195,16 +195,16 @@ export default function CommandPalette() {
                   <button
                     key={p.id}
                     onClick={() => navigateTo(p.url)}
-                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#59171B]/30 transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#2563EB]/30 transition-colors group"
                   >
                     <div className="flex items-center gap-3">
-                      <Folder className="w-4 h-4 text-[#FED7B8]" />
+                      <Folder className="w-4 h-4 text-[#38BDF8]" />
                       <div>
-                        <div className="text-xs font-medium text-[#FFF5ED]">{p.title}</div>
-                        <div className="text-[11px] text-[#FED7B8]/70">{p.subtitle}</div>
+                        <div className="text-xs font-medium text-[#F8FAFC]">{p.title}</div>
+                        <div className="text-[11px] text-[#38BDF8]/70">{p.subtitle}</div>
                       </div>
                     </div>
-                    <CornerDownLeft className="w-3.5 h-3.5 text-[#B89B8D]/40 group-hover:text-[#FED7B8]" />
+                    <CornerDownLeft className="w-3.5 h-3.5 text-[#94A3B8]/40 group-hover:text-[#38BDF8]" />
                   </button>
                 ))}
               </div>
@@ -214,7 +214,7 @@ export default function CommandPalette() {
           {/* Audit Logs */}
           {results.auditLogs.length > 0 && (
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#FED7B8]/60 px-3 py-1">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#38BDF8]/60 px-3 py-1">
                 Audit Events ({results.auditLogs.length})
               </div>
               <div className="space-y-1 mt-1">
@@ -222,16 +222,16 @@ export default function CommandPalette() {
                   <button
                     key={a.id}
                     onClick={() => navigateTo(a.url)}
-                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#59171B]/30 transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#2563EB]/30 transition-colors group"
                   >
                     <div className="flex items-center gap-3">
-                      <FileText className="w-4 h-4 text-[#B89B8D]" />
+                      <FileText className="w-4 h-4 text-[#94A3B8]" />
                       <div>
-                        <div className="text-xs font-medium text-[#FFF5ED]">{a.title}</div>
-                        <div className="text-[11px] text-[#B89B8D]">{a.subtitle}</div>
+                        <div className="text-xs font-medium text-[#F8FAFC]">{a.title}</div>
+                        <div className="text-[11px] text-[#94A3B8]">{a.subtitle}</div>
                       </div>
                     </div>
-                    <CornerDownLeft className="w-3.5 h-3.5 text-[#B89B8D]/40 group-hover:text-[#FED7B8]" />
+                    <CornerDownLeft className="w-3.5 h-3.5 text-[#94A3B8]/40 group-hover:text-[#38BDF8]" />
                   </button>
                 ))}
               </div>
@@ -241,7 +241,7 @@ export default function CommandPalette() {
           {/* Content Pages */}
           {results.content.length > 0 && (
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#FED7B8]/60 px-3 py-1">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#38BDF8]/60 px-3 py-1">
                 Site Pages & Content ({results.content.length})
               </div>
               <div className="space-y-1 mt-1">
@@ -249,16 +249,16 @@ export default function CommandPalette() {
                   <button
                     key={c.id}
                     onClick={() => navigateTo(c.url)}
-                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#59171B]/30 transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-[#2563EB]/30 transition-colors group"
                   >
                     <div className="flex items-center gap-3">
-                      <FileText className="w-4 h-4 text-[#FED7B8]" />
+                      <FileText className="w-4 h-4 text-[#38BDF8]" />
                       <div>
-                        <div className="text-xs font-medium text-[#FFF5ED]">{c.title}</div>
-                        <div className="text-[11px] text-[#B89B8D]">{c.subtitle}</div>
+                        <div className="text-xs font-medium text-[#F8FAFC]">{c.title}</div>
+                        <div className="text-[11px] text-[#94A3B8]">{c.subtitle}</div>
                       </div>
                     </div>
-                    <CornerDownLeft className="w-3.5 h-3.5 text-[#B89B8D]/40 group-hover:text-[#FED7B8]" />
+                    <CornerDownLeft className="w-3.5 h-3.5 text-[#94A3B8]/40 group-hover:text-[#38BDF8]" />
                   </button>
                 ))}
               </div>
@@ -267,13 +267,13 @@ export default function CommandPalette() {
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2 border-t border-[#3D0D13] bg-[#150304] flex items-center justify-between text-[11px] text-[#B89B8D]">
+        <div className="px-4 py-2 border-t border-[#172554] bg-[#030712] flex items-center justify-between text-[11px] text-[#94A3B8]">
           <span>Tip: Permission-filtered real time search</span>
           <span className="flex items-center gap-2">
             <span>Navigate</span>
-            <kbd className="px-1.5 py-0.5 bg-[#240709] border border-[#3D0D13] rounded text-[10px]">↑↓</kbd>
+            <kbd className="px-1.5 py-0.5 bg-[#0B132B] border border-[#172554] rounded text-[10px]">↑↓</kbd>
             <span>Select</span>
-            <kbd className="px-1.5 py-0.5 bg-[#240709] border border-[#3D0D13] rounded text-[10px]">↵</kbd>
+            <kbd className="px-1.5 py-0.5 bg-[#0B132B] border border-[#172554] rounded text-[10px]">↵</kbd>
           </span>
         </div>
       </div>

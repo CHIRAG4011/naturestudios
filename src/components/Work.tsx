@@ -20,12 +20,12 @@ export function Work() {
   };
 
   return (
-    <section id="work" className="py-24 bg-[#150304] text-[#FFF5ED] overflow-hidden scroll-mt-20">
+    <section id="work" className="py-24 bg-[#030712] text-[#F8FAFC] overflow-hidden scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2D0A0E] border border-[#52141A] text-xs font-mono uppercase tracking-widest text-[#FED7B8] mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono uppercase tracking-widest text-[#38BDF8] mb-3">
               <Sparkles className="w-3.5 h-3.5" /> Featured Production Reel
             </div>
             <h2 className="text-4xl sm:text-6xl font-black uppercase text-gradient-warm leading-[0.9]">
@@ -38,29 +38,29 @@ export function Work() {
               className="btn-secondary text-xs py-2 px-4 flex items-center gap-1.5"
             >
               <span>Explore All 6 Projects</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#FED7B8]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#38BDF8]" />
             </Link>
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrev}
                 aria-label="Previous Project"
-                className="p-3 rounded-full bg-[#240709] border border-[#52141A] hover:border-[#FED7B8] hover:bg-[#3A0E11] transition-colors"
+                className="p-3 rounded-full bg-[#0B132B] border border-[#1E3A8A] hover:border-[#38BDF8] hover:bg-[#1E40AF] transition-colors"
               >
-                <ChevronLeft className="w-4 h-4 text-[#FED7B8]" />
+                <ChevronLeft className="w-4 h-4 text-[#38BDF8]" />
               </button>
               <button
                 onClick={handleNext}
                 aria-label="Next Project"
-                className="p-3 rounded-full bg-[#240709] border border-[#52141A] hover:border-[#FED7B8] hover:bg-[#3A0E11] transition-colors"
+                className="p-3 rounded-full bg-[#0B132B] border border-[#1E3A8A] hover:border-[#38BDF8] hover:bg-[#1E40AF] transition-colors"
               >
-                <ChevronRight className="w-4 h-4 text-[#FED7B8]" />
+                <ChevronRight className="w-4 h-4 text-[#38BDF8]" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Cinematic Reel Showcase */}
-        <div className="relative rounded-3xl overflow-hidden border border-[#52141A] bg-[#1C0507] shadow-2xl p-6 sm:p-10 lg:p-14">
+        <div className="relative rounded-3xl overflow-hidden border border-[#1E3A8A] bg-[#050B17] shadow-2xl p-6 sm:p-10 lg:p-14">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentProject.id}
@@ -73,15 +73,15 @@ export function Work() {
               {/* Left Column: Metadata & Typography */}
               <div className="lg:col-span-6 space-y-6">
                 <div className="flex items-center gap-4 font-mono text-xs">
-                  <span className="text-xl font-black text-[#FED7B8]">
+                  <span className="text-xl font-black text-[#38BDF8]">
                     {currentProject.number} / {String(PROJECTS.length).padStart(2, '0')}
                   </span>
-                  <span className="text-[#52141A]">|</span>
+                  <span className="text-[#1E3A8A]">|</span>
                   <div className="flex flex-wrap gap-2">
                     {currentProject.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2.5 py-0.5 rounded bg-[#2D0A0E] border border-[#52141A] text-[10px] uppercase text-[#FED7B8]"
+                        className="px-2.5 py-0.5 rounded bg-[#0F1D38] border border-[#1E3A8A] text-[10px] uppercase text-[#38BDF8]"
                       >
                         {tag}
                       </span>
@@ -89,17 +89,17 @@ export function Work() {
                   </div>
                 </div>
 
-                <h3 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#FFF5ED] leading-[0.92]">
+                <h3 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F8FAFC] leading-[0.92]">
                   {currentProject.title}
                 </h3>
 
-                <p className="text-sm sm:text-base text-[#B89B8D] leading-relaxed max-w-xl font-light">
+                <p className="text-sm sm:text-base text-[#94A3B8] leading-relaxed max-w-xl font-light">
                   {currentProject.description}
                 </p>
 
                 {currentProject.client && (
-                  <div className="text-xs font-mono text-[#FED7B8]/80">
-                    <span className="text-[#7A6158]">CLIENT:</span> {currentProject.client}
+                  <div className="text-xs font-mono text-[#38BDF8]/80">
+                    <span className="text-[#64748B]">CLIENT:</span> {currentProject.client}
                   </div>
                 )}
 
@@ -109,7 +109,7 @@ export function Work() {
                     className="btn-primary text-xs py-3 px-6 shadow-glow-burgundy"
                   >
                     <span>Inspect Case Study</span>
-                    <ArrowUpRight className="w-4 h-4 text-[#FED7B8]" />
+                    <ArrowUpRight className="w-4 h-4 text-[#38BDF8]" />
                   </Link>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export function Work() {
               {/* Right Column: Visual Reel Preview */}
               <div className="lg:col-span-6">
                 <Link href={`/work/${currentProject.slug}`} className="block group">
-                  <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-[#52141A] bg-[#150304]">
+                  <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-[#1E3A8A] bg-[#030712]">
                     <Image
                       src={currentProject.image}
                       alt={currentProject.title}
@@ -126,8 +126,8 @@ export function Work() {
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#150304] via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                    <div className="absolute bottom-4 right-4 bg-[#240709]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#52141A] text-[11px] font-mono uppercase text-[#FED7B8] flex items-center gap-1.5">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                    <div className="absolute bottom-4 right-4 bg-[#0B132B]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#1E3A8A] text-[11px] font-mono uppercase text-[#38BDF8] flex items-center gap-1.5">
                       <span>View Case</span> <ExternalLink className="w-3.5 h-3.5" />
                     </div>
                   </div>
@@ -137,14 +137,14 @@ export function Work() {
           </AnimatePresence>
 
           {/* Reel Indicator Dots */}
-          <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-[#3D0D13]">
+          <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-[#172554]">
             {PROJECTS.map((p, idx) => (
               <button
                 key={p.id}
                 onClick={() => setActiveIndex(idx)}
                 aria-label={`Go to ${p.title}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  activeIndex === idx ? 'w-8 bg-[#FED7B8]' : 'w-2 bg-[#52141A] hover:bg-[#FED7B8]/50'
+                  activeIndex === idx ? 'w-8 bg-[#38BDF8]' : 'w-2 bg-[#1E3A8A] hover:bg-[#38BDF8]/50'
                 }`}
               />
             ))}

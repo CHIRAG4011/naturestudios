@@ -50,20 +50,20 @@ export function Hero() {
     <section
       ref={containerRef}
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#150304] text-[#FFF5ED] flex flex-col justify-between"
+      className="relative min-h-screen overflow-hidden bg-[#030712] text-[#F8FAFC] flex flex-col justify-between"
       aria-label="Cinematic Hero"
     >
       {/* Background Ambient Atmosphere */}
       <motion.div
-        className="absolute inset-0 z-0 bg-gradient-to-b from-[#1C0507] via-[#240709] to-[#150304]"
+        className="absolute inset-0 z-0 bg-gradient-to-b from-[#050B17] via-[#0B132B] to-[#030712]"
         style={{ scale: bgScale, y: bgY }}
       >
         {/* Deep Burgundy Ambient Core */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-radial from-[#59171B]/60 via-[#3A0E11]/30 to-transparent blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-radial from-[#2563EB]/60 via-[#1E40AF]/30 to-transparent blur-[120px] pointer-events-none" />
 
         {/* Warm Beige Atmospheric Sweep */}
         <motion.div
-          className="absolute -top-32 right-12 w-[700px] h-[700px] rounded-full bg-radial from-[#FED7B8]/20 via-[#F7C49E]/10 to-transparent blur-[130px] pointer-events-none"
+          className="absolute -top-32 right-12 w-[700px] h-[700px] rounded-full bg-radial from-[#38BDF8]/20 via-[#60A5FA]/10 to-transparent blur-[130px] pointer-events-none"
           style={{ opacity: lightOpacity, scale: lightScale }}
         />
 
@@ -76,16 +76,16 @@ export function Hero() {
       </motion.div>
 
       {/* Top HUD Status Bar */}
-      <div className="relative z-10 pt-28 px-6 max-w-7xl mx-auto w-full flex items-center justify-between text-xs font-mono text-[#B89B8D] pointer-events-none">
+      <div className="relative z-10 pt-28 px-6 max-w-7xl mx-auto w-full flex items-center justify-between text-xs font-mono text-[#94A3B8] pointer-events-none">
         <div className="flex items-center gap-3">
           <span className="badge-live">LIVE TRANSMISSION</span>
-          <span className="text-[#FED7B8] tracking-widest hidden sm:inline">ARENA PROTOCOL // 2026</span>
+          <span className="text-[#38BDF8] tracking-widest hidden sm:inline">ARENA PROTOCOL // 2026</span>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-[#FED7B8] flex items-center gap-1.5">
+          <span className="text-[#38BDF8] flex items-center gap-1.5">
             <Activity className="w-3.5 h-3.5 text-[#18A957]" /> ENGINE: ACTIVE
           </span>
-          <span className="hidden md:inline text-[#B89B8D]">DOM: NATURESTUDIO.IN</span>
+          <span className="hidden md:inline text-[#94A3B8]">DOM: NATURESTUDIO.IN</span>
         </div>
       </div>
 
@@ -95,44 +95,44 @@ export function Hero() {
         {/* Badge 1: Top Left */}
         <motion.div
           style={{ y: badgeY1, rotate: badgeRotate1 }}
-          className="hidden lg:flex absolute left-4 top-36 z-20 items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#2A080C]/90 border border-[#59171B] shadow-glow-burgundy backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
+          className="hidden lg:flex absolute left-4 top-36 z-20 items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#0E1A33]/90 border border-[#2563EB] shadow-glow-burgundy backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
         >
           <span className="h-2 w-2 rounded-full bg-[#18A957] animate-pulse" />
-          <span className="text-xs font-mono font-bold text-[#FED7B8]">200+ BROADCASTS</span>
-          <span className="text-[10px] text-[#B89B8D] font-mono">GLOBAL ARENA</span>
+          <span className="text-xs font-mono font-bold text-[#38BDF8]">200+ BROADCASTS</span>
+          <span className="text-[10px] text-[#94A3B8] font-mono">GLOBAL ARENA</span>
         </motion.div>
 
         {/* Badge 2: Top Right */}
         <motion.div
           style={{ y: badgeY2, rotate: badgeRotate2 }}
-          className="hidden lg:flex absolute right-6 top-32 z-20 items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#2D0A0E]/90 border border-[#FED7B8]/30 shadow-glow-beige backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
+          className="hidden lg:flex absolute right-6 top-32 z-20 items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#0F1D38]/90 border border-[#38BDF8]/30 shadow-glow-beige backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
         >
           <Zap className="w-4 h-4 text-[#FF6B1A]" />
-          <span className="text-xs font-mono font-bold text-[#FFF5ED]">4K 60FPS</span>
-          <span className="text-[10px] text-[#FED7B8] font-mono bg-[#59171B] px-1.5 py-0.5 rounded">RT-HUD</span>
+          <span className="text-xs font-mono font-bold text-[#F8FAFC]">4K 60FPS</span>
+          <span className="text-[10px] text-[#38BDF8] font-mono bg-[#2563EB] px-1.5 py-0.5 rounded">RT-HUD</span>
         </motion.div>
 
         {/* Badge 3: Mid Left */}
         <motion.div
           style={{ y: badgeY3, rotate: badgeRotate3 }}
-          className="hidden xl:flex absolute -left-12 bottom-36 z-20 items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#240709]/90 border border-[#52141A] shadow-card backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
+          className="hidden xl:flex absolute -left-12 bottom-36 z-20 items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#0B132B]/90 border border-[#1E3A8A] shadow-card backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
         >
-          <Trophy className="w-4 h-4 text-[#FED7B8]" />
+          <Trophy className="w-4 h-4 text-[#38BDF8]" />
           <div className="text-left">
-            <div className="text-xs font-mono font-bold text-[#FFF5ED]">40+ TOURNAMENT STAGES</div>
-            <div className="text-[10px] text-[#B89B8D] font-mono">WORLDWIDE EXPEDITIONS</div>
+            <div className="text-xs font-mono font-bold text-[#F8FAFC]">40+ TOURNAMENT STAGES</div>
+            <div className="text-[10px] text-[#94A3B8] font-mono">WORLDWIDE EXPEDITIONS</div>
           </div>
         </motion.div>
 
         {/* Badge 4: Mid Right */}
         <motion.div
           style={{ y: badgeY4, rotate: badgeRotate4 }}
-          className="hidden xl:flex absolute -right-10 bottom-40 z-20 items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#240709]/90 border border-[#52141A] shadow-card backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
+          className="hidden xl:flex absolute -right-10 bottom-40 z-20 items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#0B132B]/90 border border-[#1E3A8A] shadow-card backdrop-blur-md cursor-default pointer-events-auto hover:scale-105 transition-transform"
         >
           <Shield className="w-4 h-4 text-[#18A957]" />
           <div className="text-left">
-            <div className="text-xs font-mono font-bold text-[#FED7B8]">99.99% UPTIME</div>
-            <div className="text-[10px] text-[#B89B8D] font-mono">STADIUM REDUNDANCY</div>
+            <div className="text-xs font-mono font-bold text-[#38BDF8]">99.99% UPTIME</div>
+            <div className="text-[10px] text-[#94A3B8] font-mono">STADIUM REDUNDANCY</div>
           </div>
         </motion.div>
 
@@ -141,10 +141,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2D0A0E]/80 border border-[#52141A] shadow-glow-burgundy backdrop-blur-md mb-6"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0F1D38]/80 border border-[#1E3A8A] shadow-glow-burgundy backdrop-blur-md mb-6"
         >
-          <Sparkles className="w-3.5 h-3.5 text-[#FED7B8]" />
-          <span className="text-[11px] font-mono tracking-[0.25em] text-[#FED7B8] uppercase font-bold">
+          <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" />
+          <span className="text-[11px] font-mono tracking-[0.25em] text-[#38BDF8] uppercase font-bold">
             ESPORTS • CREATIVE • DIGITAL
           </span>
         </motion.div>
@@ -154,14 +154,14 @@ export function Hero() {
           style={{ scale: headlineScale, y: headlineY }}
           className="w-full flex flex-col items-center"
         >
-          <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-[-0.04em] leading-[0.88] mb-8 text-[#FFF5ED]">
+          <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-[-0.04em] leading-[0.88] mb-8 text-[#F8FAFC]">
             <span className="sr-only">Nature Studios — Esports Broadcast, Stage Architecture & Creative Technology. </span>
             THE DIGITAL <br />
             <span className="text-gradient-warm">WILD.</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="max-w-2xl text-base sm:text-xl text-[#E8C5A5] leading-relaxed font-light mb-10">
+          <p className="max-w-2xl text-base sm:text-xl text-[#7DD3FC] leading-relaxed font-light mb-10">
             Nature moves. We create. An elite studio engineering arena stages, cinematic tournament broadcasts, and bespoke digital portfolio realms.
           </p>
 
@@ -169,17 +169,17 @@ export function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link href="/portfolio" className="btn-primary text-xs py-3 px-6 shadow-glow-burgundy">
               <span>Explore Studio Portfolio</span>
-              <ArrowRight className="w-4 h-4 text-[#FED7B8]" />
+              <ArrowRight className="w-4 h-4 text-[#38BDF8]" />
             </Link>
 
             <Link href="/portfolio/edit" className="btn-beige text-xs py-3 px-6 shadow-glow-beige">
               <span>Create Your Portfolio</span>
-              <Sparkles className="w-4 h-4 text-[#3A0E11]" />
+              <Sparkles className="w-4 h-4 text-[#1E40AF]" />
             </Link>
 
             {user ? (
               <Link href="/dashboard" className="btn-secondary text-xs py-3 px-6">
-                <Shield className="w-4 h-4 text-[#FED7B8]" />
+                <Shield className="w-4 h-4 text-[#38BDF8]" />
                 <span>Command Center</span>
               </Link>
             ) : (
@@ -194,18 +194,18 @@ export function Hero() {
           </div>
 
           {/* Key Metrics Strip */}
-          <div className="grid grid-cols-3 gap-8 pt-8 mt-10 border-t border-[#3D0D13] w-full max-w-xl font-mono">
+          <div className="grid grid-cols-3 gap-8 pt-8 mt-10 border-t border-[#172554] w-full max-w-xl font-mono">
             <div>
-              <div className="text-2xl sm:text-4xl font-black text-[#FED7B8] tabular-nums">200+</div>
-              <div className="text-[10px] uppercase tracking-widest text-[#B89B8D] mt-1">Live Broadcasts</div>
+              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums">200+</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1">Live Broadcasts</div>
             </div>
             <div>
-              <div className="text-2xl sm:text-4xl font-black text-[#FED7B8] tabular-nums">40+</div>
-              <div className="text-[10px] uppercase tracking-widest text-[#B89B8D] mt-1">Global Arenas</div>
+              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums">40+</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1">Global Arenas</div>
             </div>
             <div>
-              <div className="text-2xl sm:text-4xl font-black text-[#FED7B8] tabular-nums">8yr</div>
-              <div className="text-[10px] uppercase tracking-widest text-[#B89B8D] mt-1">Studio Craft</div>
+              <div className="text-2xl sm:text-4xl font-black text-[#38BDF8] tabular-nums">8yr</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#94A3B8] mt-1">Studio Craft</div>
             </div>
           </div>
         </motion.div>
@@ -213,12 +213,12 @@ export function Hero() {
 
       {/* Bottom Scroll Cue */}
       <div className="relative z-10 pb-6 flex flex-col items-center gap-1.5 pointer-events-none">
-        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#B89B8D]">Scroll Into The Story</span>
+        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#94A3B8]">Scroll Into The Story</span>
         <motion.div
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <ChevronDown className="w-4 h-4 text-[#FED7B8]" />
+          <ChevronDown className="w-4 h-4 text-[#38BDF8]" />
         </motion.div>
       </div>
     </section>

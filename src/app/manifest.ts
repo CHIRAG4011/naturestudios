@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       'Premier creative technology and production studio engineering championship tournament broadcasts, arena stage architectures, and motion design.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#150304',
-    theme_color: '#150304',
+    background_color: '#030712',
+    theme_color: '#030712',
     icons: [
       {
         src: '/favicon.svg',

@@ -43,7 +43,7 @@ export function Studio() {
     <section
       ref={sectionRef}
       id="about"
-      className="py-24 px-6 lg:px-12 max-w-7xl mx-auto scroll-mt-24 text-[#FFF5ED]"
+      className="py-24 px-6 lg:px-12 max-w-7xl mx-auto scroll-mt-24 text-[#F8FAFC]"
     >
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
         {/* Studio Visual Plate */}
@@ -52,7 +52,7 @@ export function Studio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="group relative overflow-hidden rounded-3xl border border-[#52141A] shadow-2xl lg:col-span-6 bg-[#1C0507]"
+          className="group relative overflow-hidden rounded-3xl border border-[#1E3A8A] shadow-2xl lg:col-span-6 bg-[#050B17]"
         >
           <div className="relative h-96 w-full overflow-hidden sm:h-[480px]">
             <motion.div style={{ y: plateY, scale: plateScale }} className="absolute inset-0">
@@ -64,14 +64,14 @@ export function Studio() {
                 className="object-cover brightness-95"
               />
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#150304] via-[#240709]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#0B132B]/40 to-transparent" />
           </div>
 
-          <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-[#52141A] bg-[#240709]/90 p-5 backdrop-blur-md">
-            <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8]">
+          <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-[#1E3A8A] bg-[#0B132B]/90 p-5 backdrop-blur-md">
+            <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8]">
               STUDIO PHILOSOPHY
             </span>
-            <p className="mt-1 text-xs sm:text-sm leading-relaxed text-[#E8C5A5] font-light">
+            <p className="mt-1 text-xs sm:text-sm leading-relaxed text-[#7DD3FC] font-light">
               An interdisciplinary creative laboratory fusing generative biological simulation, Unreal Engine 5 broadcast pipelines, and arena stage architecture.
             </p>
           </div>
@@ -86,7 +86,7 @@ export function Studio() {
           className="space-y-6 lg:col-span-6"
         >
           <div className="space-y-3">
-            <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8]">
+            <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8]">
               ABOUT NATURESTUDIOS
             </span>
             <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-gradient-warm leading-[0.95]">
@@ -94,7 +94,7 @@ export function Studio() {
             </h2>
           </div>
 
-          <p className="text-sm sm:text-base leading-relaxed text-[#B89B8D] font-light">
+          <p className="text-sm sm:text-base leading-relaxed text-[#94A3B8] font-light">
             We started from a conviction that esports spectacle does not have to feel cold and industrial. NatureStudios merges deep burgundy spatial architecture, warm beige ambient illumination, and hyper-kinetic motion systems. We design worlds that breathe.
           </p>
 
@@ -104,13 +104,13 @@ export function Studio() {
               return (
                 <div
                   key={pillar.title}
-                  className="p-5 rounded-xl border border-[#3D0D13] bg-[#240709] hover:border-[#FED7B8] transition-all space-y-2.5"
+                  className="p-5 rounded-xl border border-[#172554] bg-[#0B132B] hover:border-[#38BDF8] transition-all space-y-2.5"
                 >
-                  <div className="p-2 w-fit rounded-lg bg-[#2D0A0E] border border-[#52141A] text-[#FED7B8]">
+                  <div className="p-2 w-fit rounded-lg bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8]">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <h3 className="text-sm font-bold uppercase text-[#FFF5ED]">{pillar.title}</h3>
-                  <p className="text-xs text-[#B89B8D] leading-relaxed">{pillar.copy}</p>
+                  <h3 className="text-sm font-bold uppercase text-[#F8FAFC]">{pillar.title}</h3>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">{pillar.copy}</p>
                 </div>
               );
             })}

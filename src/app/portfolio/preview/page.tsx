@@ -52,8 +52,8 @@ export default function PortfolioPreviewPage() {
 
   if (loading || !portfolio) {
     return (
-      <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#FED7B8] animate-spin" />
+      <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#38BDF8] animate-spin" />
       </div>
     );
   }
@@ -61,27 +61,27 @@ export default function PortfolioPreviewPage() {
   const publicUrl = `https://${portfolio.slug}.naturestudio.in`;
 
   return (
-    <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex flex-col font-sans">
       {/* Control Bar */}
-      <header className="sticky top-0 z-50 bg-[#1C0507] border-b border-[#3D0D13] px-6 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-[#050B17] border-b border-[#172554] px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/portfolio" className="text-xs font-mono uppercase text-[#FED7B8] hover:underline flex items-center gap-1.5">
+          <Link href="/portfolio" className="text-xs font-mono uppercase text-[#38BDF8] hover:underline flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" /> Back
           </Link>
-          <span className="text-[#52141A]">/</span>
-          <span className="text-xs font-mono uppercase text-[#B89B8D]">
+          <span className="text-[#1E3A8A]">/</span>
+          <span className="text-xs font-mono uppercase text-[#94A3B8]">
             Live Preview // {portfolio.themeId.toUpperCase()}
           </span>
         </div>
 
         {/* Viewport Selectors */}
-        <div className="flex items-center gap-2 p-1 rounded-lg bg-[#240709] border border-[#3D0D13]">
+        <div className="flex items-center gap-2 p-1 rounded-lg bg-[#0B132B] border border-[#172554]">
           <button
             onClick={() => setViewMode('desktop')}
             className={`p-1.5 rounded text-xs flex items-center gap-1.5 font-mono uppercase ${
               viewMode === 'desktop'
-                ? 'bg-[#59171B] text-[#FED7B8]'
-                : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                ? 'bg-[#2563EB] text-[#38BDF8]'
+                : 'text-[#94A3B8] hover:text-[#F8FAFC]'
             }`}
           >
             <Monitor className="w-3.5 h-3.5" /> Desktop
@@ -90,8 +90,8 @@ export default function PortfolioPreviewPage() {
             onClick={() => setViewMode('mobile')}
             className={`p-1.5 rounded text-xs flex items-center gap-1.5 font-mono uppercase ${
               viewMode === 'mobile'
-                ? 'bg-[#59171B] text-[#FED7B8]'
-                : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                ? 'bg-[#2563EB] text-[#38BDF8]'
+                : 'text-[#94A3B8] hover:text-[#F8FAFC]'
             }`}
           >
             <Smartphone className="w-3.5 h-3.5" /> Mobile
@@ -100,8 +100,8 @@ export default function PortfolioPreviewPage() {
             onClick={() => setViewMode('full')}
             className={`p-1.5 rounded text-xs flex items-center gap-1.5 font-mono uppercase ${
               viewMode === 'full'
-                ? 'bg-[#59171B] text-[#FED7B8]'
-                : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                ? 'bg-[#2563EB] text-[#38BDF8]'
+                : 'text-[#94A3B8] hover:text-[#F8FAFC]'
             }`}
           >
             <Maximize2 className="w-3.5 h-3.5" /> Full
@@ -110,22 +110,22 @@ export default function PortfolioPreviewPage() {
 
         {/* Quick Theme Switcher & Actions */}
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 bg-[#240709] border border-[#3D0D13] rounded-lg px-2 py-1">
-            <span className="text-[10px] font-mono text-[#B89B8D] uppercase">Theme:</span>
+          <div className="hidden sm:flex items-center gap-2 bg-[#0B132B] border border-[#172554] rounded-lg px-2 py-1">
+            <span className="text-[10px] font-mono text-[#94A3B8] uppercase">Theme:</span>
             <select
               value={portfolio.themeId}
               onChange={(e) => handleQuickThemeSwitch(e.target.value as PortfolioThemeId)}
-              className="bg-transparent text-[#FED7B8] text-xs font-mono focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#38BDF8] text-xs font-mono focus:outline-none cursor-pointer"
             >
-              <option value="editorial" className="bg-[#1C0507]">01 Editorial</option>
-              <option value="cinematic" className="bg-[#1C0507]">02 Cinematic</option>
-              <option value="esports" className="bg-[#1C0507]">03 Esports</option>
-              <option value="minimal" className="bg-[#1C0507]">04 Minimal</option>
-              <option value="creative-grid" className="bg-[#1C0507]">05 Creative Grid</option>
-              <option value="immersive" className="bg-[#1C0507]">06 Immersive</option>
-              <option value="magazine" className="bg-[#1C0507]">07 Magazine</option>
-              <option value="experimental" className="bg-[#1C0507]">08 Experimental</option>
-              <option value="custom" className="bg-[#1C0507] text-[#FED7B8] font-bold">★ Custom Studio</option>
+              <option value="editorial" className="bg-[#050B17]">01 Editorial</option>
+              <option value="cinematic" className="bg-[#050B17]">02 Cinematic</option>
+              <option value="esports" className="bg-[#050B17]">03 Esports</option>
+              <option value="minimal" className="bg-[#050B17]">04 Minimal</option>
+              <option value="creative-grid" className="bg-[#050B17]">05 Creative Grid</option>
+              <option value="immersive" className="bg-[#050B17]">06 Immersive</option>
+              <option value="magazine" className="bg-[#050B17]">07 Magazine</option>
+              <option value="experimental" className="bg-[#050B17]">08 Experimental</option>
+              <option value="custom" className="bg-[#050B17] text-[#38BDF8] font-bold">★ Custom Studio</option>
             </select>
           </div>
 
@@ -156,15 +156,15 @@ export default function PortfolioPreviewPage() {
         )}
 
         {viewMode === 'desktop' && (
-          <div className="w-full max-w-[1240px] rounded-2xl overflow-hidden border-2 border-[#52141A] shadow-2xl bg-[#150304]">
+          <div className="w-full max-w-[1240px] rounded-2xl overflow-hidden border-2 border-[#1E3A8A] shadow-2xl bg-[#030712]">
             {/* Desktop Mock Browser Chrome */}
-            <div className="bg-[#1C0507] border-b border-[#3D0D13] px-4 py-2.5 flex items-center gap-3">
+            <div className="bg-[#050B17] border-b border-[#172554] px-4 py-2.5 flex items-center gap-3">
               <div className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#E63946]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-[#D9540C]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-[#18A957]" />
               </div>
-              <div className="flex-1 max-w-sm mx-auto bg-[#150304] border border-[#3D0D13] rounded-md px-3 py-1 text-[11px] font-mono text-[#FED7B8] text-center truncate">
+              <div className="flex-1 max-w-sm mx-auto bg-[#030712] border border-[#172554] rounded-md px-3 py-1 text-[11px] font-mono text-[#38BDF8] text-center truncate">
                 {publicUrl}
               </div>
             </div>
@@ -175,11 +175,11 @@ export default function PortfolioPreviewPage() {
         )}
 
         {viewMode === 'mobile' && (
-          <div className="w-[390px] rounded-[40px] overflow-hidden border-4 border-[#52141A] shadow-2xl bg-[#150304] my-6">
+          <div className="w-[390px] rounded-[40px] overflow-hidden border-4 border-[#1E3A8A] shadow-2xl bg-[#030712] my-6">
             {/* Mobile Notch Bar */}
-            <div className="bg-[#1C0507] border-b border-[#3D0D13] px-6 py-3 flex justify-between items-center text-[10px] font-mono text-[#B89B8D]">
+            <div className="bg-[#050B17] border-b border-[#172554] px-6 py-3 flex justify-between items-center text-[10px] font-mono text-[#94A3B8]">
               <span>9:41</span>
-              <div className="w-16 h-3 rounded-full bg-[#150304]" />
+              <div className="w-16 h-3 rounded-full bg-[#030712]" />
               <span>5G</span>
             </div>
             <div className="h-[740px] overflow-y-auto">

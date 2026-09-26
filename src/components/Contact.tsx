@@ -83,21 +83,21 @@ export function Contact() {
           <div className="space-y-3 pt-2">
             <a
               href="mailto:naturestudio05@gmail.com"
-              className="flex items-center justify-between p-3.5 rounded-xl border border-rim bg-surface-card hover:border-[#FED7B8]/40 transition-all group cursor-pointer"
+              className="flex items-center justify-between p-3.5 rounded-xl border border-rim bg-surface-card hover:border-[#38BDF8]/40 transition-all group cursor-pointer"
               title="Send email to naturestudio05@gmail.com"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-[#FED7B8] group-hover:scale-105 transition-transform">
+                <div className="p-2 rounded-lg bg-[#0B132B] border border-[#1E3A8A] text-[#38BDF8] group-hover:scale-105 transition-transform">
                   <Mail className="h-4 w-4" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-mono uppercase text-[#B89B8D]">Direct Email Contact</span>
-                  <span className="text-xs text-cream font-mono font-bold group-hover:text-[#FED7B8] transition-colors">
+                  <span className="text-[10px] font-mono uppercase text-[#94A3B8]">Direct Email Contact</span>
+                  <span className="text-xs text-cream font-mono font-bold group-hover:text-[#38BDF8] transition-colors">
                     naturestudio05@gmail.com
                   </span>
                 </div>
               </div>
-              <ArrowUpRight className="h-4 w-4 text-[#B89B8D] group-hover:text-[#FED7B8] transition-colors" />
+              <ArrowUpRight className="h-4 w-4 text-[#94A3B8] group-hover:text-[#38BDF8] transition-colors" />
             </a>
 
             <a
@@ -108,7 +108,7 @@ export function Contact() {
               title="Chat on WhatsApp: +91 7480 066 539"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-emerald-400 group-hover:scale-105 transition-transform">
+                <div className="p-2 rounded-lg bg-[#0B132B] border border-[#1E3A8A] text-emerald-400 group-hover:scale-105 transition-transform">
                   <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col">
@@ -131,7 +131,7 @@ export function Contact() {
               title="Join NatureStudios Discord Server"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-indigo-400 group-hover:scale-105 transition-transform">
+                <div className="p-2 rounded-lg bg-[#0B132B] border border-[#1E3A8A] text-indigo-400 group-hover:scale-105 transition-transform">
                   <DiscordIcon className="h-4 w-4" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col">
@@ -154,7 +154,7 @@ export function Contact() {
               title="Instagram @naturestudio.in"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-pink-400 group-hover:scale-105 transition-transform">
+                <div className="p-2 rounded-lg bg-[#0B132B] border border-[#1E3A8A] text-pink-400 group-hover:scale-105 transition-transform">
                   <Instagram className="h-4 w-4" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col">
@@ -170,11 +170,11 @@ export function Contact() {
             </a>
 
             <div className="flex items-center gap-3 p-3.5 rounded-xl border border-rim bg-surface-card">
-              <div className="p-2 rounded-lg bg-[#240709] border border-[#52141A] text-forest-light">
+              <div className="p-2 rounded-lg bg-[#0B132B] border border-[#1E3A8A] text-forest-light">
                 <Globe className="h-4 w-4" aria-hidden="true" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] font-mono uppercase text-[#B89B8D]">Operations</span>
+                <span className="text-[10px] font-mono uppercase text-[#94A3B8]">Operations</span>
                 <span className="text-xs text-cream-dim font-mono">Worldwide Broadcast Production</span>
               </div>
             </div>

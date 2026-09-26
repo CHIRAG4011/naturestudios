@@ -19,7 +19,7 @@ import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC]">
       <Navbar />
       <main id="main" className="flex-1">
         {/* 1. Cinematic Hero */}

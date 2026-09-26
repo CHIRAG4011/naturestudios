@@ -65,7 +65,7 @@ export default function AdminSettingsPage() {
 
   if (loading || !settings) {
     return (
-      <div className="p-12 text-center text-xs text-[#B89B8D]">
+      <div className="p-12 text-center text-xs text-[#94A3B8]">
         Loading platform settings from MongoDB Atlas...
       </div>
     );
@@ -74,7 +74,7 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -83,17 +83,17 @@ export default function AdminSettingsPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Global Platform Settings
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               Atlas Configured
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Global studio parameters, contact routing, authentication toggles, and emergency maintenance controls.
           </p>
         </div>
@@ -102,9 +102,9 @@ export default function AdminSettingsPage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg transition-all"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-2 shadow-lg transition-all"
           >
-            <Save className="w-4 h-4 text-[#FED7B8]" />
+            <Save className="w-4 h-4 text-[#38BDF8]" />
             <span>{saving ? 'Saving...' : 'Save Settings'}</span>
           </button>
         )}
@@ -113,90 +113,90 @@ export default function AdminSettingsPage() {
       {/* Form Grid */}
       <form onSubmit={handleSave} className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
         {/* Brand Information */}
-        <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-4">
-          <div className="font-semibold text-xs uppercase tracking-wider text-[#FED7B8] pb-2 border-b border-[#3D0D13]">
+        <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-4">
+          <div className="font-semibold text-xs uppercase tracking-wider text-[#38BDF8] pb-2 border-b border-[#172554]">
             Brand Identity & Contact
           </div>
 
           <div>
-            <label className="text-[#B89B8D] block mb-1">Brand Name</label>
+            <label className="text-[#94A3B8] block mb-1">Brand Name</label>
             <input
               type="text"
               value={settings.brandName || ''}
               onChange={(e) => setSettings({ ...settings, brandName: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+              className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           <div>
-            <label className="text-[#B89B8D] block mb-1">Brand Tagline</label>
+            <label className="text-[#94A3B8] block mb-1">Brand Tagline</label>
             <input
               type="text"
               value={settings.tagline || ''}
               onChange={(e) => setSettings({ ...settings, tagline: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+              className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[#B89B8D] block mb-1">Contact Email</label>
+              <label className="text-[#94A3B8] block mb-1">Contact Email</label>
               <input
                 type="email"
                 value={settings.contactEmail || ''}
                 onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
               />
             </div>
             <div>
-              <label className="text-[#B89B8D] block mb-1">Support Email</label>
+              <label className="text-[#94A3B8] block mb-1">Support Email</label>
               <input
                 type="email"
                 value={settings.supportEmail || ''}
                 onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-[#B89B8D] block mb-1">Official Instagram URL</label>
+            <label className="text-[#94A3B8] block mb-1">Official Instagram URL</label>
             <input
               type="url"
               value={settings.instagramUrl || ''}
               onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
               placeholder="https://www.instagram.com/naturestudio.in..."
-              className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+              className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[#B89B8D] block mb-1">Discord Invite URL</label>
+              <label className="text-[#94A3B8] block mb-1">Discord Invite URL</label>
               <input
                 type="url"
                 value={settings.discordUrl || ''}
                 onChange={(e) => setSettings({ ...settings, discordUrl: e.target.value })}
                 placeholder="https://discord.gg/..."
-                className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
               />
             </div>
             <div>
-              <label className="text-[#B89B8D] block mb-1">WhatsApp Number</label>
+              <label className="text-[#94A3B8] block mb-1">WhatsApp Number</label>
               <input
                 type="text"
                 value={settings.whatsappNumber || ''}
                 onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
                 placeholder="+91 ..."
-                className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
               />
             </div>
           </div>
         </div>
 
         {/* Global Operational Toggles */}
-        <div className="p-6 rounded-3xl bg-[#1D0608] border border-[#3D0D13] space-y-4">
-          <div className="font-semibold text-xs uppercase tracking-wider text-[#FED7B8] pb-2 border-b border-[#3D0D13]">
+        <div className="p-6 rounded-3xl bg-[#070D1E] border border-[#172554] space-y-4">
+          <div className="font-semibold text-xs uppercase tracking-wider text-[#38BDF8] pb-2 border-b border-[#172554]">
             Access & Operational Toggles
           </div>
 
@@ -210,11 +210,11 @@ export default function AdminSettingsPage() {
           ].map((toggle) => (
             <div
               key={toggle.key}
-              className="p-3 rounded-xl bg-[#150304] border border-[#3D0D13] flex items-center justify-between"
+              className="p-3 rounded-xl bg-[#030712] border border-[#172554] flex items-center justify-between"
             >
               <div>
-                <div className="font-semibold text-[#FFF5ED]">{toggle.label}</div>
-                <div className="text-[11px] text-[#B89B8D]">{toggle.desc}</div>
+                <div className="font-semibold text-[#F8FAFC]">{toggle.label}</div>
+                <div className="text-[11px] text-[#94A3B8]">{toggle.desc}</div>
               </div>
               <button
                 type="button"
@@ -222,12 +222,12 @@ export default function AdminSettingsPage() {
                   setSettings({ ...settings, [toggle.key]: !settings[toggle.key] })
                 }
                 className={`w-12 h-6 rounded-full transition-colors relative p-0.5 ${
-                  settings[toggle.key] ? 'bg-[#59171B]' : 'bg-[#240709] border border-[#3D0D13]'
+                  settings[toggle.key] ? 'bg-[#2563EB]' : 'bg-[#0B132B] border border-[#172554]'
                 }`}
               >
                 <div
-                  className={`w-5 h-5 rounded-full bg-[#FFF5ED] transition-transform ${
-                    settings[toggle.key] ? 'translate-x-6 bg-[#FED7B8]' : 'translate-x-0'
+                  className={`w-5 h-5 rounded-full bg-[#F8FAFC] transition-transform ${
+                    settings[toggle.key] ? 'translate-x-6 bg-[#38BDF8]' : 'translate-x-0'
                   }`}
                 />
               </button>

@@ -128,17 +128,17 @@ function wrapEmailTemplate(title: string, contentHtml: string): string {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
         <style>
-          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #150304; color: #FFF5ED; margin: 0; padding: 40px 16px; }
-          .container { max-width: 580px; margin: 0 auto; background: #240709; border: 1px solid #52141A; border-radius: 14px; padding: 40px; box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
-          .brand { font-size: 20px; font-weight: 900; letter-spacing: 0.18em; color: #FED7B8; margin-bottom: 24px; text-transform: uppercase; border-bottom: 1px solid #3D0D13; padding-bottom: 16px; }
-          .tagline { font-size: 10px; letter-spacing: 0.25em; color: #B89B8D; margin-top: 4px; }
-          .title { font-size: 24px; font-weight: 800; color: #FFF5ED; margin-bottom: 16px; letter-spacing: -0.02em; }
-          .text { font-size: 15px; color: #E8C5A5; line-height: 1.65; margin-bottom: 20px; }
-          .code-box { background: #150304; border: 1px solid #59171B; border-radius: 8px; padding: 20px; text-align: center; font-size: 36px; font-weight: 900; letter-spacing: 0.3em; color: #FED7B8; margin: 28px 0; font-family: monospace; box-shadow: 0 0 25px rgba(89,23,27,0.4); }
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #030712; color: #F8FAFC; margin: 0; padding: 40px 16px; }
+          .container { max-width: 580px; margin: 0 auto; background: #0B132B; border: 1px solid #1E3A8A; border-radius: 14px; padding: 40px; box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
+          .brand { font-size: 20px; font-weight: 900; letter-spacing: 0.18em; color: #38BDF8; margin-bottom: 24px; text-transform: uppercase; border-bottom: 1px solid #172554; padding-bottom: 16px; }
+          .tagline { font-size: 10px; letter-spacing: 0.25em; color: #94A3B8; margin-top: 4px; }
+          .title { font-size: 24px; font-weight: 800; color: #F8FAFC; margin-bottom: 16px; letter-spacing: -0.02em; }
+          .text { font-size: 15px; color: #7DD3FC; line-height: 1.65; margin-bottom: 20px; }
+          .code-box { background: #030712; border: 1px solid #2563EB; border-radius: 8px; padding: 20px; text-align: center; font-size: 36px; font-weight: 900; letter-spacing: 0.3em; color: #38BDF8; margin: 28px 0; font-family: monospace; box-shadow: 0 0 25px rgba(37, 99, 235,0.4); }
           .btn-container { text-align: center; margin: 32px 0; }
-          .btn { background: #59171B; color: #FED7B8; font-weight: 800; padding: 15px 32px; text-decoration: none; border-radius: 8px; display: inline-block; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid #FED7B8; }
-          .footer { font-size: 12px; color: #7A6158; border-top: 1px solid #3D0D13; padding-top: 24px; margin-top: 36px; line-height: 1.5; }
-          .highlight { color: #FED7B8; font-weight: 700; }
+          .btn { background: #2563EB; color: #38BDF8; font-weight: 800; padding: 15px 32px; text-decoration: none; border-radius: 8px; display: inline-block; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid #38BDF8; }
+          .footer { font-size: 12px; color: #64748B; border-top: 1px solid #172554; padding-top: 24px; margin-top: 36px; line-height: 1.5; }
+          .highlight { color: #38BDF8; font-weight: 700; }
         </style>
       </head>
       <body>
@@ -246,7 +246,7 @@ export async function sendPasswordResetEmail(to: string, token: string, name?: s
       <a href="${resetUrl}" class="btn">RESET PASSWORD</a>
     </div>
     <div class="text">This link is single-use and will expire in <span class="highlight">1 hour</span>.</div>
-    <div class="text" style="font-size: 12px; color: #B89B8D; word-break: break-all;">If the button does not work, copy and paste this link:<br>${resetUrl}</div>
+    <div class="text" style="font-size: 12px; color: #94A3B8; word-break: break-all;">If the button does not work, copy and paste this link:<br>${resetUrl}</div>
   `;
 
   const result = await sendEmail({
@@ -269,7 +269,7 @@ export async function sendProjectRequestEmail(
   const content = `
     <div class="text">Hello ${data.name},</div>
     <div class="text">Thank you for submitting your project request. Our studio team has received your brief and is currently reviewing the specifications.</div>
-    <div style="background: #150304; border: 1px solid #52141A; border-radius: 8px; padding: 20px; margin: 20px 0;">
+    <div style="background: #030712; border: 1px solid #1E3A8A; border-radius: 8px; padding: 20px; margin: 20px 0;">
       <div class="text" style="margin-bottom: 8px;"><span class="highlight">Project Type:</span> ${data.projectType}</div>
       ${data.budget ? `<div class="text" style="margin-bottom: 8px;"><span class="highlight">Budget:</span> ${data.budget}</div>` : ''}
       ${data.timeline ? `<div class="text" style="margin-bottom: 8px;"><span class="highlight">Timeline:</span> ${data.timeline}</div>` : ''}
@@ -302,7 +302,7 @@ export async function sendAdminNotificationEmail(data: {
 
   const content = `
     <div class="text">A new project request was submitted via the NatureStudios portal:</div>
-    <div style="background: #150304; border: 1px solid #59171B; border-radius: 8px; padding: 20px; margin: 20px 0;">
+    <div style="background: #030712; border: 1px solid #2563EB; border-radius: 8px; padding: 20px; margin: 20px 0;">
       <div class="text" style="margin-bottom: 8px;"><span class="highlight">Client:</span> ${data.clientName}</div>
       <div class="text" style="margin-bottom: 8px;"><span class="highlight">Email:</span> ${data.email}</div>
       ${data.company ? `<div class="text" style="margin-bottom: 8px;"><span class="highlight">Company:</span> ${data.company}</div>` : ''}
@@ -311,7 +311,7 @@ export async function sendAdminNotificationEmail(data: {
       ${data.timeline ? `<div class="text" style="margin-bottom: 8px;"><span class="highlight">Timeline:</span> ${data.timeline}</div>` : ''}
       <div class="text" style="margin-bottom: 0;"><span class="highlight">Brief:</span><br>${data.message}</div>
     </div>
-    <div class="text" style="font-size: 12px; color: #B89B8D;">Timestamp: ${new Date().toISOString()}</div>
+    <div class="text" style="font-size: 12px; color: #94A3B8;">Timestamp: ${new Date().toISOString()}</div>
   `;
 
   const result = await sendEmail({
@@ -338,8 +338,8 @@ export async function sendPortfolioContactEmail(
   const subject = `New Portfolio Contact Message from ${data.visitorName}`;
 
   const content = `
-    <div class="text">You received a new inquiry on your NatureStudios portfolio (<a href="${data.portfolioUrl}" style="color: #FED7B8;">${data.portfolioUrl}</a>):</div>
-    <div style="background: #150304; border: 1px solid #52141A; border-radius: 8px; padding: 20px; margin: 20px 0;">
+    <div class="text">You received a new inquiry on your NatureStudios portfolio (<a href="${data.portfolioUrl}" style="color: #38BDF8;">${data.portfolioUrl}</a>):</div>
+    <div style="background: #030712; border: 1px solid #1E3A8A; border-radius: 8px; padding: 20px; margin: 20px 0;">
       <div class="text" style="margin-bottom: 8px;"><span class="highlight">From:</span> ${data.visitorName} (${data.visitorEmail})</div>
       ${data.company ? `<div class="text" style="margin-bottom: 8px;"><span class="highlight">Company:</span> ${data.company}</div>` : ''}
       <div class="text" style="margin-bottom: 0;"><span class="highlight">Message:</span><br>${data.message}</div>
@@ -370,7 +370,7 @@ export async function sendPortfolioPublishedEmail(
     <div class="text">${greeting}</div>
     <div class="text">Congratulations! Your professional portfolio is now published and live on the internet at:</div>
     <div class="code-box" style="font-size: 20px; letter-spacing: 0.05em; padding: 16px;">
-      <a href="${portfolioUrl}" style="color: #FED7B8; text-decoration: none;">${portfolioUrl}</a>
+      <a href="${portfolioUrl}" style="color: #38BDF8; text-decoration: none;">${portfolioUrl}</a>
     </div>
     <div class="text">Share this link across your socials, resume, and esports profiles. You can update your content or switch themes anytime from your builder.</div>
     <div class="btn-container">
@@ -426,9 +426,9 @@ export async function sendAccountSuspendedEmail(
     <div class="text">${greeting}</div>
     <div class="text">This is an official notice that your NatureStudios account has been <span class="highlight" style="color: #E63946;">SUSPENDED</span> by platform moderation.</div>
     
-    <div style="background: #150304; border-left: 4px solid #E63946; border-radius: 8px; padding: 18px; margin: 24px 0;">
+    <div style="background: #030712; border-left: 4px solid #E63946; border-radius: 8px; padding: 18px; margin: 24px 0;">
       <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #E63946; margin-bottom: 6px;">Reason for Suspension:</div>
-      <div style="font-size: 15px; color: #FFF5ED; font-weight: 600;">${params.reason || 'Violation of platform terms of service or acceptable use policy.'}</div>
+      <div style="font-size: 15px; color: #F8FAFC; font-weight: 600;">${params.reason || 'Violation of platform terms of service or acceptable use policy.'}</div>
     </div>
 
     <div class="text">While your account is suspended, access to creative project submissions, brief updates, and custom portfolio publishing is restricted.</div>
@@ -436,10 +436,10 @@ export async function sendAccountSuspendedEmail(
     <div class="text" style="margin-top: 20px;"><strong>How to Appeal:</strong> If you believe this action was made in error, or if you have resolved the underlying issue, you can appeal this decision directly through our ticket support center:</div>
 
     <div class="btn-container">
-      <a href="${appealLink}" class="btn" style="background: #59171B; border-color: #FED7B8;">APPEAL AT SUPPORT TICKETS</a>
+      <a href="${appealLink}" class="btn" style="background: #2563EB; border-color: #38BDF8;">APPEAL AT SUPPORT TICKETS</a>
     </div>
 
-    <div class="text" style="font-size: 13px; color: #B89B8D; text-align: center;">You can also reply to this email or contact our support team at <a href="mailto:${EMAIL_ADDRESSES.support}" style="color: #FED7B8;">${EMAIL_ADDRESSES.support}</a> with your account email and details.</div>
+    <div class="text" style="font-size: 13px; color: #94A3B8; text-align: center;">You can also reply to this email or contact our support team at <a href="mailto:${EMAIL_ADDRESSES.support}" style="color: #38BDF8;">${EMAIL_ADDRESSES.support}</a> with your account email and details.</div>
   `;
 
   const result = await sendEmail({
@@ -493,11 +493,11 @@ export async function sendTicketCreatedEmail(
     <div class="text">${greeting}</div>
     <div class="text">Your support request has been received by our studio operations and moderation team.</div>
     
-    <div style="background: #150304; border: 1px solid #59171B; border-radius: 8px; padding: 18px; margin: 24px 0;">
-      <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #FED7B8; margin-bottom: 4px;">Ticket Number:</div>
-      <div style="font-size: 20px; font-weight: 900; color: #FFF5ED; font-family: monospace;">${params.ticketNumber}</div>
-      <div style="font-size: 13px; color: #B89B8D; margin-top: 8px;"><strong>Subject:</strong> ${params.subject}</div>
-      ${params.category ? `<div style="font-size: 13px; color: #B89B8D; margin-top: 4px;"><strong>Category:</strong> ${params.category}</div>` : ''}
+    <div style="background: #030712; border: 1px solid #2563EB; border-radius: 8px; padding: 18px; margin: 24px 0;">
+      <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #38BDF8; margin-bottom: 4px;">Ticket Number:</div>
+      <div style="font-size: 20px; font-weight: 900; color: #F8FAFC; font-family: monospace;">${params.ticketNumber}</div>
+      <div style="font-size: 13px; color: #94A3B8; margin-top: 8px;"><strong>Subject:</strong> ${params.subject}</div>
+      ${params.category ? `<div style="font-size: 13px; color: #94A3B8; margin-top: 4px;"><strong>Category:</strong> ${params.category}</div>` : ''}
     </div>
 
     <div class="text">Our team reviews tickets actively. You can track progress and add further details through your workspace tickets page:</div>
@@ -535,7 +535,7 @@ export async function sendTicketReplyEmail(
     <div class="text">${greeting}</div>
     <div class="text">Support staff (${params.staffName || 'NatureStudios Team'}) has posted an update to your ticket <span class="highlight font-mono">${params.ticketNumber}</span>:</div>
 
-    <div style="background: #150304; border-left: 4px solid #FED7B8; border-radius: 8px; padding: 18px; margin: 24px 0; color: #FFF5ED; line-height: 1.6; font-size: 14px;">
+    <div style="background: #030712; border-left: 4px solid #38BDF8; border-radius: 8px; padding: 18px; margin: 24px 0; color: #F8FAFC; line-height: 1.6; font-size: 14px;">
       ${params.replyMessage.replace(/\n/g, '<br>')}
     </div>
 

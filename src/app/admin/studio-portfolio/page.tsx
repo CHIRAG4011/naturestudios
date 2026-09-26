@@ -374,7 +374,7 @@ export default function AdminStudioPortfolioPage() {
     <div className="space-y-6">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             {toastMessage}
@@ -386,21 +386,21 @@ export default function AdminStudioPortfolioPage() {
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-[#1D0608] border border-[#59171B]/60 shadow-2xl relative overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-[#070D1E] border border-[#2563EB]/60 shadow-2xl relative overflow-hidden">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-9 h-9 rounded-xl bg-[#59171B]/60 border border-[#FED7B8]/30 flex items-center justify-center text-[#FED7B8]">
+            <div className="w-9 h-9 rounded-xl bg-[#2563EB]/60 border border-[#38BDF8]/30 flex items-center justify-center text-[#38BDF8]">
               <Sparkles className="w-5 h-5" />
             </div>
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Studio Portfolio CMS
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               GFX & VFX Tracks
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] max-w-2xl leading-relaxed">
-            Manage the official showcase items displayed on the public <Link href="/portfolio" target="_blank" className="text-[#FED7B8] underline hover:text-white">Studio Portfolio (/portfolio)</Link>. Add high-impact GFX (Tournament, Roster, Thumbnail, Logo/Banners) and playable VFX video reels.
+          <p className="text-xs text-[#94A3B8] max-w-2xl leading-relaxed">
+            Manage the official showcase items displayed on the public <Link href="/portfolio" target="_blank" className="text-[#38BDF8] underline hover:text-white">Studio Portfolio (/portfolio)</Link>. Add high-impact GFX (Tournament, Roster, Thumbnail, Logo/Banners) and playable VFX video reels.
           </p>
         </div>
 
@@ -408,19 +408,19 @@ export default function AdminStudioPortfolioPage() {
           <Link
             href="/portfolio"
             target="_blank"
-            className="px-3.5 py-2 rounded-xl bg-[#150304] hover:bg-[#250608] border border-[#59171B] text-xs font-mono uppercase tracking-wider text-[#FED7B8] flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-2 rounded-xl bg-[#030712] hover:bg-[#250608] border border-[#2563EB] text-xs font-mono uppercase tracking-wider text-[#38BDF8] flex items-center gap-1.5 transition-colors"
           >
             <Eye className="w-3.5 h-3.5" />
             <span>Public Page</span>
-            <ExternalLink className="w-3 h-3 text-[#FED7B8]/60" />
+            <ExternalLink className="w-3 h-3 text-[#38BDF8]/60" />
           </Link>
 
           {(isSuperAdmin || hasPermission('content.create')) && (
             <button
               onClick={() => handleOpenCreate('GFX')}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg transition-all hover:scale-[1.02]"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-2 shadow-lg transition-all hover:scale-[1.02]"
             >
-              <Plus className="w-4 h-4 text-[#FED7B8]" />
+              <Plus className="w-4 h-4 text-[#38BDF8]" />
               <span>Add Portfolio Item</span>
             </button>
           )}
@@ -429,20 +429,20 @@ export default function AdminStudioPortfolioPage() {
 
       {/* Metrics Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="text-[10px] font-mono uppercase text-[#B89B8D] tracking-wider mb-1">Total Showcases</div>
-          <div className="text-2xl font-bold font-syne text-[#FFF5ED]">{items.length}</div>
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider mb-1">Total Showcases</div>
+          <div className="text-2xl font-bold font-syne text-[#F8FAFC]">{items.length}</div>
         </div>
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="text-[10px] font-mono uppercase text-[#B89B8D] tracking-wider mb-1">GFX Designs</div>
-          <div className="text-2xl font-bold font-syne text-[#FED7B8]">{gfxCount}</div>
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider mb-1">GFX Designs</div>
+          <div className="text-2xl font-bold font-syne text-[#38BDF8]">{gfxCount}</div>
         </div>
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="text-[10px] font-mono uppercase text-[#B89B8D] tracking-wider mb-1">VFX Video Reels</div>
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider mb-1">VFX Video Reels</div>
           <div className="text-2xl font-bold font-syne text-purple-400">{vfxCount}</div>
         </div>
-        <div className="p-4 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
-          <div className="text-[10px] font-mono uppercase text-[#B89B8D] tracking-wider mb-1">Featured Items</div>
+        <div className="p-4 rounded-2xl bg-[#070D1E] border border-[#172554]">
+          <div className="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider mb-1">Featured Items</div>
           <div className="text-2xl font-bold font-syne text-amber-400">
             {items.filter((i) => i.featured).length}
           </div>
@@ -451,9 +451,9 @@ export default function AdminStudioPortfolioPage() {
 
       {/* Controls: Tabs, Subsections & Search */}
       <div className="space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl bg-[#1D0608] border border-[#3D0D13]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl bg-[#070D1E] border border-[#172554]">
           {/* Main Track Tabs */}
-          <div className="flex items-center gap-1.5 p-1 bg-[#150304] rounded-xl border border-[#3D0D13]">
+          <div className="flex items-center gap-1.5 p-1 bg-[#030712] rounded-xl border border-[#172554]">
             <button
               onClick={() => {
                 setActiveTab('ALL');
@@ -461,8 +461,8 @@ export default function AdminStudioPortfolioPage() {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-all ${
                 activeTab === 'ALL'
-                  ? 'bg-[#59171B] text-[#FED7B8] shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'bg-[#2563EB] text-[#38BDF8] shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               All Items ({items.length})
@@ -471,8 +471,8 @@ export default function AdminStudioPortfolioPage() {
               onClick={() => setActiveTab('GFX')}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-1.5 ${
                 activeTab === 'GFX'
-                  ? 'bg-[#59171B] text-[#FED7B8] shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'bg-[#2563EB] text-[#38BDF8] shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               <ImageIcon className="w-3.5 h-3.5" />
@@ -482,8 +482,8 @@ export default function AdminStudioPortfolioPage() {
               onClick={() => setActiveTab('VFX')}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-1.5 ${
                 activeTab === 'VFX'
-                  ? 'bg-[#59171B] text-[#FED7B8] shadow-sm'
-                  : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                  ? 'bg-[#2563EB] text-[#38BDF8] shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               <Video className="w-3.5 h-3.5" />
@@ -493,13 +493,13 @@ export default function AdminStudioPortfolioPage() {
 
           {/* Search Bar */}
           <div className="relative w-full sm:w-64">
-            <Search className="w-3.5 h-3.5 text-[#B89B8D] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by title, client, tags..."
-              className="w-full pl-8 pr-3 py-1.5 text-xs bg-[#150304] border border-[#3D0D13] rounded-xl text-[#FFF5ED] placeholder:text-[#B89B8D]/50 focus:outline-none focus:border-[#FED7B8]/40"
+              className="w-full pl-8 pr-3 py-1.5 text-xs bg-[#030712] border border-[#172554] rounded-xl text-[#F8FAFC] placeholder:text-[#94A3B8]/50 focus:outline-none focus:border-[#38BDF8]/40"
             />
           </div>
         </div>
@@ -507,16 +507,16 @@ export default function AdminStudioPortfolioPage() {
         {/* GFX Subsections bar when viewing GFX or ALL */}
         {activeTab !== 'VFX' && (
           <div className="flex flex-wrap items-center gap-2 px-1">
-            <span className="text-[11px] font-mono uppercase text-[#B89B8D] flex items-center gap-1">
-              <Layers className="w-3 h-3 text-[#FED7B8]" />
+            <span className="text-[11px] font-mono uppercase text-[#94A3B8] flex items-center gap-1">
+              <Layers className="w-3 h-3 text-[#38BDF8]" />
               GFX Categories:
             </span>
             <button
               onClick={() => setActiveGfxSub('ALL')}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-colors ${
                 activeGfxSub === 'ALL'
-                  ? 'bg-[#FED7B8]/20 text-[#FED7B8] border border-[#FED7B8]/40'
-                  : 'text-[#B89B8D] hover:text-white bg-[#1D0608] border border-[#3D0D13]'
+                  ? 'bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/40'
+                  : 'text-[#94A3B8] hover:text-white bg-[#070D1E] border border-[#172554]'
               }`}
             >
               All GFX
@@ -532,8 +532,8 @@ export default function AdminStudioPortfolioPage() {
                   }}
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-colors flex items-center gap-1.5 ${
                     activeTab === 'GFX' && activeGfxSub === sub
-                      ? 'bg-[#FED7B8]/20 text-[#FED7B8] border border-[#FED7B8]/40'
-                      : 'text-[#B89B8D] hover:text-white bg-[#1D0608] border border-[#3D0D13]'
+                      ? 'bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/40'
+                      : 'text-[#94A3B8] hover:text-white bg-[#070D1E] border border-[#172554]'
                   }`}
                 >
                   <span>{sub}</span>
@@ -556,7 +556,7 @@ export default function AdminStudioPortfolioPage() {
               className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-colors ${
                 activeVfxSub === 'ALL'
                   ? 'bg-purple-900/60 text-purple-200 border border-purple-400/50'
-                  : 'text-[#B89B8D] hover:text-white bg-[#1D0608] border border-[#3D0D13]'
+                  : 'text-[#94A3B8] hover:text-white bg-[#070D1E] border border-[#172554]'
               }`}
             >
               All VFX
@@ -573,7 +573,7 @@ export default function AdminStudioPortfolioPage() {
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-colors flex items-center gap-1.5 ${
                     activeTab === 'VFX' && activeVfxSub === sub
                       ? 'bg-purple-900/60 text-purple-200 border border-purple-400/50 font-bold'
-                      : 'text-[#B89B8D] hover:text-white bg-[#1D0608] border border-[#3D0D13]'
+                      : 'text-[#94A3B8] hover:text-white bg-[#070D1E] border border-[#172554]'
                   }`}
                 >
                   <span>{sub === 'Clipping' ? '✂️ Clipping' : sub}</span>
@@ -588,28 +588,28 @@ export default function AdminStudioPortfolioPage() {
       {/* Grid of Items */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {loading ? (
-          <div className="col-span-full py-20 text-center text-xs text-[#B89B8D] flex flex-col items-center justify-center gap-3">
-            <Loader2 className="w-6 h-6 animate-spin text-[#FED7B8]" />
+          <div className="col-span-full py-20 text-center text-xs text-[#94A3B8] flex flex-col items-center justify-center gap-3">
+            <Loader2 className="w-6 h-6 animate-spin text-[#38BDF8]" />
             <span>Loading Studio Portfolio items...</span>
           </div>
         ) : filteredItems.length === 0 ? (
-          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D] bg-[#1D0608] rounded-3xl border border-[#3D0D13]">
+          <div className="col-span-full py-16 text-center text-xs text-[#94A3B8] bg-[#070D1E] rounded-3xl border border-[#172554]">
             No portfolio items found matching your filters.
           </div>
         ) : (
           filteredItems.map((item) => (
             <div
               key={item.id}
-              className="rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] transition-all overflow-hidden flex flex-col justify-between group shadow-lg"
+              className="rounded-2xl bg-[#070D1E] border border-[#172554] hover:border-[#2563EB] transition-all overflow-hidden flex flex-col justify-between group shadow-lg"
             >
               {/* Media Preview Box */}
-              <div className="h-44 w-full overflow-hidden bg-[#150304] relative group/media">
+              <div className="h-44 w-full overflow-hidden bg-[#030712] relative group/media">
                 <img
                   src={item.imageUrl || item.thumbnailUrl || '/media/work-valorant-championship.jpg'}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1D0608] via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070D1E] via-transparent to-transparent opacity-80" />
 
                 {/* Top Badges */}
                 <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
@@ -617,13 +617,13 @@ export default function AdminStudioPortfolioPage() {
                     className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider font-semibold ${
                       item.type === 'VFX'
                         ? 'bg-purple-600/90 text-white'
-                        : 'bg-[#59171B]/90 text-[#FED7B8] border border-[#FED7B8]/30'
+                        : 'bg-[#2563EB]/90 text-[#38BDF8] border border-[#38BDF8]/30'
                     }`}
                   >
                     {item.type}
                   </span>
                   {item.gfxCategory && (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-black/60 backdrop-blur-md text-[#FFF5ED] border border-white/10">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-black/60 backdrop-blur-md text-[#F8FAFC] border border-white/10">
                       {item.gfxCategory}
                     </span>
                   )}
@@ -635,14 +635,14 @@ export default function AdminStudioPortfolioPage() {
                     onClick={() => setPreviewVideoUrl(item.videoUrl!)}
                     className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover/media:opacity-100 transition-opacity"
                   >
-                    <div className="w-11 h-11 rounded-full bg-[#FED7B8] text-[#1C0507] flex items-center justify-center shadow-glow-amber hover:scale-110 transition-transform">
+                    <div className="w-11 h-11 rounded-full bg-[#38BDF8] text-[#050B17] flex items-center justify-center shadow-glow-amber hover:scale-110 transition-transform">
                       <Play className="w-5 h-5 fill-current ml-0.5" />
                     </div>
                   </button>
                 )}
 
                 {item.duration && (
-                  <div className="absolute bottom-2.5 right-2.5 px-1.5 py-0.5 rounded bg-black/70 font-mono text-[9px] text-[#FED7B8]">
+                  <div className="absolute bottom-2.5 right-2.5 px-1.5 py-0.5 rounded bg-black/70 font-mono text-[9px] text-[#38BDF8]">
                     {item.duration}
                   </div>
                 )}
@@ -652,15 +652,15 @@ export default function AdminStudioPortfolioPage() {
               <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <h3 className="font-syne font-bold text-sm text-[#FFF5ED] line-clamp-1 group-hover:text-[#FED7B8] transition-colors">
+                    <h3 className="font-syne font-bold text-sm text-[#F8FAFC] line-clamp-1 group-hover:text-[#38BDF8] transition-colors">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="text-[11px] text-[#FED7B8]/80 font-mono mb-2 line-clamp-1">
+                  <div className="text-[11px] text-[#38BDF8]/80 font-mono mb-2 line-clamp-1">
                     {item.client}
                   </div>
                   {item.description && (
-                    <p className="text-xs text-[#B89B8D] line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-[#94A3B8] line-clamp-2 leading-relaxed">
                       {item.description}
                     </p>
                   )}
@@ -672,13 +672,13 @@ export default function AdminStudioPortfolioPage() {
                     {item.tags.slice(0, 3).map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]"
+                        className="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase bg-[#030712] border border-[#172554] text-[#94A3B8]"
                       >
                         {tag}
                       </span>
                     ))}
                     {item.tags.length > 3 && (
-                      <span className="px-1 py-0.5 text-[9px] font-mono text-[#B89B8D]">
+                      <span className="px-1 py-0.5 text-[9px] font-mono text-[#94A3B8]">
                         +{item.tags.length - 3}
                       </span>
                     )}
@@ -687,7 +687,7 @@ export default function AdminStudioPortfolioPage() {
               </div>
 
               {/* Action Footer */}
-              <div className="p-3 border-t border-[#3D0D13] flex items-center justify-between text-xs bg-[#150304]/40">
+              <div className="p-3 border-t border-[#172554] flex items-center justify-between text-xs bg-[#030712]/40">
                 <div className="flex items-center gap-2">
                   <span
                     className={`px-1.5 py-0.5 rounded text-[9px] font-mono uppercase ${
@@ -709,7 +709,7 @@ export default function AdminStudioPortfolioPage() {
                   {(isSuperAdmin || hasPermission('content.edit')) && (
                     <button
                       onClick={() => handleOpenEdit(item)}
-                      className="p-1.5 rounded-lg bg-[#59171B]/50 hover:bg-[#59171B] border border-[#FED7B8]/20 hover:border-[#FED7B8]/40 text-[#FED7B8] transition-colors"
+                      className="p-1.5 rounded-lg bg-[#2563EB]/50 hover:bg-[#2563EB] border border-[#38BDF8]/20 hover:border-[#38BDF8]/40 text-[#38BDF8] transition-colors"
                       title="Edit Item"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
@@ -734,25 +734,25 @@ export default function AdminStudioPortfolioPage() {
       {/* CREATE / EDIT MODAL */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-xs text-[#FFF5ED]">
+          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#070D1E] border border-[#2563EB] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-xs text-[#F8FAFC]">
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#3D0D13]">
+            <div className="flex items-center justify-between pb-4 border-b border-[#172554]">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-[#59171B] flex items-center justify-center text-[#FED7B8]">
+                <div className="w-8 h-8 rounded-xl bg-[#2563EB] flex items-center justify-center text-[#38BDF8]">
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-syne text-lg font-bold text-[#FFF5ED]">
+                  <h3 className="font-syne text-lg font-bold text-[#F8FAFC]">
                     {isEditing ? 'Edit Studio Portfolio Item' : 'Add Studio Portfolio Item'}
                   </h3>
-                  <p className="text-[11px] text-[#B89B8D]">
+                  <p className="text-[11px] text-[#94A3B8]">
                     Upload and manage high-end assets for official agency showcase.
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="w-8 h-8 rounded-full bg-[#150304] border border-[#3D0D13] flex items-center justify-center text-[#B89B8D] hover:text-white"
+                className="w-8 h-8 rounded-full bg-[#030712] border border-[#172554] flex items-center justify-center text-[#94A3B8] hover:text-white"
               >
                 ✕
               </button>
@@ -760,14 +760,14 @@ export default function AdminStudioPortfolioPage() {
 
             <form onSubmit={handleSaveItem} noValidate className="space-y-5">
               {/* Type Switcher: GFX vs VFX */}
-              <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#150304] rounded-2xl border border-[#3D0D13]">
+              <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#030712] rounded-2xl border border-[#172554]">
                 <button
                   type="button"
                   onClick={() => setFormType('GFX')}
                   className={`py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
                     formType === 'GFX'
-                      ? 'bg-[#59171B] text-[#FED7B8] font-bold shadow-md'
-                      : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                      ? 'bg-[#2563EB] text-[#38BDF8] font-bold shadow-md'
+                      : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                   }`}
                 >
                   <ImageIcon className="w-4 h-4" />
@@ -779,7 +779,7 @@ export default function AdminStudioPortfolioPage() {
                   className={`py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
                     formType === 'VFX'
                       ? 'bg-purple-900/80 text-purple-200 font-bold shadow-md border border-purple-500/40'
-                      : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                      : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                   }`}
                 >
                   <Film className="w-4 h-4" />
@@ -790,7 +790,7 @@ export default function AdminStudioPortfolioPage() {
               {/* If GFX: Subsection Selector */}
               {formType === 'GFX' && (
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block">
+                  <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block">
                     GFX Subsection Category *
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -801,8 +801,8 @@ export default function AdminStudioPortfolioPage() {
                         onClick={() => setFormGfxCategory(sub)}
                         className={`py-2 px-3 rounded-xl text-xs font-mono uppercase tracking-wider border transition-all ${
                           formGfxCategory === sub
-                            ? 'bg-[#FED7B8]/20 border-[#FED7B8] text-[#FED7B8] font-bold'
-                            : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-white'
+                            ? 'bg-[#38BDF8]/20 border-[#38BDF8] text-[#38BDF8] font-bold'
+                            : 'bg-[#030712] border-[#172554] text-[#94A3B8] hover:text-white'
                         }`}
                       >
                         {sub}
@@ -827,7 +827,7 @@ export default function AdminStudioPortfolioPage() {
                         className={`py-2 px-3 rounded-xl text-xs font-mono uppercase tracking-wider border transition-all ${
                           formVfxCategory === sub
                             ? 'bg-purple-900/80 border-purple-400 text-purple-100 font-bold shadow-sm'
-                            : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-white'
+                            : 'bg-[#030712] border-[#172554] text-[#94A3B8] hover:text-white'
                         }`}
                       >
                         {sub === 'Clipping' ? '✂️ Clipping' : sub}
@@ -840,7 +840,7 @@ export default function AdminStudioPortfolioPage() {
               {/* Title & Client */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block mb-1">
+                  <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block mb-1">
                     Project / Asset Title *
                   </label>
                   <input
@@ -849,11 +849,11 @@ export default function AdminStudioPortfolioPage() {
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
                     placeholder="e.g. VCT Champions Master Visual"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#FED7B8]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#38BDF8]/40"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block mb-1">
+                  <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block mb-1">
                     Client or Brand
                   </label>
                   <input
@@ -861,18 +861,18 @@ export default function AdminStudioPortfolioPage() {
                     value={formClient}
                     onChange={(e) => setFormClient(e.target.value)}
                     placeholder="e.g. Riot Games / Red Bull / Team Liquid"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#FED7B8]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#38BDF8]/40"
                   />
                 </div>
               </div>
 
               {/* Media Upload & URL Section */}
-              <div className="space-y-4 p-4 rounded-2xl bg-[#150304] border border-[#3D0D13]">
+              <div className="space-y-4 p-4 rounded-2xl bg-[#030712] border border-[#172554]">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase text-[#FED7B8] font-bold tracking-wider">
+                  <span className="text-xs font-mono uppercase text-[#38BDF8] font-bold tracking-wider">
                     {formType === 'GFX' ? 'GFX Image Asset' : 'VFX Video & Cover'}
                   </span>
-                  <span className="text-[10px] text-[#B89B8D]">
+                  <span className="text-[10px] text-[#94A3B8]">
                     {formType === 'GFX' ? 'Supports JPG, PNG, WEBP up to 15MB' : 'Supports MP4, WEBM up to 50MB or YouTube/Vimeo'}
                   </span>
                 </div>
@@ -881,7 +881,7 @@ export default function AdminStudioPortfolioPage() {
                 {formType === 'GFX' && (
                   <div className="space-y-4">
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                      <label className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#59171B]/70 hover:bg-[#59171B] border border-[#FED7B8]/30 cursor-pointer flex items-center justify-center gap-2 text-xs font-mono text-[#FED7B8] transition-colors shrink-0">
+                      <label className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#2563EB]/70 hover:bg-[#2563EB] border border-[#38BDF8]/30 cursor-pointer flex items-center justify-center gap-2 text-xs font-mono text-[#38BDF8] transition-colors shrink-0">
                         {uploadingImage ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
@@ -897,7 +897,7 @@ export default function AdminStudioPortfolioPage() {
                           className="hidden"
                         />
                       </label>
-                      <span className="text-xs text-[#B89B8D] shrink-0 text-center sm:text-left">or direct URL / path:</span>
+                      <span className="text-xs text-[#94A3B8] shrink-0 text-center sm:text-left">or direct URL / path:</span>
                       <div className="flex-1 flex items-center gap-2">
                         <input
                           type="text"
@@ -910,12 +910,12 @@ export default function AdminStudioPortfolioPage() {
                             }
                           }}
                           placeholder="https://... or /uploads/... or /media/..."
-                          className="flex-1 w-full px-3 py-2 rounded-xl bg-[#1D0608] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none focus:border-[#FED7B8]/40"
+                          className="flex-1 w-full px-3 py-2 rounded-xl bg-[#070D1E] border border-[#172554] text-[#F8FAFC] text-xs focus:outline-none focus:border-[#38BDF8]/40"
                         />
                         <button
                           type="button"
                           onClick={handleAddDirectUrl}
-                          className="px-3.5 py-2 rounded-xl bg-[#2A080C] hover:bg-[#3D0D13] border border-[#52141A] text-xs font-mono uppercase text-[#FED7B8] shrink-0 transition-colors cursor-pointer"
+                          className="px-3.5 py-2 rounded-xl bg-[#0E1A33] hover:bg-[#172554] border border-[#1E3A8A] text-xs font-mono uppercase text-[#38BDF8] shrink-0 transition-colors cursor-pointer"
                         >
                           Add URL
                         </button>
@@ -926,21 +926,21 @@ export default function AdminStudioPortfolioPage() {
                     {formImages.length > 0 ? (
                       <div className="space-y-2 pt-2">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                          <span className="text-xs font-mono uppercase text-[#38BDF8] font-bold">
                             Uploaded Deliverables ({formImages.length})
                           </span>
-                          <span className="text-[10px] text-[#B89B8D]">
+                          <span className="text-[10px] text-[#94A3B8]">
                             Select star to choose primary display cover
                           </span>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-60 overflow-y-auto p-2.5 rounded-xl bg-[#110203] border border-[#3D0D13]">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-60 overflow-y-auto p-2.5 rounded-xl bg-[#030712] border border-[#172554]">
                           {formImages.map((img, idx) => {
                             const isPrimary = (formImageUrl === img) || (!formImageUrl && idx === 0);
                             return (
                               <div
                                 key={img + idx}
-                                className={`relative rounded-xl overflow-hidden border transition-all group aspect-video bg-[#1D0608] ${
-                                  isPrimary ? 'border-[#FED7B8] ring-1 ring-[#FED7B8]/60 shadow-glow-burgundy' : 'border-[#3D0D13] hover:border-[#52141A]'
+                                className={`relative rounded-xl overflow-hidden border transition-all group aspect-video bg-[#070D1E] ${
+                                  isPrimary ? 'border-[#38BDF8] ring-1 ring-[#38BDF8]/60 shadow-glow-burgundy' : 'border-[#172554] hover:border-[#1E3A8A]'
                                 }`}
                               >
                                 <img
@@ -952,14 +952,14 @@ export default function AdminStudioPortfolioPage() {
                                 {/* Badge */}
                                 <div className="absolute top-1 left-1">
                                   {isPrimary ? (
-                                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/40 flex items-center gap-1 shadow">
-                                      <Star className="w-2.5 h-2.5 fill-[#FED7B8]" /> Cover
+                                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/40 flex items-center gap-1 shadow">
+                                      <Star className="w-2.5 h-2.5 fill-[#38BDF8]" /> Cover
                                     </span>
                                   ) : (
                                     <button
                                       type="button"
                                       onClick={() => handleSetPrimaryImage(img)}
-                                      className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-black/80 hover:bg-[#59171B] text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer border border-white/20"
+                                      className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-black/80 hover:bg-[#2563EB] text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer border border-white/20"
                                       title="Set as Primary Cover"
                                     >
                                       <Star className="w-2.5 h-2.5" /> Set Cover
@@ -982,9 +982,9 @@ export default function AdminStudioPortfolioPage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="py-6 px-4 text-center rounded-xl bg-[#110203] border border-dashed border-[#3D0D13]">
-                        <ImageIcon className="w-7 h-7 text-[#59171B] mx-auto mb-2" />
-                        <p className="text-xs text-[#B89B8D]">
+                      <div className="py-6 px-4 text-center rounded-xl bg-[#030712] border border-dashed border-[#172554]">
+                        <ImageIcon className="w-7 h-7 text-[#2563EB] mx-auto mb-2" />
+                        <p className="text-xs text-[#94A3B8]">
                           No images added yet. Click &quot;Upload Image(s)&quot; to choose one or more files, or paste a URL / path above.
                         </p>
                       </div>
@@ -996,7 +996,7 @@ export default function AdminStudioPortfolioPage() {
                 {formType === 'VFX' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="text-[11px] font-mono uppercase text-[#B89B8D] block mb-1">
+                      <label className="text-[11px] font-mono uppercase text-[#94A3B8] block mb-1">
                         Video Source (Direct File or YouTube / Vimeo URL) *
                       </label>
                       <div className="flex flex-col sm:flex-row items-center gap-3">
@@ -1015,20 +1015,20 @@ export default function AdminStudioPortfolioPage() {
                             className="hidden"
                           />
                         </label>
-                        <span className="text-xs text-[#B89B8D]">or URL:</span>
+                        <span className="text-xs text-[#94A3B8]">or URL:</span>
                         <input
                           type="text"
                           value={formVideoUrl}
                           onChange={(e) => setFormVideoUrl(e.target.value)}
                           placeholder="https://youtu.be/... or https://domain.com/video.mp4"
-                          className="flex-1 w-full px-3 py-2 rounded-xl bg-[#1D0608] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none"
+                          className="flex-1 w-full px-3 py-2 rounded-xl bg-[#070D1E] border border-[#172554] text-[#F8FAFC] text-xs focus:outline-none"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="text-[11px] font-mono uppercase text-[#B89B8D] block mb-1">
+                        <label className="text-[11px] font-mono uppercase text-[#94A3B8] block mb-1">
                           Poster / Thumbnail Image URL
                         </label>
                         <input
@@ -1036,11 +1036,11 @@ export default function AdminStudioPortfolioPage() {
                           value={formImageUrl}
                           onChange={(e) => setFormImageUrl(e.target.value)}
                           placeholder="Poster image URL for video card"
-                          className="w-full px-3 py-2 rounded-xl bg-[#1D0608] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none"
+                          className="w-full px-3 py-2 rounded-xl bg-[#070D1E] border border-[#172554] text-[#F8FAFC] text-xs focus:outline-none"
                         />
                       </div>
                       <div>
-                        <label className="text-[11px] font-mono uppercase text-[#B89B8D] block mb-1">
+                        <label className="text-[11px] font-mono uppercase text-[#94A3B8] block mb-1">
                           Reel Duration (e.g. 0:45)
                         </label>
                         <input
@@ -1048,7 +1048,7 @@ export default function AdminStudioPortfolioPage() {
                           value={formDuration}
                           onChange={(e) => setFormDuration(e.target.value)}
                           placeholder="0:45"
-                          className="w-full px-3 py-2 rounded-xl bg-[#1D0608] border border-[#3D0D13] text-[#FFF5ED] text-xs focus:outline-none"
+                          className="w-full px-3 py-2 rounded-xl bg-[#070D1E] border border-[#172554] text-[#F8FAFC] text-xs focus:outline-none"
                         />
                       </div>
                     </div>
@@ -1058,7 +1058,7 @@ export default function AdminStudioPortfolioPage() {
 
               {/* Description */}
               <div>
-                <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block mb-1">
+                <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block mb-1">
                   Description & Creative Details
                 </label>
                 <textarea
@@ -1066,14 +1066,14 @@ export default function AdminStudioPortfolioPage() {
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   placeholder="Creative direction, software used (After Effects, Cinema 4D, Photoshop), tournament highlights..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#FED7B8]/40 leading-relaxed"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#38BDF8]/40 leading-relaxed"
                 />
               </div>
 
               {/* Tags, Status & Order */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block mb-1">
+                  <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block mb-1">
                     Tags (comma separated)
                   </label>
                   <input
@@ -1081,28 +1081,28 @@ export default function AdminStudioPortfolioPage() {
                     value={formTags}
                     onChange={(e) => setFormTags(e.target.value)}
                     placeholder="Broadcast, 3D, Overlay"
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block mb-1">
+                  <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block mb-1">
                     Display Order
                   </label>
                   <input
                     type="number"
                     value={formOrder}
                     onChange={(e) => setFormOrder(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] font-mono uppercase text-[#FED7B8] tracking-wider block mb-1">
+                  <label className="text-[11px] font-mono uppercase text-[#38BDF8] tracking-wider block mb-1">
                     Publication Status
                   </label>
                   <select
                     value={formStatus}
                     onChange={(e) => setFormStatus(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none"
                   >
                     <option value="PUBLISHED">PUBLISHED (Live)</option>
                     <option value="DRAFT">DRAFT (Hidden)</option>
@@ -1111,32 +1111,32 @@ export default function AdminStudioPortfolioPage() {
               </div>
 
               {/* Featured Checkbox */}
-              <label className="flex items-center gap-3 p-3 rounded-xl bg-[#150304] border border-[#3D0D13] cursor-pointer hover:border-[#FED7B8]/30 transition-colors">
+              <label className="flex items-center gap-3 p-3 rounded-xl bg-[#030712] border border-[#172554] cursor-pointer hover:border-[#38BDF8]/30 transition-colors">
                 <input
                   type="checkbox"
                   checked={formFeatured}
                   onChange={(e) => setFormFeatured(e.target.checked)}
-                  className="rounded bg-[#1D0608] border-[#3D0D13] text-[#59171B] focus:ring-0 w-4 h-4"
+                  className="rounded bg-[#070D1E] border-[#172554] text-[#2563EB] focus:ring-0 w-4 h-4"
                 />
                 <div>
-                  <div className="text-xs font-bold text-[#FFF5ED]">Featured Spotlight</div>
-                  <div className="text-[10px] text-[#B89B8D]">Highlight this piece prominently at the top of the Studio Portfolio.</div>
+                  <div className="text-xs font-bold text-[#F8FAFC]">Featured Spotlight</div>
+                  <div className="text-[10px] text-[#94A3B8]">Highlight this piece prominently at the top of the Studio Portfolio.</div>
                 </div>
               </label>
 
               {/* Submit Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#3D0D13]">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#172554]">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded-xl bg-[#150304] hover:bg-[#250608] border border-[#3D0D13] text-xs font-mono uppercase text-[#B89B8D]"
+                  className="px-4 py-2 rounded-xl bg-[#030712] hover:bg-[#250608] border border-[#172554] text-xs font-mono uppercase text-[#94A3B8]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving || uploadingImage || uploadingVideo}
-                  className="px-6 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg disabled:opacity-50"
+                  className="px-6 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-2 shadow-lg disabled:opacity-50"
                 >
                   {saving ? (
                     <>
@@ -1156,15 +1156,15 @@ export default function AdminStudioPortfolioPage() {
       {/* VFX PREVIEW PLAYER MODAL */}
       {previewVideoUrl && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-          <div className="w-full max-w-4xl bg-[#1D0608] border border-[#59171B] rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-[#3D0D13]">
-              <span className="font-mono text-xs uppercase text-[#FED7B8] flex items-center gap-2">
+          <div className="w-full max-w-4xl bg-[#070D1E] border border-[#2563EB] rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-[#172554]">
+              <span className="font-mono text-xs uppercase text-[#38BDF8] flex items-center gap-2">
                 <Film className="w-4 h-4" />
                 VFX Reel Playback Preview
               </span>
               <button
                 onClick={() => setPreviewVideoUrl(null)}
-                className="w-8 h-8 rounded-full bg-[#150304] border border-[#3D0D13] flex items-center justify-center text-[#B89B8D] hover:text-white"
+                className="w-8 h-8 rounded-full bg-[#030712] border border-[#172554] flex items-center justify-center text-[#94A3B8] hover:text-white"
               >
                 ✕
               </button>

@@ -109,15 +109,15 @@ export default function GlobalGfxSubsectionsPage() {
   ];
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-32 pb-24">
         {/* HEADER SECTION */}
         <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-10">
           {/* Top Banner */}
-          <div className="p-3.5 mb-8 rounded-2xl bg-gradient-to-r from-[#240709] via-[#1D0608] to-[#150304] border border-[#59171B] flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
-            <div className="flex items-center gap-2.5 text-xs text-[#B89B8D]">
+          <div className="p-3.5 mb-8 rounded-2xl bg-gradient-to-r from-[#0B132B] via-[#070D1E] to-[#030712] border border-[#2563EB] flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+            <div className="flex items-center gap-2.5 text-xs text-[#94A3B8]">
               <span className="px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 font-mono text-[10px] uppercase tracking-wider font-semibold border border-emerald-500/30">
                 Community GFX
               </span>
@@ -133,7 +133,7 @@ export default function GlobalGfxSubsectionsPage() {
               </Link>
               <Link
                 href="/portfolio/gfx"
-                className="px-3.5 py-1.5 rounded-xl bg-[#59171B]/60 hover:bg-[#59171B] border border-[#FED7B8]/30 text-xs font-mono uppercase tracking-wider text-[#FED7B8] flex items-center gap-2 transition-all hover:scale-105"
+                className="px-3.5 py-1.5 rounded-xl bg-[#2563EB]/60 hover:bg-[#2563EB] border border-[#38BDF8]/30 text-xs font-mono uppercase tracking-wider text-[#38BDF8] flex items-center gap-2 transition-all hover:scale-105"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Studio GFX</span>
@@ -141,16 +141,16 @@ export default function GlobalGfxSubsectionsPage() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-[#3D0D13]">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-[#172554]">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2A080C] border border-[#52141A] text-xs font-mono uppercase text-[#FED7B8] mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0E1A33] border border-[#1E3A8A] text-xs font-mono uppercase text-[#38BDF8] mb-4">
                 <Globe className="w-3.5 h-3.5" />
                 <span>Global Creator Network</span>
               </div>
               <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-gradient-warm leading-[0.95]">
                 Community GFX
               </h1>
-              <p className="text-sm sm:text-base text-[#B89B8D] max-w-2xl mt-4 leading-relaxed font-light">
+              <p className="text-sm sm:text-base text-[#94A3B8] max-w-2xl mt-4 leading-relaxed font-light">
                 Discover published community portfolios categorized by design specialty. Choose what you want to see below (Tournament, Roster, Thumbnail, Logo/Banner, Jersey).
               </p>
             </div>
@@ -158,7 +158,7 @@ export default function GlobalGfxSubsectionsPage() {
             <div className="flex items-center gap-3">
               <Link
                 href="/global-portfolio"
-                className="px-4 py-2.5 rounded-xl bg-[#1D0608] hover:bg-[#2A080C] border border-[#3D0D13] hover:border-[#FED7B8]/40 text-xs font-mono uppercase tracking-wider text-[#FED7B8] flex items-center gap-2 transition-all"
+                className="px-4 py-2.5 rounded-xl bg-[#070D1E] hover:bg-[#0E1A33] border border-[#172554] hover:border-[#38BDF8]/40 text-xs font-mono uppercase tracking-wider text-[#38BDF8] flex items-center gap-2 transition-all"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>All Global Portfolios</span>
@@ -181,31 +181,31 @@ export default function GlobalGfxSubsectionsPage() {
                 <Link
                   key={sub.id}
                   href={`/global-portfolio/gfx/${sub.slug}`}
-                  className="group block rounded-3xl overflow-hidden bg-gradient-to-r from-[#1D0608] via-[#240709] to-[#1D0608] border border-[#3D0D13] hover:border-[#FED7B8] p-6 sm:p-8 transition-all duration-300 hover:shadow-glow-burgundy hover:scale-[1.01]"
+                  className="group block rounded-3xl overflow-hidden bg-gradient-to-r from-[#070D1E] via-[#0B132B] to-[#070D1E] border border-[#172554] hover:border-[#38BDF8] p-6 sm:p-8 transition-all duration-300 hover:shadow-glow-burgundy hover:scale-[1.01]"
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     {/* Left: Icon & Description */}
                     <div className="flex items-start gap-5 max-w-2xl">
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#2A080C] border border-[#52141A] flex items-center justify-center text-[#FED7B8] shrink-0 group-hover:scale-110 group-hover:border-[#FED7B8] transition-all">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0E1A33] border border-[#1E3A8A] flex items-center justify-center text-[#38BDF8] shrink-0 group-hover:scale-110 group-hover:border-[#38BDF8] transition-all">
                         <sub.icon className="w-7 h-7 sm:w-8 sm:h-8" />
                       </div>
 
                       <div className="space-y-2">
                         <div className="flex flex-wrap items-center gap-2.5">
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] font-bold">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] font-bold">
                             Topic 0{sIdx + 1}
                           </span>
-                          <span className="w-1 h-1 rounded-full bg-[#FED7B8]/40" />
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#150304] border border-[#3D0D13] text-[#B89B8D]">
+                          <span className="w-1 h-1 rounded-full bg-[#38BDF8]/40" />
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#030712] border border-[#172554] text-[#94A3B8]">
                             {sub.badge}
                           </span>
                         </div>
 
-                        <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#FFF5ED] group-hover:text-[#FED7B8] transition-colors">
+                        <h2 className="font-syne text-2xl sm:text-3xl font-black uppercase text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors">
                           {sub.title}
                         </h2>
 
-                        <p className="text-xs sm:text-sm text-[#B89B8D] leading-relaxed">
+                        <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
                           {sub.description}
                         </p>
                       </div>
@@ -218,7 +218,7 @@ export default function GlobalGfxSubsectionsPage() {
                         {sub.previewImages.map((pImg, pIdx) => (
                           <div
                             key={pIdx}
-                            className="w-20 sm:w-24 aspect-video rounded-xl overflow-hidden bg-[#150304] border border-[#3D0D13] shrink-0"
+                            className="w-20 sm:w-24 aspect-video rounded-xl overflow-hidden bg-[#030712] border border-[#172554] shrink-0"
                           >
                             <img
                               src={pImg}
@@ -227,18 +227,18 @@ export default function GlobalGfxSubsectionsPage() {
                             />
                           </div>
                         ))}
-                        <div className="px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-center">
-                          <span className="text-xs font-mono font-bold text-[#FED7B8] block">
+                        <div className="px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-center">
+                          <span className="text-xs font-mono font-bold text-[#38BDF8] block">
                             {count > 0 ? count : 'Multiple'}
                           </span>
-                          <span className="text-[9px] font-mono uppercase text-[#B89B8D] block">
+                          <span className="text-[9px] font-mono uppercase text-[#94A3B8] block">
                             Creators
                           </span>
                         </div>
                       </div>
 
                       {/* Action CTA */}
-                      <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#59171B]/60 group-hover:bg-[#59171B] border border-[#FED7B8]/30 text-xs font-mono uppercase text-[#FED7B8] font-bold transition-all group-hover:translate-x-1 shadow-md">
+                      <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2563EB]/60 group-hover:bg-[#2563EB] border border-[#38BDF8]/30 text-xs font-mono uppercase text-[#38BDF8] font-bold transition-all group-hover:translate-x-1 shadow-md">
                         <span>View {sub.title} Portfolios</span>
                         <ArrowRight className="w-4 h-4" />
                       </div>

@@ -32,26 +32,26 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
   const primaryRole = isSuperAdmin ? 'SUPER_ADMIN' : roles[0] || 'ADMIN';
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 sm:px-6 bg-[#180406]/90 backdrop-blur-md border-b border-[#3D0D13]">
+    <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 sm:px-6 bg-[#030712]/90 backdrop-blur-md border-b border-[#172554]">
       {/* Left side: Hamburger for mobile + Brand */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden p-2 text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709] rounded-lg transition-colors"
+          className="lg:hidden p-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B132B] rounded-lg transition-colors"
           aria-label="Toggle Navigation"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#59171B] to-[#FED7B8] flex items-center justify-center font-bold text-xs text-[#150304] shadow-md">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#38BDF8] flex items-center justify-center font-bold text-xs text-[#030712] shadow-md">
             NS
           </div>
           <div className="hidden sm:block">
-            <span className="font-syne font-bold text-sm tracking-wider text-[#FFF5ED]">
+            <span className="font-syne font-bold text-sm tracking-wider text-[#F8FAFC]">
               NATURESTUDIOS
             </span>
-            <span className="ml-2 text-[10px] uppercase font-mono tracking-widest text-[#FED7B8] px-1.5 py-0.5 rounded bg-[#59171B]/50 border border-[#FED7B8]/20">
+            <span className="ml-2 text-[10px] uppercase font-mono tracking-widest text-[#38BDF8] px-1.5 py-0.5 rounded bg-[#2563EB]/50 border border-[#38BDF8]/20">
               CONTROL CENTER
             </span>
           </div>
@@ -76,13 +76,13 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
       <div className="flex-1 max-w-md mx-4 hidden sm:block">
         <button
           onClick={() => setShowCommandPalette(true)}
-          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[#240709] hover:bg-[#2C090C] border border-[#3D0D13] hover:border-[#59171B] text-xs text-[#B89B8D] transition-all group shadow-inner"
+          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[#0B132B] hover:bg-[#2C090C] border border-[#172554] hover:border-[#2563EB] text-xs text-[#94A3B8] transition-all group shadow-inner"
         >
           <div className="flex items-center gap-2">
-            <Search className="w-3.5 h-3.5 text-[#FED7B8]/60 group-hover:text-[#FED7B8]" />
+            <Search className="w-3.5 h-3.5 text-[#38BDF8]/60 group-hover:text-[#38BDF8]" />
             <span>Search users, portfolios, logs...</span>
           </div>
-          <kbd className="px-1.5 py-0.5 text-[10px] font-mono text-[#B89B8D] bg-[#150304] border border-[#3D0D13] rounded">
+          <kbd className="px-1.5 py-0.5 text-[10px] font-mono text-[#94A3B8] bg-[#030712] border border-[#172554] rounded">
             Ctrl+K
           </kbd>
         </button>
@@ -93,7 +93,7 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         {/* Mobile Search Icon */}
         <button
           onClick={() => setShowCommandPalette(true)}
-          className="sm:hidden p-2 text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709] rounded-lg transition-colors"
+          className="sm:hidden p-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B132B] rounded-lg transition-colors"
           aria-label="Open Command Palette"
         >
           <Search className="w-4 h-4" />
@@ -102,7 +102,7 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         {/* Live System Health Badge */}
         <Link
           href="/admin/system"
-          className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#240709] border border-[#3D0D13] hover:border-[#59171B] text-[11px] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+          className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#0B132B] border border-[#172554] hover:border-[#2563EB] text-[11px] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
           title="System Health"
         >
           <span className="relative flex h-2 w-2">
@@ -115,7 +115,7 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         {/* Workspace Link */}
         <Link
           href="/dashboard"
-          className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-[#FED7B8]/80 hover:text-[#FED7B8] hover:bg-[#59171B]/30 border border-transparent hover:border-[#FED7B8]/20 transition-all"
+          className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-[#38BDF8]/80 hover:text-[#38BDF8] hover:bg-[#2563EB]/30 border border-transparent hover:border-[#38BDF8]/20 transition-all"
         >
           <LayoutDashboard className="w-3.5 h-3.5" />
           <span>Workspace</span>
@@ -125,7 +125,7 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         <Link
           href="/"
           target="_blank"
-          className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-[#FED7B8]/80 hover:text-[#FED7B8] hover:bg-[#59171B]/30 border border-transparent hover:border-[#FED7B8]/20 transition-all"
+          className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-[#38BDF8]/80 hover:text-[#38BDF8] hover:bg-[#2563EB]/30 border border-transparent hover:border-[#38BDF8]/20 transition-all"
         >
           <ExternalLink className="w-3.5 h-3.5" />
           <span>Live Site</span>
@@ -135,7 +135,7 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         <div className="relative">
           <button
             onClick={() => setShowNotifications(!showNotifications)}
-            className="relative p-2 text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#240709] rounded-lg transition-colors"
+            className="relative p-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0B132B] rounded-lg transition-colors"
             aria-label="Notifications"
           >
             <Bell className="w-4 h-4" />
@@ -143,25 +143,25 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-72 bg-[#1D0608] border border-[#3D0D13] rounded-xl shadow-2xl p-3 z-50 text-xs text-[#FFF5ED] animate-in fade-in duration-100">
-              <div className="flex items-center justify-between pb-2 border-b border-[#3D0D13]">
-                <span className="font-semibold text-[#FED7B8]">System Notifications</span>
-                <span className="text-[10px] text-[#B89B8D]">Realtime</span>
+            <div className="absolute right-0 mt-2 w-72 bg-[#070D1E] border border-[#172554] rounded-xl shadow-2xl p-3 z-50 text-xs text-[#F8FAFC] animate-in fade-in duration-100">
+              <div className="flex items-center justify-between pb-2 border-b border-[#172554]">
+                <span className="font-semibold text-[#38BDF8]">System Notifications</span>
+                <span className="text-[10px] text-[#94A3B8]">Realtime</span>
               </div>
               <div className="py-3 space-y-2">
-                <div className="p-2 rounded bg-[#240709] border border-[#3D0D13] text-[11px]">
-                  <div className="font-medium text-[#FED7B8]">Administrative Enclave Active</div>
-                  <div className="text-[#B89B8D] mt-0.5">Continuous audit trail logging is enabled.</div>
+                <div className="p-2 rounded bg-[#0B132B] border border-[#172554] text-[11px]">
+                  <div className="font-medium text-[#38BDF8]">Administrative Enclave Active</div>
+                  <div className="text-[#94A3B8] mt-0.5">Continuous audit trail logging is enabled.</div>
                 </div>
-                <div className="p-2 rounded bg-[#240709] border border-[#3D0D13] text-[11px]">
+                <div className="p-2 rounded bg-[#0B132B] border border-[#172554] text-[11px]">
                   <div className="font-medium text-emerald-400">Database Synchronized</div>
-                  <div className="text-[#B89B8D] mt-0.5">MongoDB Atlas latency within normal bounds.</div>
+                  <div className="text-[#94A3B8] mt-0.5">MongoDB Atlas latency within normal bounds.</div>
                 </div>
               </div>
               <Link
                 href="/admin/notifications"
                 onClick={() => setShowNotifications(false)}
-                className="block text-center pt-2 text-[11px] text-[#FED7B8] hover:underline"
+                className="block text-center pt-2 text-[11px] text-[#38BDF8] hover:underline"
               >
                 Manage Broadcasts →
               </Link>
@@ -170,17 +170,17 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         </div>
 
         {/* Profile Card & Role Pill */}
-        <div className="flex items-center gap-2 pl-2 border-l border-[#3D0D13]">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#59171B] to-[#8C2329] border border-[#FED7B8]/30 flex items-center justify-center font-bold text-xs text-[#FFF5ED]">
+        <div className="flex items-center gap-2 pl-2 border-l border-[#172554]">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#8C2329] border border-[#38BDF8]/30 flex items-center justify-center font-bold text-xs text-[#F8FAFC]">
             {user?.name ? user.name[0].toUpperCase() : 'A'}
           </div>
           <div className="hidden lg:block text-left">
-            <div className="text-xs font-semibold text-[#FFF5ED] truncate max-w-[130px]">
+            <div className="text-xs font-semibold text-[#F8FAFC] truncate max-w-[130px]">
               {user?.name || user?.email?.split('@')[0] || 'Admin'}
             </div>
             <div className="flex items-center gap-1">
-              <Shield className="w-2.5 h-2.5 text-[#FED7B8]" />
-              <span className="text-[10px] uppercase font-mono tracking-wider text-[#FED7B8]/90">
+              <Shield className="w-2.5 h-2.5 text-[#38BDF8]" />
+              <span className="text-[10px] uppercase font-mono tracking-wider text-[#38BDF8]/90">
                 {primaryRole}
               </span>
             </div>
@@ -190,7 +190,7 @@ export default function AdminTopbar({ onToggleSidebar }: { onToggleSidebar: () =
         {/* Logout */}
         <button
           onClick={handleLogout}
-          className="p-2 text-[#B89B8D] hover:text-[#E63946] hover:bg-[#240709] rounded-lg transition-colors ml-1"
+          className="p-2 text-[#94A3B8] hover:text-[#E63946] hover:bg-[#0B132B] rounded-lg transition-colors ml-1"
           title="Sign Out of Admin Control Center"
         >
           <LogOut className="w-4 h-4" />

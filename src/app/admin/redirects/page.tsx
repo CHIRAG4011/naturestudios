@@ -95,7 +95,7 @@ export default function AdminRedirectsPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -104,17 +104,17 @@ export default function AdminRedirectsPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               URL Redirect Engine
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               Loop-Protected
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Configure 301 Permanent and 302 Temporary redirects for legacy route migrations.
           </p>
         </div>
@@ -122,19 +122,19 @@ export default function AdminRedirectsPage() {
         {(isSuperAdmin || hasPermission('seo.edit')) && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg transition-all"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-2 shadow-lg transition-all"
           >
-            <Plus className="w-4 h-4 text-[#FED7B8]" />
+            <Plus className="w-4 h-4 text-[#38BDF8]" />
             <span>Add Redirect Rule</span>
           </button>
         )}
       </div>
 
       {/* Redirects Table */}
-      <div className="rounded-3xl bg-[#1D0608] border border-[#3D0D13] overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-[#070D1E] border border-[#172554] overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#150304] border-b border-[#3D0D13] text-[#FED7B8]/70 uppercase font-mono tracking-wider text-[10px]">
+            <thead className="bg-[#030712] border-b border-[#172554] text-[#38BDF8]/70 uppercase font-mono tracking-wider text-[10px]">
               <tr>
                 <th className="px-5 py-3.5">Source URL</th>
                 <th className="px-5 py-3.5">Destination URL</th>
@@ -143,28 +143,28 @@ export default function AdminRedirectsPage() {
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#3D0D13]/60 text-[#FFF5ED]">
+            <tbody className="divide-y divide-[#172554]/60 text-[#F8FAFC]">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                     Loading redirect rules...
                   </td>
                 </tr>
               ) : redirects.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-[#B89B8D]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-[#94A3B8]">
                     No redirect rules configured.
                   </td>
                 </tr>
               ) : (
                 redirects.map((r) => (
-                  <tr key={r.id} className="hover:bg-[#240709]/50 transition-colors">
-                    <td className="px-5 py-3.5 font-mono text-[11px] text-[#FED7B8]">{r.source}</td>
-                    <td className="px-5 py-3.5 font-mono text-[11px] text-[#FFF5ED]">
+                  <tr key={r.id} className="hover:bg-[#0B132B]/50 transition-colors">
+                    <td className="px-5 py-3.5 font-mono text-[11px] text-[#38BDF8]">{r.source}</td>
+                    <td className="px-5 py-3.5 font-mono text-[11px] text-[#F8FAFC]">
                       {r.destination}
                     </td>
                     <td className="px-4 py-3.5">
-                      <span className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#150304] text-[#FED7B8] border border-[#3D0D13]">
+                      <span className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#030712] text-[#38BDF8] border border-[#172554]">
                         {r.statusCode}
                       </span>
                     </td>
@@ -173,7 +173,7 @@ export default function AdminRedirectsPage() {
                         className={`inline-flex items-center px-2 py-0.5 rounded text-[9px] font-mono uppercase ${
                           r.enabled
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                            : 'bg-[#150304] text-[#B89B8D]'
+                            : 'bg-[#030712] text-[#94A3B8]'
                         }`}
                       >
                         {r.enabled ? 'ACTIVE' : 'DISABLED'}
@@ -183,7 +183,7 @@ export default function AdminRedirectsPage() {
                       {(isSuperAdmin || hasPermission('seo.edit')) && (
                         <button
                           onClick={() => handleDelete(r.id)}
-                          className="p-1.5 rounded-lg text-[#B89B8D] hover:text-[#E63946] hover:bg-[#240709] transition-colors"
+                          className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#E63946] hover:bg-[#0B132B] transition-colors"
                           title="Delete Redirect"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -201,14 +201,14 @@ export default function AdminRedirectsPage() {
       {/* Create Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 shadow-2xl space-y-4 text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-[#3D0D13]">
-              <h3 className="font-syne text-base font-bold text-[#FFF5ED]">
+          <div className="w-full max-w-md bg-[#070D1E] border border-[#2563EB] rounded-3xl p-6 shadow-2xl space-y-4 text-xs">
+            <div className="flex items-center justify-between pb-2 border-b border-[#172554]">
+              <h3 className="font-syne text-base font-bold text-[#F8FAFC]">
                 Create Redirect Rule
               </h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-[#B89B8D] hover:text-[#FFF5ED]"
+                className="text-[#94A3B8] hover:text-[#F8FAFC]"
               >
                 ✕
               </button>
@@ -216,35 +216,35 @@ export default function AdminRedirectsPage() {
 
             <form onSubmit={handleCreateRedirect} className="space-y-3">
               <div>
-                <label className="text-[#B89B8D] block mb-1">Source Path</label>
+                <label className="text-[#94A3B8] block mb-1">Source Path</label>
                 <input
                   type="text"
                   required
                   value={source}
                   onChange={(e) => setSource(e.target.value)}
                   placeholder="/old-portfolio-path"
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FED7B8] font-mono focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#38BDF8] font-mono focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-[#B89B8D] block mb-1">Destination URL or Path</label>
+                <label className="text-[#94A3B8] block mb-1">Destination URL or Path</label>
                 <input
                   type="text"
                   required
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   placeholder="/portfolio"
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] font-mono focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] font-mono focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-[#B89B8D] block mb-1">HTTP Status Code</label>
+                <label className="text-[#94A3B8] block mb-1">HTTP Status Code</label>
                 <select
                   value={statusCode}
                   onChange={(e) => setStatusCode(Number(e.target.value) as 301 | 302)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                 >
                   <option value={301}>301 (Moved Permanently)</option>
                   <option value={302}>302 (Found / Temporary)</option>
@@ -255,14 +255,14 @@ export default function AdminRedirectsPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] text-[#FFF5ED]"
+                  className="px-4 py-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] text-[#F8FAFC]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 rounded-xl bg-[#59171B] hover:bg-[#6E1C23] font-semibold text-[#FFF5ED]"
+                  className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#2563EB] font-semibold text-[#F8FAFC]"
                 >
                   {saving ? 'Creating...' : 'Create Redirect'}
                 </button>

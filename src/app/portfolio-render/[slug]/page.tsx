@@ -66,10 +66,10 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
   // 1. Dedicated Suspended State Screen
   if (resolution.state === 'SUSPENDED') {
     return (
-      <div className="min-h-screen bg-[#0E0203] text-[#FFF5ED] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden selection:bg-red-500 selection:text-white">
+      <div className="min-h-screen bg-[#0E0203] text-[#F8FAFC] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden selection:bg-red-500 selection:text-white">
         {/* Ambient Crimson Mesh Glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-red-600/10 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-[#59171B]/20 rounded-full blur-[90px] pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-[#2563EB]/20 rounded-full blur-[90px] pointer-events-none" />
 
         <div className="relative z-10 max-w-lg w-full rounded-3xl border border-red-500/30 bg-gradient-to-b from-[#1C0508]/95 via-[#26070B]/90 to-[#150204]/95 p-8 sm:p-10 shadow-2xl backdrop-blur-2xl">
           {/* Pulsing Icon */}
@@ -87,8 +87,8 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
             PORTFOLIO ACCESS SUSPENDED
           </h1>
 
-          <p className="text-sm text-[#B89B8D] leading-relaxed mb-6">
-            The creator portfolio at <span className="text-[#FED7B8] font-mono font-bold">&quot;{slug}.naturestudio.in&quot;</span> is currently unavailable due to platform moderation or creator account suspension.
+          <p className="text-sm text-[#94A3B8] leading-relaxed mb-6">
+            The creator portfolio at <span className="text-[#38BDF8] font-mono font-bold">&quot;{slug}.naturestudio.in&quot;</span> is currently unavailable due to platform moderation or creator account suspension.
           </p>
 
           {resolution.suspendedReason && (
@@ -102,14 +102,14 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
             </div>
           )}
 
-          <div className="p-4 rounded-xl bg-[#150304]/70 border border-white/5 text-xs text-[#B89B8D] mb-8 leading-relaxed">
+          <div className="p-4 rounded-xl bg-[#030712]/70 border border-white/5 text-xs text-[#94A3B8] mb-8 leading-relaxed">
             If you are the owner of this portfolio, your creator workspace has been placed in restricted access mode. You may log in to submit an official appeal via the NatureStudios Support Ticket desk.
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="https://naturestudio.in"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-surface border border-rim hover:border-[#FED7B8] text-cream text-xs font-mono font-bold uppercase tracking-wider transition-all"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-surface border border-rim hover:border-[#38BDF8] text-cream text-xs font-mono font-bold uppercase tracking-wider transition-all"
             >
               <ArrowLeft className="w-4 h-4" /> Return to Homepage
             </Link>
@@ -128,18 +128,18 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
   // 2. Not Found / Draft State Screen
   if (!resolution.portfolio || resolution.state !== 'PUBLISHED') {
     return (
-      <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-[#3A0E11] border border-[#52141A] flex items-center justify-center mb-6 text-[#FED7B8]">
+      <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-[#1E40AF] border border-[#1E3A8A] flex items-center justify-center mb-6 text-[#38BDF8]">
           <ShieldAlert className="w-8 h-8 text-[#E63946]" />
         </div>
-        <div className="text-xs font-mono tracking-widest text-[#FED7B8] uppercase mb-2">
+        <div className="text-xs font-mono tracking-widest text-[#38BDF8] uppercase mb-2">
           404 // DOMAIN RESOLUTION
         </div>
         <h1 className="text-4xl sm:text-6xl font-black uppercase text-gradient-warm mb-4">
           PORTFOLIO NOT FOUND
         </h1>
-        <p className="text-sm sm:text-base text-[#B89B8D] max-w-md mb-8">
-          The creator subdomain <span className="text-[#FED7B8] font-mono font-bold">&quot;{slug}.naturestudio.in&quot;</span> is either unverified, currently in draft mode, or does not exist.
+        <p className="text-sm sm:text-base text-[#94A3B8] max-w-md mb-8">
+          The creator subdomain <span className="text-[#38BDF8] font-mono font-bold">&quot;{slug}.naturestudio.in&quot;</span> is either unverified, currently in draft mode, or does not exist.
         </p>
         <Link
           href="https://naturestudio.in"

@@ -152,7 +152,7 @@ export default function AdminMediaPage() {
   return (
     <div className="space-y-6">
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#240709] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-[#0B132B] border border-emerald-500/40 text-emerald-400 text-xs flex items-center justify-between shadow-lg">
           <span>{toastMessage}</span>
           <button onClick={() => setToastMessage(null)} className="text-white hover:underline">
             ✕
@@ -161,17 +161,17 @@ export default function AdminMediaPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               Media Asset Library
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               {assets.length} Stored Assets
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             Studio branding imagery, hero assets, tournament logos, and creator media. Direct upload or CDN URL registration.
           </p>
         </div>
@@ -181,14 +181,14 @@ export default function AdminMediaPage() {
             <>
               <button
                 onClick={() => setShowUrlModal(true)}
-                className="px-3.5 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-xs font-semibold text-[#FED7B8] flex items-center gap-1.5 transition-all"
+                className="px-3.5 py-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-xs font-semibold text-[#38BDF8] flex items-center gap-1.5 transition-all"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add by URL</span>
               </button>
 
-              <label className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg cursor-pointer transition-all">
-                <Upload className="w-4 h-4 text-[#FED7B8]" />
+              <label className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-2 shadow-lg cursor-pointer transition-all">
+                <Upload className="w-4 h-4 text-[#38BDF8]" />
                 <span>{uploading ? 'Uploading...' : 'Upload Image File'}</span>
                 <input type="file" accept="image/*" onChange={handleFileUpload} disabled={uploading} className="hidden" />
               </label>
@@ -197,7 +197,7 @@ export default function AdminMediaPage() {
 
           <button
             onClick={fetchMedia}
-            className="p-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED] transition-colors"
+            className="p-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -207,23 +207,23 @@ export default function AdminMediaPage() {
       {/* Media Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {loading ? (
-          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D] flex flex-col items-center gap-2">
-            <Loader2 className="w-5 h-5 animate-spin text-[#FED7B8]" />
+          <div className="col-span-full py-16 text-center text-xs text-[#94A3B8] flex flex-col items-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin text-[#38BDF8]" />
             <span>Loading media library assets...</span>
           </div>
         ) : assets.length === 0 ? (
-          <div className="col-span-full py-16 text-center text-xs text-[#B89B8D]">
+          <div className="col-span-full py-16 text-center text-xs text-[#94A3B8]">
             No uploaded media assets found in database.
           </div>
         ) : (
           assets.map((asset) => (
             <div
               key={asset.id}
-              className="rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] overflow-hidden transition-all group space-y-2 p-2 flex flex-col justify-between"
+              className="rounded-2xl bg-[#070D1E] border border-[#172554] hover:border-[#2563EB] overflow-hidden transition-all group space-y-2 p-2 flex flex-col justify-between"
             >
               <div
                 onClick={() => setPreviewAsset(asset)}
-                className="aspect-square rounded-xl bg-[#150304] flex items-center justify-center overflow-hidden relative cursor-pointer"
+                className="aspect-square rounded-xl bg-[#030712] flex items-center justify-center overflow-hidden relative cursor-pointer"
               >
                 {asset.url ? (
                   <img
@@ -232,29 +232,29 @@ export default function AdminMediaPage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                 ) : (
-                  <ImageIcon className="w-8 h-8 text-[#FED7B8]/40" />
+                  <ImageIcon className="w-8 h-8 text-[#38BDF8]/40" />
                 )}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#FED7B8] text-[11px] font-mono">
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#38BDF8] text-[11px] font-mono">
                   Click to Zoom
                 </div>
               </div>
 
               <div className="px-1 text-xs space-y-1">
-                <div className="font-semibold text-[#FFF5ED] truncate" title={asset.name}>
+                <div className="font-semibold text-[#F8FAFC] truncate" title={asset.name}>
                   {asset.name}
                 </div>
-                <div className="flex items-center justify-between text-[10px] text-[#B89B8D] font-mono">
+                <div className="flex items-center justify-between text-[10px] text-[#94A3B8] font-mono">
                   <span>{(asset.size ? asset.size / 1024 : 150).toFixed(0)} KB</span>
-                  <span className="uppercase text-[#FED7B8]/70">{asset.folder || 'general'}</span>
+                  <span className="uppercase text-[#38BDF8]/70">{asset.folder || 'general'}</span>
                 </div>
               </div>
 
               {/* Action buttons */}
-              <div className="pt-2 border-t border-[#3D0D13]/60 flex items-center justify-between gap-1">
+              <div className="pt-2 border-t border-[#172554]/60 flex items-center justify-between gap-1">
                 <button
                   type="button"
                   onClick={() => handleCopyUrl(asset.url)}
-                  className="flex-1 py-1 px-2 rounded-lg bg-[#240709] hover:bg-[#320B0F] border border-[#3D0D13] text-[10px] font-mono text-[#FED7B8] flex items-center justify-center gap-1 transition-colors"
+                  className="flex-1 py-1 px-2 rounded-lg bg-[#0B132B] hover:bg-[#111C35] border border-[#172554] text-[10px] font-mono text-[#38BDF8] flex items-center justify-center gap-1 transition-colors"
                   title="Copy image URL"
                 >
                   {copiedUrl === asset.url ? (
@@ -289,14 +289,14 @@ export default function AdminMediaPage() {
       {/* Add by URL Modal */}
       {showUrlModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-100">
-          <div className="w-full max-w-md bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-[#3D0D13] pb-3">
-              <h3 className="font-syne text-base font-bold text-[#FFF5ED]">
+          <div className="w-full max-w-md bg-[#070D1E] border border-[#2563EB] rounded-3xl p-6 shadow-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-[#172554] pb-3">
+              <h3 className="font-syne text-base font-bold text-[#F8FAFC]">
                 Register External Image URL
               </h3>
               <button
                 onClick={() => setShowUrlModal(false)}
-                className="p-1 rounded-lg text-[#B89B8D] hover:text-[#FFF5ED]"
+                className="p-1 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -304,7 +304,7 @@ export default function AdminMediaPage() {
 
             <form onSubmit={handleRegisterUrl} className="space-y-4 text-xs">
               <div>
-                <label className="block text-[#FED7B8] font-mono mb-1 uppercase text-[10px]">
+                <label className="block text-[#38BDF8] font-mono mb-1 uppercase text-[10px]">
                   Asset Name / Title
                 </label>
                 <input
@@ -313,12 +313,12 @@ export default function AdminMediaPage() {
                   placeholder="e.g. Valorant Champions Hero Plate"
                   value={nameInput}
                   onChange={(e) => setNameInput(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               <div>
-                <label className="block text-[#FED7B8] font-mono mb-1 uppercase text-[10px]">
+                <label className="block text-[#38BDF8] font-mono mb-1 uppercase text-[10px]">
                   Direct Image URL (HTTPS)
                 </label>
                 <input
@@ -327,18 +327,18 @@ export default function AdminMediaPage() {
                   placeholder="https://images.unsplash.com/... or CDN link"
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               <div>
-                <label className="block text-[#FED7B8] font-mono mb-1 uppercase text-[10px]">
+                <label className="block text-[#38BDF8] font-mono mb-1 uppercase text-[10px]">
                   Folder Category
                 </label>
                 <select
                   value={folderInput}
                   onChange={(e) => setFolderInput(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC]"
                 >
                   <option value="general">General Media</option>
                   <option value="hero">Hero Backgrounds</option>
@@ -352,14 +352,14 @@ export default function AdminMediaPage() {
                 <button
                   type="button"
                   onClick={() => setShowUrlModal(false)}
-                  className="px-4 py-2 rounded-xl bg-[#240709] text-[#FFF5ED]"
+                  className="px-4 py-2 rounded-xl bg-[#0B132B] text-[#F8FAFC]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={registering}
-                  className="px-4 py-2 rounded-xl bg-[#59171B] hover:bg-[#721C22] text-[#FED7B8] font-semibold"
+                  className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#721C22] text-[#38BDF8] font-semibold"
                 >
                   {registering ? 'Registering...' : 'Save to Media Library'}
                 </button>
@@ -377,13 +377,13 @@ export default function AdminMediaPage() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="max-w-3xl max-h-[85vh] bg-[#1D0608] border border-[#59171B] rounded-3xl overflow-hidden p-4 space-y-3 cursor-default"
+            className="max-w-3xl max-h-[85vh] bg-[#070D1E] border border-[#2563EB] rounded-3xl overflow-hidden p-4 space-y-3 cursor-default"
           >
-            <div className="flex items-center justify-between border-b border-[#3D0D13] pb-2 text-xs">
-              <span className="font-semibold text-[#FFF5ED]">{previewAsset.name}</span>
+            <div className="flex items-center justify-between border-b border-[#172554] pb-2 text-xs">
+              <span className="font-semibold text-[#F8FAFC]">{previewAsset.name}</span>
               <button
                 onClick={() => setPreviewAsset(null)}
-                className="p-1 rounded-lg text-[#B89B8D] hover:text-[#FFF5ED]"
+                className="p-1 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -395,11 +395,11 @@ export default function AdminMediaPage() {
                 className="max-h-[65vh] w-auto object-contain"
               />
             </div>
-            <div className="flex items-center justify-between text-xs font-mono text-[#B89B8D] pt-1">
+            <div className="flex items-center justify-between text-xs font-mono text-[#94A3B8] pt-1">
               <span className="truncate max-w-md">{previewAsset.url}</span>
               <button
                 onClick={() => handleCopyUrl(previewAsset.url)}
-                className="px-3 py-1 rounded-lg bg-[#59171B] text-[#FED7B8] font-bold"
+                className="px-3 py-1 rounded-lg bg-[#2563EB] text-[#38BDF8] font-bold"
               >
                 {copiedUrl === previewAsset.url ? 'Copied URL!' : 'Copy Direct Link'}
               </button>

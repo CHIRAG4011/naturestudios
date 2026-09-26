@@ -104,17 +104,17 @@ export default function AdminRolesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#1D0608] border border-[#59171B]/50 shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#070D1E] border border-[#2563EB]/50 shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#FFF5ED]">
+            <h1 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
               RBAC Role Architecture
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/20">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/20">
               Database-Backed
             </span>
           </div>
-          <p className="text-xs text-[#B89B8D] mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             System & custom role hierarchies governing administrative actions across the platform.
           </p>
         </div>
@@ -122,9 +122,9 @@ export default function AdminRolesPage() {
         {(isSuperAdmin || hasPermission('roles.create')) && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#59171B] to-[#7B1F25] hover:from-[#6A1B20] hover:to-[#8E242B] border border-[#FED7B8]/30 text-xs font-semibold text-[#FFF5ED] flex items-center gap-2 shadow-lg transition-all"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1D4ED8] hover:to-[#60A5FA] border border-[#38BDF8]/30 text-xs font-semibold text-[#F8FAFC] flex items-center gap-2 shadow-lg transition-all"
           >
-            <Plus className="w-4 h-4 text-[#FED7B8]" />
+            <Plus className="w-4 h-4 text-[#38BDF8]" />
             <span>Create Custom Role</span>
           </button>
         )}
@@ -133,38 +133,38 @@ export default function AdminRolesPage() {
       {/* Roles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {loading ? (
-          <div className="col-span-full py-12 text-center text-xs text-[#B89B8D]">
+          <div className="col-span-full py-12 text-center text-xs text-[#94A3B8]">
             Loading RBAC role definitions...
           </div>
         ) : (
           roles.map((role) => (
             <div
               key={role.id || role.slug}
-              className="p-5 rounded-2xl bg-[#1D0608] border border-[#3D0D13] hover:border-[#59171B] transition-all space-y-4 flex flex-col justify-between"
+              className="p-5 rounded-2xl bg-[#070D1E] border border-[#172554] hover:border-[#2563EB] transition-all space-y-4 flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-syne font-bold text-sm text-[#FFF5ED]">{role.name}</span>
+                  <span className="font-syne font-bold text-sm text-[#F8FAFC]">{role.name}</span>
                   {role.systemRole ? (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#59171B]/60 text-[#FED7B8] border border-[#FED7B8]/20">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#2563EB]/60 text-[#38BDF8] border border-[#38BDF8]/20">
                       <Lock className="w-2.5 h-2.5" />
                       System
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#150304] text-[#B89B8D] border border-[#3D0D13]">
+                    <span className="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#030712] text-[#94A3B8] border border-[#172554]">
                       Custom
                     </span>
                   )}
                 </div>
 
-                <div className="text-[11px] font-mono text-[#FED7B8]/80">{role.slug}</div>
-                <p className="text-xs text-[#B89B8D] leading-relaxed line-clamp-2">
+                <div className="text-[11px] font-mono text-[#38BDF8]/80">{role.slug}</div>
+                <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-2">
                   {role.description || 'Custom administrative role configured for specialized staff operations.'}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-[#3D0D13] flex items-center justify-between text-xs">
-                <div className="flex items-center gap-1.5 text-[11px] text-[#FED7B8]">
+              <div className="pt-3 border-t border-[#172554] flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5 text-[11px] text-[#38BDF8]">
                   <Key className="w-3.5 h-3.5" />
                   <span>
                     {role.slug === 'SUPER_ADMIN'
@@ -177,7 +177,7 @@ export default function AdminRolesPage() {
                   {!role.systemRole && (isSuperAdmin || hasPermission('roles.delete')) && (
                     <button
                       onClick={() => handleDeleteRole(role)}
-                      className="p-1.5 rounded-lg text-[#B89B8D] hover:text-[#E63946] hover:bg-[#240709] transition-colors"
+                      className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#E63946] hover:bg-[#0B132B] transition-colors"
                       title="Delete Role"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -193,14 +193,14 @@ export default function AdminRolesPage() {
       {/* Create Custom Role Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1D0608] border border-[#59171B] rounded-3xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-[#3D0D13]">
-              <h3 className="font-syne text-base font-bold text-[#FFF5ED]">
+          <div className="w-full max-w-md bg-[#070D1E] border border-[#2563EB] rounded-3xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-[#172554]">
+              <h3 className="font-syne text-base font-bold text-[#F8FAFC]">
                 Create Custom RBAC Role
               </h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-[#B89B8D] hover:text-[#FFF5ED]"
+                className="text-[#94A3B8] hover:text-[#F8FAFC]"
               >
                 ✕
               </button>
@@ -208,7 +208,7 @@ export default function AdminRolesPage() {
 
             <form onSubmit={handleCreateRole} className="space-y-3 text-xs">
               <div>
-                <label className="text-[#B89B8D] block mb-1">Role Display Name</label>
+                <label className="text-[#94A3B8] block mb-1">Role Display Name</label>
                 <input
                   type="text"
                   required
@@ -218,30 +218,30 @@ export default function AdminRolesPage() {
                     if (!formSlug) setFormSlug(e.target.value.toUpperCase().replace(/\s+/g, '_'));
                   }}
                   placeholder="e.g. Broadcast Lead"
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               <div>
-                <label className="text-[#B89B8D] block mb-1">Machine Slug Key</label>
+                <label className="text-[#94A3B8] block mb-1">Machine Slug Key</label>
                 <input
                   type="text"
                   required
                   value={formSlug}
                   onChange={(e) => setFormSlug(e.target.value)}
                   placeholder="e.g. BROADCAST_LEAD"
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] font-mono focus:outline-none focus:border-[#59171B]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] font-mono focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               <div>
-                <label className="text-[#B89B8D] block mb-1">Description</label>
+                <label className="text-[#94A3B8] block mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={formDesc}
                   onChange={(e) => setFormDesc(e.target.value)}
                   placeholder="Operational remit and staff privileges for this role..."
-                  className="w-full px-3 py-2 rounded-xl bg-[#150304] border border-[#3D0D13] text-[#FFF5ED] focus:outline-none focus:border-[#59171B]"
+                  className="w-full px-3 py-2 rounded-xl bg-[#030712] border border-[#172554] text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -249,14 +249,14 @@ export default function AdminRolesPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 rounded-xl bg-[#240709] hover:bg-[#320B0F] text-[#FFF5ED]"
+                  className="px-4 py-2 rounded-xl bg-[#0B132B] hover:bg-[#111C35] text-[#F8FAFC]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 rounded-xl bg-[#59171B] hover:bg-[#6E1C23] font-semibold text-[#FFF5ED]"
+                  className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#2563EB] font-semibold text-[#F8FAFC]"
                 >
                   {saving ? 'Creating...' : 'Create Role'}
                 </button>

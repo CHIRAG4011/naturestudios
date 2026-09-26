@@ -90,7 +90,7 @@ const TEMPLATE_PRESETS = [
     name: 'Swiss Studio Minimal',
     desc: 'Understated discipline, maximum contrast void, high whitespace',
     config: {
-      accentColor: '#FED7B8',
+      accentColor: '#38BDF8',
       backgroundStyle: 'void',
       fontPair: 'modern-sans',
       heroLayout: 'minimal',
@@ -102,7 +102,7 @@ const TEMPLATE_PRESETS = [
     name: 'Dark Luxury Editorial',
     desc: 'Deep velvet wine ambiance with classical serif headlines',
     config: {
-      accentColor: '#FED7B8',
+      accentColor: '#38BDF8',
       backgroundStyle: 'wine',
       fontPair: 'editorial',
       heroLayout: 'center-bold',
@@ -137,8 +137,8 @@ const TEMPLATE_PRESETS = [
 ];
 
 const ACCENT_PRESETS = [
-  { name: 'Warm Beige', hex: '#FED7B8' },
-  { name: 'Nature Burgundy', hex: '#59171B' },
+  { name: 'Warm Beige', hex: '#38BDF8' },
+  { name: 'Nature Burgundy', hex: '#2563EB' },
   { name: 'Crimson Red', hex: '#E63946' },
   { name: 'Studio Emerald', hex: '#18A957' },
   { name: 'Cyber Orange', hex: '#FF6B35' },
@@ -608,29 +608,29 @@ export default function PortfolioWizard() {
 
   if (authLoading || loading || !portfolio) {
     return (
-      <div className="min-h-screen bg-[#150304] text-[#FFF5ED] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#FED7B8] animate-spin" />
+      <div className="min-h-screen bg-[#030712] text-[#F8FAFC] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#38BDF8] animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#150304] text-[#FFF5ED] font-sans selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="min-h-screen bg-[#030712] text-[#F8FAFC] font-sans selection:bg-[#2563EB] selection:text-[#38BDF8]">
       {/* Top Wizard Control Bar */}
-      <header className="sticky top-0 z-40 bg-[#1C0507]/90 backdrop-blur-md border-b border-[#3D0D13] px-6 lg:px-12 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-[#050B17]/90 backdrop-blur-md border-b border-[#172554] px-6 lg:px-12 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/portfolio" className="text-xs font-mono uppercase text-[#FED7B8] hover:underline">
+          <Link href="/portfolio" className="text-xs font-mono uppercase text-[#38BDF8] hover:underline">
             ← My Portfolio
           </Link>
-          <span className="text-[#52141A]">/</span>
-          <span className="text-xs font-mono uppercase text-[#B89B8D]">
+          <span className="text-[#1E3A8A]">/</span>
+          <span className="text-xs font-mono uppercase text-[#94A3B8]">
             Step {currentStep} of 13: {STEPS[currentStep - 1].name}
           </span>
         </div>
 
         <div className="flex items-center gap-4">
           <div className="text-xs font-mono flex items-center gap-2">
-            {autosaveStatus === 'Saving...' && <Loader2 className="w-3.5 h-3.5 text-[#FED7B8] animate-spin" />}
+            {autosaveStatus === 'Saving...' && <Loader2 className="w-3.5 h-3.5 text-[#38BDF8] animate-spin" />}
             {autosaveStatus === 'Saved' && <CheckCircle2 className="w-3.5 h-3.5 text-[#18A957]" />}
             <span
               className={`${
@@ -638,7 +638,7 @@ export default function PortfolioWizard() {
                   ? 'text-[#18A957]'
                   : autosaveStatus === 'Save Failed'
                   ? 'text-[#E63946]'
-                  : 'text-[#FED7B8]'
+                  : 'text-[#38BDF8]'
               }`}
             >
               {autosaveStatus}
@@ -655,7 +655,7 @@ export default function PortfolioWizard() {
       </header>
 
       {/* Step Navigation Bar */}
-      <div className="border-b border-[#3D0D13] bg-[#240709] overflow-x-auto px-6 py-3 scrollbar-none">
+      <div className="border-b border-[#172554] bg-[#0B132B] overflow-x-auto px-6 py-3 scrollbar-none">
         <div className="flex items-center gap-2 min-w-max">
           {STEPS.map((step) => {
             const Icon = step.icon;
@@ -666,8 +666,8 @@ export default function PortfolioWizard() {
                 onClick={() => setCurrentStep(step.id)}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-colors ${
                   active
-                    ? 'bg-[#59171B] text-[#FED7B8] border border-[#FED7B8]/40'
-                    : 'text-[#B89B8D] hover:text-[#FFF5ED] hover:bg-[#2D0A0E]'
+                    ? 'bg-[#2563EB] text-[#38BDF8] border border-[#38BDF8]/40'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#0F1D38]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -683,32 +683,32 @@ export default function PortfolioWizard() {
         {currentStep === 1 && (
           <div className="space-y-8">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                 Step 01 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Portfolio Track & Creator Info</h2>
-              <p className="text-xs text-[#B89B8D] mt-1">
+              <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Portfolio Track & Creator Info</h2>
+              <p className="text-xs text-[#94A3B8] mt-1">
                 Classify your creative track (GFX / VFX), upload showcase work, and set creator coordinates.
               </p>
             </div>
 
             {/* SECTION: PORTFOLIO CLASSIFICATION & MEDIA UPLOAD */}
-            <div className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6 shadow-xl">
+            <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-6 shadow-xl">
               <div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#FED7B8]" />
-                  <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#FFF5ED]">
+                  <Sparkles className="w-4 h-4 text-[#38BDF8]" />
+                  <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#F8FAFC]">
                     01 // Creative Discipline & Portfolio Track
                   </h3>
                 </div>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <p className="text-xs text-[#94A3B8] mt-1">
                   Choose your discipline. GFX portfolios require graphic design image uploads; VFX portfolios require video reels.
                 </p>
               </div>
 
               {/* 1. Portfolio Type (GFX / VFX / Other) */}
               <div>
-                <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold mb-2">
+                <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold mb-2">
                   Portfolio Type *
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -724,15 +724,15 @@ export default function PortfolioWizard() {
                     }}
                     className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                       (portfolio.category || 'GFX') === 'GFX'
-                        ? 'bg-[#59171B]/70 border-[#FED7B8] shadow-glow-burgundy'
-                        : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                        ? 'bg-[#2563EB]/70 border-[#38BDF8] shadow-glow-burgundy'
+                        : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                     }`}
                   >
-                    <div className="flex items-center gap-2 text-[#FED7B8]">
+                    <div className="flex items-center gap-2 text-[#38BDF8]">
                       <ImageIcon className="w-4 h-4" />
                       <span className="font-mono text-xs font-bold uppercase">GFX</span>
                     </div>
-                    <p className="text-[11px] text-[#B89B8D] mt-1">
+                    <p className="text-[11px] text-[#94A3B8] mt-1">
                       Graphic design: Tournaments, rosters, thumbnails, logos & banners (Images only).
                     </p>
                   </button>
@@ -748,15 +748,15 @@ export default function PortfolioWizard() {
                     }}
                     className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                       portfolio.category === 'VFX'
-                        ? 'bg-[#59171B]/70 border-[#FED7B8] shadow-glow-burgundy'
-                        : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                        ? 'bg-[#2563EB]/70 border-[#38BDF8] shadow-glow-burgundy'
+                        : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                     }`}
                   >
-                    <div className="flex items-center gap-2 text-[#FED7B8]">
+                    <div className="flex items-center gap-2 text-[#38BDF8]">
                       <Film className="w-4 h-4" />
                       <span className="font-mono text-xs font-bold uppercase">VFX</span>
                     </div>
-                    <p className="text-[11px] text-[#B89B8D] mt-1">
+                    <p className="text-[11px] text-[#94A3B8] mt-1">
                       Visual effects, motion graphics, video showcases & cinematic edits (Videos only).
                     </p>
                   </button>
@@ -771,15 +771,15 @@ export default function PortfolioWizard() {
                     }}
                     className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                       portfolio.category === 'Other'
-                        ? 'bg-[#59171B]/70 border-[#FED7B8] shadow-glow-burgundy'
-                        : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                        ? 'bg-[#2563EB]/70 border-[#38BDF8] shadow-glow-burgundy'
+                        : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                     }`}
                   >
-                    <div className="flex items-center gap-2 text-[#FED7B8]">
+                    <div className="flex items-center gap-2 text-[#38BDF8]">
                       <Sparkles className="w-4 h-4" />
                       <span className="font-mono text-xs font-bold uppercase">Other</span>
                     </div>
-                    <p className="text-[11px] text-[#B89B8D] mt-1">
+                    <p className="text-[11px] text-[#94A3B8] mt-1">
                       Multidisciplinary art direction, 3D worldbuilding, or custom creative category.
                     </p>
                   </button>
@@ -788,8 +788,8 @@ export default function PortfolioWizard() {
 
               {/* GFX Subcategory Selection */}
               {(portfolio.category || 'GFX') === 'GFX' && (
-                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-3">
-                  <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] space-y-3">
+                  <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                     GFX Subcategory *
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -804,8 +804,8 @@ export default function PortfolioWizard() {
                           }}
                           className={`py-2 px-3 rounded-lg text-xs font-mono uppercase font-bold transition-all border cursor-pointer text-center ${
                             isSelected
-                              ? 'bg-[#59171B] text-[#FED7B8] border-[#FED7B8] shadow-glow-burgundy'
-                              : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                              ? 'bg-[#2563EB] text-[#38BDF8] border-[#38BDF8] shadow-glow-burgundy'
+                              : 'bg-[#030712] border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC]'
                           }`}
                         >
                           {sub}
@@ -813,7 +813,7 @@ export default function PortfolioWizard() {
                       );
                     })}
                   </div>
-                  <p className="text-[11px] text-[#B89B8D]">
+                  <p className="text-[11px] text-[#94A3B8]">
                     Your portfolio will appear in the Global Portfolio directory under <strong>GFX → {portfolio.gfxSubcategory || 'Tournament'}</strong>.
                   </p>
                 </div>
@@ -821,8 +821,8 @@ export default function PortfolioWizard() {
 
               {/* Other Custom Category Field */}
               {portfolio.category === 'Other' && (
-                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-2">
-                  <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] space-y-2">
+                  <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                     Custom Category / Type *
                   </label>
                   <input
@@ -837,19 +837,19 @@ export default function PortfolioWizard() {
 
               {/* GFX Images Upload & Gallery */}
               {(portfolio.category || 'GFX') === 'GFX' && (
-                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-4">
+                <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                      <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                         GFX Showcase Images (PNG, JPG, JPEG, WEBP) *
                       </label>
-                      <span className="text-[11px] text-[#B89B8D]">
+                      <span className="text-[11px] text-[#94A3B8]">
                         Upload your esports graphics. Multiple images supported.
                       </span>
                     </div>
 
                     <label className="btn-secondary text-xs py-2 px-3.5 flex items-center gap-2 shrink-0 cursor-pointer">
-                      <Upload className="w-3.5 h-3.5 text-[#FED7B8]" />
+                      <Upload className="w-3.5 h-3.5 text-[#38BDF8]" />
                       <span>Upload Image</span>
                       <input
                         type="file"
@@ -871,8 +871,8 @@ export default function PortfolioWizard() {
                         return (
                           <div
                             key={imgIdx}
-                            className={`group relative aspect-video rounded-xl overflow-hidden border bg-[#150304] transition-all ${
-                              isPrimary ? 'border-[#FED7B8] ring-1 ring-[#FED7B8]' : 'border-[#3D0D13]'
+                            className={`group relative aspect-video rounded-xl overflow-hidden border bg-[#030712] transition-all ${
+                              isPrimary ? 'border-[#38BDF8] ring-1 ring-[#38BDF8]' : 'border-[#172554]'
                             }`}
                           >
                             <img src={imgUrl} alt="Showcase" className="w-full h-full object-cover" />
@@ -897,7 +897,7 @@ export default function PortfolioWizard() {
                                   triggerAutosave({ ...portfolio, mediaUrl: imgUrl });
                                 }}
                                 className={`text-[10px] font-mono py-1 px-1.5 rounded text-center uppercase font-bold ${
-                                  isPrimary ? 'bg-[#18A957] text-white' : 'bg-[#59171B] text-[#FED7B8] hover:bg-[#721D22]'
+                                  isPrimary ? 'bg-[#18A957] text-white' : 'bg-[#2563EB] text-[#38BDF8] hover:bg-[#721D22]'
                                 }`}
                               >
                                 {isPrimary ? 'Primary Cover' : 'Set as Cover'}
@@ -908,7 +908,7 @@ export default function PortfolioWizard() {
                       })}
                     </div>
                   ) : (
-                    <div className="p-6 rounded-xl border border-dashed border-[#3D0D13] text-center text-[#B89B8D] text-xs">
+                    <div className="p-6 rounded-xl border border-dashed border-[#172554] text-center text-[#94A3B8] text-xs">
                       No graphics uploaded yet. Click &quot;Upload Image&quot; above to add your design files.
                     </div>
                   )}
@@ -917,19 +917,19 @@ export default function PortfolioWizard() {
 
               {/* VFX Video Upload & Player */}
               {portfolio.category === 'VFX' && (
-                <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-4">
+                <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                      <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                         VFX Showcase Video (MP4, WEBM, MOV) *
                       </label>
-                      <span className="text-[11px] text-[#B89B8D]">
+                      <span className="text-[11px] text-[#94A3B8]">
                         Upload your motion graphics reel or provide an external video link.
                       </span>
                     </div>
 
                     <label className="btn-secondary text-xs py-2 px-3.5 flex items-center gap-2 shrink-0 cursor-pointer">
-                      <Film className="w-3.5 h-3.5 text-[#FED7B8]" />
+                      <Film className="w-3.5 h-3.5 text-[#38BDF8]" />
                       <span>Upload Video</span>
                       <input
                         type="file"
@@ -956,26 +956,26 @@ export default function PortfolioWizard() {
                   {/* Video Preview Player */}
                   {portfolio.mediaUrl && (
                     <div className="pt-2">
-                      <span className="text-[11px] font-mono text-[#FED7B8] uppercase block mb-2 font-bold">
+                      <span className="text-[11px] font-mono text-[#38BDF8] uppercase block mb-2 font-bold">
                         Interactive Video Player Preview
                       </span>
-                      <div className="max-w-xl rounded-2xl overflow-hidden border border-[#52141A] shadow-2xl">
+                      <div className="max-w-xl rounded-2xl overflow-hidden border border-[#1E3A8A] shadow-2xl">
                         <VfxVideoPlayer src={portfolio.mediaUrl} title="Showcase Preview" poster={portfolio.videoThumbnailUrl} />
                       </div>
                     </div>
                   )}
 
                   {/* Video Poster Thumbnail upload */}
-                  <div className="pt-2 border-t border-[#3D0D13] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="pt-2 border-t border-[#172554] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                      <label className="block text-[11px] font-mono uppercase text-[#B89B8D]">
+                      <label className="block text-[11px] font-mono uppercase text-[#94A3B8]">
                         Video Cover Poster (Optional Image)
                       </label>
-                      <span className="text-[10px] text-[#B89B8D]/70">
+                      <span className="text-[10px] text-[#94A3B8]/70">
                         Displayed as the static preview card in the directory before playback begins.
                       </span>
                     </div>
-                    <label className="text-[11px] font-mono px-3 py-1.5 rounded-lg bg-[#2D0A0E] border border-[#52141A] text-[#FED7B8] hover:border-[#FED7B8] flex items-center gap-1.5 shrink-0 cursor-pointer">
+                    <label className="text-[11px] font-mono px-3 py-1.5 rounded-lg bg-[#0F1D38] border border-[#1E3A8A] text-[#38BDF8] hover:border-[#38BDF8] flex items-center gap-1.5 shrink-0 cursor-pointer">
                       <ImageIcon className="w-3 h-3" />
                       <span>Upload Poster</span>
                       <input
@@ -996,19 +996,19 @@ export default function PortfolioWizard() {
             {/* SECTION: PERSONAL IDENTITY COORDINATES */}
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <User className="w-4 h-4 text-[#FED7B8]" />
-                <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#FFF5ED]">
+                <User className="w-4 h-4 text-[#38BDF8]" />
+                <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#F8FAFC]">
                   02 // Creator Coordinates & Identity
                 </h3>
               </div>
-              <p className="text-xs text-[#B89B8D]">
+              <p className="text-xs text-[#94A3B8]">
                 Your public creator name, custom subdomain, and professional bio.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Full Legal Name *</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Full Legal Name *</label>
                 <input
                   type="text"
                   value={portfolio.personalInfo?.fullName || ''}
@@ -1018,7 +1018,7 @@ export default function PortfolioWizard() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Professional / Display Name</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Professional / Display Name</label>
                 <input
                   type="text"
                   value={portfolio.personalInfo?.professionalName || ''}
@@ -1030,16 +1030,16 @@ export default function PortfolioWizard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-[#2D0A0E]/60 border border-[#52141A] space-y-2">
+              <div className="p-4 rounded-xl bg-[#0F1D38]/60 border border-[#1E3A8A] space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                  <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                     Portfolio Subdomain Slug *
                   </label>
                   <button
                     type="button"
                     onClick={saveSlugExplicit}
                     disabled={!portfolio.slug || portfolio.slug.length < 3 || slugStatus === 'taken'}
-                    className="text-[11px] font-mono px-2.5 py-1 rounded bg-[#59171B] hover:bg-[#721D22] text-[#FED7B8] border border-[#FED7B8]/30 flex items-center gap-1 disabled:opacity-40"
+                    className="text-[11px] font-mono px-2.5 py-1 rounded bg-[#2563EB] hover:bg-[#721D22] text-[#38BDF8] border border-[#38BDF8]/30 flex items-center gap-1 disabled:opacity-40"
                   >
                     <Save className="w-3 h-3" /> Lock & Save Slug
                   </button>
@@ -1052,15 +1052,15 @@ export default function PortfolioWizard() {
                     className="field font-mono text-sm"
                     placeholder="creator"
                   />
-                  <span className="text-xs font-mono text-[#B89B8D] shrink-0">.naturestudio.in</span>
+                  <span className="text-xs font-mono text-[#94A3B8] shrink-0">.naturestudio.in</span>
                 </div>
                 <div className="flex items-center justify-between text-[11px] font-mono">
                   <div>
-                    {slugStatus === 'checking' && <span className="text-[#FED7B8]">Checking availability...</span>}
+                    {slugStatus === 'checking' && <span className="text-[#38BDF8]">Checking availability...</span>}
                     {slugStatus === 'available' && <span className="text-[#18A957]">✓ Subdomain available</span>}
                     {slugStatus === 'taken' && <span className="text-[#E63946]">✗ Subdomain already taken</span>}
                   </div>
-                  <span className="text-[#B89B8D]">
+                  <span className="text-[#94A3B8]">
                     Direct: naturestudio.in/p/{portfolio.slug || 'slug'}
                   </span>
                 </div>
@@ -1069,7 +1069,7 @@ export default function PortfolioWizard() {
                 )}
               </div>
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Professional Title</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Professional Title</label>
                 <input
                   type="text"
                   value={portfolio.personalInfo?.professionalTitle || ''}
@@ -1081,7 +1081,7 @@ export default function PortfolioWizard() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Headline / Tagline</label>
+              <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Headline / Tagline</label>
               <input
                 type="text"
                 value={portfolio.personalInfo?.tagline || ''}
@@ -1092,7 +1092,7 @@ export default function PortfolioWizard() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">About Me (Biography)</label>
+              <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">About Me (Biography)</label>
               <textarea
                 rows={5}
                 value={portfolio.personalInfo?.aboutMe || ''}
@@ -1104,7 +1104,7 @@ export default function PortfolioWizard() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Location</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Location</label>
                 <input
                   type="text"
                   value={portfolio.personalInfo?.location || ''}
@@ -1114,7 +1114,7 @@ export default function PortfolioWizard() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Public Email</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Public Email</label>
                 <input
                   type="email"
                   value={portfolio.personalInfo?.publicEmail || ''}
@@ -1124,7 +1124,7 @@ export default function PortfolioWizard() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Availability Status</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Availability Status</label>
                 <select
                   value={portfolio.personalInfo?.availability || 'Available for projects'}
                   onChange={(e) => updatePersonalInfo('availability', e.target.value)}
@@ -1144,16 +1144,16 @@ export default function PortfolioWizard() {
         {currentStep === 2 && (
           <div className="space-y-6">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                 Step 02 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Professional Identity</h2>
-              <p className="text-xs text-[#B89B8D] mt-1">Industry specialization and positioning.</p>
+              <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Professional Identity</h2>
+              <p className="text-xs text-[#94A3B8] mt-1">Industry specialization and positioning.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Primary Role</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Primary Role</label>
                 <input
                   type="text"
                   value={portfolio.professionalIdentity?.primaryRole || ''}
@@ -1163,7 +1163,7 @@ export default function PortfolioWizard() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Industry</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Industry</label>
                 <input
                   type="text"
                   value={portfolio.professionalIdentity?.industry || ''}
@@ -1176,7 +1176,7 @@ export default function PortfolioWizard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Years of Experience</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Years of Experience</label>
                 <input
                   type="number"
                   value={portfolio.professionalIdentity?.yearsExperience || 5}
@@ -1185,7 +1185,7 @@ export default function PortfolioWizard() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Work Type</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Work Type</label>
                 <select
                   value={portfolio.professionalIdentity?.workType || 'Remote'}
                   onChange={(e) => updateIdentity('workType', e.target.value)}
@@ -1199,7 +1199,7 @@ export default function PortfolioWizard() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Specialization Focus</label>
+              <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Specialization Focus</label>
               <input
                 type="text"
                 value={portfolio.professionalIdentity?.specialization || ''}
@@ -1216,11 +1216,11 @@ export default function PortfolioWizard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 03 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Skills & Capabilities</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">Tools, software, and creative proficiencies.</p>
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Skills & Capabilities</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">Tools, software, and creative proficiencies.</p>
               </div>
               <button onClick={addSkill} className="btn-secondary text-xs py-2 px-3 flex items-center gap-1">
                 <Plus className="w-3.5 h-3.5" /> Add Skill
@@ -1229,7 +1229,7 @@ export default function PortfolioWizard() {
 
             <div className="space-y-3">
               {portfolio.skills?.map((skill, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-[#240709] border border-[#3D0D13] flex items-center gap-4">
+                <div key={idx} className="p-4 rounded-xl bg-[#0B132B] border border-[#172554] flex items-center gap-4">
                   <input
                     type="text"
                     value={skill.name}
@@ -1256,7 +1256,7 @@ export default function PortfolioWizard() {
                   </select>
                   <button
                     onClick={() => removeSkill(idx)}
-                    className="p-2 text-[#E63946] hover:bg-[#3A0E11] rounded-lg transition-colors"
+                    className="p-2 text-[#E63946] hover:bg-[#1E40AF] rounded-lg transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -1271,11 +1271,11 @@ export default function PortfolioWizard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 04 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Featured Projects</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">Showcase your best esports, branding, and motion projects.</p>
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Featured Projects</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">Showcase your best esports, branding, and motion projects.</p>
               </div>
               <button onClick={addProject} className="btn-secondary text-xs py-2 px-3 flex items-center gap-1">
                 <Plus className="w-3.5 h-3.5" /> Add Project
@@ -1284,9 +1284,9 @@ export default function PortfolioWizard() {
 
             <div className="space-y-6">
               {portfolio.projects?.map((proj, idx) => (
-                <div key={proj.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                <div key={proj.id || idx} className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                    <span className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
                       Project #{idx + 1}
                     </span>
                     <button
@@ -1298,8 +1298,8 @@ export default function PortfolioWizard() {
                   </div>
 
                   {/* Work Medium Track: GFX or VFX */}
-                  <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-3">
-                    <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                  <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] space-y-3">
+                    <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                       Work Medium Track *
                     </label>
                     <div className="grid grid-cols-2 gap-3">
@@ -1313,8 +1313,8 @@ export default function PortfolioWizard() {
                         }}
                         className={`py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 border ${
                           (proj.workType || 'GFX') === 'GFX'
-                            ? 'bg-[#59171B] text-[#FED7B8] border-[#FED7B8] shadow-glow-burgundy'
-                            : 'bg-[#240709] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                            ? 'bg-[#2563EB] text-[#38BDF8] border-[#38BDF8] shadow-glow-burgundy'
+                            : 'bg-[#0B132B] border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC]'
                         }`}
                       >
                         <ImageIcon className="w-3.5 h-3.5" />
@@ -1331,8 +1331,8 @@ export default function PortfolioWizard() {
                         }}
                         className={`py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-2 border ${
                           proj.workType === 'VFX'
-                            ? 'bg-[#59171B] text-[#FED7B8] border-[#FED7B8] shadow-glow-burgundy'
-                            : 'bg-[#240709] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                            ? 'bg-[#2563EB] text-[#38BDF8] border-[#38BDF8] shadow-glow-burgundy'
+                            : 'bg-[#0B132B] border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC]'
                         }`}
                       >
                         <Film className="w-3.5 h-3.5" />
@@ -1342,8 +1342,8 @@ export default function PortfolioWizard() {
 
                     {/* GFX Subsection Selector */}
                     {(proj.workType || 'GFX') === 'GFX' && (
-                      <div className="pt-2 border-t border-[#3D0D13]/60">
-                        <label className="block text-[11px] font-mono uppercase text-[#B89B8D] mb-1.5">
+                      <div className="pt-2 border-t border-[#172554]/60">
+                        <label className="block text-[11px] font-mono uppercase text-[#94A3B8] mb-1.5">
                           GFX Subsection *
                         </label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -1361,8 +1361,8 @@ export default function PortfolioWizard() {
                                 }}
                                 className={`py-1.5 px-2 rounded text-[11px] font-mono uppercase transition-colors border ${
                                   isSelected
-                                    ? 'bg-[#2D0A0E] text-[#FED7B8] border-[#FED7B8]'
-                                    : 'bg-[#150304] border-[#3D0D13] text-[#B89B8D] hover:text-[#FFF5ED]'
+                                    ? 'bg-[#0F1D38] text-[#38BDF8] border-[#38BDF8]'
+                                    : 'bg-[#030712] border-[#172554] text-[#94A3B8] hover:text-[#F8FAFC]'
                                 }`}
                               >
                                 {sub}
@@ -1376,7 +1376,7 @@ export default function PortfolioWizard() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Title *</label>
+                      <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Title *</label>
                       <input
                         type="text"
                         value={proj.title}
@@ -1390,7 +1390,7 @@ export default function PortfolioWizard() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Client / Org (Optional)</label>
+                      <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Client / Org (Optional)</label>
                       <input
                         type="text"
                         value={proj.client || ''}
@@ -1406,7 +1406,7 @@ export default function PortfolioWizard() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Description</label>
+                    <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Description</label>
                     <textarea
                       rows={2}
                       value={proj.description}
@@ -1421,15 +1421,15 @@ export default function PortfolioWizard() {
                   </div>
 
                   {/* Media Upload & URL Configuration */}
-                  <div className="p-4 rounded-xl bg-[#1C0507] border border-[#3D0D13] space-y-3">
-                    <label className="block text-xs font-mono uppercase text-[#FED7B8] font-bold">
+                  <div className="p-4 rounded-xl bg-[#050B17] border border-[#172554] space-y-3">
+                    <label className="block text-xs font-mono uppercase text-[#38BDF8] font-bold">
                       {proj.workType === 'VFX' ? 'Video Reel & Cover Artwork' : 'Showcase Image Artwork'}
                     </label>
 
                     {/* VFX Video URL / File Upload */}
                     {proj.workType === 'VFX' && (
                       <div className="space-y-2">
-                        <label className="block text-[11px] font-mono uppercase text-[#B89B8D]">
+                        <label className="block text-[11px] font-mono uppercase text-[#94A3B8]">
                           Video URL (YouTube, Vimeo, or MP4)
                         </label>
                         <div className="flex gap-2">
@@ -1444,7 +1444,7 @@ export default function PortfolioWizard() {
                             className="field flex-1"
                             placeholder="https://youtube.com/watch?v=... or https://.../video.mp4"
                           />
-                          <label className="px-3 py-2 rounded-xl bg-[#2D0A0E] border border-[#52141A] text-xs font-mono text-[#FED7B8] hover:border-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0">
+                          <label className="px-3 py-2 rounded-xl bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono text-[#38BDF8] hover:border-[#38BDF8] cursor-pointer flex items-center gap-1.5 shrink-0">
                             <Film className="w-3.5 h-3.5" />
                             <span>Upload MP4</span>
                             <input
@@ -1463,7 +1463,7 @@ export default function PortfolioWizard() {
 
                     {/* Image Thumbnail / Artwork */}
                     <div className="space-y-2">
-                      <label className="block text-[11px] font-mono uppercase text-[#B89B8D]">
+                      <label className="block text-[11px] font-mono uppercase text-[#94A3B8]">
                         {proj.workType === 'VFX' ? 'Video Cover Thumbnail (Image)' : 'Image Artwork URL or File'}
                       </label>
                       <div className="flex items-center gap-3">
@@ -1478,7 +1478,7 @@ export default function PortfolioWizard() {
                           className="field flex-1"
                           placeholder="https://... or click Upload"
                         />
-                        <label className="px-3 py-2 rounded-xl bg-[#2D0A0E] border border-[#52141A] text-xs font-mono text-[#FED7B8] hover:border-[#FED7B8] cursor-pointer flex items-center gap-1.5 shrink-0">
+                        <label className="px-3 py-2 rounded-xl bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono text-[#38BDF8] hover:border-[#38BDF8] cursor-pointer flex items-center gap-1.5 shrink-0">
                           <ImageIcon className="w-3.5 h-3.5" />
                           <span>Upload Image</span>
                           <input
@@ -1495,7 +1495,7 @@ export default function PortfolioWizard() {
 
                       {/* Image Preview */}
                       {proj.thumbnail && (
-                        <div className="relative w-32 h-20 rounded-lg overflow-hidden border border-[#52141A] mt-2">
+                        <div className="relative w-32 h-20 rounded-lg overflow-hidden border border-[#1E3A8A] mt-2">
                           <img
                             src={proj.thumbnail}
                             alt="Project Preview"
@@ -1517,11 +1517,11 @@ export default function PortfolioWizard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 05 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Work Experience</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Work Experience</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">
                   Showcase your professional timeline, studios, organizations, and broadcast tenures.
                 </p>
               </div>
@@ -1531,9 +1531,9 @@ export default function PortfolioWizard() {
             </div>
 
             {(!portfolio.experience || portfolio.experience.length === 0) ? (
-              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
-                <Clock className="w-8 h-8 text-[#52141A] mx-auto" />
-                <p className="text-xs font-mono text-[#B89B8D]">No work experience entries added yet.</p>
+              <div className="p-8 text-center rounded-2xl bg-[#0B132B] border border-[#172554] space-y-3">
+                <Clock className="w-8 h-8 text-[#1E3A8A] mx-auto" />
+                <p className="text-xs font-mono text-[#94A3B8]">No work experience entries added yet.</p>
                 <button onClick={addExperience} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
                   <Plus className="w-3.5 h-3.5" /> Add First Experience
                 </button>
@@ -1541,9 +1541,9 @@ export default function PortfolioWizard() {
             ) : (
               <div className="space-y-6">
                 {portfolio.experience.map((exp, idx) => (
-                  <div key={exp.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                  <div key={exp.id || idx} className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                      <span className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
                         Experience #{idx + 1}
                       </span>
                       <button
@@ -1556,7 +1556,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Job Title / Role</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Job Title / Role</label>
                         <input
                           type="text"
                           value={exp.role || ''}
@@ -1566,7 +1566,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Company / Studio</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Company / Studio</label>
                         <input
                           type="text"
                           value={exp.company || ''}
@@ -1579,7 +1579,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Location</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Location</label>
                         <input
                           type="text"
                           value={exp.location || ''}
@@ -1589,7 +1589,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Start Date</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Start Date</label>
                         <input
                           type="text"
                           value={exp.startDate || ''}
@@ -1599,7 +1599,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">End Date</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">End Date</label>
                         <input
                           type="text"
                           disabled={exp.currentPosition}
@@ -1611,18 +1611,18 @@ export default function PortfolioWizard() {
                       </div>
                     </div>
 
-                    <label className="flex items-center gap-2 cursor-pointer text-xs font-mono text-[#FED7B8]">
+                    <label className="flex items-center gap-2 cursor-pointer text-xs font-mono text-[#38BDF8]">
                       <input
                         type="checkbox"
                         checked={!!exp.currentPosition}
                         onChange={(e) => updateExperience(idx, 'currentPosition', e.target.checked)}
-                        className="rounded border-[#52141A] bg-[#150304] text-[#E63946] focus:ring-0"
+                        className="rounded border-[#1E3A8A] bg-[#030712] text-[#E63946] focus:ring-0"
                       />
                       <span>I currently work here</span>
                     </label>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Key Responsibilities & Highlights</label>
+                      <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Key Responsibilities & Highlights</label>
                       <textarea
                         rows={3}
                         value={exp.description || ''}
@@ -1643,11 +1643,11 @@ export default function PortfolioWizard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 06 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Education & Training</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Education & Training</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">
                   List academic degrees, diplomas, bootcamps, or specialized design programs.
                 </p>
               </div>
@@ -1657,9 +1657,9 @@ export default function PortfolioWizard() {
             </div>
 
             {(!portfolio.education || portfolio.education.length === 0) ? (
-              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
-                <GraduationCap className="w-8 h-8 text-[#52141A] mx-auto" />
-                <p className="text-xs font-mono text-[#B89B8D]">No education records added yet.</p>
+              <div className="p-8 text-center rounded-2xl bg-[#0B132B] border border-[#172554] space-y-3">
+                <GraduationCap className="w-8 h-8 text-[#1E3A8A] mx-auto" />
+                <p className="text-xs font-mono text-[#94A3B8]">No education records added yet.</p>
                 <button onClick={addEducation} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
                   <Plus className="w-3.5 h-3.5" /> Add First Education
                 </button>
@@ -1667,9 +1667,9 @@ export default function PortfolioWizard() {
             ) : (
               <div className="space-y-6">
                 {portfolio.education.map((edu, idx) => (
-                  <div key={edu.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                  <div key={edu.id || idx} className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                      <span className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
                         Education #{idx + 1}
                       </span>
                       <button
@@ -1682,7 +1682,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Degree / Certificate</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Degree / Certificate</label>
                         <input
                           type="text"
                           value={edu.degree || ''}
@@ -1692,7 +1692,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Institution / University</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Institution / University</label>
                         <input
                           type="text"
                           value={edu.institution || ''}
@@ -1705,7 +1705,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Field of Study</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Field of Study</label>
                         <input
                           type="text"
                           value={edu.field || ''}
@@ -1715,7 +1715,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Start Year</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Start Year</label>
                         <input
                           type="text"
                           value={edu.startDate || ''}
@@ -1725,7 +1725,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Graduation Year</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Graduation Year</label>
                         <input
                           type="text"
                           value={edu.endDate || ''}
@@ -1737,7 +1737,7 @@ export default function PortfolioWizard() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Description / Coursework</label>
+                      <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Description / Coursework</label>
                       <textarea
                         rows={2}
                         value={edu.description || ''}
@@ -1758,11 +1758,11 @@ export default function PortfolioWizard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 07 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Achievements & Awards</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Achievements & Awards</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">
                   Highlight industry trophies, design awards, verified certifications, and recognitions.
                 </p>
               </div>
@@ -1772,9 +1772,9 @@ export default function PortfolioWizard() {
             </div>
 
             {(!portfolio.certifications || portfolio.certifications.length === 0) ? (
-              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
-                <Award className="w-8 h-8 text-[#52141A] mx-auto" />
-                <p className="text-xs font-mono text-[#B89B8D]">No achievements or certifications added yet.</p>
+              <div className="p-8 text-center rounded-2xl bg-[#0B132B] border border-[#172554] space-y-3">
+                <Award className="w-8 h-8 text-[#1E3A8A] mx-auto" />
+                <p className="text-xs font-mono text-[#94A3B8]">No achievements or certifications added yet.</p>
                 <button onClick={addCertification} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
                   <Plus className="w-3.5 h-3.5" /> Add First Achievement
                 </button>
@@ -1782,9 +1782,9 @@ export default function PortfolioWizard() {
             ) : (
               <div className="space-y-6">
                 {portfolio.certifications.map((cert, idx) => (
-                  <div key={cert.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                  <div key={cert.id || idx} className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                      <span className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
                         Achievement #{idx + 1}
                       </span>
                       <button
@@ -1797,7 +1797,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Title / Honor</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Title / Honor</label>
                         <input
                           type="text"
                           value={cert.title || ''}
@@ -1807,7 +1807,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Issuer / Organization</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Issuer / Organization</label>
                         <input
                           type="text"
                           value={cert.issuer || ''}
@@ -1820,7 +1820,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Date / Year</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Date / Year</label>
                         <input
                           type="text"
                           value={cert.date || ''}
@@ -1830,7 +1830,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Award Rank / Tier</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Award Rank / Tier</label>
                         <input
                           type="text"
                           value={cert.award || ''}
@@ -1840,7 +1840,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Credential URL (Optional)</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Credential URL (Optional)</label>
                         <input
                           type="text"
                           value={cert.credentialUrl || ''}
@@ -1862,11 +1862,11 @@ export default function PortfolioWizard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 08 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Services & Packages</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Services & Packages</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">
                   Define commission offerings, freelance capabilities, starting rates, and delivery speeds.
                 </p>
               </div>
@@ -1876,9 +1876,9 @@ export default function PortfolioWizard() {
             </div>
 
             {(!portfolio.services || portfolio.services.length === 0) ? (
-              <div className="p-8 text-center rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-3">
-                <Package className="w-8 h-8 text-[#52141A] mx-auto" />
-                <p className="text-xs font-mono text-[#B89B8D]">No services or commission packages configured yet.</p>
+              <div className="p-8 text-center rounded-2xl bg-[#0B132B] border border-[#172554] space-y-3">
+                <Package className="w-8 h-8 text-[#1E3A8A] mx-auto" />
+                <p className="text-xs font-mono text-[#94A3B8]">No services or commission packages configured yet.</p>
                 <button onClick={addService} className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
                   <Plus className="w-3.5 h-3.5" /> Add First Service
                 </button>
@@ -1886,9 +1886,9 @@ export default function PortfolioWizard() {
             ) : (
               <div className="space-y-6">
                 {portfolio.services.map((svc, idx) => (
-                  <div key={svc.id || idx} className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                  <div key={svc.id || idx} className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-[#FED7B8] uppercase font-bold">
+                      <span className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
                         Service #{idx + 1}
                       </span>
                       <button
@@ -1901,7 +1901,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="md:col-span-2">
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Service Name</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Service Name</label>
                         <input
                           type="text"
                           value={svc.name || ''}
@@ -1911,7 +1911,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Starting Price</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Starting Price</label>
                         <input
                           type="text"
                           value={svc.startingPrice || ''}
@@ -1924,7 +1924,7 @@ export default function PortfolioWizard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Delivery Time</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Delivery Time</label>
                         <input
                           type="text"
                           value={svc.deliveryTime || ''}
@@ -1934,7 +1934,7 @@ export default function PortfolioWizard() {
                         />
                       </div>
                       <div className="md:col-span-2">
-                        <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Scope & Deliverables</label>
+                        <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Scope & Deliverables</label>
                         <textarea
                           rows={2}
                           value={svc.description || ''}
@@ -1955,19 +1955,19 @@ export default function PortfolioWizard() {
         {currentStep === 9 && (
           <div className="space-y-6">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                 Step 09 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Social Coordinates</h2>
-              <p className="text-xs text-[#B89B8D] mt-1">
+              <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Social Coordinates</h2>
+              <p className="text-xs text-[#94A3B8] mt-1">
                 Connect your professional networks, streaming channels, and design profiles.
               </p>
             </div>
 
-            <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6">
+            <div className="p-8 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Twitter / X</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Twitter / X</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.twitter || ''}
@@ -1977,7 +1977,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Instagram</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Instagram</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.instagram || ''}
@@ -1990,7 +1990,7 @@ export default function PortfolioWizard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">LinkedIn</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">LinkedIn</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.linkedin || ''}
@@ -2000,7 +2000,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">GitHub</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">GitHub</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.github || ''}
@@ -2013,7 +2013,7 @@ export default function PortfolioWizard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Behance</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Behance</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.behance || ''}
@@ -2023,7 +2023,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Dribbble</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Dribbble</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.dribbble || ''}
@@ -2036,7 +2036,7 @@ export default function PortfolioWizard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">YouTube</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">YouTube</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.youtube || ''}
@@ -2046,7 +2046,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Twitch</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Twitch</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.twitch || ''}
@@ -2059,7 +2059,7 @@ export default function PortfolioWizard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Discord Tag / Invite</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Discord Tag / Invite</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.discord || ''}
@@ -2069,7 +2069,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Personal Website</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Personal Website</label>
                   <input
                     type="text"
                     value={portfolio.socialLinks?.website || ''}
@@ -2087,19 +2087,19 @@ export default function PortfolioWizard() {
         {currentStep === 10 && (
           <div className="space-y-6">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                 Step 10 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Contact & Booking Configuration</h2>
-              <p className="text-xs text-[#B89B8D] mt-1">
+              <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Contact & Booking Configuration</h2>
+              <p className="text-xs text-[#94A3B8] mt-1">
                 Configure how prospective teams, brands, and clients get in touch with you.
               </p>
             </div>
 
-            <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-6">
+            <div className="p-8 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Public Inquiries Email</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Public Inquiries Email</label>
                   <input
                     type="email"
                     value={portfolio.contactConfig?.publicEmail || portfolio.personalInfo?.publicEmail || ''}
@@ -2109,7 +2109,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Geographic Location</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Geographic Location</label>
                   <input
                     type="text"
                     value={portfolio.contactConfig?.location || portfolio.personalInfo?.location || ''}
@@ -2122,7 +2122,7 @@ export default function PortfolioWizard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Availability Status</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Availability Status</label>
                   <input
                     type="text"
                     value={portfolio.contactConfig?.availability || portfolio.personalInfo?.availability || 'Available for projects'}
@@ -2132,7 +2132,7 @@ export default function PortfolioWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Preferred Contact Method</label>
+                  <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Preferred Contact Method</label>
                   <select
                     value={portfolio.contactConfig?.preferredContactMethod || 'Email'}
                     onChange={(e) => updateContactConfig('preferredContactMethod', e.target.value)}
@@ -2147,19 +2147,19 @@ export default function PortfolioWizard() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#3D0D13]">
+              <div className="pt-4 border-t border-[#172554]">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={portfolio.contactConfig?.contactFormEnabled !== false}
                     onChange={(e) => updateContactConfig('contactFormEnabled', e.target.checked)}
-                    className="rounded border-[#52141A] bg-[#150304] text-[#18A957] focus:ring-0"
+                    className="rounded border-[#1E3A8A] bg-[#030712] text-[#18A957] focus:ring-0"
                   />
                   <div>
-                    <span className="text-xs font-bold font-mono text-[#FFF5ED] block">
+                    <span className="text-xs font-bold font-mono text-[#F8FAFC] block">
                       Enable Direct Inquiries Form
                     </span>
-                    <span className="text-[11px] text-[#B89B8D]">
+                    <span className="text-[11px] text-[#94A3B8]">
                       Renders an encrypted contact form directly on your public portfolio page.
                     </span>
                   </div>
@@ -2174,22 +2174,22 @@ export default function PortfolioWizard() {
           <div className="space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                   Step 11 / 13
                 </span>
-                <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Portfolio Design & Custom Templates</h2>
-                <p className="text-xs text-[#B89B8D] mt-1">
+                <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Portfolio Design & Custom Templates</h2>
+                <p className="text-xs text-[#94A3B8] mt-1">
                   Select an iconic studio theme or enter the Custom Template Studio to configure bespoke colors, typography, hero wireframes, and grid systems.
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 p-1 rounded-xl bg-[#240709] border border-[#3D0D13]">
+              <div className="flex items-center gap-2 p-1 rounded-xl bg-[#0B132B] border border-[#172554]">
                 <button
                   onClick={() => setDesignSubTab('curated')}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-all ${
                     designSubTab === 'curated'
-                      ? 'bg-[#59171B] text-[#FED7B8] shadow-md'
-                      : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                      ? 'bg-[#2563EB] text-[#38BDF8] shadow-md'
+                      : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                   }`}
                 >
                   8 Signature Themes
@@ -2201,8 +2201,8 @@ export default function PortfolioWizard() {
                   }}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider flex items-center gap-1.5 transition-all ${
                     designSubTab === 'custom' || portfolio.themeId === 'custom'
-                      ? 'bg-[#FED7B8] text-[#150304] font-bold shadow-md'
-                      : 'text-[#B89B8D] hover:text-[#FFF5ED]'
+                      ? 'bg-[#38BDF8] text-[#030712] font-bold shadow-md'
+                      : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                   }`}
                 >
                   <Sliders className="w-3.5 h-3.5" /> Custom Studio
@@ -2225,28 +2225,28 @@ export default function PortfolioWizard() {
                         }}
                         className={`p-6 rounded-2xl cursor-pointer border transition-all duration-300 ${
                           isSelected
-                            ? 'bg-[#3A0E11] border-[#FED7B8] shadow-glow-burgundy scale-[1.01]'
-                            : 'bg-[#240709] border-[#3D0D13] hover:border-[#52141A]'
+                            ? 'bg-[#1E40AF] border-[#38BDF8] shadow-glow-burgundy scale-[1.01]'
+                            : 'bg-[#0B132B] border-[#172554] hover:border-[#1E3A8A]'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-bold uppercase text-[#FFF5ED]">{theme.name}</span>
+                          <span className="text-sm font-bold uppercase text-[#F8FAFC]">{theme.name}</span>
                           {isSelected && (
                             <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-bold bg-[#18A957] text-black">
                               ACTIVE
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-[#B89B8D] leading-relaxed">{theme.desc}</p>
+                        <p className="text-xs text-[#94A3B8] leading-relaxed">{theme.desc}</p>
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="p-6 rounded-2xl bg-[#1C0507] border border-[#52141A] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-6 rounded-2xl bg-[#050B17] border border-[#1E3A8A] flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div>
-                    <h4 className="text-sm font-bold uppercase text-[#FED7B8]">Need Complete Creative Freedom?</h4>
-                    <p className="text-xs text-[#B89B8D] mt-0.5">
+                    <h4 className="text-sm font-bold uppercase text-[#38BDF8]">Need Complete Creative Freedom?</h4>
+                    <p className="text-xs text-[#94A3B8] mt-0.5">
                       Launch the Custom Template Studio to hand-pick accent colors, background styles, typography engines, and hero wireframes.
                     </p>
                   </div>
@@ -2267,17 +2267,17 @@ export default function PortfolioWizard() {
             {designSubTab === 'custom' && (
               <div className="space-y-8">
                 {/* 1. Quick Presets */}
-                <div className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+                <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                         TEMPLATE ENGINE
                       </span>
-                      <h3 className="text-lg font-black uppercase text-[#FFF5ED] flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-[#FED7B8]" /> Quick-Start Template Presets
+                      <h3 className="text-lg font-black uppercase text-[#F8FAFC] flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#38BDF8]" /> Quick-Start Template Presets
                       </h3>
                     </div>
-                    <span className="text-[11px] font-mono text-[#B89B8D]">1-Click Base Architecture</span>
+                    <span className="text-[11px] font-mono text-[#94A3B8]">1-Click Base Architecture</span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -2287,53 +2287,53 @@ export default function PortfolioWizard() {
                         onClick={() => applyTemplatePreset(preset)}
                         className={`p-4 rounded-xl text-left border transition-all ${
                           portfolio.designConfig?.templateName === preset.name
-                            ? 'bg-[#3A0E11] border-[#FED7B8] shadow-md'
-                            : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                            ? 'bg-[#1E40AF] border-[#38BDF8] shadow-md'
+                            : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-bold uppercase text-[#FFF5ED]">{preset.name}</span>
+                          <span className="text-xs font-bold uppercase text-[#F8FAFC]">{preset.name}</span>
                           <span
                             className="w-2.5 h-2.5 rounded-full"
                             style={{ backgroundColor: preset.config.accentColor }}
                           />
                         </div>
-                        <p className="text-[11px] text-[#B89B8D] leading-tight line-clamp-2">{preset.desc}</p>
+                        <p className="text-[11px] text-[#94A3B8] leading-tight line-clamp-2">{preset.desc}</p>
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* 2. Accent Color Palette & Custom HEX */}
-                <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                       COLOR GRADING
                     </span>
-                    <h3 className="text-lg font-black uppercase text-[#FFF5ED]">Custom Accent Color</h3>
-                    <p className="text-xs text-[#B89B8D] mt-0.5">
+                    <h3 className="text-lg font-black uppercase text-[#F8FAFC]">Custom Accent Color</h3>
+                    <p className="text-xs text-[#94A3B8] mt-0.5">
                       Applied dynamically to buttons, glowing aura meshes, project category tags, and active states.
                     </p>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3">
                     {ACCENT_PRESETS.map((color) => {
-                      const isActive = (portfolio.designConfig?.accentColor || '#FED7B8') === color.hex;
+                      const isActive = (portfolio.designConfig?.accentColor || '#38BDF8') === color.hex;
                       return (
                         <button
                           key={color.hex}
                           onClick={() => updateDesign('accentColor', color.hex)}
                           className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-mono transition-all ${
                             isActive
-                              ? 'border-[#FED7B8] bg-[#3A0E11] shadow-glow-burgundy scale-105'
-                              : 'border-[#3D0D13] bg-[#1C0507] hover:border-[#52141A]'
+                              ? 'border-[#38BDF8] bg-[#1E40AF] shadow-glow-burgundy scale-105'
+                              : 'border-[#172554] bg-[#050B17] hover:border-[#1E3A8A]'
                           }`}
                         >
                           <span
                             className="w-3.5 h-3.5 rounded-full border border-black/40"
                             style={{ backgroundColor: color.hex }}
                           />
-                          <span className="text-[#FFF5ED]">{color.name}</span>
+                          <span className="text-[#F8FAFC]">{color.name}</span>
                         </button>
                       );
                     })}
@@ -2341,19 +2341,19 @@ export default function PortfolioWizard() {
 
                   {/* Custom HEX Input */}
                   <div className="pt-2 flex items-center gap-4 max-w-sm">
-                    <label className="text-xs font-mono uppercase text-[#B89B8D]">Custom HEX:</label>
+                    <label className="text-xs font-mono uppercase text-[#94A3B8]">Custom HEX:</label>
                     <div className="flex items-center gap-2 flex-1">
                       <input
                         type="color"
-                        value={portfolio.designConfig?.accentColor || '#FED7B8'}
+                        value={portfolio.designConfig?.accentColor || '#38BDF8'}
                         onChange={(e) => updateDesign('accentColor', e.target.value)}
                         className="w-9 h-9 rounded-lg cursor-pointer bg-transparent border-0"
                       />
                       <input
                         type="text"
-                        value={portfolio.designConfig?.accentColor || '#FED7B8'}
+                        value={portfolio.designConfig?.accentColor || '#38BDF8'}
                         onChange={(e) => updateDesign('accentColor', e.target.value)}
-                        placeholder="#FED7B8"
+                        placeholder="#38BDF8"
                         className="field font-mono text-xs uppercase flex-1"
                       />
                     </div>
@@ -2361,17 +2361,17 @@ export default function PortfolioWizard() {
                 </div>
 
                 {/* 3. Atmospheric Background Style */}
-                <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                       ENVIRONMENT
                     </span>
-                    <h3 className="text-lg font-black uppercase text-[#FFF5ED]">Atmospheric Background</h3>
+                    <h3 className="text-lg font-black uppercase text-[#F8FAFC]">Atmospheric Background</h3>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                     {[
-                      { id: 'dark-burgundy', name: 'Dark Burgundy', hex: '#150304' },
+                      { id: 'dark-burgundy', name: 'Dark Burgundy', hex: '#030712' },
                       { id: 'void', name: 'Void Black', hex: '#050505' },
                       { id: 'wine', name: 'Deep Wine', hex: '#2B080C' },
                       { id: 'midnight', name: 'Midnight Navy', hex: '#070C18' },
@@ -2385,8 +2385,8 @@ export default function PortfolioWizard() {
                           onClick={() => updateDesign('backgroundStyle', bg.id)}
                           className={`p-3 rounded-xl border text-left transition-all ${
                             isActive
-                              ? 'border-[#FED7B8] ring-1 ring-[#FED7B8]'
-                              : 'border-[#3D0D13] hover:border-[#52141A]'
+                              ? 'border-[#38BDF8] ring-1 ring-[#38BDF8]'
+                              : 'border-[#172554] hover:border-[#1E3A8A]'
                           }`}
                           style={{ backgroundColor: bg.hex }}
                         >
@@ -2411,12 +2411,12 @@ export default function PortfolioWizard() {
                 </div>
 
                 {/* 4. Typography & Font Engine */}
-                <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                       TYPOGRAPHY
                     </span>
-                    <h3 className="text-lg font-black uppercase text-[#FFF5ED]">Font Pairing Engine</h3>
+                    <h3 className="text-lg font-black uppercase text-[#F8FAFC]">Font Pairing Engine</h3>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -2433,13 +2433,13 @@ export default function PortfolioWizard() {
                           onClick={() => updateDesign('fontPair', font.id)}
                           className={`p-4 rounded-xl border text-left transition-all ${
                             isActive
-                              ? 'bg-[#3A0E11] border-[#FED7B8] shadow-md'
-                              : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                              ? 'bg-[#1E40AF] border-[#38BDF8] shadow-md'
+                              : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                           }`}
                         >
-                          <div className="text-xs font-bold uppercase text-[#FFF5ED] mb-1">{font.name}</div>
-                          <div className="text-sm font-bold text-[#FED7B8] mb-1">{font.preview}</div>
-                          <div className="text-[11px] text-[#B89B8D]">{font.desc}</div>
+                          <div className="text-xs font-bold uppercase text-[#F8FAFC] mb-1">{font.name}</div>
+                          <div className="text-sm font-bold text-[#38BDF8] mb-1">{font.preview}</div>
+                          <div className="text-[11px] text-[#94A3B8]">{font.desc}</div>
                         </button>
                       );
                     })}
@@ -2449,12 +2449,12 @@ export default function PortfolioWizard() {
                 {/* 5. Hero & Project Layouts */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Hero Layout */}
-                  <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                  <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                         HERO WIREFRAME
                       </span>
-                      <h3 className="text-base font-black uppercase text-[#FFF5ED]">Hero Architecture</h3>
+                      <h3 className="text-base font-black uppercase text-[#F8FAFC]">Hero Architecture</h3>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2.5">
@@ -2471,12 +2471,12 @@ export default function PortfolioWizard() {
                             onClick={() => updateDesign('heroLayout', hl.id)}
                             className={`p-3 rounded-xl border text-left transition-all ${
                               isActive
-                                ? 'bg-[#3A0E11] border-[#FED7B8]'
-                                : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                                ? 'bg-[#1E40AF] border-[#38BDF8]'
+                                : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                             }`}
                           >
-                            <div className="text-xs font-bold uppercase text-[#FFF5ED] mb-1">{hl.name}</div>
-                            <div className="text-[10px] text-[#B89B8D] leading-tight">{hl.desc}</div>
+                            <div className="text-xs font-bold uppercase text-[#F8FAFC] mb-1">{hl.name}</div>
+                            <div className="text-[10px] text-[#94A3B8] leading-tight">{hl.desc}</div>
                           </button>
                         );
                       })}
@@ -2484,12 +2484,12 @@ export default function PortfolioWizard() {
                   </div>
 
                   {/* Project Layout */}
-                  <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                  <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                         PROJECT WIREFRAME
                       </span>
-                      <h3 className="text-base font-black uppercase text-[#FFF5ED]">Project Grid System</h3>
+                      <h3 className="text-base font-black uppercase text-[#F8FAFC]">Project Grid System</h3>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2.5">
@@ -2506,12 +2506,12 @@ export default function PortfolioWizard() {
                             onClick={() => updateDesign('projectLayout', pl.id)}
                             className={`p-3 rounded-xl border text-left transition-all ${
                               isActive
-                                ? 'bg-[#3A0E11] border-[#FED7B8]'
-                                : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                                ? 'bg-[#1E40AF] border-[#38BDF8]'
+                                : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                             }`}
                           >
-                            <div className="text-xs font-bold uppercase text-[#FFF5ED] mb-1">{pl.name}</div>
-                            <div className="text-[10px] text-[#B89B8D] leading-tight">{pl.desc}</div>
+                            <div className="text-xs font-bold uppercase text-[#F8FAFC] mb-1">{pl.name}</div>
+                            <div className="text-[10px] text-[#94A3B8] leading-tight">{pl.desc}</div>
                           </button>
                         );
                       })}
@@ -2520,12 +2520,12 @@ export default function PortfolioWizard() {
                 </div>
 
                 {/* 6. Card & Surface Style */}
-                <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                       SURFACE FINISH
                     </span>
-                    <h3 className="text-base font-black uppercase text-[#FFF5ED]">Card & Surface Aesthetics</h3>
+                    <h3 className="text-base font-black uppercase text-[#F8FAFC]">Card & Surface Aesthetics</h3>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -2542,12 +2542,12 @@ export default function PortfolioWizard() {
                           onClick={() => updateDesign('cardStyle', cs.id)}
                           className={`p-3 rounded-xl border text-left transition-all ${
                             isActive
-                              ? 'bg-[#3A0E11] border-[#FED7B8]'
-                              : 'bg-[#1C0507] border-[#3D0D13] hover:border-[#52141A]'
+                              ? 'bg-[#1E40AF] border-[#38BDF8]'
+                              : 'bg-[#050B17] border-[#172554] hover:border-[#1E3A8A]'
                           }`}
                         >
-                          <div className="text-xs font-bold uppercase text-[#FFF5ED] mb-1">{cs.name}</div>
-                          <div className="text-[10px] text-[#B89B8D]">{cs.desc}</div>
+                          <div className="text-xs font-bold uppercase text-[#F8FAFC] mb-1">{cs.name}</div>
+                          <div className="text-[10px] text-[#94A3B8]">{cs.desc}</div>
                         </button>
                       );
                     })}
@@ -2555,13 +2555,13 @@ export default function PortfolioWizard() {
                 </div>
 
                 {/* 7. Section Visibility Toggles */}
-                <div className="p-6 rounded-2xl bg-[#240709] border border-[#3D0D13] space-y-4">
+                <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#172554] space-y-4">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#FED7B8] block mb-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#38BDF8] block mb-0.5">
                       MODULARITY
                     </span>
-                    <h3 className="text-base font-black uppercase text-[#FFF5ED]">Visible Portfolio Sections</h3>
-                    <p className="text-xs text-[#B89B8D] mt-0.5">
+                    <h3 className="text-base font-black uppercase text-[#F8FAFC]">Visible Portfolio Sections</h3>
+                    <p className="text-xs text-[#94A3B8] mt-0.5">
                       Turn sections on or off to match your creative profile needs.
                     </p>
                   </div>
@@ -2579,15 +2579,15 @@ export default function PortfolioWizard() {
                       return (
                         <label
                           key={sec.key}
-                          className="flex items-center gap-3 p-3 rounded-xl bg-[#1C0507] border border-[#3D0D13] cursor-pointer hover:border-[#52141A]"
+                          className="flex items-center gap-3 p-3 rounded-xl bg-[#050B17] border border-[#172554] cursor-pointer hover:border-[#1E3A8A]"
                         >
                           <input
                             type="checkbox"
                             checked={isVisible}
                             onChange={(e) => updateVisibleSection(sec.key, e.target.checked)}
-                            className="w-4 h-4 rounded text-[#59171B] focus:ring-0 cursor-pointer"
+                            className="w-4 h-4 rounded text-[#2563EB] focus:ring-0 cursor-pointer"
                           />
-                          <span className="text-xs font-mono uppercase text-[#FFF5ED]">{sec.label}</span>
+                          <span className="text-xs font-mono uppercase text-[#F8FAFC]">{sec.label}</span>
                         </label>
                       );
                     })}
@@ -2595,12 +2595,12 @@ export default function PortfolioWizard() {
                 </div>
 
                 {/* Action Bar */}
-                <div className="p-6 rounded-2xl bg-[#1C0507] border border-[#52141A] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-6 rounded-2xl bg-[#050B17] border border-[#1E3A8A] flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div>
-                    <div className="text-xs font-mono text-[#FED7B8] uppercase font-bold flex items-center gap-2">
+                    <div className="text-xs font-mono text-[#38BDF8] uppercase font-bold flex items-center gap-2">
                       <Check className="w-4 h-4 text-[#18A957]" /> Custom Template Settings Configured
                     </div>
-                    <p className="text-[11px] text-[#B89B8D] mt-0.5">
+                    <p className="text-[11px] text-[#94A3B8] mt-0.5">
                       Your custom template is live. Preview changes across desktop, tablet, and mobile frames.
                     </p>
                   </div>
@@ -2621,18 +2621,18 @@ export default function PortfolioWizard() {
         {currentStep === 12 && (
           <div className="space-y-6">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                 Step 12 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">SEO & Search Engine Indexing</h2>
-              <p className="text-xs text-[#B89B8D] mt-1">
+              <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">SEO & Search Engine Indexing</h2>
+              <p className="text-xs text-[#94A3B8] mt-1">
                 Optimize your custom subdomain for Google, Bing, LinkedIn, and Discord link previews.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4">
+            <div className="p-6 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4">
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">SEO Title Tag</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">SEO Title Tag</label>
                 <input
                   type="text"
                   value={portfolio.seoConfig?.seoTitle || ''}
@@ -2643,7 +2643,7 @@ export default function PortfolioWizard() {
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Meta Description</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Meta Description</label>
                 <textarea
                   rows={3}
                   value={portfolio.seoConfig?.seoDescription || ''}
@@ -2654,7 +2654,7 @@ export default function PortfolioWizard() {
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase text-[#B89B8D] mb-1">Social Preview Image URL (OG Image)</label>
+                <label className="block text-xs font-mono uppercase text-[#94A3B8] mb-1">Social Preview Image URL (OG Image)</label>
                 <input
                   type="text"
                   value={portfolio.seoConfig?.socialPreviewImage || ''}
@@ -2666,8 +2666,8 @@ export default function PortfolioWizard() {
             </div>
 
             {/* Google Search Simulator */}
-            <div className="p-6 rounded-2xl bg-[#1C0507] border border-[#3D0D13] space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#B89B8D] block">
+            <div className="p-6 rounded-2xl bg-[#050B17] border border-[#172554] space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#94A3B8] block">
                 SEARCH RESULT SIMULATOR
               </span>
               <div className="text-xs font-mono text-[#18A957]">
@@ -2689,54 +2689,54 @@ export default function PortfolioWizard() {
         {currentStep === 13 && (
           <div className="space-y-8">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#FED7B8] block mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#38BDF8] block mb-1">
                 Step 13 / 13
               </span>
-              <h2 className="text-3xl font-black uppercase text-[#FFF5ED]">Review & Publish</h2>
-              <p className="text-xs text-[#B89B8D] mt-1">
+              <h2 className="text-3xl font-black uppercase text-[#F8FAFC]">Review & Publish</h2>
+              <p className="text-xs text-[#94A3B8] mt-1">
                 Verify your settings and publish your portfolio live to the web.
               </p>
             </div>
 
-            <div className="p-8 rounded-2xl bg-[#240709] border border-[#52141A] space-y-4 font-mono text-xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
-                <span className="text-[#B89B8D]">DIRECTORY DESTINATION:</span>
-                <span className="text-[#FED7B8] font-bold">Global Creator Portfolio (/global-portfolio)</span>
+            <div className="p-8 rounded-2xl bg-[#0B132B] border border-[#1E3A8A] space-y-4 font-mono text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#172554] pb-3 gap-1">
+                <span className="text-[#94A3B8]">DIRECTORY DESTINATION:</span>
+                <span className="text-[#38BDF8] font-bold">Global Creator Portfolio (/global-portfolio)</span>
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
-                <span className="text-[#B89B8D]">PORTFOLIO TRACK:</span>
-                <span className="text-[#FED7B8] font-bold uppercase">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#172554] pb-3 gap-1">
+                <span className="text-[#94A3B8]">PORTFOLIO TRACK:</span>
+                <span className="text-[#38BDF8] font-bold uppercase">
                   {portfolio.category || 'GFX'}
                   {portfolio.category === 'GFX' && ` • ${portfolio.gfxSubcategory || 'Tournament'}`}
                   {portfolio.category === 'Other' && portfolio.customCategory && ` (${portfolio.customCategory})`}
                 </span>
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
-                <span className="text-[#B89B8D]">PRIMARY MEDIA:</span>
-                <span className="text-[#FFF5ED]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#172554] pb-3 gap-1">
+                <span className="text-[#94A3B8]">PRIMARY MEDIA:</span>
+                <span className="text-[#F8FAFC]">
                   {portfolio.category === 'VFX'
                     ? (portfolio.mediaUrl ? 'VFX Video Attached' : 'No Video Uploaded')
                     : `${portfolio.mediaGallery?.length || (portfolio.mediaUrl ? 1 : 0)} Showcase Graphic(s)`}
                 </span>
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
-                <span className="text-[#B89B8D]">CUSTOM SUBDOMAIN:</span>
-                <span className="text-[#FED7B8] font-bold break-all">https://{portfolio.slug}.naturestudio.in</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#172554] pb-3 gap-1">
+                <span className="text-[#94A3B8]">CUSTOM SUBDOMAIN:</span>
+                <span className="text-[#38BDF8] font-bold break-all">https://{portfolio.slug}.naturestudio.in</span>
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3D0D13] pb-3 gap-1">
-                <span className="text-[#B89B8D]">DIRECT LIVE ROUTE:</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#172554] pb-3 gap-1">
+                <span className="text-[#94A3B8]">DIRECT LIVE ROUTE:</span>
                 <span className="text-[#18A957] font-bold break-all">https://naturestudio.in/p/{portfolio.slug}</span>
               </div>
-              <div className="flex justify-between border-b border-[#3D0D13] pb-3">
-                <span className="text-[#B89B8D]">THEME:</span>
-                <span className="text-[#FED7B8] uppercase">{portfolio.themeId}</span>
+              <div className="flex justify-between border-b border-[#172554] pb-3">
+                <span className="text-[#94A3B8]">THEME:</span>
+                <span className="text-[#38BDF8] uppercase">{portfolio.themeId}</span>
               </div>
-              <div className="flex justify-between border-b border-[#3D0D13] pb-3">
-                <span className="text-[#B89B8D]">PROJECTS COUNT:</span>
-                <span className="text-[#FFF5ED]">{portfolio.projects?.length || 0}</span>
+              <div className="flex justify-between border-b border-[#172554] pb-3">
+                <span className="text-[#94A3B8]">PROJECTS COUNT:</span>
+                <span className="text-[#F8FAFC]">{portfolio.projects?.length || 0}</span>
               </div>
-              <div className="flex justify-between border-b border-[#3D0D13] pb-3">
-                <span className="text-[#B89B8D]">STATUS:</span>
+              <div className="flex justify-between border-b border-[#172554] pb-3">
+                <span className="text-[#94A3B8]">STATUS:</span>
                 <span className="text-[#18A957] font-bold">{portfolio.status}</span>
               </div>
             </div>
@@ -2791,7 +2791,7 @@ export default function PortfolioWizard() {
         )}
 
         {/* Wizard Footer Controls */}
-        <div className="mt-12 pt-6 border-t border-[#3D0D13] flex items-center justify-between">
+        <div className="mt-12 pt-6 border-t border-[#172554] flex items-center justify-between">
           <button
             onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 1))}
             disabled={currentStep === 1}
@@ -2799,7 +2799,7 @@ export default function PortfolioWizard() {
           >
             <ChevronLeft className="w-4 h-4" /> Previous Step
           </button>
-          <span className="text-xs font-mono text-[#B89B8D]">
+          <span className="text-xs font-mono text-[#94A3B8]">
             {currentStep} / 13
           </span>
           <button

@@ -159,7 +159,7 @@ export function VfxVideoPlayer({
           onClick={togglePlay}
           className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer backdrop-blur-[2px] transition-opacity"
         >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FED7B8] text-[#150304] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#38BDF8] text-[#030712] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
             <Play className="w-7 h-7 sm:w-9 sm:h-9 fill-current ml-1" />
           </div>
         </div>
@@ -180,7 +180,7 @@ export function VfxVideoPlayer({
             step="0.1"
             value={progress}
             onChange={handleSeek}
-            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FED7B8] hover:h-1.5 transition-all"
+            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#38BDF8] hover:h-1.5 transition-all"
           />
         </div>
 
@@ -189,7 +189,7 @@ export function VfxVideoPlayer({
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
-              className="p-1.5 rounded-lg hover:bg-white/10 text-[#FED7B8] transition-colors"
+              className="p-1.5 rounded-lg hover:bg-white/10 text-[#38BDF8] transition-colors"
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
               {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
@@ -210,7 +210,7 @@ export function VfxVideoPlayer({
               step="0.05"
               value={isMuted ? 0 : volume}
               onChange={handleVolumeChange}
-              className="w-16 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FED7B8]"
+              className="w-16 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#38BDF8]"
             />
 
             <span className="font-mono text-[11px] text-white/70 ml-2">

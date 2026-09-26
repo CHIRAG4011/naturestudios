@@ -20,7 +20,7 @@ const VISUAL_SEQUENCE = [
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED] selection:bg-[#59171B] selection:text-[#FED7B8]">
+    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC] selection:bg-[#2563EB] selection:text-[#38BDF8]">
       <Navbar />
 
       <main id="main" className="flex-1 pt-32 pb-24 max-w-7xl mx-auto px-6 lg:px-12 space-y-24">
@@ -31,25 +31,25 @@ export default function AboutPage() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl space-y-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2D0A0E] border border-[#52141A] text-xs font-mono uppercase tracking-widest text-[#FED7B8]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F1D38] border border-[#1E3A8A] text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
             <Sparkles className="w-3.5 h-3.5" /> Studio Manifesto
           </div>
           <h1 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-[0.88] text-gradient-warm">
             WE BUILD CULTURE, <br />
             NOT JUST CONTENT.
           </h1>
-          <p className="text-base sm:text-xl text-[#E8C5A5] leading-relaxed max-w-2xl font-light">
+          <p className="text-base sm:text-xl text-[#7DD3FC] leading-relaxed max-w-2xl font-light">
             NatureStudios is an international creative technology studio. We engineer arena stages, broadcast identities, and digital realms that millions tune in to experience.
           </p>
         </motion.div>
 
         {/* Visual Sequence: NATURE -> INSTINCT -> IDEA -> DESIGN -> MOTION -> COMPETITION -> CULTURE -> IMPACT */}
         <div className="space-y-8">
-          <div className="flex items-center justify-between border-b border-[#3D0D13] pb-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#FED7B8]">
+          <div className="flex items-center justify-between border-b border-[#172554] pb-4">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
               STUDIO EVOLUTION SEQUENCE
             </span>
-            <span className="text-xs font-mono text-[#B89B8D]">01 — 08</span>
+            <span className="text-xs font-mono text-[#94A3B8]">01 — 08</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -60,19 +60,19 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.06 }}
-                className="group p-8 rounded-2xl bg-[#1C0507] border border-[#52141A] hover:border-[#FED7B8] transition-all duration-300 relative flex flex-col justify-between"
+                className="group p-8 rounded-2xl bg-[#050B17] border border-[#1E3A8A] hover:border-[#38BDF8] transition-all duration-300 relative flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-mono text-[#FED7B8] font-bold">
+                    <span className="text-xs font-mono text-[#38BDF8] font-bold">
                       {item.step}
                     </span>
-                    <ArrowDown className="w-4 h-4 text-[#FED7B8]/40 group-hover:text-[#FED7B8] transition-colors" />
+                    <ArrowDown className="w-4 h-4 text-[#38BDF8]/40 group-hover:text-[#38BDF8] transition-colors" />
                   </div>
-                  <h2 className="text-2xl font-black uppercase text-[#FFF5ED] mb-3 group-hover:text-[#FED7B8] transition-colors">
+                  <h2 className="text-2xl font-black uppercase text-[#F8FAFC] mb-3 group-hover:text-[#38BDF8] transition-colors">
                     {item.title}
                   </h2>
-                  <p className="text-xs text-[#B89B8D] leading-relaxed">
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -82,16 +82,16 @@ export default function AboutPage() {
         </div>
 
         {/* Studio Philosophy Statement */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 p-10 sm:p-16 rounded-3xl bg-[#240709] border border-[#52141A]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 p-10 sm:p-16 rounded-3xl bg-[#0B132B] border border-[#1E3A8A]">
           <div className="lg:col-span-5 space-y-4">
-            <span className="text-xs font-mono tracking-widest uppercase text-[#FED7B8]">
+            <span className="text-xs font-mono tracking-widest uppercase text-[#38BDF8]">
               PHILOSOPHY
             </span>
-            <h3 className="text-3xl sm:text-4xl font-black uppercase text-[#FFF5ED]">
+            <h3 className="text-3xl sm:text-4xl font-black uppercase text-[#F8FAFC]">
               The Digital Wild
             </h3>
           </div>
-          <div className="lg:col-span-7 space-y-6 text-[#E8C5A5] text-sm sm:text-base leading-relaxed font-light">
+          <div className="lg:col-span-7 space-y-6 text-[#7DD3FC] text-sm sm:text-base leading-relaxed font-light">
             <p>
               Traditional esports aesthetics have long been trapped in cold brutalism and neon noise. NatureStudios fundamentally changes the paradigm: we fuse organic biology with stadium architecture.
             </p>

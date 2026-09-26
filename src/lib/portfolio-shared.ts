@@ -274,7 +274,7 @@ export function sanitizeSlug(slug: string): string {
 export const DEFAULT_DESIGN_CONFIG: PortfolioDesignConfig = {
   themeId: 'editorial',
   fontPair: 'editorial',
-  accentColor: '#59171B',
+  accentColor: '#2563EB',
   backgroundStyle: 'dark-burgundy',
   heroLayout: 'center-bold',
   projectLayout: 'reel',
