@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useLoading } from '@/context/LoadingContext';
 
@@ -58,10 +59,17 @@ export function LoadingSequence() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-2.5"
+              className="flex items-center gap-3"
             >
-              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#2563EB] to-[#38BDF8] flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.7)]">
-                <span className="text-[11px] font-black text-[#030712]">N</span>
+              <div className="relative w-8 h-8 flex items-center justify-center">
+                <Image
+                  src="/logo.png"
+                  alt="NatureStudios Logo"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.7)]"
+                  priority
+                />
               </div>
               <p className="font-mono text-sm uppercase tracking-[0.35em] text-[#F8FAFC] font-black">
                 NatureStudios
