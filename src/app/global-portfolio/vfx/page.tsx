@@ -76,67 +76,11 @@ export default function GlobalVfxShowcasePage() {
         if (data.portfolios && data.portfolios.length > 0) {
           setCreators(data.portfolios);
         } else {
-          const vfxSample = DEFAULT_COMMUNITY_PORTFOLIO_ITEMS.filter((c) => c.category === 'VFX').map((p) => ({
-            id: p.id,
-            userId: p.userId,
-            userEmail: p.personalInfo?.publicEmail,
-            portfolioSource: 'user' as const,
-            slug: p.slug,
-            title: p.title,
-            description: p.description || p.personalInfo?.aboutMe || '',
-            category: p.category || 'VFX',
-            mediaType: p.mediaType || 'video',
-            mediaUrl: p.mediaUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            videoUrl: p.mediaUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            videoThumbnailUrl: p.videoThumbnailUrl || p.mediaUrl,
-            duration: p.duration || '01:30',
-            themeId: p.themeId,
-            name: p.personalInfo?.fullName || p.title,
-            username: p.personalInfo?.username || p.slug,
-            avatar: p.personalInfo?.profileImage,
-            tagline: p.personalInfo?.tagline,
-            role: p.professionalIdentity?.primaryRole || p.personalInfo?.professionalTitle || 'VFX Artist',
-            location: p.personalInfo?.location,
-            availability: p.personalInfo?.availability,
-            skills: (p.skills || []).map((s) => s.name),
-            projectCount: (p.projects || []).length,
-            publishedAt: p.publishedAt || p.createdAt,
-            subdomainUrl: `https://${p.slug}.naturestudio.in`,
-            directUrl: `/global-portfolio/${p.slug}`,
-          }));
-          setCreators(vfxSample);
+          setCreators([]);
         }
       })
       .catch(() => {
-        const vfxSample = DEFAULT_COMMUNITY_PORTFOLIO_ITEMS.filter((c) => c.category === 'VFX').map((p) => ({
-          id: p.id,
-          userId: p.userId,
-          userEmail: p.personalInfo?.publicEmail,
-          portfolioSource: 'user' as const,
-          slug: p.slug,
-          title: p.title,
-          description: p.description || p.personalInfo?.aboutMe || '',
-          category: p.category || 'VFX',
-          mediaType: p.mediaType || 'video',
-          mediaUrl: p.mediaUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          videoUrl: p.mediaUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          videoThumbnailUrl: p.videoThumbnailUrl || p.mediaUrl,
-          duration: p.duration || '01:30',
-          themeId: p.themeId,
-          name: p.personalInfo?.fullName || p.title,
-          username: p.personalInfo?.username || p.slug,
-          avatar: p.personalInfo?.profileImage,
-          tagline: p.personalInfo?.tagline,
-          role: p.professionalIdentity?.primaryRole || p.personalInfo?.professionalTitle || 'VFX Artist',
-          location: p.personalInfo?.location,
-          availability: p.personalInfo?.availability,
-          skills: (p.skills || []).map((s) => s.name),
-          projectCount: (p.projects || []).length,
-          publishedAt: p.publishedAt || p.createdAt,
-          subdomainUrl: `https://${p.slug}.naturestudio.in`,
-          directUrl: `/global-portfolio/${p.slug}`,
-        }));
-        setCreators(vfxSample);
+        setCreators([]);
       })
       .finally(() => setLoading(false));
   }, []);

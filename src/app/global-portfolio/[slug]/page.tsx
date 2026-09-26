@@ -468,7 +468,7 @@ export default function GlobalCreatorPortfolioDetailPage() {
                   src={
                     portfolio.mediaUrl ||
                     portfolio.projects?.find((p) => p.videoUrl)?.videoUrl ||
-                    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+                    '/media/infinix/vfx/infinix-teaser-trailer.mp4'
                   }
                   poster={portfolio.videoThumbnailUrl || portfolio.mediaUrl}
                   title={`${creatorName} Reel`}

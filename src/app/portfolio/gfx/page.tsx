@@ -63,8 +63,8 @@ export default function StudioGfxSubsectionsPage() {
       description:
         'Player announcement stat cards, starting 5 lineup reveals, championship squad posters, transfer announcements, and jersey sponsor integrations.',
       previewImages: [
-        '/media/work-after-dark.jpg',
-        '/media/work-level-up.jpg',
+        '/media/infinix/gfx/thumbnails/group-stage-group-a.png',
+        '/media/tournaments/troopers-challengers/tropper-pp-distribution.png',
       ],
       filterCategory: 'Roster',
     },
@@ -79,7 +79,7 @@ export default function StudioGfxSubsectionsPage() {
         'High-CTR YouTube thumbnails, tournament match highlights artwork, live stream broadcast key art, and social discovery graphics.',
       previewImages: [
         '/media/infinix/gfx/thumbnails/group-stage-group-a.png',
-        '/media/hero-lightfield.jpg',
+        '/media/infinix/gfx/thumbnails/group-stage-group-b.png',
       ],
       filterCategory: 'Thumbnail',
     },
@@ -108,8 +108,8 @@ export default function StudioGfxSubsectionsPage() {
       description:
         'Custom esports championship jerseys, team kits, creator apparel merchandise, fabric sublimation layouts, and sponsor logo integration.',
       previewImages: [
-        '/media/work-jersey-championship.jpg',
-        '/media/work-valorant-championship.jpg',
+        '/media/infinix/gfx/broadcast/l-band-1.png',
+        '/media/infinix/gfx/posters/registrations-live.jpg',
       ],
       filterCategory: 'Jersey',
     },

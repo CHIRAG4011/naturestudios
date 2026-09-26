@@ -256,7 +256,7 @@ export default function StudioPortfolioDetailPage() {
             {item.type === 'VFX' && (
               <div className="rounded-3xl overflow-hidden border border-[#52141A] bg-[#1C0507] shadow-2xl">
                 <VfxVideoPlayer
-                  src={item.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}
+                  src={item.videoUrl || '/media/infinix/vfx/infinix-teaser-trailer.mp4'}
                   poster={item.thumbnailUrl || item.imageUrl}
                   title={item.title}
                   className="aspect-video"

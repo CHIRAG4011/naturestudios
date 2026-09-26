@@ -45,8 +45,8 @@ export default function GlobalGfxSubsectionsPage() {
       description:
         'Esports tournament posters, schedule overlays, bracket graphics, stage key visuals, and stream packaging created by verified community creators.',
       previewImages: [
-        '/media/work-valorant-championship.jpg',
-        '/media/work-nexus-arena.jpg',
+        '/media/infinix/gfx/posters/coming-soon.jpg',
+        '/media/tournaments/clash-squad-cup/event-roadmap.png',
       ],
       filterCategory: 'Tournament',
     },
@@ -59,8 +59,8 @@ export default function GlobalGfxSubsectionsPage() {
       description:
         'Squad announcements, player cards, contract signings, pro esports starting 5 reveals, and team lineup graphics created by global designers.',
       previewImages: [
-        '/media/work-after-dark.jpg',
-        '/media/work-level-up.jpg',
+        '/media/infinix/gfx/thumbnails/group-stage-group-a.png',
+        '/media/tournaments/troopers-challengers/tropper-pp-distribution.png',
       ],
       filterCategory: 'Roster',
     },
@@ -73,8 +73,8 @@ export default function GlobalGfxSubsectionsPage() {
       description:
         'High-CTR YouTube thumbnails and live broadcast stream covers designed by independent community visual creators.',
       previewImages: [
-        '/media/hero-lightfield.jpg',
-        '/media/studio-plate.jpg',
+        '/media/infinix/gfx/thumbnails/group-stage-group-a.png',
+        '/media/infinix/gfx/thumbnails/group-stage-group-b.png',
       ],
       filterCategory: 'Thumbnail',
     },
@@ -87,8 +87,8 @@ export default function GlobalGfxSubsectionsPage() {
       description:
         'Esports emblems, mascot vector logos, Twitch banners, and Twitter/X headers created by community branding artists.',
       previewImages: [
-        '/media/cta-field.jpg',
-        '/media/hero-lightfield-portrait.jpg',
+        '/media/infinix/gfx/broadcast/hot-70-pro-logo.png',
+        '/media/infinix/gfx/broadcast/144hz-badge.png',
       ],
       filterCategory: 'Logo/Banner',
     },
@@ -101,8 +101,8 @@ export default function GlobalGfxSubsectionsPage() {
       description:
         'Custom competitive esports jerseys, player uniforms, hoodie graphics, and pro team apparel mocks designed by community visual artists.',
       previewImages: [
-        '/media/work-jersey-championship.jpg',
-        '/media/work-valorant-championship.jpg',
+        '/media/infinix/gfx/broadcast/l-band-1.png',
+        '/media/infinix/gfx/posters/registrations-live.jpg',
       ],
       filterCategory: 'Jersey',
     },
