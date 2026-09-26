@@ -147,7 +147,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4577894393539149"
           crossOrigin="anonymous"
-        />
+        ></script>
       </head>
       <body className="min-h-screen bg-[#030712] font-sans text-cream antialiased">
         <a href="#main" className="skip-link">
