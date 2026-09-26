@@ -11,6 +11,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useCommandPalette } from '@/context/CommandPaletteContext';
 
 const NAV_ITEMS = [
+  { label: 'Cinema', href: '/cinema' },
   { label: 'Services', href: '/services' },
   { label: 'Studio', href: '/studio' },
   { label: 'About', href: '/about' },
