@@ -92,3 +92,7 @@ desktop.ini
 # Artifacts left behind by in-place edits on FUSE-mounted drives
 # ─────────────────────────────────────────────────────────────────────────────
 .fuse_hidden*
+
+# Raw source portfolio folders (static production images copied to public/media/tournaments/)
+NatureStudios Portfolios/
+

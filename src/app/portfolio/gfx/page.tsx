@@ -47,8 +47,9 @@ export default function StudioGfxSubsectionsPage() {
       description:
         'Esports arena stage visuals, broadcast match schedules, playoff brackets, dynamic HUD stream overlays, and event championship packaging.',
       previewImages: [
-        '/media/work-valorant-championship.jpg',
-        '/media/work-nexus-arena.jpg',
+        '/media/tournaments/clash-squad-cup/event-roadmap.png',
+        '/media/tournaments/troopers-challengers/tropper-prizepool.png',
+        '/media/tournaments/crowned-glory/crowned-glory-all-you-need-to-know.jpg',
       ],
       filterCategory: 'Tournament',
     },
