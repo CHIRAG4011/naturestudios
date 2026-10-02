@@ -30,6 +30,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/contact', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/privacy', changeFrequency: 'yearly', priority: 0.3 },
     { path: '/terms', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/cookies', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/disclaimer', changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   // GFX category subsections (Tournament, Team Branding, Social Media, Stream Package, Jersey)

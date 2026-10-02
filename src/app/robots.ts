@@ -31,6 +31,8 @@ export default function robots(): MetadataRoute.Robots {
           '/p/*',
           '/privacy',
           '/terms',
+          '/cookies',
+          '/disclaimer',
           '/media/*',
           '/_next/static/*',
           '/_next/image*',

@@ -21,6 +21,8 @@ const EXPLORE_LINKS = [
 const LEGAL_LINKS = [
   { label: 'Privacy Policy', href: '/privacy' },
   { label: 'Terms of Use', href: '/terms' },
+  { label: 'Cookie Policy', href: '/cookies' },
+  { label: 'Disclaimer', href: '/disclaimer' },
 ];
 
 export function Footer() {

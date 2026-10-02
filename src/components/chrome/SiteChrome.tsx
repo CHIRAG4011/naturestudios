@@ -6,6 +6,7 @@ import { LoadingSequence } from './LoadingSequence';
 import { PageTransition } from './PageTransition';
 import { ScrollProgress } from './ScrollProgress';
 import { FlyingPinkBirds } from '@/components/motion/FlyingPinkBirds';
+import { CookieConsentBanner } from './CookieConsentBanner';
 
 /**
  * Every always-on, viewport-level layer, mounted once in the root layout.
@@ -21,6 +22,7 @@ export function SiteChrome() {
       <CustomCursor />
       <LoadingSequence />
       <FlyingPinkBirds />
+      <CookieConsentBanner />
     </>
   );
 }
