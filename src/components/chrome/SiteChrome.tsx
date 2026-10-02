@@ -5,6 +5,7 @@ import { CustomCursor } from './CustomCursor';
 import { LoadingSequence } from './LoadingSequence';
 import { PageTransition } from './PageTransition';
 import { ScrollProgress } from './ScrollProgress';
+import { FlyingPinkBirds } from '@/components/motion/FlyingPinkBirds';
 
 /**
  * Every always-on, viewport-level layer, mounted once in the root layout.
@@ -19,6 +20,7 @@ export function SiteChrome() {
       <CommandPalette />
       <CustomCursor />
       <LoadingSequence />
+      <FlyingPinkBirds />
     </>
   );
 }

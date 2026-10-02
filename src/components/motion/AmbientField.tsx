@@ -21,7 +21,7 @@ interface Particle {
 
 /**
  * Ultra-lightweight Canvas Particle & Cyber Light Field.
- * Adheres strictly to NatureStudios Blue (#2563EB) & Cyan (#38BDF8) palette.
+ * Adheres strictly to NatureStudios Burgundy (#59171B) & Warm Beige (#FED7B8) palette.
  * Dynamically pauses when offscreen or when reduced motion is preferred.
  */
 export function AmbientField({
@@ -49,11 +49,11 @@ export function AmbientField({
 
     const mouse = { x: -1000, y: -1000, radius: 120 };
 
-    // Brand colors: Electric blue, royal blue, cyber cyan
+    // Brand colors: Classic Burgundy, Warm Beige, Crisp Cream
     const colors = [
-      'rgba(56, 189, 248, ', // Cyber Cyan
-      'rgba(37, 99, 235, ', // Electric Blue
-      'rgba(96, 165, 250, ', // Cobalt
+      'rgba(89, 23, 27, ', // Classic Burgundy
+      'rgba(254, 215, 184, ', // Warm Beige
+      'rgba(255, 245, 237, ', // Crisp Cream
     ];
 
     const particles: Particle[] = [];
@@ -149,11 +149,11 @@ export function AmbientField({
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
           if (dist < 85) {
-            const lineAlpha = (1 - dist / 85) * 0.12;
+            const lineAlpha = (1 - dist / 85) * 0.14;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${lineAlpha})`;
+            ctx.strokeStyle = `rgba(254, 215, 184, ${lineAlpha})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }

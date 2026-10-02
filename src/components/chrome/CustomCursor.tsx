@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], [role="tab"], summary, label[for], [data-cursor="hover"]';
 
-const PROJECT_SELECTOR = '[data-cursor="project"], [data-cursor="view"], .project-card, [data-project-reel]';
-const DRAG_SELECTOR = '[data-cursor="drag"], [role="slider"], .drag-target, .carousel-drag';
+const PROJECT_SELECTOR = '[data-cursor="project"], .project-card, [data-project-reel]';
 const TEXT_SELECTOR = 'input, textarea, select, [contenteditable="true"]';
 
 /**
@@ -101,22 +100,10 @@ export function CustomCursor() {
       if (projectEl) {
         ring.style.width = '68px';
         ring.style.height = '68px';
-        ring.style.borderColor = '#38BDF8';
-        ring.style.backgroundColor = 'rgba(37, 99, 235, 0.45)';
+        ring.style.borderColor = '#FED7B8';
+        ring.style.backgroundColor = 'rgba(89, 23, 27, 0.45)';
         dot.style.opacity = '0';
-        setCursorText('VIEW');
-        if (label) label.style.opacity = '1';
-        return;
-      }
-
-      const dragEl = target.closest(DRAG_SELECTOR);
-      if (dragEl) {
-        ring.style.width = '64px';
-        ring.style.height = '64px';
-        ring.style.borderColor = '#38BDF8';
-        ring.style.backgroundColor = 'rgba(56, 189, 248, 0.25)';
-        dot.style.opacity = '0';
-        setCursorText('DRAG');
+        setCursorText('VIEW PROJECT');
         if (label) label.style.opacity = '1';
         return;
       }
@@ -125,8 +112,8 @@ export function CustomCursor() {
       if (hot) {
         ring.style.width = '52px';
         ring.style.height = '52px';
-        ring.style.borderColor = '#38BDF8';
-        ring.style.backgroundColor = 'rgba(56, 189, 248, 0.12)';
+        ring.style.borderColor = '#FED7B8';
+        ring.style.backgroundColor = 'rgba(254, 215, 184, 0.12)';
         dot.style.width = '4px';
         dot.style.height = '4px';
         setCursorText('');
@@ -134,7 +121,7 @@ export function CustomCursor() {
       } else {
         ring.style.width = '36px';
         ring.style.height = '36px';
-        ring.style.borderColor = 'rgba(56, 189, 248, 0.45)';
+        ring.style.borderColor = 'rgba(254, 215, 184, 0.45)';
         ring.style.backgroundColor = 'transparent';
         dot.style.width = '8px';
         dot.style.height = '8px';

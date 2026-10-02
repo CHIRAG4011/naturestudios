@@ -19,23 +19,49 @@ import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#030712] text-[#F8FAFC]">
+    <div className="relative min-h-screen flex flex-col bg-[#150304] text-[#FFF5ED]">
       <Navbar />
-      <main id="main" className="flex-1 flex flex-col">
+      <main id="main" className="flex-1">
+        {/* 1. Cinematic Hero */}
         <Hero />
+
+        {/* Dynamic Kinetic Ticker */}
         <Ticker />
+
+        {/* 2. Intro Statement */}
         <IntroStatement />
+
+        {/* 3. Trusted By */}
         <TrustedClients />
+
+        {/* 4. Pinned Storytelling Scene */}
         <ScrollStory />
+
+        {/* 5. Services */}
         <Services />
+
+        {/* 6. Featured Work (Cinematic Reel) */}
         <Work />
+
+        {/* 7. Studio Philosophy */}
         <Studio />
+
+        {/* 8. Process */}
         <Process />
+
+        {/* 9. Statistics */}
         <Stats />
+
+        {/* 10. Testimonial */}
         <Testimonial />
+
+        {/* 11. FAQ Knowledge Section */}
         <FAQ />
+
+        {/* 12. Final CTA */}
         <CallToAction />
       </main>
+      {/* 13. Footer */}
       <Footer />
     </div>
   );

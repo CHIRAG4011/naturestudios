@@ -44,14 +44,14 @@ export function LoadingSequence() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[9800] flex items-center justify-center bg-[#030712]"
+          className="fixed inset-0 z-[9800] flex items-center justify-center bg-[#150304]"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, clipPath: 'inset(0% 0% 100% 0%)' }}
           transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
           aria-hidden="true"
         >
-          {/* Subtle Ambient Glow */}
-          <div className="absolute inset-0 bg-radial from-[#2563EB]/25 via-[#0B132B]/50 to-transparent blur-3xl pointer-events-none" />
+          {/* Subtle Ambient Glow - Burgundy & Dark Wine */}
+          <div className="absolute inset-0 bg-radial from-[#59171B]/35 via-[#240709]/60 to-transparent blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col items-center gap-5">
             {/* Brand Logo & Name */}
@@ -67,33 +67,33 @@ export function LoadingSequence() {
                   alt="NatureStudios Logo"
                   width={32}
                   height={32}
-                  className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.7)]"
+                  className="w-full h-full object-contain drop-shadow-[0_0_14px_rgba(254,215,184,0.65)]"
                   priority
                 />
               </div>
-              <p className="font-mono text-sm uppercase tracking-[0.35em] text-[#F8FAFC] font-black">
+              <p className="font-mono text-sm uppercase tracking-[0.35em] text-[#FFF5ED] font-black">
                 NatureStudios
               </p>
             </motion.div>
 
             {/* Glowing High-Tech Progress Bar */}
-            <div className="h-[2px] w-56 overflow-hidden rounded-full bg-[#172554] border border-[#1E3A8A]/50">
+            <div className="h-[2px] w-56 overflow-hidden rounded-full bg-[#240709] border border-[#52141A]/60">
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: HOLD_MS / 1000, ease: 'easeInOut' }}
-                className="h-full w-full origin-left bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#60A5FA] shadow-[0_0_16px_rgba(56,189,248,0.9)]"
+                className="h-full w-full origin-left bg-gradient-to-r from-[#59171B] via-[#FED7B8] to-[#FFF5ED] shadow-[0_0_16px_rgba(254,215,184,0.65)]"
               />
             </div>
 
-            {/* Telemetry Tag */}
+            {/* Brand Subtitle Tag */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#38BDF8]/90 font-bold"
+              className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#FED7B8]/90 font-bold"
             >
-              [ INITIALIZING PIPELINE // V2.6 ]
+              [ ESPORTS • CREATIVE • DIGITAL ]
             </motion.p>
           </div>
         </motion.div>
